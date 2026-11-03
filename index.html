@@ -1,0 +1,2274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FoodSafe Pro - Canada Food Temperature</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&display=swap" rel="stylesheet">
+<style>
+body { background-color: #f8fafc; font-family: "Arial", sans-serif; }
+.floating-label { position: relative; margin-bottom: 1.5rem; }
+.floating-label input, .floating-label select { border: 1px solid #dbdbdb; border-radius: 6px; padding: 12px; width: 100%; outline: none; transition: border 0.2s; }
+.floating-label input:focus, .floating-label select:focus { border-color: #3b82f6; }
+.floating-label label { position: absolute; left: 12px; top: 12px; color: #9ca3af; transition: all 0.2s ease; pointer-events: none; background: #f8fafc; padding: 0 4px; font-size: 14px; }
+.floating-label input:focus + label, .floating-label select:focus + label, .floating-label input:not(:placeholder-shown) + label, .floating-label select:not([value=""]) + label { top: -8px; font-size: 12px; color: #3b82f6; }
+.eye-btn { position: absolute; right: 12px; top: 12px; cursor: pointer; font-size: 14px; color: #9ca3af; }
+.login-btn { background-color: #3b82f6; }
+.login-btn:hover { background-color: #2563eb; }
+.link-btn { cursor: pointer; color: #3b82f6; }
+.link-btn:hover { text-decoration: underline; }
+#auth-message { margin-bottom:12px; line-height:1.5; }
+#auth-message.success { display:block; background:#dcfce7; color:#166534; border:1px solid #86efac; }
+#auth-message.error { display:block; background:#fee2e2; color:#991b1b; border:1px solid #fca5a5; }
+#auth-message.info { display:block; background:#dbeafe; color:#1e40af; border:1px solid #93c5fd; }
+#auth-message.hidden { display:none; }
+
+/* Professional bold dark cursive branding */
+.cursive-brand { 
+  font-family: 'Dancing Script', 'Pacifico', 'Brush Script MT', 'Lucida Handwriting', 'Segoe Script', cursive;
+  font-weight: bold; 
+  color: #000000;
+  letter-spacing: normal;
+  display: inline-block;
+}
+
+.foodsafe-brand {
+  font-family: 'Dancing Script', 'Pacifico', 'Brush Script MT', 'Lucida Handwriting', cursive;
+  font-weight: 700;
+  color: #000000;
+  letter-spacing: normal;
+  display: inline-block; 
+}
+
+/* Dashboard Cards */
+.guideline-card { padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border-left-width:4px; display:flex; flex-direction:column; align-items:center; text-align:center; }
+.guideline-card i { font-size:2rem; margin-bottom:0.5rem; }
+.guideline-title { font-weight:600; margin-bottom:0.25rem; }
+.guideline-range { font-weight:700; font-size:1.1rem; }
+.card { background:white; padding:1rem; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.05); margin-bottom:1rem; }
+table{width:100%;border-collapse:collapse;font-size:0.85rem;}
+th, td{padding:0.5rem;border:1px solid #e5e7eb;text-align:center;}
+th{background:#f1f5f9;color:#6b7280;}
+.status-badge{padding:0.25rem 0.5rem;border-radius:9999px;font-size:0.65rem;font-weight:600;text-transform:uppercase;}
+.status-safe-hot{background:rgba(220,38,38,0.1);color:#dc2626;}
+.status-safe-cold{background:rgba(14,165,233,0.1);color:#0ea5e9;}
+.status-danger{background:#fef3c7;color:#b45309;border:1px solid #fcd34d;}
+
+/* Modal Centering */
+#modal { position: fixed; inset: 0; background-color: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 50; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+#modal.show { opacity: 1; pointer-events: auto; }
+.modal-content { background-color: #fff; border-radius: 1rem; padding: 1.5rem; max-width: 600px; width: 90%; box-shadow: 0 5px 20px rgba(0,0,0,0.3); transition: transform 0.3s; }
+.hidden { display: none !important; }
+.landing-page { min-height: 100vh; padding: 0 clamp(20px, 6vw, 92px); color: #17241d; background: radial-gradient(ellipse at 82% 13%, rgba(223,235,216,.42), transparent 31%), #f8f8f3; }
+.landing-nav { max-width: 1400px; min-height: 88px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; border-bottom: 1px solid rgba(43,71,51,.07); }
+.landing-brand { display: inline-flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; }
+.brand-mark { width: 44px; height: 44px; display: grid; place-items: center; color: white; background: #174b37; border-radius: 14px; font-size: 19px; box-shadow: 0 8px 18px rgba(23,75,55,.18); }
+.landing-brand strong { display: block; font-size: 26px; line-height: 1.05; }
+.landing-brand small { display: block; margin-top: 5px; color: #728078; font-size: 9px; font-weight: 700; letter-spacing: 2px; }
+.landing-nav-actions { display: flex; align-items: center; gap: 18px; }
+.nav-helpdesk-link { min-height: 40px; padding: 0 14px; border: 1px solid #dfe5dc; border-radius: 12px; display: inline-flex; align-items: center; gap: 8px; color: #34483a; text-decoration: none; font-size: 12px; font-weight: 700; transition: background .2s, border .2s; }
+.nav-helpdesk-link:hover { background: white; border-color: #aebdaf; }
+.landing-feedback-link { color: #286344; background: rgba(232,243,231,.7); }
+.nav-caption { color: #68756d; font-size: 13px; }
+.nav-login-btn, .hero-primary-btn { border: 0; display: inline-flex; align-items: center; justify-content: center; gap: 10px; color: white; background: #174b37; font-weight: 700; cursor: pointer; transition: background .2s, transform .2s, box-shadow .2s; }
+.nav-login-btn { min-height: 44px; padding: 0 19px; border-radius: 12px; box-shadow: 0 7px 18px rgba(23,75,55,.16); }
+.nav-login-btn:hover, .hero-primary-btn:hover { background: #103c2b; transform: translateY(-1px); box-shadow: 0 10px 24px rgba(23,75,55,.22); }
+.landing-hero { max-width: 1400px; min-height: 530px; margin: 18px auto 0; display: grid; grid-template-columns: .88fr 1.12fr; align-items: center; gap: clamp(36px, 7vw, 104px); }
+.hero-copy { max-width: 590px; padding: 24px 0 36px; }
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 9px; color: #397258; font-size: 11px; font-weight: 800; letter-spacing: 2.2px; }
+.eyebrow-dot, .sample-dot { width: 8px; height: 8px; border-radius: 50%; background: #64a77b; box-shadow: 0 0 0 4px rgba(100,167,123,.14); }
+.hero-copy h1 { margin: 24px 0 19px; color: #14251b; font-size: clamp(44px, 5.3vw, 76px); line-height: 1.04; letter-spacing: -3.5px; font-weight: 750; }
+.hero-copy h1 em { color: #3c7958; font-family: Georgia, serif; font-weight: 500; }
+.hero-description { max-width: 500px; color: #67736b; font-size: 16px; line-height: 1.8; }
+.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 13px; margin-top: 28px; }
+.hero-primary-btn { min-height: 52px; padding: 0 21px; border-radius: 13px; box-shadow: 0 8px 18px rgba(23,75,55,.15); }
+.hero-secondary-btn { min-height: 52px; padding: 0 17px; border: 1px solid #dfe5dc; border-radius: 13px; color: #34483a; background: transparent; font-weight: 700; cursor: pointer; transition: background .2s, border .2s; }
+.hero-secondary-btn:hover { background: white; border-color: #aebdaf; }
+.hero-assurance { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 28px; color: #718078; font-size: 12px; }
+.hero-assurance i { margin-right: 6px; color: #4b8b65; }
+.hero-guide-link { margin-top: 16px; display: inline-flex; align-items: center; gap: 8px; color: #397258; font-size: 12px; font-weight: 750; text-decoration: none; text-underline-offset: 4px; }
+.hero-guide-link:hover { color: #174b37; text-decoration: underline; }
+.hero-visual { position: relative; min-height: 458px; overflow: hidden; border: 1px solid rgba(255,255,255,.62); border-radius: 28px; background: #344839 url("https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=2200&q=85") center 48% / cover no-repeat; box-shadow: 0 24px 60px rgba(25,48,35,.18); transform-style: preserve-3d; }
+.hero-visual::before { content: ""; position: absolute; z-index: 1; width: 230px; height: 230px; top: -105px; right: 12%; border: 1px solid rgba(235,247,228,.48); border-radius: 50%; box-shadow: 0 0 0 22px rgba(235,247,228,.08),0 0 0 48px rgba(235,247,228,.05); pointer-events: none; animation: hero-orbit-drift 14s ease-in-out infinite alternate; }
+.hero-visual::after { content: ""; position: absolute; z-index: 1; width: 12px; height: 12px; top: 22%; right: 18%; border: 2px solid rgba(229,247,219,.9); border-radius: 50%; background: #8bc69a; box-shadow: 0 0 18px rgba(192,241,175,.75); pointer-events: none; animation: hero-orbit-drift 6s ease-in-out infinite alternate-reverse; }
+@keyframes hero-orbit-drift { from { transform: translate3d(0,0,14px) rotate(0deg); } to { transform: translate3d(-17px,13px,28px) rotate(10deg); } }
+.visual-shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(20,37,27,.02) 10%, rgba(20,37,27,.08) 45%, rgba(20,37,27,.46) 100%), linear-gradient(0deg, rgba(18,34,25,.45), transparent 52%); }
+.visual-note { position: absolute; top: 28px; left: 28px; display: flex; align-items: center; gap: 11px; padding: 13px 17px; border: 1px solid rgba(255,255,255,.52); border-radius: 14px; color: white; background: rgba(25,46,34,.43); backdrop-filter: blur(12px); font-size: 12px; line-height: 1.5; }
+.visual-note i { color: #d3efba; font-size: 19px; }
+.visual-note strong { font-size: 14px; }
+.sample-reading { position: absolute; right: 25px; bottom: 25px; width: min(330px, calc(100% - 50px)); padding: 17px 18px 15px; border: 1px solid rgba(255,255,255,.7); border-radius: 18px; background: rgba(255,255,255,.94); box-shadow: 0 14px 36px rgba(14,32,21,.2); backdrop-filter: blur(14px); }
+.sample-reading-top { display: flex; align-items: center; gap: 8px; color: #738078; font-size: 9px; font-weight: 800; letter-spacing: 1px; }
+.sample-reading-top i { margin-left: auto; font-size: 14px; }
+.sample-reading-main { display: flex; justify-content: space-between; align-items: center; padding: 16px 0 13px; color: #27382d; }
+.sample-reading-main > span { display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 700; }
+.sample-reading-main > span i { color: #5092b0; }
+.sample-reading-main strong { color: #174b37; font-size: 34px; letter-spacing: -1.5px; }
+.sample-reading-main strong small { font-size: 15px; }
+.sample-reading-bottom { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding-top: 12px; border-top: 1px solid #edf0ea; color: #879188; font-size: 10px; }
+.safe-label { padding: 6px 9px; border-radius: 20px; color: #32734b; background: #eaf5e9; font-weight: 700; }
+.hero-3d-badge { position: absolute; z-index: 2; top: 27px; right: 25px; width: 196px; padding: 13px 15px; border: 1px solid rgba(255,255,255,.7); border-radius: 16px; color: #edf7ee; background: rgba(22,57,39,.7); box-shadow: 0 15px 34px rgba(10,27,17,.24); backdrop-filter: blur(14px); transform: perspective(700px) rotateY(-12deg) rotateX(6deg) translateZ(30px); animation: hero-badge-float 5s ease-in-out infinite; }
+.hero-3d-badge-top { display: flex; align-items: center; gap: 7px; color: #d7ead8; font-size: 8px; font-weight: 800; letter-spacing: 1px; }
+.hero-3d-badge-top i { color: #b7e5b6; }
+.hero-3d-badge-reading { margin-top: 7px; display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.hero-3d-badge-reading span { color: #d5e4d7; font-size: 10px; }
+.hero-3d-badge-reading strong { color: #fff; font-size: 26px; letter-spacing: -1px; }
+.hero-3d-badge-reading small { font-size: 12px; }
+.hero-3d-badge-status { margin-top: 6px; color: #bce6c2; font-size: 9px; font-weight: 700; }
+@keyframes hero-badge-float { 0%,100% { transform: perspective(700px) rotateY(-12deg) rotateX(6deg) translate3d(0,0,30px); } 50% { transform: perspective(700px) rotateY(-8deg) rotateX(3deg) translate3d(0,-8px,38px); } }
+.landing-features { max-width: 1400px; margin: 52px auto 0; padding: 29px 0 34px; border-top: 1px solid #e6e9e1; display: grid; grid-template-columns: 1.15fr repeat(3, 1fr); align-items: center; gap: 24px; }
+.safety-showcase { max-width: 1400px; margin: 42px auto 0; padding: clamp(22px, 4vw, 42px); overflow: hidden; position: relative; border: 1px solid #e4ebe2; border-radius: 24px; background: linear-gradient(120deg, #f1f6ef 0%, #fff 52%, #f6f3e9 100%); }
+.safety-showcase::after { content: ""; position: absolute; width: 260px; height: 260px; right: -85px; top: -135px; border: 1px solid rgba(67,112,77,.12); border-radius: 50%; box-shadow: 0 0 0 25px rgba(67,112,77,.035), 0 0 0 52px rgba(67,112,77,.025); pointer-events: none; }
+.safety-showcase-heading { position: relative; z-index: 1; max-width: 700px; margin: 0 auto 23px; text-align: center; }
+.safety-showcase-kicker { color: #62806b; font-size: 9px; font-weight: 800; letter-spacing: 1.8px; }
+.safety-showcase-heading h2 { margin: 8px 0; color: #24382b; font-size: clamp(24px, 3vw, 34px); letter-spacing: -1px; }
+.safety-showcase-heading p { margin: 0; color: #78857b; font-size: 12px; line-height: 1.7; }
+.safety-range-grid { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.safety-range-card { min-height: 142px; padding: 18px; border: 1px solid rgba(226,234,223,.95); border-radius: 17px; background: rgba(255,255,255,.88); box-shadow: 0 7px 20px rgba(41,68,46,.045); transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+.safety-range-card:hover { transform: translateY(-3px); border-color: #d3e1d1; box-shadow: 0 12px 25px rgba(41,68,46,.09); }
+.safety-range-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: #607466; font-size: 10px; font-weight: 700; }
+.safety-range-icon { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 11px; color: #4283a0; background: #e7f2f4; font-size: 15px; }
+.safety-range-card.hot-range .safety-range-icon { color: #bb7048; background: #fbefe6; }
+.safety-range-card.frozen-range .safety-range-icon { color: #547cb1; background: #eaf0fa; }
+.safety-range-card.danger-range .safety-range-icon { color: #a87430; background: #f8f0df; }
+.safety-range-value { margin-top: 17px; color: #294332; font-size: clamp(22px, 2.5vw, 30px); font-weight: 800; letter-spacing: -1px; }
+.safety-range-card.danger-range .safety-range-value { color: #9c6a2f; }
+.safety-range-caption { margin-top: 5px; color: #8a958c; font-size: 10px; }
+.safety-showcase-footnote { position: relative; z-index: 1; margin: 16px 0 0; color: #89948b; font-size: 9px; text-align: center; }
+.food-safety-guide { max-width: 1400px; margin: 48px auto 0; padding: clamp(20px,4vw,42px); overflow: hidden; border: 1px solid #e1e9df; border-radius: 25px; background: radial-gradient(circle at 100% 0,rgba(214,232,210,.56),transparent 30%),linear-gradient(145deg,#fff 0%,#f6f8f2 100%); box-shadow: 0 16px 45px rgba(34,53,39,.065); }
+.food-safety-guide-header { max-width: 820px; margin: 0 auto 25px; text-align: center; }
+.food-safety-guide-kicker { color: #548064; font-size: 10px; font-weight: 800; letter-spacing: 1.8px; }
+.food-safety-guide-title { margin: 8px 0; color: #000; font-family: 'Dancing Script','Pacifico','Brush Script MT','Lucida Handwriting',cursive; font-size: clamp(37px,5vw,57px); font-weight: 700; line-height: 1.08; letter-spacing: 0; }
+.food-safety-guide-intro { margin: 0; color: #6f7d73; font-size: 13px; line-height: 1.75; }
+.food-safety-quick-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 10px; margin-bottom: 18px; }
+.food-safety-quick-card { min-width: 0; padding: 14px; border: 1px solid #e5ebe3; border-radius: 14px; background: rgba(255,255,255,.88); }
+.food-safety-quick-card span { display: block; color: #758279; font-size: 10px; font-weight: 700; }
+.food-safety-quick-card strong { display: block; margin-top: 6px; color: #254432; font-size: 20px; letter-spacing: -.5px; }
+.food-safety-quick-card.danger strong { color: #9a622e; }
+.food-safety-guide-layout { display: grid; grid-template-columns: minmax(0,1.45fr) minmax(250px,.75fr); align-items: start; gap: 16px; }
+.food-safety-topics { display: grid; gap: 9px; }
+.food-safety-topic { overflow: hidden; border: 1px solid #e5ebe3; border-radius: 14px; background: rgba(255,255,255,.92); }
+.food-safety-topic summary { min-height: 54px; padding: 12px 15px; display: flex; align-items: center; gap: 11px; color: #263b2d; font-size: 13px; font-weight: 750; list-style: none; cursor: pointer; }
+.food-safety-topic summary::-webkit-details-marker { display: none; }
+.food-safety-topic summary::after { content: '+'; margin-left: auto; color: #548064; font-size: 20px; font-weight: 400; }
+.food-safety-topic[open] summary::after { content: '−'; }
+.food-safety-topic-icon { width: 30px; height: 30px; flex: 0 0 30px; display: grid; place-items: center; border-radius: 10px; color: #397453; background: #eaf3eb; }
+.food-safety-topic-body { padding: 0 16px 15px 56px; color: #647269; font-size: 11px; line-height: 1.75; }
+.food-safety-topic-body ul,.food-safety-topic-body ol { margin: 0; padding-left: 17px; }
+.food-safety-topic-body li+li { margin-top: 5px; }
+.food-safety-topic-body strong { color: #354b3c; }
+.food-safety-checklist { position: sticky; top: 16px; padding: 18px; border: 1px solid #dfe9dc; border-radius: 16px; background: rgba(245,249,242,.96); }
+.food-safety-checklist h3 { margin: 0; color: #293d30; font-size: 15px; }
+.food-safety-checklist > p { margin: 5px 0 13px; color: #78867c; font-size: 10px; line-height: 1.6; }
+.food-safety-progress { height: 7px; overflow: hidden; border-radius: 999px; background: #e2eae0; }
+.food-safety-progress span { width: 0; height: 100%; display: block; border-radius: inherit; background: linear-gradient(90deg,#73b37f,#28714e); transition: width .2s ease; }
+.food-safety-progress-label { display: block; margin-top: 6px; color: #688071; font-size: 9px; font-weight: 700; text-align: right; }
+.food-safety-checks { margin-top: 12px; display: grid; gap: 9px; }
+.food-safety-check { display: flex; align-items: flex-start; gap: 8px; color: #506055; font-size: 10px; line-height: 1.5; cursor: pointer; }
+.food-safety-check input { width: 15px; height: 15px; flex: 0 0 15px; margin: 1px 0 0; accent-color: #28714e; }
+.food-safety-checklist-note { margin: 12px 0 0; padding-top: 10px; border-top: 1px solid #e1e9df; color: #849087; font-size: 9px; line-height: 1.6; }
+.food-safety-sources { margin: 16px 0 0; color: #879188; font-size: 10px; line-height: 1.7; }
+.food-safety-sources a { color: #286344; font-weight: 700; text-underline-offset: 2px; }
+.dashboard-food-safety-view { max-width: 1480px; margin: 0 auto; }
+.dashboard-food-safety-view .food-safety-guide { margin-top: 0; }
+.feature-intro > span { color: #7a897e; font-size: 9px; font-weight: 800; letter-spacing: 1.7px; }
+.feature-intro h2 { margin: 8px 0 0; color: #23392b; font-size: 21px; letter-spacing: -.5px; }
+.feature-card { min-height: 112px; padding: 16px; border: 1px solid #e8ece4; border-radius: 16px; display: flex; align-items: flex-start; gap: 12px; background: rgba(255,255,255,.72); box-shadow: 0 6px 18px rgba(34,53,39,.035); transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+.feature-card:hover { transform: translateY(-3px); border-color: #d4e0d1; box-shadow: 0 12px 26px rgba(34,53,39,.08); }
+.feature-icon { flex: 0 0 38px; width: 38px; height: 38px; display: grid; place-items: center; border-radius: 12px; }
+.green-icon { color: #377451; background: #e7f2e7; }
+.amber-icon { color: #aa7a2a; background: #f7eedc; }
+.blue-icon { color: #477d9b; background: #e5f0f3; }
+.feature-card h3 { margin: 1px 0 5px; color: #2b3b30; font-size: 13px; }
+.feature-card p { margin: 0; color: #7a857d; font-size: 11px; line-height: 1.6; }
+.landing-footer { max-width: 1400px; margin: 0 auto; padding: 17px 0 23px; border-top: 1px solid #e6e9e1; display: flex; justify-content: space-between; color: #88938b; font-size: 11px; }
+.landing-footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
+.landing-footer span:first-child { color: #48604f; font-weight: 700; }
+.landing-footer a { color: #397258; font-weight: 700; text-decoration: none; }
+.landing-footer a:hover { text-decoration: underline; }
+.contact-feedback { max-width: 1400px; margin: 52px auto 0; padding: clamp(22px,4vw,48px); overflow: hidden; position: relative; border: 1px solid #e0e9df; border-radius: 26px; display: grid; grid-template-columns: minmax(0,.82fr) minmax(0,1.18fr); align-items: center; gap: clamp(24px,5vw,70px); background: radial-gradient(circle at 0 0,rgba(218,235,216,.7),transparent 40%),linear-gradient(135deg,#f3f7ef,#fff 68%); box-shadow: 0 20px 55px rgba(34,53,39,.075); }
+.contact-feedback-copy { position: relative; z-index: 1; }
+.contact-feedback-kicker { color: #548064; font-size: 10px; font-weight: 800; letter-spacing: 1.8px; }
+.contact-feedback-title { margin: 9px 0 11px; color: #000; font-family: 'Dancing Script','Pacifico','Brush Script MT','Lucida Handwriting',cursive; font-size: clamp(40px,5vw,60px); font-weight: 700; line-height: 1.08; }
+.contact-feedback-copy > p { max-width: 430px; margin: 0; color: #6f7d73; font-size: 13px; line-height: 1.8; }
+.contact-person-card { margin-top: 25px; padding: 15px; border: 1px solid rgba(222,232,218,.95); border-radius: 16px; display: flex; align-items: center; gap: 13px; background: rgba(255,255,255,.75); }
+.contact-person-avatar { width: 44px; height: 44px; flex: 0 0 44px; border-radius: 14px; display: grid; place-items: center; color: #eff8ef; background: linear-gradient(145deg,#2c7652,#174b37); font-size: 12px; font-weight: 800; letter-spacing: .5px; box-shadow: 0 6px 15px rgba(23,75,55,.16); }
+.contact-person-card strong { display: block; color: #293d30; font-size: 13px; }
+.contact-person-card span { display: block; margin-top: 4px; color: #7d8b81; font-size: 10px; }
+.contact-privacy-note { margin-top: 13px !important; color: #8b968d !important; font-size: 10px !important; }
+.feedback-form-card { padding: clamp(18px,3vw,28px); border: 1px solid rgba(231,237,228,.95); border-radius: 20px; background: rgba(255,255,255,.9); box-shadow: 0 13px 38px rgba(34,53,39,.08); }
+.feedback-form-heading { margin-bottom: 16px; }
+.feedback-form-heading h3 { margin: 0; color: #2c4032; font-size: 17px; letter-spacing: -.3px; }
+.feedback-form-heading p { margin: 5px 0 0; color: #839087; font-size: 11px; line-height: 1.6; }
+.feedback-form-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+.feedback-field { min-width: 0; display: grid; gap: 6px; }
+.feedback-field.full { grid-column: 1 / -1; }
+.feedback-field label { color: #526257; font-size: 10px; font-weight: 750; }
+.feedback-field input,.feedback-field textarea { box-sizing: border-box; width: 100%; min-height: 43px; padding: 11px 12px; border: 1px solid #dfe7dd; border-radius: 10px; outline: none; color: #293d30; background: #fff; font: inherit; font-size: 12px; transition: border-color .16s,box-shadow .16s; }
+.feedback-field textarea { min-height: 125px; resize: vertical; line-height: 1.6; }
+.feedback-field input:focus,.feedback-field textarea:focus { border-color: #71a282; box-shadow: 0 0 0 3px rgba(65,125,83,.1); }
+.feedback-submit-row { margin-top: 13px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.feedback-submit { min-height: 44px; padding: 0 17px; border: 0; border-radius: 11px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; color: #fff; background: #174b37; font-size: 11px; font-weight: 750; cursor: pointer; transition: transform .16s,background .16s,box-shadow .16s; box-shadow: 0 7px 17px rgba(23,75,55,.16); }
+.feedback-submit:hover { transform: translateY(-1px); background: #103c2b; box-shadow: 0 10px 22px rgba(23,75,55,.22); }
+.feedback-submit:disabled { opacity: .65; cursor: wait; transform: none; }
+.feedback-form-privacy { color: #8b968d; font-size: 9px; line-height: 1.5; text-align: right; }
+.feedback-form-status { min-height: 18px; margin: 10px 0 0; color: #397453; font-size: 11px; line-height: 1.6; }
+.feedback-form-status.error { color: #a5433f; }
+.feedback-honeypot { position: absolute !important; left: -10000px !important; width: 1px !important; height: 1px !important; overflow: hidden !important; }
+.admin-feedback-toolbar { margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.admin-feedback-toolbar p { margin: 4px 0 0; color: #829087; font-size: 11px; }
+.admin-feedback-toolbar h3 { margin: 0; color: #293d30; font-size: 16px; }
+.admin-feedback-refresh { min-height: 38px; padding: 0 12px; border: 1px solid #dfe7dd; border-radius: 10px; display: inline-flex; align-items: center; gap: 7px; color: #3d5945; background: #fff; font-size: 11px; font-weight: 700; cursor: pointer; }
+.admin-feedback-list { display: grid; gap: 12px; }
+.admin-feedback-card { min-width: 0; padding: 17px; border: 1px solid #e5ebe3; border-radius: 15px; background: #fff; box-shadow: 0 4px 14px rgba(34,53,39,.035); }
+.admin-feedback-card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.admin-feedback-sender { min-width: 0; }
+.admin-feedback-sender strong { display: block; overflow-wrap: anywhere; color: #2f4435; font-size: 13px; }
+.admin-feedback-sender a,.admin-feedback-sender span { display: block; margin-top: 4px; color: #718077; font-size: 10px; overflow-wrap: anywhere; }
+.admin-feedback-date { flex: 0 0 auto; color: #87938a; font-size: 9px; text-align: right; }
+.admin-feedback-message { margin: 13px 0 0; color: #536258; font-size: 12px; line-height: 1.75; white-space: pre-wrap; overflow-wrap: anywhere; }
+.admin-feedback-empty { padding: 28px 16px; border: 1px dashed #dce5da; border-radius: 14px; color: #78867c; background: #f8faf7; font-size: 12px; text-align: center; }
+.admin-feedback-status { margin: 0 0 12px; color: #718077; font-size: 11px; line-height: 1.6; }
+.admin-feedback-status.is-empty { padding: 28px 16px; border: 1px dashed #dce5da; border-radius: 14px; color: #78867c; background: #f8faf7; font-size: 12px; text-align: center; }
+.admin-feedback-status.error { color: #a5433f; }
+.admin-feedback-card-actions { margin-top: 14px; padding-top: 12px; border-top: 1px solid #edf1ec; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.admin-feedback-state { margin-right: auto; padding: 6px 9px; border-radius: 999px; color: #8a642c; background: #faf2e2; font-size: 9px; font-weight: 800; letter-spacing: .3px; }
+.admin-feedback-state.published { color: #397453; background: #eaf3eb; }
+.admin-feedback-action { min-height: 34px; padding: 0 10px; border: 1px solid #dfe7dd; border-radius: 9px; display: inline-flex; align-items: center; gap: 6px; color: #3d5945; background: #fff; font-size: 10px; font-weight: 700; cursor: pointer; }
+.admin-feedback-action:hover { border-color: #b7cbb8; background: #f7faf6; }
+.admin-feedback-action:disabled { opacity: .6; cursor: wait; }
+.admin-feedback-action.delete { color: #a5433f; }
+.admin-feedback-action.delete:hover { border-color: #eccdca; background: #fff7f6; }
+.published-feedback { max-width: 1400px; margin: 52px auto 0; padding: clamp(22px,4vw,42px); overflow: hidden; border: 1px solid #e1e9df; border-radius: 25px; background: radial-gradient(circle at 100% 0,rgba(214,232,210,.48),transparent 30%),linear-gradient(145deg,#fff 0%,#f6f8f2 100%); box-shadow: 0 16px 45px rgba(34,53,39,.06); }
+.published-feedback[hidden] { display: none !important; }
+.published-feedback-header { max-width: 760px; margin: 0 auto 22px; text-align: center; }
+.published-feedback-kicker { color: #548064; font-size: 10px; font-weight: 800; letter-spacing: 1.8px; }
+.published-feedback-title { margin: 8px 0; color: #000; font-family: 'Dancing Script','Pacifico','Brush Script MT','Lucida Handwriting',cursive; font-size: clamp(36px,4.7vw,54px); font-weight: 700; line-height: 1.1; }
+.published-feedback-header p { margin: 0; color: #78857b; font-size: 12px; line-height: 1.7; }
+.published-feedback-list { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; }
+.published-feedback-card { min-width: 0; min-height: 160px; padding: 18px; border: 1px solid #e6ece4; border-radius: 17px; background: rgba(255,255,255,.9); box-shadow: 0 7px 21px rgba(41,68,46,.045); }
+.published-feedback-quote { margin: 12px 0 17px; color: #4b5c50; font-size: 12px; line-height: 1.8; white-space: pre-wrap; overflow-wrap: anywhere; }
+.published-feedback-mark { color: #86aa8a; font-size: 19px; }
+.published-feedback-author { padding-top: 11px; border-top: 1px solid #edf1ec; color: #758279; font-size: 10px; font-weight: 750; }
+.published-feedback-footer { margin: 16px 0 0; color: #879188; font-size: 9px; line-height: 1.6; text-align: center; }
+.staff-management-header { margin-bottom: 18px; padding: 22px; border: 1px solid #e2ebe0; border-radius: 18px; background: radial-gradient(circle at 100% 0,rgba(210,232,210,.48),transparent 36%),linear-gradient(135deg,#fff,#f6f8f3); }
+.staff-management-kicker { color: #598064; font-size: 9px; font-weight: 800; letter-spacing: 1.5px; }
+.staff-management-header h3 { margin: 7px 0 5px; color: #263b2d; font-size: 21px; letter-spacing: -.4px; }
+.staff-management-header p { max-width: 700px; margin: 0; color: #748177; font-size: 11px; line-height: 1.7; }
+.staff-management-summary { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
+.staff-management-count { padding: 7px 10px; border: 1px solid #e2e9df; border-radius: 999px; color: #55665a; background: rgba(255,255,255,.82); font-size: 10px; font-weight: 750; }
+.staff-management-count strong { margin-right: 4px; color: #285d3f; }
+.staff-management-toolbar { margin-bottom: 12px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
+.staff-management-toolbar h4 { margin: 0; color: #36493b; font-size: 13px; }
+.staff-management-refresh { min-height: 35px; padding: 0 11px; border: 1px solid #e1e8df; border-radius: 9px; display: inline-flex; align-items: center; gap: 7px; color: #405d48; background: #fff; font-size: 10px; font-weight: 750; cursor: pointer; }
+.staff-management-refresh:hover { border-color: #b7cbb8; background: #f7faf6; }
+.staff-management-refresh:disabled,.staff-management-action:disabled { opacity: .6; cursor: wait; }
+.staff-management-status { margin-bottom: 12px; color: #758279; font-size: 11px; line-height: 1.6; }
+.staff-management-status.error { color: #a5433f; }
+.staff-management-table-wrap { overflow-x: auto; border: 1px solid #e8ede7; border-radius: 12px; }
+.staff-management-table { width: 100%; border-collapse: collapse; text-align: left; }
+.staff-management-table th { padding: 11px 13px; color: #78857b; background: #f7f9f6; font-size: 9px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; }
+.staff-management-table td { padding: 12px 13px; border-top: 1px solid #edf1ec; color: #435348; font-size: 11px; vertical-align: middle; }
+.staff-management-user { color: #2f4435; font-weight: 750; }
+.staff-management-state { padding: 5px 8px; border-radius: 999px; display: inline-flex; align-items: center; gap: 5px; color: #397453; background: #eaf3eb; font-size: 9px; font-weight: 800; }
+.staff-management-state.suspended { color: #976529; background: #faf2e2; }
+.staff-management-action { min-height: 32px; padding: 0 9px; border: 1px solid #dfe7dd; border-radius: 8px; color: #3d694b; background: #fff; font-size: 10px; font-weight: 750; cursor: pointer; }
+.staff-management-action.suspend { color: #a5433f; }
+.staff-management-action:hover { background: #f7faf6; }
+.staff-management-empty { padding: 24px 14px; color: #78867c; text-align: center; }
+.support-assistant { position: fixed; right: 20px; bottom: 20px; z-index: 60; }
+.support-launcher { min-height: 48px; padding: 0 17px; border: 0; border-radius: 999px; display: inline-flex; align-items: center; gap: 9px; color: white; background: #174b37; box-shadow: 0 8px 26px rgba(23,75,55,.25); font-size: 13px; font-weight: 700; cursor: pointer; }
+.support-launcher:hover { background: #103c2b; }
+.support-panel { position: absolute; right: 0; bottom: 60px; width: min(360px, calc(100vw - 32px)); max-height: min(530px, calc(100vh - 105px)); border: 1px solid #e1e9df; border-radius: 19px; display: flex; flex-direction: column; overflow: hidden; background: #fff; box-shadow: 0 18px 55px rgba(24,49,32,.2); }
+.support-panel-header { padding: 15px 16px; display: flex; align-items: center; justify-content: space-between; color: white; background: #174b37; }
+.support-panel-header strong { display: block; font-size: 13px; }
+.support-panel-header small { display: block; margin-top: 3px; color: #d3e2d6; font-size: 10px; }
+.support-close { width: 32px; height: 32px; border: 0; border-radius: 9px; color: white; background: rgba(255,255,255,.13); cursor: pointer; }
+.support-messages { min-height: 115px; padding: 14px; display: flex; flex-direction: column; gap: 10px; overflow-y: auto; }
+.support-message { max-width: 90%; padding: 10px 12px; border-radius: 13px; color: #425348; background: #f0f5ef; font-size: 12px; line-height: 1.55; white-space: pre-line; overflow-wrap: anywhere; }
+.support-message.user { align-self: flex-end; color: #fff; background: #28714e; }
+.support-message a { color: #17613e; font-weight: 700; }
+.support-prompts { padding: 0 14px 11px; display: flex; flex-wrap: wrap; gap: 6px; }
+.support-prompts button { padding: 6px 9px; border: 1px solid #dfe8de; border-radius: 999px; color: #49624f; background: #fff; font-size: 10px; cursor: pointer; }
+.support-prompts button:hover { border-color: #9ab59d; background: #f5f8f4; }
+.support-form { padding: 10px 12px; border-top: 1px solid #edf0eb; display: flex; gap: 8px; }
+.support-form input { min-width: 0; flex: 1; padding: 9px 11px; border: 1px solid #dfe6dd; border-radius: 10px; outline: none; font-size: 12px; }
+.support-form input:focus { border-color: #76a183; }
+.support-form button { width: 39px; border: 0; border-radius: 10px; color: white; background: #174b37; cursor: pointer; }
+.support-privacy { margin: 0; padding: 0 12px 10px; color: #89948b; font-size: 9px; text-align: center; }
+.auth-shell { min-height: 100vh; padding: 28px 20px 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: radial-gradient(ellipse at 10% 12%, rgba(205,226,207,.58), transparent 38%), #f5f7f2; }
+.auth-shell > .card { width: 100%; max-width: 410px; padding: 32px; border: 1px solid #e8ece6; border-radius: 23px; box-shadow: 0 22px 65px rgba(32,58,40,.11); }
+.auth-back-btn { align-self: center; width: min(410px, 100%); margin-bottom: 14px; border: 0; color: #63766a; background: transparent; text-align: left; font-size: 13px; cursor: pointer; }
+.auth-back-btn:hover { color: #174b37; }
+.maintenance-shell { margin: 7vh auto; }
+.dashboard-shell { min-height: 100vh; padding: 25px clamp(16px, 4vw, 56px) 48px; background: #f4f6f2; color: #25342a; }
+.dashboard-topbar { max-width: 1440px; margin: 0 auto 25px; padding: 18px 22px; border: 1px solid #e8ece6; border-radius: 20px; display: flex; align-items: stretch; flex-direction: column; gap: 16px; background: #fff; box-shadow: 0 8px 28px rgba(34,53,39,.06); }
+.dashboard-brand h1 { margin: 0; font-size: 30px; }
+.dashboard-brand p { margin: 5px 0 0; color: #7d8981; font-size: 12px; }
+.dashboard-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-start; gap: 8px; }
+.dashboard-toolbar button { min-height: 39px; padding: 0 13px; border: 1px solid #e6eae4; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; color: #46564a; background: #fff; font-size: 12px; font-weight: 700; cursor: pointer; transition: background .15s, border .15s, transform .15s; }
+.dashboard-toolbar button:hover { transform: translateY(-1px); border-color: #cbd6cc; background: #f7f9f6; }
+.dashboard-toolbar .toolbar-primary { border-color: #174b37; color: #fff; background: #174b37; }
+.dashboard-toolbar .toolbar-primary:hover { border-color: #103c2b; background: #103c2b; }
+.dashboard-toolbar .toolbar-admin { color: #795b27; background: #fcf8ee; border-color: #efe5cc; }
+.dashboard-toolbar a.toolbar-admin { text-decoration: none; }
+.dashboard-toolbar .toolbar-logout { color: #a5433f; }
+.dashboard-user { margin-right: 5px; padding-right: 13px; border-right: 1px solid #e8ece6; color: #839087; font-size: 11px; white-space: nowrap; }
+.dashboard-user strong { display: block; margin-top: 3px; color: #34463a; font-size: 12px; }
+.dashboard-content { max-width: 1440px; margin: auto; }
+.dashboard-intro { margin: 0 0 17px 3px; }
+.dashboard-intro h2 { margin: 0; color: #24382b; font-size: 22px; letter-spacing: -.5px; }
+.dashboard-intro p { margin: 5px 0 0; color: #829087; font-size: 12px; }
+.dashboard-overview { margin-bottom: 20px; padding: 21px 23px; border: 1px solid #e5ebe3; border-radius: 18px; display: flex; align-items: center; justify-content: space-between; gap: 20px; background: linear-gradient(115deg, #fff 15%, #f1f7f0 100%); }
+.dashboard-overview h2 { margin: 0; color: #24382b; font-size: 23px; letter-spacing: -.6px; }
+.dashboard-overview p { margin: 6px 0 0; color: #7e8b81; font-size: 12px; }
+.overview-date { padding: 9px 13px; border: 1px solid #e1e9df; border-radius: 11px; color: #607466; background: rgba(255,255,255,.82); font-size: 11px; font-weight: 700; white-space: nowrap; }
+.summary-card { min-width: 0; min-height: 119px; padding: 17px; border: 1px solid #e7ece5; border-radius: 16px; background: white; box-shadow: 0 4px 15px rgba(34,53,39,.035); }
+.summary-card-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: #718077; font-size: 11px; font-weight: 700; }
+.summary-icon { width: 31px; height: 31px; display: grid; place-items: center; border-radius: 10px; background: #eaf3eb; color: #397453; }
+.summary-card.attention .summary-icon { color: #ad6d36; background: #fbf0e2; }
+.summary-card.safe .summary-icon { color: #397453; background: #eaf3eb; }
+.summary-card.latest .summary-icon { color: #477d9b; background: #e8f1f4; }
+.summary-value { margin-top: 11px; color: #263b2d; font-size: 26px; font-weight: 750; letter-spacing: -1px; line-height: 1; }
+.summary-value.latest-value { font-size: 19px; letter-spacing: -.4px; }
+.summary-note { margin-top: 7px; color: #929c93; font-size: 10px; }
+.records-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin: 15px 0 13px; }
+.records-count { color: #77847a; font-size: 11px; }
+.records-count strong { color: #394b3e; }
+.records-filters { display: flex; flex: 1 1 520px; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+.records-filters input, .records-filters select { min-height: 38px; padding: 0 11px; border: 1px solid #e3e9e1; border-radius: 10px; color: #46564a; background: white; font: inherit; font-size: 11px; outline: none; }
+.records-filters input { flex: 1 1 175px; min-width: 140px; }
+.records-filters select:focus, .records-filters input:focus { border-color: #7da589; box-shadow: 0 0 0 3px rgba(65,125,83,.1); }
+.records-table-wrap { overflow-x: auto; }
+.records-empty { padding: 25px 12px !important; color: #87938a !important; text-align: center; }
+.guideline-card { min-height: 145px; padding: 1.35rem; border: 1px solid #e8ece6; border-radius: 17px; box-shadow: 0 5px 18px rgba(0,0,0,.035); background: white; }
+.guideline-card.cold { border-left-color: #4b91a9; color: #3b8199; }
+.guideline-card.hot { border-left-color: #d8875b; color: #c57247; }
+.guideline-card.warning { border-left-color: #d2a544; color: #b18836; }
+.guideline-card .guideline-title, .guideline-card .guideline-range { color: #34443a; }
+.guideline-card .guideline-title { font-size: 13px; }
+.guideline-card .guideline-range { font-size: 17px; }
+.dashboard-shell .card { padding: 20px; border: 1px solid #e8ece6; border-radius: 17px; box-shadow: 0 5px 18px rgba(0,0,0,.035); }
+.dashboard-shell .card h3 { color: #334439; font-size: 15px; }
+.dashboard-shell table { font-size: 12px; }
+.dashboard-shell th, .dashboard-shell td { padding: 11px 9px; border-color: #edf0eb; }
+.dashboard-shell th { color: #758178; background: #f7f9f6; font-size: 10px; text-transform: uppercase; letter-spacing: .5px; }
+.dashboard-shell td { color: #4b5a50; }
+.dashboard-charts-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; }
+.dashboard-chart-card { min-width: 0; padding: 18px; border: 1px solid #e8ece6; border-radius: 17px; background: #fff; box-shadow: 0 5px 18px rgba(0,0,0,.035); }
+.dashboard-chart-card h3 { margin: 0; color: #334439; font-size: 15px; }
+.dashboard-chart-card p { margin: 5px 0 15px; color: #829087; font-size: 11px; }
+.dashboard-chart { position: relative; width: 100%; min-width: 0; height: 320px; }
+.dashboard-chart canvas { max-width: 100%; }
+.dashboard-shell { min-height: 100vh; display: grid; grid-template-columns: 252px minmax(0,1fr); padding: 0; }
+.dashboard-sidebar { position: sticky; top: 0; height: 100vh; min-height: 620px; overflow-y: auto; overscroll-behavior: contain; padding: 23px 15px 16px; display: flex; flex-direction: column; gap: 20px; color: #e8f0e9; background: #143b2c; }
+.dashboard-sidebar .dashboard-brand { display: flex; align-items: center; gap: 11px; padding: 0 8px; text-decoration: none; }
+.dashboard-brand-mark { width: 38px; height: 38px; flex: 0 0 38px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.15); border-radius: 12px; color: #d7edcf; background: rgba(255,255,255,.09); }
+.dashboard-sidebar .dashboard-brand h1 { margin: 0; color: #fff; font-size: 21px; line-height: 1; }
+.dashboard-sidebar .dashboard-brand .foodsafe-brand { color: #fff; }
+.dashboard-sidebar .dashboard-brand p { margin: 5px 0 0; color: #b7cbbd; font-size: 8px; font-weight: 700; letter-spacing: 1.4px; }
+.dashboard-side-nav, .dashboard-side-actions { display: flex; flex-direction: column; gap: 5px; }
+.dashboard-side-label { margin: 0 9px 5px; color: #9ab5a2; font-size: 9px; font-weight: 800; letter-spacing: 1.5px; }
+.dashboard-side-nav a, .dashboard-side-actions button, .dashboard-side-actions > a, .dashboard-side-admin button, .dashboard-side-admin > a { box-sizing: border-box; width: 100%; min-height: 42px; padding: 0 11px; border: 1px solid transparent; border-radius: 10px; display: flex; align-items: center; gap: 10px; color: #edf5ef; background: transparent; font: inherit; font-size: 12px; font-weight: 650; line-height: 1.25; text-align: left; text-decoration: none; white-space: nowrap; cursor: pointer; transition: background .15s, color .15s; }
+.dashboard-side-nav a:hover, .dashboard-side-actions button:hover, .dashboard-side-actions > a:hover { color: #fff; background: rgba(255,255,255,.09); }
+.dashboard-side-nav a.active { color: #fff; background: rgba(255,255,255,.13); }
+.dashboard-side-admin button.active { color: #fff; background: rgba(255,255,255,.13); }
+.dashboard-side-nav a i, .dashboard-side-actions button i, .dashboard-side-actions > a i, .dashboard-side-admin button i, .dashboard-side-admin > a i { width: 18px; flex: 0 0 18px; color: #94d3a6; text-align: center; }
+.dashboard-side-actions .side-action-primary { color: #163d2d; background: #d8edcf; }
+.dashboard-side-actions .side-action-primary i { color: #285d3f; }
+.dashboard-side-actions .side-action-primary:hover { color: #163d2d; background: #c8e5bb; }
+.dashboard-side-admin { display: flex; flex-direction: column; gap: 5px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,.12); }
+.dashboard-side-admin .dashboard-side-label { color: #9ab5a2; }
+.dashboard-side-admin button, .dashboard-side-admin > a { min-height: 42px; color: #edf5ef; }
+.dashboard-side-admin a { color: #edf5ef; }
+.dashboard-side-admin button i, .dashboard-side-admin a i { color: #94d3a6; }
+.dashboard-side-admin .maintenance-switch-row { width: 100%; min-height: 46px; display: grid; grid-template-columns: minmax(0,1fr) auto; justify-content: initial; gap: 12px; white-space: normal; }
+.maintenance-control-name { display: inline-flex; min-width: 0; align-items: center; gap: 9px; }
+.maintenance-control-name > span { min-width: 0; white-space: normal; line-height: 1.2; }
+.dashboard-side-admin .maintenance-control-name i { color: #94d3a6; }
+.maintenance-switch-state { min-width: 66px; display: inline-flex; align-items: center; justify-content: flex-end; gap: 7px; color: #a9edb8; font-size: 9px; font-weight: 800; letter-spacing: .4px; }
+.maintenance-switch-track { width: 40px; height: 23px; padding: 2px; border: 1px solid rgba(134,214,157,.55); border-radius: 999px; display: inline-flex; align-items: center; background: rgba(57,128,73,.38); transition: background .18s, border-color .18s; }
+.maintenance-switch-thumb { width: 17px; height: 17px; border-radius: 50%; display: grid; place-items: center; color: #174b37; background: #9de6ae; font-size: 9px; transform: translateX(0); transition: transform .18s, background .18s; }
+.maintenance-switch-row[aria-checked="true"] .maintenance-switch-state { color: #ffdda6; }
+.maintenance-switch-row[aria-checked="true"] .maintenance-switch-track { border-color: rgba(241,198,128,.65); background: rgba(133,87,36,.6); }
+.maintenance-switch-row[aria-checked="true"] .maintenance-switch-thumb { color: #78501e; background: #ffcf80; transform: translateX(17px); }
+.maintenance-switch-row:disabled { opacity: .65; cursor: wait; }
+.dashboard-sidebar-bottom { margin-top: auto; }
+.dashboard-topbar-logout { min-height: 36px; padding: 0 11px; border: 1px solid #e6eae4; border-radius: 10px; display: inline-flex; align-items: center; gap: 7px; color: #a5433f; background: #fff; font-size: 11px; font-weight: 700; cursor: pointer; transition: background .15s, border .15s; }
+.dashboard-topbar-logout:hover { border-color: #e6c6c3; background: #fff8f7; }
+.dashboard-main { min-width: 0; }
+.dashboard-main .dashboard-topbar { min-height: 90px; max-width: none; margin: 0; padding: 17px clamp(18px, 3vw, 40px); border: 0; border-bottom: 1px solid #e7ece5; border-radius: 0; align-items: center; justify-content: space-between; flex-direction: row; gap: 20px; box-shadow: none; }
+.dashboard-topbar-kicker { color: #668170; font-size: 9px; font-weight: 800; letter-spacing: 1.7px; }
+.dashboard-main .dashboard-topbar h2 { margin: 4px 0 0; color: #263b2d; font-size: 20px; letter-spacing: -.5px; }
+.dashboard-topbar p { margin: 4px 0 0; color: #829087; font-size: 11px; }
+.dashboard-topbar-meta { display: flex; align-items: center; gap: 9px; }
+.dashboard-role-pill { padding: 8px 11px; border: 1px solid #e2eae1; border-radius: 999px; color: #54705b; background: #f4f8f2; font-size: 10px; font-weight: 800; text-transform: capitalize; }
+.dashboard-main .dashboard-content { max-width: 1480px; margin: auto; padding: 27px clamp(16px, 3vw, 40px) 44px; }
+.account-panel { max-width: 1040px; margin: 0 auto; padding: clamp(20px,4vw,36px); border: 1px solid #e3ebe2; border-radius: 20px; background: linear-gradient(120deg,#fff 15%,#f3f8f2 100%); box-shadow: 0 12px 34px rgba(34,53,39,.06); }
+.account-panel-heading { margin-bottom: 15px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.account-panel-heading h2 { margin: 0; color: #293d30; font-size: 21px; letter-spacing: -.4px; }
+.account-panel-heading p { margin: 6px 0 0; color: #829087; font-size: 12px; }
+.account-verified-pill { padding: 7px 10px; border: 1px solid #d5e9d8; border-radius: 999px; color: #397453; background: #edf7ee; font-size: 9px; font-weight: 800; white-space: nowrap; }
+.account-details-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 11px; }
+.account-detail { min-width: 0; min-height: 76px; padding: 15px; border: 1px solid #e9eee7; border-radius: 13px; background: rgba(255,255,255,.86); }
+.account-detail-label { display: flex; align-items: center; gap: 7px; color: #7d8b81; font-size: 10px; font-weight: 800; letter-spacing: .65px; text-transform: uppercase; }
+.account-detail-label i { color: #548064; }
+.account-detail-value { display: block; overflow: hidden; margin-top: 9px; color: #2f4235; font-size: 14px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+.account-password-note { color: #78877c; font-size: 10px; font-weight: 500; }
+.account-panel-actions { margin-top: 13px; display: flex; flex-wrap: wrap; gap: 8px; }
+.account-panel-actions button { min-height: 36px; padding: 0 11px; border: 1px solid #dfe7dd; border-radius: 9px; display: inline-flex; align-items: center; gap: 7px; color: #3d5945; background: #fff; font-size: 10px; font-weight: 700; cursor: pointer; }
+.account-panel-actions button:hover { border-color: #b7cbb8; background: #f7faf6; }
+.account-panel-actions .account-reset-button { color: #617468; }
+.dashboard-overview-kicker { color: #548064; font-size: 9px; font-weight: 800; letter-spacing: 1.5px; }
+.dashboard-pulse { margin: 0 0 18px; padding: 18px 20px; border: 1px solid #e5ebe3; border-radius: 16px; background: #fff; box-shadow: 0 4px 15px rgba(34,53,39,.03); }
+.dashboard-pulse-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+.dashboard-pulse-header h3 { margin: 0; color: #334439; font-size: 13px; }
+.dashboard-pulse-header p { margin: 4px 0 0; color: #87938a; font-size: 10px; }
+.dashboard-pulse-count { padding: 6px 9px; border-radius: 999px; color: #397453; background: #eaf3eb; font-size: 9px; font-weight: 800; white-space: nowrap; }
+.dashboard-pulse-count.has-alerts { color: #a45f2d; background: #fbf0e2; }
+.dashboard-pulse-list { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; }
+.dashboard-pulse-item { min-width: 0; padding: 11px; border: 1px solid #f0e7d8; border-radius: 11px; background: #fffaf3; }
+.dashboard-pulse-item strong { display: block; overflow: hidden; color: #624d37; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+.dashboard-pulse-item span { display: block; margin-top: 5px; color: #987b5a; font-size: 10px; }
+.dashboard-pulse-empty { padding: 12px; border-radius: 10px; color: #668170; background: #f5f8f4; font-size: 11px; }
+.dashboard-footer { padding: 12px 0 0; color: #8a968d; font-size: 10px; text-align: center; }
+.dashboard-footer a { color: #397258; font-weight: 700; text-decoration: none; }
+.dashboard-footer a:hover { text-decoration: underline; }
+@media (max-width: 1050px) {
+  .landing-hero { grid-template-columns: .9fr 1.1fr; gap: 34px; }
+  .landing-features { grid-template-columns: repeat(3, 1fr); }
+  .feature-intro { grid-column: 1 / -1; }
+  .contact-feedback { grid-template-columns: minmax(0,.78fr) minmax(0,1.22fr); gap: 24px; }
+  .dashboard-shell { grid-template-columns: 220px minmax(0,1fr); }
+  .dashboard-sidebar { padding-right: 11px; padding-left: 11px; }
+  .dashboard-pulse-list { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .food-safety-guide-layout { grid-template-columns: 1fr; }
+  .food-safety-checklist { position: static; }
+}
+@media (max-width: 900px) and (min-width: 701px) {
+  .landing-hero { min-height: auto; margin-top: 24px; grid-template-columns: minmax(0,1fr); gap: 24px; }
+  .hero-copy { max-width: 720px; padding: 22px 0 0; }
+  .hero-copy h1 { max-width: 700px; font-size: clamp(52px, 7vw, 68px); }
+  .hero-description { max-width: 620px; }
+  .hero-visual { min-height: clamp(340px, 48vw, 430px); }
+  .safety-showcase { margin-top: 34px; }
+  .contact-feedback { grid-template-columns: 1fr; gap: 22px; }
+}
+@media (max-width: 700px) {
+  .landing-page { padding: 0 20px; }
+  .landing-nav { min-height: 74px; }
+  .landing-brand strong { font-size: 22px; }
+  .landing-brand small { font-size: 8px; }
+  .nav-caption { display: none; }
+  .nav-login-btn { min-height: 40px; padding: 0 14px; }
+  .nav-helpdesk-link { min-height: 40px; padding: 0 10px; font-size: 11px; }
+  .landing-feedback-link { display: none; }
+  .landing-nav-actions { gap: 8px; }
+  .landing-hero { min-height: 0; margin-top: 12px; grid-template-columns: 1fr; gap: 20px; }
+  .hero-copy { padding: 29px 0 0; }
+  .hero-copy h1 { margin: 18px 0 13px; font-size: clamp(43px, 12vw, 65px); letter-spacing: -2.5px; }
+  .hero-description { font-size: 14px; }
+  .hero-visual { min-height: 350px; border-radius: 21px; }
+  .safety-showcase { margin-top: 28px; padding: 23px 15px; border-radius: 18px; }
+  .safety-range-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .safety-range-card { min-height: 125px; padding: 13px 11px; }
+  .safety-range-top { font-size: 9px; }
+  .safety-range-icon { width: 30px; height: 30px; }
+  .safety-range-value { margin-top: 13px; font-size: 23px; }
+  .visual-note { top: 17px; left: 17px; }
+  .sample-reading { right: 15px; bottom: 15px; width: min(320px, calc(100% - 30px)); }
+  .landing-features { margin-top: 30px; padding-top: 25px; grid-template-columns: 1fr; gap: 19px; }
+  .feature-intro { grid-column: auto; }
+  .feature-card { min-height: 0; padding: 14px; }
+  .contact-feedback { margin-top: 32px; padding: 20px 14px; border-radius: 20px; grid-template-columns: 1fr; gap: 18px; }
+  .contact-person-card { margin-top: 16px; }
+  .feedback-form-card { padding: 16px 13px; }
+  .feedback-form-grid { grid-template-columns: 1fr; gap: 10px; }
+  .feedback-field.full { grid-column: auto; }
+  .feedback-submit-row { align-items: flex-start; flex-direction: column; }
+  .feedback-form-privacy { text-align: left; }
+  .admin-feedback-toolbar { align-items: flex-start; }
+  .admin-feedback-card-header { flex-direction: column; }
+  .admin-feedback-date { text-align: left; }
+  .published-feedback { margin-top: 32px; padding: 20px 14px; border-radius: 19px; }
+  .published-feedback-list { grid-template-columns: 1fr; }
+  .published-feedback-card { min-height: 0; padding: 15px; }
+  .staff-management-header { padding: 17px; }
+  .food-safety-guide { margin-top: 30px; padding: 19px 14px; border-radius: 19px; }
+  .food-safety-guide-header { margin-bottom: 18px; }
+  .food-safety-guide-intro { font-size: 12px; }
+  .food-safety-quick-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 7px; }
+  .food-safety-quick-card { padding: 11px; }
+  .food-safety-quick-card strong { font-size: 18px; }
+  .food-safety-topic summary { min-height: 50px; padding: 10px; font-size: 12px; }
+  .food-safety-topic-body { padding: 0 12px 13px 51px; }
+  .food-safety-checklist { padding: 15px; }
+  .landing-footer { gap: 12px; flex-wrap: wrap; }
+  .landing-footer-links { gap: 12px; }
+  .dashboard-shell { display: block; padding: 0; }
+  .dashboard-sidebar { position: static; height: auto; min-height: 0; padding: 13px; gap: 12px; }
+  .dashboard-sidebar .dashboard-brand { padding: 0 3px; }
+  .dashboard-sidebar .dashboard-brand h1 { font-size: 20px; }
+  .dashboard-side-nav { flex-direction: row; overflow-x: auto; padding-bottom: 2px; }
+  .dashboard-side-label { display: none; }
+  .dashboard-side-nav a { min-height: 38px; flex: 0 0 auto; padding: 0 9px; font-size: 11px; }
+  .dashboard-side-actions { flex-direction: row; flex-wrap: wrap; gap: 5px; }
+  .dashboard-side-actions > button, .dashboard-side-actions > a { min-height: 38px; padding: 0 9px; font-size: 11px; }
+  .dashboard-side-admin { flex-direction: column; flex-wrap: nowrap; gap: 5px; margin-top: 3px; }
+  .dashboard-side-admin .dashboard-side-label { display: none; }
+  .dashboard-side-admin button, .dashboard-side-admin > a { width: 100%; }
+  .dashboard-sidebar-bottom { display: none; }
+  .dashboard-main .dashboard-topbar { min-height: 0; padding: 16px; align-items: flex-start; flex-direction: column; gap: 10px; }
+  .dashboard-topbar-meta { width: 100%; justify-content: space-between; }
+  .dashboard-main .dashboard-content { padding: 18px 13px 30px; }
+  .dashboard-overview { padding: 17px; align-items: flex-start; flex-direction: column; }
+  .dashboard-pulse { padding: 14px; }
+  .dashboard-pulse-list { grid-template-columns: 1fr; }
+  .account-panel { padding: 15px; }
+  .account-details-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .dashboard-toolbar button { flex: 1 1 135px; }
+  .dashboard-user { flex: 1 0 100%; padding: 0 0 9px; border: 0; border-bottom: 1px solid #e8ece6; }
+  .dashboard-shell .card { padding: 13px; }
+  .dashboard-overview { align-items: flex-start; flex-direction: column; padding: 18px; }
+  .dashboard-charts-grid { grid-template-columns: 1fr; }
+  .dashboard-chart-card { padding: 14px; }
+  .dashboard-chart { height: 290px; }
+  .records-filters { flex-basis: 100%; justify-content: stretch; }
+  .records-filters input { flex-basis: 100%; }
+  .records-filters select { flex: 1 1 120px; }
+  .auth-shell > .card { padding: 25px 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+  .hero-visual::before,.hero-visual::after,.hero-3d-badge { animation: none !important; }
+}
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- PUBLIC LANDING PAGE -->
+<div id="landing-page" class="landing-page">
+  <header class="landing-nav">
+    <a class="landing-brand" href="#" onclick="returnToLanding(event)" aria-label="FoodSafe Pro home">
+      <span class="brand-mark"><i class="fas fa-shield-heart"></i></span>
+      <span><strong class="foodsafe-brand cursive-brand">FoodSafe Pro</strong><small>SMART KITCHEN SAFETY</small></span>
+    </a>
+    <div class="landing-nav-actions">
+      <a class="nav-helpdesk-link" href="https://foodsafepro.infinityfree.io/" target="_blank" rel="noopener noreferrer"><i class="fas fa-life-ring"></i> Customer helpdesk</a>
+      <a class="nav-helpdesk-link landing-feedback-link" href="#contactFeedback"><i class="fas fa-comment-dots"></i> Feedback</a>
+      <span class="nav-caption">Already have an account?</span>
+      <button class="nav-login-btn" onclick="showLogin()"><i class="fas fa-arrow-right-to-bracket"></i> Log in</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="landing-hero">
+      <div class="hero-copy">
+        <div class="hero-eyebrow"><span class="eyebrow-dot"></span> FOOD SAFETY, MADE SIMPLE</div>
+        <h1>Confidence in<br>every <em>temperature.</em></h1>
+        <p class="hero-description">A clearer way to keep your kitchen safe. Track temperatures, spot risks early, and keep your team confidently on top of food safety.</p>
+        <div class="hero-actions">
+          <button class="hero-primary-btn" onclick="showLogin()">Open your dashboard <i class="fas fa-arrow-right"></i></button>
+          <button class="hero-secondary-btn" onclick="showCreate()">Create an account</button>
+        </div>
+        <div class="hero-assurance">
+          <span><i class="fas fa-circle-check"></i> Simple daily checks</span>
+          <span><i class="fas fa-circle-check"></i> Clear safety ranges</span>
+        </div>
+        <a class="hero-guide-link" href="#homeFoodSafetyGuide"><i class="fas fa-book-open"></i> Explore the food safety guide <i class="fas fa-arrow-down"></i></a>
+      </div>
+      <div class="hero-visual" role="img" aria-label="A clean professional kitchen prepared for food safety monitoring">
+        <div class="visual-shade"></div>
+        <div class="visual-note"><i class="fas fa-leaf"></i><span>Better routines.<br><strong>Safer kitchens.</strong></span></div>
+        <div class="hero-3d-badge" aria-hidden="true">
+          <div class="hero-3d-badge-top"><i class="fas fa-snowflake"></i> SAMPLE SAFETY SNAPSHOT</div>
+          <div class="hero-3d-badge-reading"><span>Cold storage</span><strong>3.2<small>°C</small></strong></div>
+          <div class="hero-3d-badge-status"><i class="fas fa-circle-check"></i> Within the safe range</div>
+        </div>
+        <div class="sample-reading">
+          <div class="sample-reading-top"><span class="sample-dot"></span> SAMPLE MONITORING VIEW <i class="fas fa-ellipsis"></i></div>
+          <div class="sample-reading-main"><span><i class="fas fa-snowflake"></i> Cold storage</span><strong>3.2°<small>C</small></strong></div>
+          <div class="sample-reading-bottom"><span>Recommended range</span><span class="safe-label"><i class="fas fa-check"></i> Within range</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="safety-showcase" aria-labelledby="safety-showcase-title">
+      <div class="safety-showcase-heading">
+        <span class="safety-showcase-kicker">A CLEARER WAY TO CHECK</span>
+        <h2 id="safety-showcase-title">The right standard for every station.</h2>
+        <p>Keep the key holding temperatures in view, so your team knows what to check throughout the day.</p>
+      </div>
+      <div class="safety-range-grid">
+        <article class="safety-range-card">
+          <div class="safety-range-top"><span>Cold storage</span><span class="safety-range-icon"><i class="fas fa-snowflake"></i></span></div>
+          <div class="safety-range-value">0–4 °C</div><div class="safety-range-caption">Keep chilled food cold</div>
+        </article>
+        <article class="safety-range-card hot-range">
+          <div class="safety-range-top"><span>Hot holding</span><span class="safety-range-icon"><i class="fas fa-fire"></i></span></div>
+          <div class="safety-range-value">≥ 60 °C</div><div class="safety-range-caption">Keep hot food hot</div>
+        </article>
+        <article class="safety-range-card frozen-range">
+          <div class="safety-range-top"><span>Freezer</span><span class="safety-range-icon"><i class="fas fa-icicles"></i></span></div>
+          <div class="safety-range-value">≤ −18 °C</div><div class="safety-range-caption">Maintain frozen storage</div>
+        </article>
+        <article class="safety-range-card danger-range">
+          <div class="safety-range-top"><span>Danger zone</span><span class="safety-range-icon"><i class="fas fa-triangle-exclamation"></i></span></div>
+          <div class="safety-range-value">4–60 °C</div><div class="safety-range-caption">Avoid unsafe holding</div>
+        </article>
+      </div>
+      <p class="safety-showcase-footnote">Quick-reference ranges used by the FoodSafe Pro temperature dashboard.</p>
+    </section>
+
+    <div id="homeFoodSafetyGuide"></div>
+
+    <section class="landing-features" aria-label="FoodSafe Pro features">
+      <div class="feature-intro"><span>BUILT FOR THE REAL WORKDAY</span><h2>Stay ready. Stay in control.</h2></div>
+      <article class="feature-card"><span class="feature-icon green-icon"><i class="fas fa-temperature-half"></i></span><div><h3>Know at a glance</h3><p>See clear temperature guidance for cold, frozen, and hot holding.</p></div></article>
+      <article class="feature-card"><span class="feature-icon amber-icon"><i class="fas fa-clipboard-check"></i></span><div><h3>Keep a clear record</h3><p>Bring your kitchen readings together in one easy-to-follow dashboard.</p></div></article>
+      <article class="feature-card"><span class="feature-icon blue-icon"><i class="fas fa-people-group"></i></span><div><h3>Work as one team</h3><p>Give staff and administrators the tools to stay on the same page.</p></div></article>
+    </section>
+
+    <section class="published-feedback" id="publishedFeedbackSection" aria-labelledby="published-feedback-title" hidden>
+      <header class="published-feedback-header">
+        <span class="published-feedback-kicker">FROM OUR COMMUNITY</span>
+        <h2 class="published-feedback-title" id="published-feedback-title">Words from our visitors</h2>
+        <p>Feedback shared with permission by visitors using FoodSafe Pro.</p>
+      </header>
+      <div class="published-feedback-list" id="publishedFeedbackList"></div>
+      <p class="published-feedback-footer">Only messages reviewed and published by a FoodSafe Pro administrator appear here. Sender email addresses are never displayed.</p>
+    </section>
+
+    <section class="contact-feedback" id="contactFeedback" aria-labelledby="contact-feedback-title">
+      <div class="contact-feedback-copy">
+        <span class="contact-feedback-kicker">CONTACT & COMMUNITY</span>
+        <h2 class="contact-feedback-title" id="contact-feedback-title">Your voice helps us improve.</h2>
+        <p>Have an idea, spotted a problem, or want to share how FoodSafe Pro is working for your kitchen? Send a note directly to the administrator.</p>
+        <div class="contact-person-card">
+          <span class="contact-person-avatar" aria-hidden="true">NP</span>
+          <div><strong>Neel Patel</strong><span>FoodSafe Pro administrator</span></div>
+        </div>
+        <p class="contact-privacy-note">Only administrators can see feedback until they choose to publish it. Published messages and any name you provide are public; email is never published. Name and email are optional.</p>
+      </div>
+      <form class="feedback-form-card" id="publicFeedbackForm" onsubmit="submitWebsiteFeedback(event)">
+        <div class="feedback-form-heading"><h3>Send feedback</h3><p>Share a suggestion or report a problem. Please don't include passwords or sensitive personal information.</p></div>
+        <div class="feedback-form-grid">
+          <div class="feedback-field">
+            <label for="feedback-name">Your name <span>(optional)</span></label>
+            <input id="feedback-name" name="name" type="text" maxlength="80" autocomplete="name" placeholder="How should we address you?">
+          </div>
+          <div class="feedback-field">
+            <label for="feedback-email">Email <span>(optional)</span></label>
+            <input id="feedback-email" name="email" type="email" maxlength="254" autocomplete="email" placeholder="Only if you'd like a reply">
+          </div>
+          <div class="feedback-field full">
+            <label for="feedback-message">Your feedback <span aria-hidden="true">*</span></label>
+            <textarea id="feedback-message" name="message" minlength="10" maxlength="3000" required placeholder="Tell us what is working well or what we could improve…" aria-describedby="feedback-message-help"></textarea>
+            <span id="feedback-message-help" class="feedback-form-privacy">10–3,000 characters. Do not include passwords or payment details.</span>
+          </div>
+        </div>
+        <label class="feedback-honeypot" aria-hidden="true" tabindex="-1">Leave this field empty<input id="feedback-website" type="text" name="website" tabindex="-1" autocomplete="off"></label>
+        <div class="feedback-submit-row">
+          <button class="feedback-submit" type="submit"><i class="fas fa-paper-plane"></i> Send feedback</button>
+          <span class="feedback-form-privacy">Your message is sent securely for admin review.</span>
+        </div>
+        <p class="feedback-form-status" id="feedback-form-status" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+  <div class="support-assistant">
+    <section id="support-panel" class="support-panel hidden" aria-label="FoodSafe Pro guided help">
+      <header class="support-panel-header">
+        <div><strong>FoodSafe Pro Help</strong><small>Quick answers, no account needed</small></div>
+        <button class="support-close" type="button" aria-label="Close help assistant" onclick="toggleSupportAssistant(false)"><i class="fas fa-xmark"></i></button>
+      </header>
+      <div id="support-messages" class="support-messages" role="log" aria-live="polite">
+        <div class="support-message">Hi! I can help with sign-in, temperature guidance, readings, and account setup. What do you need help with?</div>
+      </div>
+      <div class="support-prompts" aria-label="Common questions">
+        <button type="button" onclick="askSupportQuestion('What temperatures are safe?')">Temperature ranges</button>
+        <button type="button" onclick="askSupportQuestion('How do I reset my password?')">Reset password</button>
+        <button type="button" onclick="askSupportQuestion('How do I contact support?')">Contact support</button>
+      </div>
+      <form class="support-form" onsubmit="submitSupportQuestion(event)">
+        <input id="support-question" type="text" maxlength="300" autocomplete="off" placeholder="Type your question…" aria-label="Ask a help question">
+        <button type="submit" aria-label="Send question"><i class="fas fa-paper-plane"></i></button>
+      </form>
+      <p class="support-privacy">Guided FAQ only. Questions stay in this browser and are not sent to an AI service.</p>
+    </section>
+    <button id="support-launcher" class="support-launcher" type="button" aria-controls="support-panel" aria-expanded="false" onclick="toggleSupportAssistant()"><i class="fas fa-comment-dots"></i> Help assistant</button>
+  </div>
+  <footer class="landing-footer"><span>FoodSafe Pro</span><span class="landing-footer-links"><a href="#contactFeedback"><i class="fas fa-comment-dots"></i> Send feedback</a><a href="https://foodsafepro.infinityfree.io/" target="_blank" rel="noopener noreferrer"><i class="fas fa-life-ring"></i> Visit the customer helpdesk</a></span></footer>
+</div>
+
+<!-- CENTERED MAINTENANCE MODE CARD -->
+<div id="maintenance-screen" class="hidden maintenance-shell flex flex-col items-center justify-center w-full max-w-md p-6 bg-white rounded-2xl shadow-xl border border-amber-100 relative my-auto">
+  <button onclick="closeMaintenanceNotice()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl font-bold p-1 rounded-full hover:bg-gray-100 transition" title="Close">✕</button>
+  
+  <div class="w-16 h-16 bg-amber-50 rounded-full flex items-center justify-center text-amber-500 text-3xl mb-4 mt-2">
+    <i class="fas fa-tools"></i>
+  </div>
+  
+  <h2 class="text-2xl font-bold text-gray-800 mb-2 text-center">System Maintenance</h2>
+  
+  <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 my-3 text-center w-full">
+    <p class="text-xs font-semibold text-amber-800 uppercase tracking-wide mb-1">Notice</p>
+    <p class="text-sm text-gray-700">FoodSafe Pro is currently undergoing scheduled system maintenance and updates. Regular access is temporarily paused.</p>
+  </div>
+
+  <div class="flex flex-col w-full space-y-2 mt-4">
+    <button onclick="init()" class="w-full py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-lg text-sm transition"><i class="fas fa-arrow-left mr-2"></i>Back to App / Check Again</button>
+    <button onclick="bypassMaintenance()" class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg text-sm transition"><i class="fas fa-user-shield mr-2"></i>Admin Login</button>
+  </div>
+</div>
+
+<!-- CENTERED SYSTEM MESSAGE NOTIFICATION MODAL -->
+<div id="system-message-modal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-[100] p-4" onclick="if(event.target===this)closeSystemMessage()">
+  <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6 text-center relative border border-gray-100 animate-in fade-in zoom-in duration-200">
+    <button onclick="closeSystemMessage()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-lg font-bold p-1 rounded-full hover:bg-gray-100 transition">✕</button>
+    
+    <div id="system-message-icon" class="w-14 h-14 rounded-full flex items-center justify-center text-2xl mx-auto mb-3">
+      <i class="fas fa-info-circle"></i>
+    </div>
+    
+    <h3 id="system-message-title" class="text-lg font-bold text-gray-800 mb-1">Notice</h3>
+    <p id="system-message-text" class="text-sm text-gray-600 mb-5 leading-relaxed">Message text goes here.</p>
+    
+    <div class="flex space-x-2">
+      <button id="system-message-btn" onclick="closeSystemMessage()" class="w-full py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-lg text-sm transition">OK</button>
+    </div>
+  </div>
+</div>
+
+<!-- LOGIN CARD -->
+<div id="login-card" class="auth-shell hidden">
+  <button class="auth-back-btn" onclick="showLanding()"><i class="fas fa-arrow-left"></i> Back to home</button>
+  <div class="card flex flex-col items-center w-full p-8 space-y-4 transform transition duration-500 scale-100">
+    <h1 class="foodsafe-brand cursive-brand text-5xl text-center mb-1">FoodSafe Pro</h1>
+    <p class="text-xs text-gray-500 text-center mb-2 font-medium">Securing Food Safety. Empowering Smarter Decisions.</p>
+    <div id="auth-message" class="hidden w-full rounded-lg p-3 text-sm" role="status" aria-live="polite"></div>
+
+    <div id="login-form" class="w-full transition-all duration-500">
+      <div class="relative floating-label"><input type="text" id="login-username" placeholder=" " autocomplete="username"/><label for="login-username">Username or Email Address</label></div>
+      <div class="relative floating-label"><input type="password" id="login-password" placeholder=" " autocomplete="current-password"/><label for="login-password">Password</label><span id="toggle-login-pass" class="eye-btn" role="button" tabindex="0">👁️</span></div>
+      <button onclick="login()" class="w-full py-2.5 rounded text-white font-semibold login-btn mb-2">Log In</button>
+      <a class="text-sm link-btn mb-2 inline-block" onclick="showReset()">Forgot password?</a>
+      <p class="text-sm mt-2">Don't have an account? <span class="link-btn" onclick="showCreate()">Sign up</span></p>
+    </div>
+
+    <div id="create-form" class="hidden w-full transition-all duration-500">
+      <div class="relative floating-label"><input type="text" id="create-username" placeholder=" " autocomplete="username" maxlength="24"/><label for="create-username">Username (3–24 characters)</label></div>
+      <div class="relative floating-label"><input type="email" id="create-email" placeholder=" " autocomplete="email"/><label for="create-email">Email Address</label></div>
+      <div class="relative floating-label"><input type="password" id="create-password" placeholder=" " autocomplete="new-password"/><label for="create-password">Password (minimum 8 characters)</label><span id="toggle-create-pass" class="eye-btn" role="button" tabindex="0">👁️</span></div>
+      <div class="relative floating-label"><input type="password" id="confirm-password" placeholder=" " autocomplete="new-password"/><label for="confirm-password">Confirm Password</label></div>
+      <button onclick="createAccount()" class="w-full py-2.5 rounded text-white font-semibold login-btn mb-2">Create Account</button>
+      <p class="text-xs text-gray-500 mb-2">A verification code will be sent to your email. Verified accounts are auto-approved.</p>
+      <p class="text-sm mt-2 text-center">Already have an account? <span class="link-btn" onclick="showLogin()">Log In</span></p>
+    </div>
+
+    <div id="verify-form" class="hidden w-full">
+      <p class="text-sm text-gray-700 mb-3">Enter the verification code sent to your email address.</p>
+      <div class="relative floating-label"><input type="email" id="verify-email" placeholder=" " autocomplete="email"/><label for="verify-email">Email Address</label></div>
+      <div class="relative floating-label"><input type="text" id="verify-otp" placeholder=" " inputmode="numeric" autocomplete="one-time-code"/><label for="verify-otp">Email Verification Code</label></div>
+      <button onclick="verifyEmail()" class="w-full py-2.5 rounded text-white font-semibold login-btn mb-2">Verify Email</button>
+      <button onclick="resendVerification()" class="w-full py-2.5 rounded bg-gray-200 text-gray-800 mb-2">Resend Code</button>
+      <p class="text-sm text-center"><span class="link-btn" onclick="showLogin()">Back to Log In</span></p>
+    </div>
+
+    <div id="reset-form" class="hidden w-full">
+      <p class="text-sm text-gray-700 mb-3">Enter your registered email address to receive a recovery link.</p>
+      <div class="relative floating-label"><input type="email" id="reset-email" placeholder=" " autocomplete="email"/><label for="reset-email">Email Address</label></div>
+      <button onclick="sendPasswordReset()" class="w-full py-2.5 rounded text-white font-semibold login-btn mb-2">Send Recovery Email</button>
+      <p class="text-sm text-center"><span class="link-btn" onclick="showLogin()">Back to Log In</span></p>
+    </div>
+
+    <div id="new-password-form" class="hidden w-full">
+      <p class="text-sm text-gray-700 mb-3">Choose a new password for your account.</p>
+      <div class="relative floating-label"><input type="password" id="new-password" placeholder=" " autocomplete="new-password"/><label for="new-password">New Password</label></div>
+      <div class="relative floating-label"><input type="password" id="confirm-new-password" placeholder=" " autocomplete="new-password"/><label for="confirm-new-password">Confirm New Password</label></div>
+      <button onclick="updatePassword()" class="w-full py-2.5 rounded text-white font-semibold login-btn mb-2">Update Password</button>
+    </div>
+
+    <div class="w-full text-center pt-3 border-t border-gray-100 mt-2">
+      <span class="cursive-brand text-sm text-gray-700 font-semibold">Designed & Developed by Neel</span>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="app" class="dashboard-shell hidden transition-all duration-500">
+  <aside class="dashboard-sidebar" aria-label="Dashboard navigation and actions">
+    <div class="dashboard-brand">
+      <span class="dashboard-brand-mark"><i class="fas fa-shield-halved"></i></span>
+      <span><h1 class="foodsafe-brand cursive-brand">FoodSafe Pro</h1><p>SAFETY CONTROL CENTER</p></span>
+    </div>
+    <nav class="dashboard-side-nav" aria-label="Dashboard sections">
+      <span class="dashboard-side-label">WORKSPACE</span>
+      <a class="active" aria-current="page" href="#accountDetails" onclick="showDashboardView('account');return false;"><i class="fas fa-user-circle"></i> Account</a>
+      <a href="#dashboardOverview" onclick="showDashboardView('overview');return false;"><i class="fas fa-house"></i> Overview</a>
+      <a href="#dashboardRecords" onclick="showDashboardView('records');return false;"><i class="fas fa-clipboard-list"></i> Temperature records</a>
+      <a href="#dashboardTrends" onclick="showDashboardView('trends');return false;"><i class="fas fa-chart-column"></i> Safety trends</a>
+      <a href="#dashboardFoodSafetyGuide" onclick="showDashboardView('guide');return false;"><i class="fas fa-book-open"></i> Food safety guide</a>
+    </nav>
+    <div class="dashboard-side-actions">
+      <span class="dashboard-side-label">QUICK ACTIONS</span>
+      <button class="side-action-primary" onclick="openAddRecordModal()"><i class="fas fa-plus"></i> Add reading</button>
+      <button onclick="exportPDF()"><i class="fas fa-file-arrow-down"></i> Export report</button>
+      <button onclick="openChangeEmailModal()"><i class="fas fa-envelope"></i> Change email</button>
+      <button onclick="openChangePasswordModal()"><i class="fas fa-lock"></i> Change password</button>
+    </div>
+    <div id="adminToolsGroup" class="dashboard-side-admin" style="display:none;">
+      <span class="dashboard-side-label">ADMINISTRATION</span>
+      <button id="adminManageBtn" type="button" onclick="showDashboardView('staff');manageStaff()"><i class="fas fa-users"></i> Manage staff</button>
+      <button id="adminMaintenanceBtn" class="maintenance-switch-row" type="button" role="switch" aria-checked="false" aria-label="Maintenance mode, off" onclick="toggleMaintenanceMode()">
+        <span class="maintenance-control-name"><i class="fas fa-screwdriver-wrench"></i><span>Maintenance mode</span></span>
+        <span id="maintenanceSwitchState" class="maintenance-switch-state"><span class="maintenance-switch-label">OFF</span><span class="maintenance-switch-track" aria-hidden="true"><span class="maintenance-switch-thumb"><i class="fas fa-check"></i></span></span></span>
+      </button>
+      <a id="adminHelpdeskBtn" href="https://foodsafepro.infinityfree.io/admin/admin_main.php" target="_blank" rel="noopener noreferrer"><i class="fas fa-headset"></i> Admin helpdesk</a>
+      <button id="adminFeedbackNav" type="button" onclick="showDashboardView('feedback');loadWebsiteFeedback();return false;"><i class="fas fa-comments"></i> Visitor feedback</button>
+    </div>
+  </aside>
+  <div class="dashboard-main">
+  <header class="dashboard-topbar">
+    <div><span class="dashboard-topbar-kicker">FOODSAFE PRO WORKSPACE</span><h2 id="dashboard-header-title">Team overview</h2><p>Shared food safety operations and temperature monitoring.</p></div>
+    <div class="dashboard-topbar-meta"><button class="dashboard-topbar-logout" type="button" onclick="logout()"><i class="fas fa-arrow-right-from-bracket"></i> Log out</button><span class="dashboard-role-pill" id="dashboard-role-pill">Staff</span></div>
+  </header>
+  <main class="dashboard-content">
+  <section class="account-view" id="dashboardAccountView" aria-labelledby="account-panel-title">
+  <section class="account-panel" id="accountDetails" aria-labelledby="account-panel-title">
+    <div class="account-panel-heading">
+      <div><h2 id="account-panel-title">Your account</h2><p>Signed-in account details and security options.</p></div>
+      <span class="account-verified-pill"><i class="fas fa-shield-check"></i> Private account</span>
+    </div>
+    <div class="account-details-grid">
+      <div class="account-detail"><span class="account-detail-label"><i class="fas fa-user"></i> Username</span><strong class="account-detail-value" id="account-username">—</strong></div>
+      <div class="account-detail"><span class="account-detail-label"><i class="fas fa-envelope"></i> Current email</span><strong class="account-detail-value" id="account-email">Loading account…</strong></div>
+      <div class="account-detail"><span class="account-detail-label"><i class="fas fa-id-badge"></i> Account role</span><strong class="account-detail-value" id="account-role">—</strong></div>
+      <div class="account-detail"><span class="account-detail-label"><i class="fas fa-calendar-plus"></i> Account created</span><strong class="account-detail-value" id="account-created">Loading account…</strong></div>
+      <div class="account-detail"><span class="account-detail-label"><i class="fas fa-lock"></i> Password</span><strong class="account-detail-value account-password-note">For your security, passwords cannot be viewed.</strong></div>
+    </div>
+    <div class="account-panel-actions">
+      <button type="button" onclick="openChangeEmailModal()"><i class="fas fa-envelope"></i> Change email</button>
+      <button type="button" onclick="openChangePasswordModal()"><i class="fas fa-key"></i> Change password</button>
+      <button type="button" class="account-reset-button" onclick="sendAccountPasswordReset()"><i class="fas fa-paper-plane"></i> Send password reset link</button>
+    </div>
+  </section>
+  </section>
+  <div id="dashboardOverviewView" class="dashboard-overview-view hidden">
+  <section class="dashboard-overview" id="dashboardOverview">
+    <div><span class="dashboard-overview-kicker" id="dashboard-overview-kicker">TEAM SAFETY OVERVIEW</span><h2 id="dashboard-greeting">Kitchen overview</h2><p id="dashboard-subtitle">A clear view of today's food safety activity.</p></div>
+    <div class="overview-date"><i class="far fa-calendar"></i> <span id="dashboard-date"></span></div>
+  </section>
+  <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mb-5" aria-label="Today's temperature summary">
+    <article class="summary-card">
+      <div class="summary-card-top"><span>Checks today</span><span class="summary-icon"><i class="fas fa-clipboard-check"></i></span></div>
+      <div class="summary-value" id="summary-today-count">0</div><div class="summary-note">Temperature readings logged today</div>
+    </article>
+    <article class="summary-card attention">
+      <div class="summary-card-top"><span>Needs attention</span><span class="summary-icon"><i class="fas fa-triangle-exclamation"></i></span></div>
+      <div class="summary-value" id="summary-attention-count">0</div><div class="summary-note">Today's readings outside guidance</div>
+    </article>
+    <article class="summary-card safe">
+      <div class="summary-card-top"><span>Within range</span><span class="summary-icon"><i class="fas fa-shield-check"></i></span></div>
+      <div class="summary-value" id="summary-safe-count">0</div><div class="summary-note" id="summary-safe-note">Today's safe readings</div>
+    </article>
+    <article class="summary-card latest">
+      <div class="summary-card-top"><span>Latest check</span><span class="summary-icon"><i class="fas fa-clock"></i></span></div>
+      <div class="summary-value latest-value" id="summary-latest-time">—</div><div class="summary-note" id="summary-latest-note">No readings logged yet</div>
+    </article>
+  </section>
+  <section class="dashboard-pulse" aria-label="Team temperature readings needing attention">
+    <div class="dashboard-pulse-header">
+      <div><h3>Team safety pulse</h3><p>Recent readings outside the recommended ranges in your shared view.</p></div>
+      <span class="dashboard-pulse-count" id="dashboard-pulse-count">All clear</span>
+    </div>
+    <div id="dashboard-pulse-list" class="dashboard-pulse-list"><div class="dashboard-pulse-empty">Loading today’s safety activity…</div></div>
+  </section>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+    <div class="guideline-card cold"><i class="fas fa-snowflake"></i><div class="guideline-title">Cold Storage</div><div class="guideline-range">0 °C – 4 °C</div></div>
+    <div class="guideline-card cold"><i class="fas fa-ice-cream"></i><div class="guideline-title">Freezer</div><div class="guideline-range">≤ -18 °C</div></div>
+    <div class="guideline-card hot"><i class="fas fa-fire"></i><div class="guideline-title">Hot Holding</div><div class="guideline-range">≥ 60 °C</div></div>
+    <div class="guideline-card warning"><i class="fas fa-triangle-exclamation"></i><div class="guideline-title">Danger Zone</div><div class="guideline-range">4 °C – 60 °C</div></div>
+  </div>
+  </div>
+
+  <section class="dashboard-section-view hidden" id="dashboardRecordsView" aria-labelledby="records-section-title">
+  <div class="card overflow-x-auto" id="dashboardRecords">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+      <div><h3 class="font-semibold mb-1" id="records-section-title">Temperature records</h3><p class="text-xs text-gray-500 m-0">Readings visible to your account. Staff can delete their own records; admins can delete any record.</p></div>
+      <div class="records-count" id="records-count" aria-live="polite"></div>
+    </div>
+    <div class="records-toolbar">
+      <div class="records-filters">
+        <input id="record-search" type="search" placeholder="Search item or technician" aria-label="Search item or technician" oninput="applyFilters()">
+        <select id="record-area-filter" aria-label="Filter by area" onchange="applyFilters()">
+          <option value="all">All areas</option><option value="hot">Hot holding</option><option value="cold">Cold storage</option><option value="freezer">Freezer</option>
+        </select>
+        <select id="record-status-filter" aria-label="Filter by status" onchange="applyFilters()">
+          <option value="all">All statuses</option><option value="safe">Within range</option><option value="attention">Needs attention</option>
+        </select>
+        <select id="record-period-filter" aria-label="Filter by date" onchange="applyFilters()">
+          <option value="all">All time</option><option value="today">Today</option><option value="7">Last 7 days</option><option value="30">Last 30 days</option>
+        </select>
+      </div>
+    </div>
+    <div class="records-table-wrap">
+    <table class="min-w-full">
+      <thead>
+        <tr><th>Item</th><th>Area</th><th>Temp (°C / °F)</th><th>Status</th><th>Time</th><th>Technician</th><th>Actions</th></tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+    </div>
+  </div>
+  </section>
+
+  <section class="dashboard-section-view hidden" id="dashboardTrendsView" aria-labelledby="trends-section-title">
+    <div class="dashboard-overview mb-4" id="dashboardTrends">
+      <div><span class="dashboard-overview-kicker">READING INSIGHTS</span><h2 id="trends-section-title">Safety trends</h2><p>Clear visual summaries of recent temperatures and safety checks. Current record filters are applied to both charts.</p></div>
+    </div>
+    <p id="chart-unavailable" class="hidden" role="alert">Charts could not load. Check your internet connection and refresh to view safety trends.</p>
+    <div class="dashboard-charts-grid">
+      <article class="dashboard-chart-card">
+        <h3>Recent temperature checks</h3>
+        <p>Up to 12 latest readings. Bar colors indicate whether each check is within guidance.</p>
+        <div class="dashboard-chart"><canvas id="recentReadingsChart" role="img" aria-label="Horizontal bar chart of the latest temperature readings in Celsius"></canvas></div>
+      </article>
+      <article class="dashboard-chart-card">
+        <h3>7-day safety activity</h3>
+        <p>Daily count of readings within guidance and readings needing attention.</p>
+        <div class="dashboard-chart"><canvas id="weeklySafetyChart" role="img" aria-label="Stacked bar chart of safe and attention readings over the last seven days"></canvas></div>
+      </article>
+    </div>
+  </section>
+  <section class="dashboard-section-view hidden" id="dashboardFeedbackView" aria-labelledby="feedback-inbox-title">
+    <div class="card">
+      <div class="admin-feedback-toolbar">
+        <div><h3 id="feedback-inbox-title">Visitor feedback</h3><p>Publish a message to feature it on the homepage. Published messages and any sender name become public; sender emails remain private.</p></div>
+        <button class="admin-feedback-refresh" type="button" onclick="loadWebsiteFeedback()"><i class="fas fa-rotate"></i> Refresh</button>
+      </div>
+      <div id="adminFeedbackStatus" class="admin-feedback-status is-empty" role="status" aria-live="polite">Open this section to load feedback.</div>
+      <div id="adminFeedbackList" class="admin-feedback-list"></div>
+    </div>
+  </section>
+  <section class="dashboard-section-view hidden" id="dashboardStaffView" aria-labelledby="staff-management-title">
+    <div class="card">
+      <header class="staff-management-header">
+        <span class="staff-management-kicker">ADMINISTRATION</span>
+        <h3 id="staff-management-title">Manage staff</h3>
+        <p>Review staff accounts and manage access from this workspace. Approving an account allows the staff member to sign in; suspending removes that access.</p>
+        <div class="staff-management-summary" aria-live="polite">
+          <span class="staff-management-count"><strong id="staff-total-count">—</strong> staff accounts</span>
+          <span class="staff-management-count"><strong id="staff-approved-count">—</strong> approved</span>
+          <span class="staff-management-count"><strong id="staff-suspended-count">—</strong> suspended</span>
+        </div>
+      </header>
+      <div class="staff-management-toolbar">
+        <h4>Staff accounts</h4>
+        <button class="staff-management-refresh" type="button" onclick="manageStaff()"><i class="fas fa-rotate"></i> Refresh list</button>
+      </div>
+      <div id="staffManagementStatus" class="staff-management-status" role="status" aria-live="polite">Loading staff accounts…</div>
+      <div class="staff-management-table-wrap">
+        <table class="staff-management-table">
+          <thead><tr><th scope="col">Username</th><th scope="col">Access status</th><th scope="col">Action</th></tr></thead>
+          <tbody id="staffManagementList"><tr><td class="staff-management-empty" colspan="3">Loading staff accounts…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  <section class="dashboard-section-view dashboard-food-safety-view hidden" id="dashboardFoodSafetyView" aria-label="Food safety guide for staff and administrators">
+    <div id="dashboardFoodSafetyGuide"></div>
+  </section>
+  <footer class="dashboard-footer">FoodSafe Pro · <a href="https://foodsafepro.infinityfree.io/" target="_blank" rel="noopener noreferrer">Customer helpdesk</a></footer>
+  </main>
+  </div>
+</div>
+
+<template id="foodSafetyGuideTemplate">
+  <section class="food-safety-guide" aria-label="Food safety procedures and shift checklist">
+    <header class="food-safety-guide-header">
+      <span class="food-safety-guide-kicker">PRACTICAL KITCHEN PLAYBOOK</span>
+      <h2 class="food-safety-guide-title">Food safety, step by step</h2>
+      <p class="food-safety-guide-intro">A practical routine for receiving, storing, preparing, cooking, holding and recording food safely. Open each step for detailed actions, then use the shift checklist to review the essentials.</p>
+    </header>
+    <div class="food-safety-quick-grid" aria-label="Key temperature limits">
+      <article class="food-safety-quick-card"><span>Cold holding</span><strong>≤ 4 °C</strong></article>
+      <article class="food-safety-quick-card"><span>Hot holding</span><strong>≥ 60 °C</strong></article>
+      <article class="food-safety-quick-card"><span>Freezer</span><strong>≤ −18 °C</strong></article>
+      <article class="food-safety-quick-card danger"><span>Temperature danger zone</span><strong>4–60 °C</strong></article>
+    </div>
+    <div class="food-safety-guide-layout">
+      <div class="food-safety-topics">
+        <details class="food-safety-topic">
+          <summary><span class="food-safety-topic-icon"><i class="fas fa-truck-ramp-box"></i></span>1. Receive and inspect deliveries</summary>
+          <div class="food-safety-topic-body"><ul>
+            <li>Buy from approved, traceable suppliers and schedule deliveries so food can be checked and stored promptly.</li>
+            <li>Check delivery condition, package seals, use-by dates and signs of damage, pests, leaks or thawing. Reject food that is unsafe, contaminated, improperly labelled or outside your receiving specification.</li>
+            <li>Measure representative chilled and hot items with a clean, sanitized probe; verify against your approved receiving limits (commonly cold food at or below 4 °C and hot food at or above 60 °C).</li>
+            <li>Record supplier, delivery time, product, temperature, condition and any rejected items. Move accepted food into appropriate storage without delay.</li>
+          </ul></div>
+        </details>
+        <details class="food-safety-topic">
+          <summary><span class="food-safety-topic-icon"><i class="fas fa-temperature-low"></i></span>2. Store food and control temperatures</summary>
+          <div class="food-safety-topic-body"><ul>
+            <li>Keep refrigerators at 4 °C or colder and freezers at −18 °C or colder. Use an appliance thermometer and check/log units at the frequency in your food-safety plan.</li>
+            <li>Store raw meat, poultry, seafood and eggs in covered, leak-proof containers below ready-to-eat food so drips cannot contaminate it. Keep chemicals away from food and food-contact equipment.</li>
+            <li>Cover, label and date prepared food. Use first-in, first-out stock rotation and follow product dates and your site’s discard limits.</li>
+            <li>Do not overload fridges; allow cold air to circulate. If a unit is out of range, protect the food, check product temperatures, record the issue and follow your corrective-action plan before serving.</li>
+          </ul></div>
+        </details>
+        <details class="food-safety-topic">
+          <summary><span class="food-safety-topic-icon"><i class="fas fa-hands-bubbles"></i></span>3. Prepare safely and prevent cross-contamination</summary>
+          <div class="food-safety-topic-body"><ul>
+            <li>Wash hands with soap and warm running water for at least 20 seconds before food preparation and after using the washroom, handling raw food, waste, cleaning chemicals, phones or other contamination risks. Dry with a single-use towel.</li>
+            <li>Keep raw and ready-to-eat foods separate. Use designated boards and utensils; clean and sanitize equipment before switching tasks. Never reuse a plate or utensil that touched raw food unless it has been washed and sanitized.</li>
+            <li>Rinse produce under clean running water and remove damaged areas. Do not wash raw poultry; splashing can spread contamination.</li>
+            <li>Thaw food in a refrigerator, under cold water or in a microwave—not on the counter. Cook microwave-thawed food promptly. Keep food protected during preparation and minimize time outside temperature control.</li>
+            <li>For allergens, check ingredient labels every time, prevent contact with other foods, use cleaned and sanitized equipment, and communicate ingredient/allergen information accurately. Never promise an item is allergen-free unless your controls can support that claim.</li>
+          </ul></div>
+        </details>
+        <details class="food-safety-topic">
+          <summary><span class="food-safety-topic-icon"><i class="fas fa-temperature-full"></i></span>4. Cook and verify with a thermometer</summary>
+          <div class="food-safety-topic-body"><ul>
+            <li>Use a calibrated digital probe thermometer; clean and sanitize it before and after each measurement. Insert into the thickest part, away from bone. For burgers, insert through the side into the centre.</li>
+            <li><strong>Ground beef, pork and other ground meats:</strong> 71 °C. <strong>Ground poultry and poultry pieces:</strong> 74 °C. <strong>Whole poultry:</strong> 82 °C.</li>
+            <li><strong>Pork pieces and whole cuts:</strong> 71 °C. <strong>Beef whole cuts:</strong> follow the Health Canada chart for the selected doneness (63 °C medium-rare, 71 °C medium, 77 °C well done).</li>
+            <li><strong>Fish:</strong> 70 °C. <strong>Shellfish, egg dishes, hot dogs and leftovers:</strong> 74 °C. Check the official chart for additional foods and measurement instructions.</li>
+            <li>Check more than one location when food is uneven or batch-cooked. Colour, texture and cooking time alone cannot confirm a safe internal temperature.</li>
+          </ul></div>
+        </details>
+        <details class="food-safety-topic">
+          <summary><span class="food-safety-topic-icon"><i class="fas fa-fire-burner"></i></span>5. Hold, cool and reheat food</summary>
+          <div class="food-safety-topic-body"><ul>
+            <li>Keep cold food at 4 °C or colder and hot food at 60 °C or hotter. The 4–60 °C range is the temperature danger zone where harmful bacteria can grow quickly.</li>
+            <li>Keep a record of holding temperatures. If food has been in the danger zone or time/temperature history is unknown, isolate it and follow the site corrective-action procedure; do not guess that it is safe.</li>
+            <li>Refrigerate or freeze leftovers within two hours. Divide large batches into shallow containers and use an approved rapid-cooling method; do not leave a deep pot on the counter to cool.</li>
+            <li>Follow your local food code and written food-safety plan for required cooling stages and time limits. Requirements can vary by jurisdiction; when in doubt, contact your local health authority.</li>
+            <li>Reheat leftovers to at least 74 °C. Reheat rapidly, verify with a sanitized probe, and avoid repeatedly cooling and reheating the same batch.</li>
+          </ul></div>
+        </details>
+        <details class="food-safety-topic">
+          <summary><span class="food-safety-topic-icon"><i class="fas fa-spray-can-sparkles"></i></span>6. Clean, sanitize and keep the kitchen controlled</summary>
+          <div class="food-safety-topic-body"><ol>
+            <li><strong>Remove food and soil</strong> from the surface or equipment.</li>
+            <li><strong>Wash</strong> with the appropriate detergent, then rinse with clean water.</li>
+            <li><strong>Sanitize</strong> using an approved food-contact sanitizer at the label dilution and contact time. Air-dry where the product instructions require it.</li>
+          </ol><ul>
+            <li>Follow chemical labels and workplace procedures; never mix cleaning products. Store and label chemicals away from food.</li>
+            <li>Clean and sanitize food-contact surfaces between raw and ready-to-eat tasks, after spills, and at the scheduled frequency. Replace or launder cloths as required.</li>
+            <li>Keep handwashing sinks accessible, waste covered and pest-control issues reported. Staff who are ill with symptoms that could contaminate food must report them and follow workplace and local health rules before handling food.</li>
+          </ul></div>
+        </details>
+        <details class="food-safety-topic">
+          <summary><span class="food-safety-topic-icon"><i class="fas fa-clipboard-check"></i></span>7. Keep records and take corrective action</summary>
+          <div class="food-safety-topic-body"><ul>
+            <li>Complete the site’s receiving, refrigerator/freezer, cooking, cooling, reheating, hot-holding, cleaning and sanitizer records at the required times.</li>
+            <li>Record the actual reading, time, equipment or food item, initials and action taken. Never fill in a reading from memory or change a record to hide a missed limit.</li>
+            <li>When a limit is missed: protect and identify the affected food, tell the supervisor, verify the thermometer/equipment, assess time and temperature history, and follow the written discard, rapid-cool, reheat or repair procedure authorized by your food-safety plan.</li>
+            <li>Escalate uncertain or potentially unsafe food; discard it when safety cannot be established. Document the decision and prevent recurrence.</li>
+          </ul></div>
+        </details>
+      </div>
+      <aside class="food-safety-checklist" aria-label="Interactive shift-start food safety checklist">
+        <h3><i class="fas fa-list-check"></i> Shift safety check</h3>
+        <p>Use this quick checklist at the start of a shift. It is a visual reminder and is not saved as an official monitoring record.</p>
+        <div class="food-safety-progress" role="progressbar" aria-label="Shift checklist completion" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0"><span></span></div>
+        <span class="food-safety-progress-label">0 of 5 complete</span>
+        <div class="food-safety-checks">
+          <label class="food-safety-check"><input type="checkbox"><span>Fridge/freezer temperatures are checked and recorded.</span></label>
+          <label class="food-safety-check"><input type="checkbox"><span>Food is covered, labelled and stored to prevent raw-to-ready contamination.</span></label>
+          <label class="food-safety-check"><input type="checkbox"><span>Handwashing station, soap and single-use towels are ready.</span></label>
+          <label class="food-safety-check"><input type="checkbox"><span>Probe thermometer is available, working and sanitized between uses.</span></label>
+          <label class="food-safety-check"><input type="checkbox"><span>Cleaning/sanitizing supplies and the site log are ready for use.</span></label>
+        </div>
+        <p class="food-safety-checklist-note">If a check fails, tell the supervisor and follow the written corrective-action procedure before food is served.</p>
+      </aside>
+    </div>
+    <p class="food-safety-sources">Guidance: <a href="https://www.canada.ca/en/health-canada/services/general-food-safety-tips/food-safety-you.html" target="_blank" rel="noopener noreferrer">Health Canada: Food safety and you</a> · <a href="https://www.canada.ca/en/health-canada/services/general-food-safety-tips/safe-internal-cooking-temperatures.html" target="_blank" rel="noopener noreferrer">Health Canada: Safe internal cooking temperatures</a>. This educational guide is not a substitute for your approved food-safety plan, local regulations or direction from your health authority.</p>
+  </section>
+</template>
+
+<!-- MODAL -->
+<div id="modal" class="hidden">
+  <div class="modal-content" id="modalInner"></div>
+</div>
+
+<!-- Add Reading Template -->
+<div id="addReadingForm" class="hidden">
+  <h2 class="text-xl font-bold mb-4">Add Temperature Reading</h2>
+  <div class="space-y-2">
+    <div class="relative floating-label">
+      <input type="text" id="reading-item" placeholder=" " />
+      <label for="reading-item">Item Name</label>
+    </div>
+    <div class="relative floating-label">
+      <select id="reading-area" class="border border-gray-300 rounded w-full py-2 px-3 mt-1 bg-white">
+        <option value="" disabled selected>Select Area</option>
+        <option value="hot">Hot</option>
+        <option value="cold">Cold</option>
+        <option value="freezer">Freezer</option>
+      </select>
+      <label for="reading-area">Area</label>
+    </div>
+    <div class="relative floating-label">
+      <input type="number" step="0.1" id="reading-temp" placeholder=" " />
+      <label for="reading-temp">Temperature (°C)</label>
+    </div>
+  </div>
+  <div class="mt-4 flex justify-end space-x-2">
+    <button onclick="closeModal()" class="px-3 py-1 bg-gray-300 rounded">Cancel</button>
+    <button onclick="addReading()" class="px-3 py-1 bg-blue-600 text-white rounded">Add</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+// --- SUPABASE CONFIGURATION ---
+const SUPABASE_URL = "https://uuurznggzieuypzozcwr.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_-KL41isASOdSoO6ItFjeKg_aW7OgfZC";
+const configured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("YOUR_") && SUPABASE_ANON_KEY.length > 20 && !SUPABASE_ANON_KEY.includes("YOUR_");
+const foodSafeProClient = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+const foodSafeProPublicClient = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {auth:{autoRefreshToken:false,persistSession:false,detectSessionInUrl:false}}) : null;
+
+let currentUser = null, currentRole = null, currentProfile = null, currentAuthUser = null, currentDashboardView = 'account', data = [], filteredData = [], charts = {};
+const $ = id => document.getElementById(id);
+let pendingSignupEmail = '';
+
+function showMessage(message, type='info') { const box=$('auth-message'); if(!box)return; box.textContent=message; box.className='w-full rounded-lg p-3 text-sm '+type; }
+function hideMessage(){ const box=$('auth-message'); if(box){box.textContent='';box.className='hidden w-full rounded-lg p-3 text-sm';} }
+function hideAuthForms(){['login-form','create-form','verify-form','reset-form','new-password-form'].forEach(id=>$(id)?.classList.add('hidden'));}
+function showLanding(){ $('landing-page').classList.remove('hidden'); $('login-card').classList.add('hidden'); $('maintenance-screen').classList.add('hidden'); }
+function returnToLanding(event){event.preventDefault();showLanding();return false;}
+function showLogin(){ $('landing-page').classList.add('hidden'); $('login-card').classList.remove('hidden'); hideAuthForms();$('login-form').classList.remove('hidden');hideMessage();}
+function showCreate(){ $('landing-page').classList.add('hidden'); $('login-card').classList.remove('hidden'); hideAuthForms();$('create-form').classList.remove('hidden');hideMessage();}
+function showReset(){hideAuthForms();$('reset-form').classList.remove('hidden');hideMessage();}
+function showVerify(email=''){hideAuthForms();$('verify-form').classList.remove('hidden');$('verify-email').value=email;hideMessage();}
+function togglePassword(id, btnId){const p=$(id),b=$(btnId);if(!p||!b)return;if(p.type==='password'){p.type='text';b.textContent='🙈';}else{p.type='password';b.textContent='👁️';}}
+$('toggle-login-pass').onclick=()=>togglePassword('login-password','toggle-login-pass');
+$('toggle-create-pass').onclick=()=>togglePassword('create-password','toggle-create-pass');
+function configCheck(){if(!configured){showMessage('Connect FoodSafe Pro to Supabase by checking the project URL and publishable key in index.html.','error');return false;}if(!foodSafeProClient){showMessage('The Supabase library did not load. Check your internet connection and refresh.','error');return false;}return true;}
+function updateDashboardRoleUI(){
+  const isAdmin=currentRole==='admin';
+  $('adminToolsGroup').style.display=isAdmin?'flex':'none';
+  $('dashboard-role-pill').textContent=isAdmin?'Administrator':'Staff';
+  $('account-username').textContent=currentUser||'—';
+  $('account-role').textContent=isAdmin?'Administrator':'Staff';
+  updateAccountDetails(currentAuthUser);
+  showDashboardView('account');
+  if(isAdmin)refreshMaintenanceControl();
+}
+
+function showDashboardView(view){
+  if(['feedback','staff'].includes(view)&&currentRole!=='admin')view='account';
+  currentDashboardView=['overview','records','trends','guide','feedback','staff'].includes(view)?view:'account';
+  const views={
+    account:'dashboardAccountView',
+    overview:'dashboardOverviewView',
+    records:'dashboardRecordsView',
+    trends:'dashboardTrendsView',
+    guide:'dashboardFoodSafetyView',
+    feedback:'dashboardFeedbackView',
+    staff:'dashboardStaffView'
+  };
+  const navTargets={
+    account:'#accountDetails',
+    overview:'#dashboardOverview',
+    records:'#dashboardRecords',
+    trends:'#dashboardTrends',
+    guide:'#dashboardFoodSafetyGuide',
+    feedback:'#dashboardFeedback',
+    staff:'#dashboardStaffView'
+  };
+  Object.entries(views).forEach(([name,id])=>$(id).classList.toggle('hidden',name!==currentDashboardView));
+  const titles={
+    account:'Account settings',
+    overview:currentRole==='admin'?'Admin control center':'Staff workspace',
+    records:'Temperature records',
+    trends:'Safety trends',
+    guide:'Food safety guide',
+    feedback:'Visitor feedback',
+    staff:'Manage staff'
+  };
+  $('dashboard-header-title').textContent=titles[currentDashboardView];
+  document.querySelectorAll('.dashboard-side-nav a[href^="#"]').forEach(link=>{
+    const active=link.getAttribute('href')===navTargets[currentDashboardView];
+    link.classList.toggle('active',active);
+    if(active)link.setAttribute('aria-current','page');
+    else link.removeAttribute('aria-current');
+  });
+  const feedbackNav=$('adminFeedbackNav');
+  if(feedbackNav){
+    const active=currentDashboardView==='feedback'&&currentRole==='admin';
+    feedbackNav.classList.toggle('active',active);
+    if(active)feedbackNav.setAttribute('aria-current','page');
+    else feedbackNav.removeAttribute('aria-current');
+  }
+  const staffNav=$('adminManageBtn');
+  if(staffNav){
+    const active=currentDashboardView==='staff'&&currentRole==='admin';
+    staffNav.classList.toggle('active',active);
+    if(active)staffNav.setAttribute('aria-current','page');
+    else staffNav.removeAttribute('aria-current');
+  }
+  if(currentDashboardView==='trends'){
+    requestAnimationFrame(()=>Object.values(charts).forEach(instance=>instance.resize()));
+  }
+  document.querySelector('.dashboard-main')?.scrollTo({top:0,behavior:'smooth'});
+}
+
+function mountFoodSafetyGuides(){
+  const template=$('foodSafetyGuideTemplate');
+  if(!template)return;
+  ['homeFoodSafetyGuide','dashboardFoodSafetyGuide'].forEach(targetId=>{
+    const target=$(targetId);
+    if(target)target.append(template.content.cloneNode(true));
+  });
+}
+
+function updateFoodSafetyChecklist(input){
+  const checklist=input.closest('.food-safety-checklist');
+  if(!checklist)return;
+  const checks=[...checklist.querySelectorAll('.food-safety-check input')];
+  const completed=checks.filter(check=>check.checked).length;
+  const progress=checklist.querySelector('.food-safety-progress');
+  progress.setAttribute('aria-valuenow',String(completed));
+  progress.querySelector('span').style.width=`${completed/checks.length*100}%`;
+  checklist.querySelector('.food-safety-progress-label').textContent=`${completed} of ${checks.length} complete`;
+}
+
+document.addEventListener('change',event=>{
+  if(event.target.matches('.food-safety-check input'))updateFoodSafetyChecklist(event.target);
+});
+
+function setFeedbackFormStatus(message,isError=false){
+  const status=$('feedback-form-status');
+  status.textContent=message;
+  status.classList.toggle('error',isError);
+}
+
+async function loadPublishedWebsiteFeedback(){
+  const section=$('publishedFeedbackSection');
+  const list=$('publishedFeedbackList');
+  if(!configured||!foodSafeProPublicClient)return;
+  try{
+    const {data:feedback,error}=await foodSafeProPublicClient
+      .from('website_feedback')
+      .select('name,message,created_at')
+      .order('created_at',{ascending:false})
+      .limit(6);
+    if(error){
+      console.error('Could not load published website feedback:',error);
+      return;
+    }
+    if(!feedback?.length)return;
+    list.replaceChildren();
+    feedback.forEach(entry=>{
+      const card=document.createElement('article');
+      card.className='published-feedback-card';
+      const mark=document.createElement('span');
+      mark.className='published-feedback-mark';
+      mark.setAttribute('aria-hidden','true');
+      mark.textContent='“';
+      const message=document.createElement('blockquote');
+      message.className='published-feedback-quote';
+      message.textContent=entry.message;
+      const author=document.createElement('div');
+      author.className='published-feedback-author';
+      author.textContent=entry.name||'FoodSafe Pro visitor';
+      card.append(mark,message,author);
+      list.appendChild(card);
+    });
+    section.hidden=false;
+  }catch(error){
+    console.error('Could not load published website feedback:',error);
+  }
+}
+
+async function submitWebsiteFeedback(event){
+  event.preventDefault();
+  const form=$('publicFeedbackForm');
+  const submitButton=form.querySelector('button[type="submit"]');
+  const name=$('feedback-name').value.trim();
+  const email=$('feedback-email').value.trim();
+  const message=$('feedback-message').value.trim();
+  if($('feedback-website').value){
+    setFeedbackFormStatus('Unable to submit this message. Please try again.',true);
+    return;
+  }
+  if(message.length<10||message.length>3000){
+    setFeedbackFormStatus('Feedback must be between 10 and 3,000 characters.',true);
+    $('feedback-message').focus();
+    return;
+  }
+  if(email&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    setFeedbackFormStatus('Enter a valid email address or leave the field blank.',true);
+    $('feedback-email').focus();
+    return;
+  }
+  if(!configured||!foodSafeProClient){
+    setFeedbackFormStatus('Feedback service is unavailable. Please try again later.',true);
+    return;
+  }
+  submitButton.disabled=true;
+  submitButton.innerHTML='<i class="fas fa-spinner fa-spin" aria-hidden="true"></i> Sending…';
+  setFeedbackFormStatus('');
+  try{
+    const {error}=await foodSafeProClient.from('website_feedback').insert({
+      name:name||null,
+      email:email||null,
+      message
+    });
+    if(error){
+      console.error('Could not submit website feedback:',error);
+      setFeedbackFormStatus(
+        error.code==='42P01'||error.code==='PGRST205'
+          ?'The feedback inbox is not set up yet. Please contact the site administrator.'
+          :'We could not send your feedback. Please try again later.',
+        true
+      );
+      return;
+    }
+    form.reset();
+    setFeedbackFormStatus('Thank you. Your feedback was sent to the administrator.');
+  }catch(error){
+    console.error('Could not submit website feedback:',error);
+    setFeedbackFormStatus('We could not send your feedback. Please try again later.',true);
+  }finally{
+    submitButton.disabled=false;
+    submitButton.innerHTML='<i class="fas fa-paper-plane"></i> Send feedback';
+  }
+}
+
+async function loadWebsiteFeedback(){
+  if(currentRole!=='admin'){
+    showDashboardView('account');
+    return;
+  }
+  const status=$('adminFeedbackStatus');
+  const list=$('adminFeedbackList');
+  status.classList.remove('hidden');
+  status.classList.remove('error');
+  status.classList.add('is-empty');
+  status.textContent='Loading feedback…';
+  list.replaceChildren();
+  try{
+    const {data:feedback,error}=await foodSafeProClient
+      .from('website_feedback')
+      .select('id,name,email,message,created_at,is_published')
+      .order('created_at',{ascending:false})
+      .limit(100);
+    if(error){
+      console.error('Could not load website feedback:',error);
+      status.classList.remove('is-empty');
+      status.classList.add('error');
+      status.textContent=error.code==='42P01'||error.code==='PGRST205'
+        ?'The feedback table is not set up yet. Review and run supabase/website-feedback.sql in the Supabase SQL Editor.'
+        :'Could not load feedback. Check the feedback table and administrator read policy.';
+      return;
+    }
+    if(!feedback?.length){
+      status.textContent='No visitor feedback has been submitted yet.';
+      return;
+    }
+    feedback.forEach(entry=>{
+      const card=document.createElement('article');
+      card.className='admin-feedback-card';
+      const header=document.createElement('div');
+      header.className='admin-feedback-card-header';
+      const sender=document.createElement('div');
+      sender.className='admin-feedback-sender';
+      const name=document.createElement('strong');
+      name.textContent=entry.name||'Anonymous visitor';
+      sender.appendChild(name);
+      if(entry.email){
+        const email=document.createElement('a');
+        email.href=`mailto:${entry.email}`;
+        email.textContent=entry.email;
+        sender.appendChild(email);
+      }else{
+        const noEmail=document.createElement('span');
+        noEmail.textContent='No reply email provided';
+        sender.appendChild(noEmail);
+      }
+      const date=document.createElement('time');
+      date.className='admin-feedback-date';
+      const submittedAt=new Date(entry.created_at);
+      date.dateTime=Number.isNaN(submittedAt.getTime())?'':submittedAt.toISOString();
+      date.textContent=Number.isNaN(submittedAt.getTime())?'Date unavailable':submittedAt.toLocaleString();
+      header.append(sender,date);
+      const body=document.createElement('p');
+      body.className='admin-feedback-message';
+      body.textContent=entry.message;
+      const actions=document.createElement('div');
+      actions.className='admin-feedback-card-actions';
+      const state=document.createElement('span');
+      state.className=`admin-feedback-state${entry.is_published?' published':''}`;
+      state.textContent=entry.is_published?'Published on homepage':'Not published';
+      const publishButton=document.createElement('button');
+      publishButton.type='button';
+      publishButton.className='admin-feedback-action';
+      publishButton.innerHTML=entry.is_published
+        ?'<i class="fas fa-eye-slash" aria-hidden="true"></i> Unpublish'
+        :'<i class="fas fa-globe" aria-hidden="true"></i> Publish';
+      publishButton.addEventListener('click',()=>setWebsiteFeedbackPublished(entry.id,!entry.is_published,publishButton));
+      const deleteButton=document.createElement('button');
+      deleteButton.type='button';
+      deleteButton.className='admin-feedback-action delete';
+      deleteButton.innerHTML='<i class="fas fa-trash" aria-hidden="true"></i> Delete';
+      deleteButton.addEventListener('click',()=>deleteWebsiteFeedback(entry.id,deleteButton));
+      actions.append(state,publishButton,deleteButton);
+      card.append(header,body,actions);
+      list.appendChild(card);
+    });
+    status.textContent=`Showing the ${feedback.length} most recent message${feedback.length===1?'':'s'}.`;
+    status.classList.remove('is-empty');
+  }catch(error){
+    console.error('Could not load website feedback:',error);
+    status.classList.remove('is-empty');
+    status.classList.add('error');
+    status.textContent='Could not load feedback. Please refresh and try again.';
+  }
+}
+
+async function setWebsiteFeedbackPublished(id,isPublished,button){
+  if(currentRole!=='admin'){
+    showDashboardView('account');
+    return;
+  }
+  const action=isPublished?'publish this message on the public homepage':'remove this message from the public homepage';
+  if(!confirm(`Are you sure you want to ${action}?${isPublished?' The message and any name provided will be public; the sender email will remain private.':''}`))return;
+  button.disabled=true;
+  try{
+    const {data:updatedRows,error}=await foodSafeProClient
+      .from('website_feedback')
+      .update({is_published:isPublished})
+      .eq('id',id)
+      .select('id');
+    if(error)throw error;
+    if(!updatedRows?.length)throw new Error('No feedback row was updated. Check administrator permissions and try again.');
+    await loadWebsiteFeedback();
+    await loadPublishedWebsiteFeedback();
+  }catch(error){
+    console.error('Could not update website feedback publication status:',error);
+    const status=$('adminFeedbackStatus');
+    status.classList.remove('is-empty');
+    status.classList.add('error');
+    status.textContent='Could not update this message. Check the administrator update policy and try again.';
+  }finally{
+    button.disabled=false;
+  }
+}
+
+async function deleteWebsiteFeedback(id,button){
+  if(currentRole!=='admin'){
+    showDashboardView('account');
+    return;
+  }
+  if(!confirm('Permanently delete this visitor feedback? This cannot be undone.'))return;
+  button.disabled=true;
+  try{
+    const {data:deletedRows,error}=await foodSafeProClient
+      .from('website_feedback')
+      .delete()
+      .eq('id',id)
+      .select('id');
+    if(error)throw error;
+    if(!deletedRows?.length)throw new Error('No feedback row was deleted. Check administrator permissions and try again.');
+    await loadWebsiteFeedback();
+    await loadPublishedWebsiteFeedback();
+  }catch(error){
+    console.error('Could not delete website feedback:',error);
+    const status=$('adminFeedbackStatus');
+    status.classList.remove('is-empty');
+    status.classList.add('error');
+    status.textContent='Could not delete this message. Check the administrator delete policy and try again.';
+  }finally{
+    button.disabled=false;
+  }
+}
+
+function updateAccountDetails(user){
+  $('account-email').textContent=user?.email||'Email unavailable';
+  const createdAt=user?.created_at?new Date(user.created_at):null;
+  $('account-created').textContent=createdAt&&!Number.isNaN(createdAt.getTime())
+    ?createdAt.toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'})
+    :'Creation date unavailable';
+}
+
+function setMaintenanceControl(isEnabled){
+  const button=$('adminMaintenanceBtn');
+  const state=$('maintenanceSwitchState');
+  if(!button||!state)return;
+  button.setAttribute('aria-checked',String(isEnabled));
+  button.setAttribute('aria-label',`Maintenance mode, ${isEnabled?'on':'off'}`);
+  state.innerHTML=`<span class="maintenance-switch-label">${isEnabled?'ON':'OFF'}</span><span class="maintenance-switch-track" aria-hidden="true"><span class="maintenance-switch-thumb"><i class="fas ${isEnabled?'fa-triangle-exclamation':'fa-check'}"></i></span></span>`;
+}
+
+async function refreshMaintenanceControl(){
+  const button=$('adminMaintenanceBtn');
+  if(!button||currentRole!=='admin')return;
+  button.disabled=true;
+  try{
+    const isEnabled=await checkMaintenanceStatus();
+    setMaintenanceControl(isEnabled);
+  }finally{
+    button.disabled=false;
+  }
+}
+
+function toggleSupportAssistant(forceOpen){
+  const panel=$('support-panel'),launcher=$('support-launcher');
+  const isOpen=forceOpen===undefined?panel.classList.contains('hidden'):forceOpen;
+  panel.classList.toggle('hidden',!isOpen);
+  launcher.setAttribute('aria-expanded',String(isOpen));
+  if(isOpen)setTimeout(()=>$('support-question').focus(),0);
+}
+
+function addSupportMessage(text,sender='assistant',link=null){
+  const message=document.createElement('div');
+  message.className=`support-message${sender==='user'?' user':''}`;
+  message.textContent=text;
+  if(link){
+    const anchor=document.createElement('a');
+    anchor.href='https://foodsafepro.infinityfree.io/';
+    anchor.target='_blank';
+    anchor.rel='noopener noreferrer';
+    anchor.textContent=' Open the customer helpdesk';
+    message.appendChild(document.createElement('br'));
+    message.appendChild(anchor);
+  }
+  $('support-messages').appendChild(message);
+  message.scrollIntoView({block:'end'});
+}
+
+function getSupportAnswer(question){
+  const query=question.toLowerCase();
+  if(/temperature|temp|cold|freezer|freeze|hot hold|danger zone|safe range/.test(query)){
+    return 'FoodSafe Pro quick-reference ranges: cold storage 0–4 °C, freezer ≤ −18 °C, and hot holding ≥ 60 °C. The danger zone shown in the app is 4–60 °C. Follow your local food-safety requirements for specific handling decisions.';
+  }
+  if(/password|forgot|reset|recover|locked out/.test(query)){
+    return 'On the log-in screen, choose the password recovery option, enter your account email, and follow the link sent to your inbox. Check your spam folder if it does not arrive.';
+  }
+  if(/sign in|log ?in|login|username|email/.test(query)){
+    return 'Use the Log in button at the top of the homepage. You can sign in with your username or email address and your password. If you cannot access your account, use password recovery or contact the helpdesk.';
+  }
+  if(/account|register|sign ?up|create|verification|verify/.test(query)){
+    return 'Choose Create an account on the homepage and follow the registration steps. Check your email for the verification code, including your spam folder, then enter it in the verification form.';
+  }
+  if(/reading|record|check|dashboard|add/.test(query)){
+    return 'Sign in to your FoodSafe Pro account and use Add reading on the dashboard to record an item, its storage area, and its temperature. Your account permissions determine which records you can manage.';
+  }
+  if(/help|support|contact|staff|admin|person/.test(query)){
+    return 'For customer support, open the FoodSafe Pro customer helpdesk. A support representative can help with account or website issues.';
+  }
+  return 'I can help with temperature ranges, signing in, password recovery, account verification, or recording a reading. You can also contact the customer helpdesk.';
+}
+
+function askSupportQuestion(question){
+  const cleanQuestion=question.trim();
+  if(!cleanQuestion)return;
+  addSupportMessage(cleanQuestion,'user');
+  const needsHelpdeskLink=/contact|support|helpdesk|representative/.test(cleanQuestion.toLowerCase());
+  addSupportMessage(getSupportAnswer(cleanQuestion),'assistant',needsHelpdeskLink);
+}
+
+function submitSupportQuestion(event){
+  event.preventDefault();
+  const input=$('support-question');
+  const question=input.value.trim();
+  if(!question)return;
+  input.value='';
+  askSupportQuestion(question);
+}
+
+// --- GLOBALLY SYNCHRONIZED MAINTENANCE MODE CHECK (SUPABASE) ---
+async function checkMaintenanceStatus() {
+  if (!foodSafeProClient) return false;
+  const { data, error } = await foodSafeProClient
+    .from('system_settings')
+    .select('value')
+    .eq('key', 'maintenance_mode')
+    .maybeSingle();
+    
+  if (error || !data) return false;
+  return data.value === 'true';
+}
+
+async function toggleMaintenanceMode() {
+  if (currentRole !== 'admin') return;
+  const button=$('adminMaintenanceBtn');
+  button.disabled=true;
+  let newValue;
+  try{
+    const isMaintenance = await checkMaintenanceStatus();
+    newValue = !isMaintenance;
+    const { error } = await foodSafeProClient
+      .from('system_settings')
+      .update({ value: String(newValue) })
+      .eq('key', 'maintenance_mode');
+    if (error) {
+      showSystemMessage('Error', 'Could not update maintenance mode: ' + error.message, 'error');
+      return;
+    }
+    setMaintenanceControl(newValue);
+  }catch(error){
+    showSystemMessage('Error', 'Could not update maintenance mode: ' + (error.message||'Please try again.'), 'error');
+    return;
+  }finally{
+    button.disabled=false;
+  }
+  
+  if (newValue) {
+    showSystemMessage('Maintenance Mode Enabled', 'Maintenance mode is now ON. New staff sign-ins and sessions checked by the app will be blocked until it is turned off.', 'amber');
+  } else {
+    showSystemMessage('Maintenance Mode Disabled', 'Maintenance mode is now OFF. Staff can sign in and use the platform normally.', 'green');
+  }
+}
+
+function showSystemMessage(title, text, type, btnText = 'OK') {
+  $('system-message-title').textContent = title;
+  $('system-message-text').textContent = text;
+  const btn = $('system-message-btn') || $('system-message-modal')?.querySelector('button:last-of-type');
+  if (btn) btn.textContent = btnText;
+  const iconBox = $('system-message-icon');
+  if (type === 'green' || type === 'success') {
+    iconBox.className = 'w-14 h-14 rounded-full flex items-center justify-center text-2xl mx-auto mb-3 bg-green-50 text-green-600';
+    iconBox.innerHTML = '<i class="fas fa-check-circle"></i>';
+  } else if (type === 'red' || type === 'error') {
+    iconBox.className = 'w-14 h-14 rounded-full flex items-center justify-center text-2xl mx-auto mb-3 bg-red-50 text-red-600';
+    iconBox.innerHTML = '<i class="fas fa-exclamation-circle"></i>';
+  } else {
+    iconBox.className = 'w-14 h-14 rounded-full flex items-center justify-center text-2xl mx-auto mb-3 bg-amber-50 text-amber-500';
+    iconBox.innerHTML = '<i class="fas fa-tools"></i>';
+  }
+  $('system-message-modal').classList.remove('hidden');
+}
+
+function closeSystemMessage() {
+  $('system-message-modal').classList.add('hidden');
+}
+
+function bypassMaintenance() {
+  $('maintenance-screen').classList.add('hidden');
+  showLogin();
+}
+
+function closeMaintenanceNotice() {
+  $('maintenance-screen').classList.add('hidden');
+  showLanding();
+}
+
+async function showAuth(){ 
+  const inMaintenance = await checkMaintenanceStatus();
+  if (inMaintenance) {
+    $('app').classList.add('hidden');
+    $('login-card').classList.add('hidden');
+    $('landing-page').classList.add('hidden');
+    $('maintenance-screen').classList.remove('hidden');
+    return;
+  }
+  $('maintenance-screen').classList.add('hidden');
+  $('app').classList.add('hidden'); 
+  $('login-card').classList.add('hidden');
+  $('landing-page').classList.remove('hidden');
+  hideAuthForms();
+  $('login-form').classList.remove('hidden');
+  hideMessage();
+}
+
+async function createAccount(){
+  if(!configCheck())return;
+  const username=$('create-username').value.trim().toLowerCase();
+  const email=$('create-email').value.trim().toLowerCase();
+  const password=$('create-password').value; const confirm=$('confirm-password').value;
+  if(!/^[a-z0-9._-]{3,24}$/.test(username)){showMessage('Username must be 3–24 characters and use only letters, numbers, dots, underscores, or hyphens.','error');return;}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showMessage('Enter a valid email address.','error');return;}
+  if(password.length<8){showMessage('Password must be at least 8 characters.','error');return;}
+  if(password!==confirm){showMessage('Passwords do not match.','error');return;}
+  try{
+    const {data:result,error}=await foodSafeProClient.auth.signUp({email,password,options:{data:{username},emailRedirectTo:window.location.origin+window.location.pathname}});
+    if(error){showMessage(error.message,'error');return;}
+    if(!result.user){showMessage('Signup did not return a user. Please try again.','error');return;}
+    pendingSignupEmail=email; $('verify-email').value=email; showVerify(email);
+    showMessage('Account created. Check your email for the verification code, then enter it below.','success');
+  }catch(error){console.error(error);showMessage(error.message||'Signup failed. Please try again.','error');}
+}
+
+async function verifyEmail(){
+  if(!configCheck())return;
+  const email=$('verify-email').value.trim().toLowerCase(); const token=$('verify-otp').value.trim();
+  if(!email||!token){showMessage('Enter your email address and verification code.','error');return;}
+  try{
+    const {data:result,error}=await foodSafeProClient.auth.verifyOtp({email,token,type:'signup'});
+    if(error){showMessage(error.message,'error');return;}
+    if (result.user) {
+      await foodSafeProClient.from('profiles').update({ approved: true }).eq('id', result.user.id);
+    }
+    if(result.session) await foodSafeProClient.auth.signOut();
+    pendingSignupEmail=''; $('verify-otp').value=''; showLogin();
+    showMessage('Email verified successfully. Your account is automatically approved. You can now log in.','success');
+  }catch(error){showMessage(error.message||'Email verification failed.','error');}
+}
+
+async function resendVerification(){
+  if(!configCheck())return;
+  const email=$('verify-email').value.trim().toLowerCase();
+  if(!email){showMessage('Enter your email address first.','error');return;}
+  const {error}=await foodSafeProClient.auth.resend({type:'signup',email});
+  if(error)showMessage(error.message,'error');else showMessage('A new verification code has been sent. Check your inbox and spam folder.','success');
+}
+
+async function login(){
+  if(!configCheck())return;
+  const identifier=$('login-username').value.trim(); const password=$('login-password').value;
+  if(!identifier||!password){showMessage('Enter your username or email address and password.','error');return;}
+  let authData=null, error=null;
+  try{
+    if(identifier.includes('@')){
+      const result=await foodSafeProClient.auth.signInWithPassword({email:identifier.toLowerCase(),password});
+      authData=result.data; error=result.error;
+    }else{
+      if(!/^[a-z0-9._-]{3,24}$/i.test(identifier)){showMessage('Enter a valid username or email address.','error');return;}
+      const result=await foodSafeProClient.functions.invoke('foodsafe-username-login',{body:{username:identifier.toLowerCase(),password}});
+      error=result.error;
+      if(!error && result.data?.session){
+        const sessionResult=await foodSafeProClient.auth.setSession({access_token:result.data.session.access_token,refresh_token:result.data.session.refresh_token});
+        error=sessionResult.error; authData={user:sessionResult.data?.user};
+      } else if(!error){error=new Error(result.data?.message||'Username login failed.');}
+    }
+    if(error){showMessage(error.message||'Login failed. Check your details and try again.','error');return;}
+    if(!authData?.user){showMessage('Login did not return a valid user session.','error');return;}
+    
+    const {data:profile,error:profileError}=await foodSafeProClient.from('profiles').select('id,username,role,approved').eq('id',authData.user.id).single();
+    if(profileError||!profile){await foodSafeProClient.auth.signOut();showMessage('Your profile was not found. Contact the administrator.','error');return;}
+    
+    const inMaintenance = await checkMaintenanceStatus();
+    if (inMaintenance && profile.role !== 'admin') {
+      await foodSafeProClient.auth.signOut();
+      showMessage('System is under maintenance. Only administrators can log in right now.', 'error');
+      return;
+    }
+
+    if(!profile.approved){await foodSafeProClient.auth.signOut();showMessage('Your account has been suspended by an administrator.','error');return;}
+    currentUser=profile.username||identifier; currentRole=profile.role; currentProfile=profile; currentAuthUser=authData.user;
+    $('maintenance-screen').classList.add('hidden');
+    $('landing-page').classList.add('hidden');
+    $('login-card').classList.add('hidden');
+    $('app').classList.remove('hidden');
+    updateDashboardRoleUI();
+    await render();
+  }catch(err){console.error(err);showMessage(err.message||'Unable to log in. Please try again.','error');}
+}
+
+async function sendPasswordReset(){
+  if(!configCheck())return;
+  const email=$('reset-email').value.trim().toLowerCase();
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showMessage('Enter a valid email address.','error');return;}
+  const redirectTo=window.location.origin+window.location.pathname;
+  const {error}=await foodSafeProClient.auth.resetPasswordForEmail(email,{redirectTo});
+  if(error)showMessage(error.message,'error');else showMessage('If an account exists for this email, a password recovery link has been sent. Check your inbox and spam folder.','success');
+}
+
+async function updatePassword(){
+  if(!configCheck())return;
+  const password=$('new-password').value, confirm=$('confirm-new-password').value;
+  if(password.length<8){showMessage('New password must be at least 8 characters.','error');return;}
+  if(password!==confirm){showMessage('The new passwords do not match.','error');return;}
+  const {error}=await foodSafeProClient.auth.updateUser({password});
+  if(error){showMessage(error.message,'error');return;}
+  await foodSafeProClient.auth.signOut(); $('new-password').value='';$('confirm-new-password').value=''; showLogin();
+  showMessage('Your password is updated successfully. You can now log in with your new password.','success');
+  showSystemMessage('Password Updated', 'Your password is updated successfully.', 'green', 'OK');
+}
+
+function openChangePasswordModal() {
+  const html = `
+    <h2 class="text-xl font-bold mb-4">Change Password</h2>
+    <p class="text-xs text-gray-600 mb-4">Enter a new password for user: <strong>${escapeHtml(currentUser)}</strong> (${currentRole})</p>
+    <div id="modal-password-msg" class="hidden text-xs p-2.5 rounded-lg mb-3"></div>
+    <div class="space-y-2">
+      <div class="relative floating-label">
+        <input type="password" id="modal-change-password" placeholder=" " />
+        <label for="modal-change-password">New Password (min 8 chars)</label>
+      </div>
+      <div class="relative floating-label">
+        <input type="password" id="modal-confirm-change-password" placeholder=" " />
+        <label for="modal-confirm-change-password">Confirm New Password</label>
+      </div>
+    </div>
+    <div class="mt-4 flex justify-end space-x-2">
+      <button onclick="closeModal()" class="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400 transition">Cancel</button>
+      <button onclick="submitChangePassword()" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded transition">Update</button>
+    </div>
+  `;
+  openModalWithContent(html);
+}
+
+async function submitChangePassword() {
+  const msgEl = $('modal-password-msg');
+  const showModalError = (msg) => {
+    if (msgEl) {
+      msgEl.textContent = msg;
+      msgEl.className = 'block text-xs p-2.5 rounded-lg mb-3 bg-red-100 text-red-700 border border-red-200';
+    } else {
+      alert(msg);
+    }
+  };
+
+  const password = $('modal-change-password').value;
+  const confirm = $('modal-confirm-change-password').value;
+  if (password.length < 8) { showModalError('Password must be at least 8 characters long.'); return; }
+  if (password !== confirm) { showModalError('Passwords do not match.'); return; }
+
+  const { error } = await foodSafeProClient.auth.updateUser({ password });
+  closeModal();
+  if (error) {
+    showSystemMessage('Update Failed', 'Error updating password: ' + error.message, 'error', 'Close');
+  } else {
+    showSystemMessage('Password Updated', 'Your password is updated successfully.', 'green', 'OK');
+  }
+}
+
+foodSafeProClient?.auth.onAuthStateChange((event,session)=>{
+  if(event==='PASSWORD_RECOVERY'){
+    $('landing-page').classList.add('hidden');$('login-card').classList.remove('hidden');$('app').classList.add('hidden');hideAuthForms();$('new-password-form').classList.remove('hidden');showMessage('Enter and confirm your new password.','info');
+  }
+});
+
+async function logout(){if(foodSafeProClient)await foodSafeProClient.auth.signOut();currentUser=null;currentRole=null;currentProfile=null;currentAuthUser=null;currentDashboardView='account';data=[];showAuth();}
+function resetPassword(){showReset();}
+async function sendAccountPasswordReset(){
+  const email=currentAuthUser?.email;
+  if(!email){showSystemMessage('Email Unavailable','We could not load your account email. Please sign out and sign in again.','error','Close');return;}
+  try{
+    const redirectTo=window.location.origin+window.location.pathname;
+    const {error}=await foodSafeProClient.auth.resetPasswordForEmail(email,{redirectTo});
+    if(error){showSystemMessage('Reset Link Not Sent',`Could not send the password reset link: ${error.message}`,'error','Close');return;}
+    showSystemMessage('Check Your Email','If this email belongs to an account, a password reset link has been sent to the address shown in your account details. Check your inbox and spam folder.','green','OK');
+  }catch(error){
+    showSystemMessage('Reset Link Not Sent',`Could not send the password reset link: ${error.message||'Please try again.'}`,'error','Close');
+  }
+}
+function openModalWithContent(html){const modal=$('modal');$('modalInner').innerHTML=html;modal.classList.remove('hidden');modal.classList.add('show');}
+function closeModal(){$('modal').classList.remove('show');$('modal').classList.add('hidden');}
+
+async function openChangeEmailModal() {
+  if (!foodSafeProClient || !currentRole) return;
+  let user;
+  try {
+    const result = await foodSafeProClient.auth.getUser();
+    user = result.data.user;
+    if (result.error || !user?.email) {
+      showSystemMessage('Email Unavailable', 'Could not load your signed-in email address. Please log in again.', 'error', 'Close');
+      return;
+    }
+  } catch (error) {
+    showSystemMessage('Email Unavailable', `Could not load your signed-in email address: ${error.message || 'Please log in again.'}`, 'error', 'Close');
+    return;
+  }
+  const currentEmail = user.email;
+  const html = `
+    <h2 class="text-xl font-bold mb-4">Change Email Address</h2>
+    <p class="text-sm text-gray-600 mb-4">Signed in as <strong>${escapeHtml(currentUser)}</strong> (${escapeHtml(currentRole)}). Current email: <strong>${escapeHtml(currentEmail)}</strong></p>
+    <p class="text-xs text-gray-600 mb-4">We’ll send a verification link to your new email address. Your account email changes after you confirm it.</p>
+    <div id="modal-email-msg" class="hidden text-sm p-2.5 rounded-lg mb-3" role="status" aria-live="polite"></div>
+    <div class="relative floating-label">
+      <input type="email" id="modal-new-email" placeholder=" " autocomplete="email" />
+      <label for="modal-new-email">New Email Address</label>
+    </div>
+    <div class="mt-4 flex justify-end space-x-2">
+      <button onclick="closeModal()" class="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400 transition">Cancel</button>
+      <button onclick="submitChangeEmail()" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded transition">Send Verification</button>
+    </div>
+  `;
+  openModalWithContent(html);
+}
+
+async function submitChangeEmail() {
+  const emailInput = $('modal-new-email');
+  const msgEl = $('modal-email-msg');
+  const showEmailMessage = (message, isError = false) => {
+    msgEl.textContent = message;
+    msgEl.className = `block text-sm p-2.5 rounded-lg mb-3 ${isError ? 'bg-red-100 text-red-700 border border-red-200' : 'bg-green-100 text-green-700 border border-green-200'}`;
+  };
+  const newEmail = emailInput.value.trim().toLowerCase();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newEmail)) {
+    showEmailMessage('Enter a valid email address.', true);
+    return;
+  }
+  try {
+    const { data: { user }, error: userError } = await foodSafeProClient.auth.getUser();
+    if (userError || !user?.email) {
+      showEmailMessage('Could not verify your signed-in account. Please log in again.', true);
+      return;
+    }
+    if (newEmail === user.email.toLowerCase()) {
+      showEmailMessage('Enter an email address different from your current one.', true);
+      return;
+    }
+
+    const { error } = await foodSafeProClient.auth.updateUser(
+      { email: newEmail },
+      { emailRedirectTo: window.location.origin + window.location.pathname }
+    );
+    if (error) {
+      showEmailMessage(`Could not request the email change: ${error.message}`, true);
+      return;
+    }
+  } catch (error) {
+    showEmailMessage(`Could not request the email change: ${error.message || 'Please try again.'}`, true);
+    return;
+  }
+  emailInput.disabled = true;
+  showEmailMessage(`A verification link has been sent to ${newEmail}. Your account email will change after you confirm it.`);
+}
+
+async function manageStaff(){
+  if(currentRole!=='admin'){
+    showDashboardView('account');
+    return;
+  }
+  const status=$('staffManagementStatus');
+  const list=$('staffManagementList');
+  const refresh=$('.staff-management-refresh');
+  status.classList.remove('error');
+  status.textContent='Loading staff accounts…';
+  list.replaceChildren();
+  const loading=document.createElement('tr');
+  const loadingCell=document.createElement('td');
+  loadingCell.className='staff-management-empty';
+  loadingCell.colSpan=3;
+  loadingCell.textContent='Loading staff accounts…';
+  loading.appendChild(loadingCell);
+  list.appendChild(loading);
+  if(refresh)refresh.disabled=true;
+  try{
+    const {data:staff,error}=await foodSafeProClient
+      .from('profiles')
+      .select('id,username,role,approved')
+      .eq('role','staff')
+      .order('username');
+    if(error)throw error;
+    const accounts=staff||[];
+    const approvedCount=accounts.filter(account=>account.approved).length;
+    $('staff-total-count').textContent=String(accounts.length);
+    $('staff-approved-count').textContent=String(approvedCount);
+    $('staff-suspended-count').textContent=String(accounts.length-approvedCount);
+    list.replaceChildren();
+    if(!accounts.length){
+      const row=document.createElement('tr');
+      const cell=document.createElement('td');
+      cell.className='staff-management-empty';
+      cell.colSpan=3;
+      cell.textContent='No staff accounts found.';
+      row.appendChild(cell);
+      list.appendChild(row);
+      status.textContent='Staff account list is up to date.';
+      return;
+    }
+    accounts.forEach(account=>{
+      const row=document.createElement('tr');
+      const username=document.createElement('td');
+      username.className='staff-management-user';
+      username.textContent=account.username||'Username unavailable';
+      const stateCell=document.createElement('td');
+      const state=document.createElement('span');
+      state.className=`staff-management-state${account.approved?'':' suspended'}`;
+      state.innerHTML=`<i class="fas ${account.approved?'fa-circle-check':'fa-pause-circle'}" aria-hidden="true"></i> ${account.approved?'Approved':'Suspended'}`;
+      stateCell.appendChild(state);
+      const actionCell=document.createElement('td');
+      const action=document.createElement('button');
+      action.type='button';
+      action.className=`staff-management-action${account.approved?' suspend':''}`;
+      action.textContent=account.approved?'Suspend access':'Approve account';
+      action.addEventListener('click',()=>setStaffApproval(account.id,!account.approved,action));
+      actionCell.appendChild(action);
+      row.append(username,stateCell,actionCell);
+      list.appendChild(row);
+    });
+    status.textContent=`Showing ${accounts.length} staff account${accounts.length===1?'':'s'}.`;
+  }catch(error){
+    console.error('Could not load staff accounts:',error);
+    $('staff-total-count').textContent='—';
+    $('staff-approved-count').textContent='—';
+    $('staff-suspended-count').textContent='—';
+    list.replaceChildren();
+    status.classList.add('error');
+    status.textContent='Could not load staff accounts. Check the administrator read policy and refresh the list.';
+  }finally{
+    if(refresh)refresh.disabled=false;
+  }
+}
+
+async function setStaffApproval(id,approved,button){
+  if(currentRole!=='admin'){
+    showDashboardView('account');
+    return;
+  }
+  if(!id||!button)return;
+  button.disabled=true;
+  const status=$('staffManagementStatus');
+  status.classList.remove('error');
+  status.textContent=approved?'Approving staff account…':'Suspending staff access…';
+  try{
+    const {data:updated,error}=await foodSafeProClient
+      .from('profiles')
+      .update({approved})
+      .eq('id',id)
+      .eq('role','staff')
+      .select('id');
+    if(error)throw error;
+    if(!updated?.length)throw new Error('No staff profile was updated. Check administrator permissions.');
+    await manageStaff();
+  }catch(error){
+    console.error('Could not update staff account:',error);
+    status.classList.add('error');
+    status.textContent='Could not update this account. Check administrator permissions and try again.';
+    button.disabled=false;
+  }
+}
+function escapeHtml(value){return String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function getStatus(d){if(d.area==='hot'&&d.temp>=60)return {text:'Safe Hot',cls:'status-safe-hot',color:[220,38,38]};if(d.area==='cold'&&d.temp>=0&&d.temp<=4)return {text:'Safe Cold',cls:'status-safe-cold',color:[14,165,233]};if(d.area==='freezer'&&d.temp<=-18)return {text:'Safe Frozen',cls:'status-safe-cold',color:[14,165,233]};return {text:'Check Temperature',cls:'status-danger',color:[255,193,7]};}
+
+function isToday(date){
+  const now=new Date();
+  return date.getFullYear()===now.getFullYear()&&date.getMonth()===now.getMonth()&&date.getDate()===now.getDate();
+}
+
+function updateDashboardSummary(){
+  const todayData=data.filter(record=>isToday(record.createdAt));
+  const attentionCount=todayData.filter(record=>getStatus(record).cls==='status-danger').length;
+  const safeCount=todayData.length-attentionCount;
+  const latest=data[0];
+  $('dashboard-date').textContent=new Date().toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+  $('dashboard-greeting').textContent=currentRole==='admin'?'Kitchen overview':'Your kitchen overview';
+  $('dashboard-subtitle').textContent=currentRole==='admin'?'Manage your team and review today’s shared kitchen safety activity.':'Review shared kitchen readings and keep your daily checks up to date.';
+  $('dashboard-overview-kicker').textContent=currentRole==='admin'?'ADMIN TEAM SAFETY OVERVIEW':'SHARED TEAM SAFETY OVERVIEW';
+  $('summary-today-count').textContent=String(todayData.length);
+  $('summary-attention-count').textContent=String(attentionCount);
+  $('summary-safe-count').textContent=String(safeCount);
+  $('summary-safe-note').textContent=todayData.length?`${Math.round(safeCount/todayData.length*100)}% of today’s readings`:'No readings logged today';
+  $('summary-latest-time').textContent=latest?latest.createdAt.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'}):'—';
+  $('summary-latest-note').textContent=latest?`${isToday(latest.createdAt)?'Today':'Last check'} · ${latest.tech}`:'No readings logged yet';
+  updateDashboardSafetyPulse(todayData);
+}
+
+function updateDashboardSafetyPulse(todayData){
+  const attentionRecords=todayData.filter(record=>getStatus(record).cls==='status-danger');
+  const count=$('dashboard-pulse-count');
+  const list=$('dashboard-pulse-list');
+  count.textContent=attentionRecords.length?`${attentionRecords.length} need attention`:'All clear';
+  count.classList.toggle('has-alerts',attentionRecords.length>0);
+  list.replaceChildren();
+  if(!attentionRecords.length){
+    const empty=document.createElement('div');
+    empty.className='dashboard-pulse-empty';
+    empty.textContent=todayData.length?'No readings are outside the recommended ranges today.':'No readings have been logged today.';
+    list.appendChild(empty);
+    return;
+  }
+  attentionRecords.slice(0,3).forEach(record=>{
+    const item=document.createElement('article');
+    item.className='dashboard-pulse-item';
+    const name=document.createElement('strong');
+    name.textContent=record.item||'Unnamed item';
+    const detail=document.createElement('span');
+    detail.textContent=`${record.area} · ${Number(record.temp).toFixed(1)} °C · ${record.tech} · ${record.createdAt.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})}`;
+    item.append(name,detail);
+    list.appendChild(item);
+  });
+}
+
+async function render(){
+  if(!foodSafeProClient)return;
+  const {data:rows,error}=await foodSafeProClient.from('temperature_records').select('id,item,area,temp,created_at,technician,user_id').order('created_at',{ascending:false});
+  if(error){alert('Could not load temperature records: '+error.message);return;}
+  data=(rows||[]).map(d=>({...d,createdAt:new Date(d.created_at),time:new Date(d.created_at).toLocaleString(),tech:d.technician||'Staff'}));
+  updateDashboardSummary();
+  applyFilters();
+}
+
+function applyFilters(){
+  const query=$('record-search').value.trim().toLowerCase();
+  const area=$('record-area-filter').value;
+  const status=$('record-status-filter').value;
+  const period=$('record-period-filter').value;
+  const startDate=new Date();
+  startDate.setHours(0,0,0,0);
+  if(period==='7')startDate.setDate(startDate.getDate()-6);
+  if(period==='30')startDate.setDate(startDate.getDate()-29);
+  filteredData=data.filter(record=>{
+    if(area!=='all'&&record.area!==area)return false;
+    const recordIsSafe=getStatus(record).cls!=='status-danger';
+    if(status==='safe'&&!recordIsSafe)return false;
+    if(status==='attention'&&recordIsSafe)return false;
+    if(period==='today'&&!isToday(record.createdAt))return false;
+    if((period==='7'||period==='30')&&record.createdAt<startDate)return false;
+    if(query&&!`${record.item} ${record.area} ${record.tech}`.toLowerCase().includes(query))return false;
+    return true;
+  });
+  $('records-count').innerHTML=`Showing <strong>${filteredData.length}</strong> of <strong>${data.length}</strong> readings`;
+  const tbody=$('tableBody');tbody.innerHTML='';
+  if(!filteredData.length){
+    const row=document.createElement('tr');
+    row.innerHTML=`<td class="records-empty" colspan="7">${data.length?'No readings match these filters.':'No temperature readings yet. Add your first check to get started.'}</td>`;
+    tbody.appendChild(row);
+  }
+  filteredData.forEach(d=>{const status=getStatus(d), f=(Number(d.temp)*9/5)+32;const canDelete=currentRole==='admin'||(currentRole==='staff'&&d.user_id===currentProfile?.id);const tr=document.createElement('tr');tr.innerHTML=`<td>${escapeHtml(d.item)}</td><td>${escapeHtml(d.area)}</td><td>${Number(d.temp).toFixed(1)} / ${f.toFixed(1)}</td><td><span class="status-badge ${status.cls}">${status.text}</span></td><td>${escapeHtml(d.time)}</td><td>${escapeHtml(d.tech)}</td><td>${canDelete?`<button onclick="deleteRecord('${d.id}')" class="px-2 py-1 bg-red-600 text-white rounded">Delete</button>`:'—'}</td>`;tbody.appendChild(tr);});drawCharts();
+}
+
+function drawCharts(){
+  if(typeof Chart==='undefined'){
+    $('chart-unavailable').classList.remove('hidden');
+    return;
+  }
+  $('chart-unavailable').classList.add('hidden');
+  Object.values(charts).forEach(instance=>instance.destroy());
+  charts={};
+  const recent=filteredData.slice(0,12).reverse();
+  charts.recent=new Chart($('recentReadingsChart'),{
+    type:'bar',
+    data:{
+      labels:recent.map(record=>`${record.item||'Unnamed item'} · ${record.createdAt.toLocaleDateString(undefined,{month:'short',day:'numeric'})}`),
+      datasets:[{
+        label:'Temperature (°C)',
+        data:recent.map(record=>Number(record.temp)),
+        backgroundColor:recent.map(record=>getStatus(record).cls==='status-danger'?'rgba(217,119,6,.72)':'rgba(51,112,76,.72)'),
+        borderRadius:5,
+        maxBarThickness:24
+      }]
+    },
+    options:{
+      indexAxis:'y',
+      responsive:true,
+      maintainAspectRatio:false,
+      plugins:{
+        legend:{display:false},
+        tooltip:{callbacks:{label:context=>`${context.parsed.x.toFixed(1)} °C · ${getStatus(recent[context.dataIndex]).text}`}}
+      },
+      scales:{
+        x:{title:{display:true,text:'Temperature (°C)'},ticks:{color:'#64746a'},grid:{color:'#edf1ec'}},
+        y:{ticks:{color:'#46564a',autoSkip:false},grid:{display:false}}
+      }
+    }
+  });
+
+  const today=new Date();
+  today.setHours(0,0,0,0);
+  const days=Array.from({length:7},(_,index)=>{
+    const date=new Date(today);
+    date.setDate(today.getDate()-6+index);
+    const dayRecords=filteredData.filter(record=>record.createdAt.getFullYear()===date.getFullYear()
+      &&record.createdAt.getMonth()===date.getMonth()
+      &&record.createdAt.getDate()===date.getDate());
+    return {
+      label:date.toLocaleDateString(undefined,{weekday:'short',month:'numeric',day:'numeric'}),
+      safe:dayRecords.filter(record=>getStatus(record).cls!=='status-danger').length,
+      attention:dayRecords.filter(record=>getStatus(record).cls==='status-danger').length
+    };
+  });
+  charts.weekly=new Chart($('weeklySafetyChart'),{
+    type:'bar',
+    data:{
+      labels:days.map(day=>day.label),
+      datasets:[
+        {label:'Within guidance',data:days.map(day=>day.safe),backgroundColor:'rgba(51,112,76,.78)',borderRadius:4,stack:'readings'},
+        {label:'Needs attention',data:days.map(day=>day.attention),backgroundColor:'rgba(217,119,6,.78)',borderRadius:4,stack:'readings'}
+      ]
+    },
+    options:{
+      responsive:true,
+      maintainAspectRatio:false,
+      plugins:{legend:{position:'bottom',labels:{usePointStyle:true,boxWidth:8,padding:18}}},
+      scales:{
+        x:{stacked:true,ticks:{color:'#46564a'},grid:{display:false}},
+        y:{stacked:true,beginAtZero:true,ticks:{precision:0,stepSize:1,color:'#64746a'},title:{display:true,text:'Number of readings'},grid:{color:'#edf1ec'}}
+      }
+    }
+  });
+}
+function openAddRecordModal(){
+  if(!currentUser)return;
+  let html=$('addReadingForm').innerHTML;
+  html=html.replaceAll('reading-item','modal-reading-item')
+        .replaceAll('reading-area','modal-reading-area')
+        .replaceAll('reading-temp','modal-reading-temp');
+  openModalWithContent(html);
+}
+
+async function addReading(){
+  const item=$('modal-reading-item').value.trim();
+  const area=$('modal-reading-area').value;
+  const temp=Number.parseFloat($('modal-reading-temp').value);
+  if(!item||!area||!Number.isFinite(temp)){alert('Enter all fields.');return;}
+  const {error}=await foodSafeProClient.from('temperature_records').insert({item,area,temp,user_id:currentProfile.id,technician:currentUser});
+  if(error){alert('Could not save record: '+error.message);return;}
+  closeModal();
+  await render();
+}
+
+async function deleteRecord(id){
+  if(!currentProfile||!['admin','staff'].includes(currentRole))return;
+  const record=data.find(entry=>String(entry.id)===String(id));
+  if(!record||(currentRole==='staff'&&record.user_id!==currentProfile.id)){
+    alert('You can delete only your own temperature records.');
+    return;
+  }
+  if(!confirm('Delete this temperature record?'))return;
+  let deletion=foodSafeProClient.from('temperature_records').delete().eq('id',id);
+  if(currentRole==='staff')deletion=deletion.eq('user_id',currentProfile.id);
+  const {data:deletedRows,error}=await deletion.select('id');
+  if(error){alert('Could not delete record: '+error.message);return;}
+  if(!deletedRows?.length){alert('No record was deleted. Check your account permissions or refresh the records.');return;}
+  await render();
+}
+function exportPDF(){if(!window.jspdf||!window.jspdf.jsPDF){alert('PDF library did not load. Check your internet connection.');return;}if(!filteredData.length){alert('There are no temperature readings to export for these filters.');return;}const {jsPDF}=window.jspdf;const doc=new jsPDF('p','pt','a4');doc.setFontSize(18);doc.text('FoodSafe Pro - Temperature Records',40,40);doc.setFontSize(11);doc.text(`Generated by: ${currentUser}`,40,60);doc.text(`Date: ${new Date().toLocaleString()}`,40,76);const columns=['Item','Area','Temp (°C / °F)','Status','Time','Technician'];const rows=filteredData.map(d=>{const s=getStatus(d),f=Number(d.temp)*9/5+32;return [d.item,d.area,`${Number(d.temp).toFixed(1)} / ${f.toFixed(1)}`,s.text,d.time,d.tech];});doc.autoTable({head:[columns],body:rows,startY:92,styles:{fontSize:9},headStyles:{fillColor:[33,37,41]},margin:{left:40,right:40}});doc.save(`FoodSafePro_Report_${new Date().toISOString().slice(0,10)}.pdf`);}
+
+async function init(){
+  loadPublishedWebsiteFeedback();
+  if(window.location.hash.includes('type=recovery') || window.location.search.includes('type=recovery'))return;
+  if(!configured){console.warn('FoodSafe Pro needs Supabase URL and anon/publishable key configuration.');return;}
+  const inMaintenance = await checkMaintenanceStatus();
+  const {data:{session}}=await foodSafeProClient.auth.getSession();
+  
+  if(session){
+    const {data:profile}=await foodSafeProClient.from('profiles').select('id,username,role,approved').eq('id',session.user.id).maybeSingle();
+    if(profile){
+      if(inMaintenance && profile.role !== 'admin') {
+        await foodSafeProClient.auth.signOut();
+        showAuth();
+        return;
+      }
+      if(profile.approved){
+        currentProfile=profile;currentUser=profile.username||session.user.email.split('@')[0];currentRole=profile.role;currentAuthUser=session.user;
+        $('maintenance-screen').classList.add('hidden');
+        $('landing-page').classList.add('hidden');
+        $('login-card').classList.add('hidden');
+        $('app').classList.remove('hidden');
+        updateDashboardRoleUI();
+        await render();
+        return;
+      }
+    }
+  }
+  showAuth();
+}
+
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeSystemMessage();
+    closeModal();
+  }
+});
+
+mountFoodSafetyGuides();
+init();
+</script>
+</body>
+</html>
