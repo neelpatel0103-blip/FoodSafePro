@@ -16,9 +16,16 @@
 body { background-color: #f8fafc; font-family: "Arial", sans-serif; }
 .floating-label { position: relative; margin-bottom: 1.5rem; }
 .floating-label input, .floating-label select { border: 1px solid #dbdbdb; border-radius: 6px; padding: 12px; width: 100%; outline: none; transition: border 0.2s; }
+.floating-label input.availability-input { padding-right: 42px; }
 .floating-label input:focus, .floating-label select:focus { border-color: #3b82f6; }
 .floating-label label { position: absolute; left: 12px; top: 12px; color: #9ca3af; transition: all 0.2s ease; pointer-events: none; background: #f8fafc; padding: 0 4px; font-size: 14px; }
 .floating-label input:focus + label, .floating-label select:focus + label, .floating-label input:not(:placeholder-shown) + label, .floating-label select:not([value=""]) + label { top: -8px; font-size: 12px; color: #3b82f6; }
+.availability-indicator { position: absolute; top: 12px; right: 12px; font-size: 17px; font-weight: 700; line-height: 1; }
+.availability-indicator[hidden] { display: none; }
+.availability-indicator.available { color: #15803d; }
+.availability-indicator.taken { color: #b91c1c; }
+.availability-indicator.checking { color: #64748b; }
+.availability-indicator.unavailable { color: #b45309; }
 .eye-btn { position: absolute; right: 12px; top: 12px; cursor: pointer; font-size: 14px; color: #9ca3af; }
 .login-btn { background-color: #3b82f6; }
 .login-btn:hover { background-color: #2563eb; }
@@ -425,6 +432,10 @@ th{background:#f1f5f9;color:#6b7280;}
 .account-panel-actions button { min-height: 36px; padding: 0 11px; border: 1px solid #dfe7dd; border-radius: 9px; display: inline-flex; align-items: center; gap: 7px; color: #3d5945; background: #fff; font-size: 10px; font-weight: 700; cursor: pointer; }
 .account-panel-actions button:hover { border-color: #b7cbb8; background: #f7faf6; }
 .account-panel-actions .account-reset-button { color: #617468; }
+.account-panel-actions .account-delete-button { color: #a53d3d; border-color: #f0d7d5; }
+.account-panel-actions .account-delete-button:hover { color: #8d2929; border-color: #e8b8b5; background: #fff7f6; }
+.account-delete-status { margin: 0 0 12px; color: #68776d; font-size: 12px; line-height: 1.6; }
+.account-delete-status.error { color: #a53d3d; }
 .dashboard-overview-kicker { color: #548064; font-size: 9px; font-weight: 800; letter-spacing: 1.5px; }
 .dashboard-pulse { margin: 0 0 18px; padding: 18px 20px; border: 1px solid #e5ebe3; border-radius: 16px; background: #fff; box-shadow: 0 4px 15px rgba(34,53,39,.03); }
 .dashboard-pulse-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
@@ -763,12 +774,12 @@ th{background:#f1f5f9;color:#6b7280;}
     </div>
 
     <div id="create-form" class="hidden w-full transition-all duration-500">
-      <div class="relative floating-label"><input type="text" id="create-username" placeholder=" " autocomplete="username" maxlength="24"/><label for="create-username">Username (3–24 characters)</label></div>
-      <div class="relative floating-label"><input type="email" id="create-email" placeholder=" " autocomplete="email"/><label for="create-email">Email Address</label></div>
+      <div class="relative floating-label"><input class="availability-input" type="text" id="create-username" placeholder=" " autocomplete="username" maxlength="24" aria-describedby="create-username-availability"/><label for="create-username">Username (3–24 characters)</label><span id="create-username-availability" class="availability-indicator" role="status" aria-live="polite" aria-atomic="true" hidden></span></div>
+      <div class="relative floating-label"><input class="availability-input" type="email" id="create-email" placeholder=" " autocomplete="email" aria-describedby="create-email-availability"/><label for="create-email">Email Address</label><span id="create-email-availability" class="availability-indicator" role="status" aria-live="polite" aria-atomic="true" hidden></span></div>
       <div class="relative floating-label"><input type="password" id="create-password" placeholder=" " autocomplete="new-password"/><label for="create-password">Password (minimum 8 characters)</label><span id="toggle-create-pass" class="eye-btn" role="button" tabindex="0">👁️</span></div>
       <div class="relative floating-label"><input type="password" id="confirm-password" placeholder=" " autocomplete="new-password"/><label for="confirm-password">Confirm Password</label></div>
       <button onclick="createAccount()" class="w-full py-2.5 rounded text-white font-semibold login-btn mb-2">Create Account</button>
-      <p class="text-xs text-gray-500 mb-2">A verification code will be sent to your email. Verified accounts are auto-approved.</p>
+      <p class="text-xs text-gray-500 mb-2">New accounts are auto-approved. Verify your email before logging in.</p>
       <p class="text-sm mt-2 text-center">Already have an account? <span class="link-btn" onclick="showLogin()">Log In</span></p>
     </div>
 
@@ -857,6 +868,7 @@ th{background:#f1f5f9;color:#6b7280;}
       <button type="button" onclick="openChangeEmailModal()"><i class="fas fa-envelope"></i> Change email</button>
       <button type="button" onclick="openChangePasswordModal()"><i class="fas fa-key"></i> Change password</button>
       <button type="button" class="account-reset-button" onclick="sendAccountPasswordReset()"><i class="fas fa-paper-plane"></i> Send password reset link</button>
+      <button type="button" class="account-delete-button" onclick="openDeleteAccountModal()"><i class="fas fa-user-xmark"></i> Delete account</button>
     </div>
   </section>
   </section>
@@ -1682,23 +1694,272 @@ async function showAuth(){
   hideMessage();
 }
 
-async function createAccount(){
-  if(!configCheck())return;
-  const username=$('create-username').value.trim().toLowerCase();
-  const email=$('create-email').value.trim().toLowerCase();
-  const password=$('create-password').value; const confirm=$('confirm-password').value;
-  if(!/^[a-z0-9._-]{3,24}$/.test(username)){showMessage('Username must be 3–24 characters and use only letters, numbers, dots, underscores, or hyphens.','error');return;}
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showMessage('Enter a valid email address.','error');return;}
-  if(password.length<8){showMessage('Password must be at least 8 characters.','error');return;}
-  if(password!==confirm){showMessage('Passwords do not match.','error');return;}
-  try{
-    const {data:result,error}=await foodSafeProClient.auth.signUp({email,password,options:{data:{username},emailRedirectTo:window.location.origin+window.location.pathname}});
-    if(error){showMessage(error.message,'error');return;}
-    if(!result.user){showMessage('Signup did not return a user. Please try again.','error');return;}
-    pendingSignupEmail=email; $('verify-email').value=email; showVerify(email);
-    showMessage('Account created. Check your email for the verification code, then enter it below.','success');
-  }catch(error){console.error(error);showMessage(error.message||'Signup failed. Please try again.','error');}
+
+
+async function createAccount() {
+  if (!configCheck()) return;
+
+  const username = $('create-username').value.trim().toLowerCase();
+  const email = $('create-email').value.trim().toLowerCase();
+  const password = $('create-password').value;
+  const confirm = $('confirm-password').value;
+
+  // 1. Validate username
+  if (!/^[a-z0-9._-]{3,24}$/.test(username)) {
+    showMessage(
+      'Username must be 3–24 characters and use only letters, numbers, dots, underscores, or hyphens.',
+      'error'
+    );
+    return;
+  }
+
+  // 2. Validate email
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    showMessage('Enter a valid email address.', 'error');
+    return;
+  }
+
+  // 3. Validate password
+  if (password.length < 8) {
+    showMessage('Password must be at least 8 characters.', 'error');
+    return;
+  }
+
+  if (password !== confirm) {
+    showMessage('Passwords do not match.', 'error');
+    return;
+  }
+
+  try {
+    showMessage('Checking username and email availability...', 'info');
+
+    const [usernameAvailable, emailAvailable] = await Promise.all([
+      checkSignupAvailability('username', username),
+      checkSignupAvailability('email', email)
+    ]);
+
+    if (usernameAvailable === null || emailAvailable === null) {
+      showMessage(
+        'Unable to check username and email availability. Please try again.',
+        'error'
+      );
+      return;
+    }
+
+    if (!usernameAvailable) {
+      const suggestions = [
+        `${username}1`,
+        `${username}01`,
+        `${username}_pro`,
+        `${username}.ca`,
+        `${username}2026`
+      ].filter(value => value.length <= 24);
+
+      showMessage(
+        `Username "${username}" is already taken. Try: ${suggestions.join(', ')}`,
+        'error'
+      );
+      return;
+    }
+
+    if (!emailAvailable) {
+      showMessage(
+        'This email is already registered. Please log in or use password recovery.',
+        'error'
+      );
+      return;
+    }
+
+    // Create Supabase account.
+    showMessage('Creating your FoodSafe Pro account...', 'info');
+
+    const { data, error } =
+      await foodSafeProClient.auth.signUp({
+        email,
+        password,
+        options: {
+          data: { username },
+          emailRedirectTo:
+            window.location.origin + window.location.pathname
+        }
+      });
+
+    // 7. Handle signup errors
+    if (error) {
+      console.error('Signup error:', error);
+
+      const details = [
+        error.code || '',
+        error.message || '',
+        error.details || '',
+        error.hint || ''
+      ].join(' ').toLowerCase();
+
+      if (
+        /user_already_exists|email_exists|already registered|already been registered/.test(details)
+      ) {
+        showMessage(
+          'This email is already registered. Please log in or use password recovery.',
+          'error'
+        );
+      } else if (
+        error.code === '23505' ||
+        /profiles_username_key|duplicate key|unique constraint/.test(details)
+      ) {
+        showMessage(
+          'This username is already taken. Please choose another username.',
+          'error'
+        );
+      } else if (/database error saving new user/.test(details)) {
+        showMessage(
+          'Account Username is already taken..',
+          'error'
+        );
+      } else {
+        showMessage(error.message || 'Signup failed.', 'error');
+      }
+
+      return;
+    }
+
+    // 8. Validate signup response
+    if (!data || !data.user) {
+      showMessage(
+        'Signup did not return a user. Please try again.',
+        'error'
+      );
+      return;
+    }
+
+    // 9. Detect an existing email where Supabase returns
+    // an obfuscated signup response
+    if (
+      Array.isArray(data.user.identities) &&
+      data.user.identities.length === 0
+    ) {
+      showMessage(
+        'This email may already be registered. Please log in or use password recovery.',
+        'error'
+      );
+      return;
+    }
+
+    // 10. Handle unexpected authenticated signup
+    if (data.session) {
+      showMessage(
+        'Your account was created and signed in successfully.',
+        'success'
+      );
+
+      await showAuth();
+      return;
+    }
+
+    // 11. Start email OTP verification
+    pendingSignupEmail = email;
+    $('verify-email').value = email;
+
+    showVerify(email);
+
+    showMessage(
+      'Account created successfully! Check your email for the OTP verification code.',
+      'success'
+    );
+
+  } catch (error) {
+    console.error('FoodSafe Pro signup exception:', error);
+
+    showMessage(
+      error.message || 'Something went wrong during signup.',
+      'error'
+    );
+  }
 }
+
+const signupAvailabilityTimers = {};
+const signupAvailabilityRequests = { username: 0, email: 0 };
+
+function setSignupAvailability(field, state, message = '') {
+  const indicator = $(`create-${field}-availability`);
+  const input = $(`create-${field}`);
+  if (!indicator || !input) return;
+
+  indicator.className = `availability-indicator${state ? ` ${state}` : ''}`;
+  indicator.textContent = state === 'available' ? '✓' :
+    state === 'taken' ? '×' :
+    state === 'checking' ? '…' :
+    state === 'unavailable' ? '!' : '';
+  indicator.hidden = !state;
+  indicator.setAttribute('aria-label', message);
+  if (state === 'taken') input.setAttribute('aria-invalid', 'true');
+  else if (state === 'available') input.setAttribute('aria-invalid', 'false');
+  else input.removeAttribute('aria-invalid');
+}
+
+async function checkSignupAvailability(field, value = $(`create-${field}`).value.trim().toLowerCase()) {
+  const input = $(`create-${field}`);
+  const normalizedValue = value.trim().toLowerCase();
+  const isValid = field === 'username'
+    ? /^[a-z0-9._-]{3,24}$/.test(normalizedValue)
+    : /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedValue);
+
+  if (!isValid) {
+    setSignupAvailability(field, '');
+    return null;
+  }
+
+  const requestId = ++signupAvailabilityRequests[field];
+  setSignupAvailability(field, 'checking', 'Checking availability');
+
+  try {
+    const { data, error } = await foodSafeProClient.rpc(
+      'foodsafe_check_signup_availability',
+      {
+        p_username: field === 'username' ? normalizedValue : null,
+        p_email: field === 'email' ? normalizedValue : null
+      }
+    );
+
+    if (error) throw error;
+
+    const result = Array.isArray(data) ? data[0] : data;
+    const availabilityKey = field === 'username' ? 'username_available' : 'email_available';
+    const currentValue = input.value.trim().toLowerCase();
+    if (requestId !== signupAvailabilityRequests[field] || currentValue !== normalizedValue) {
+      return null;
+    }
+    if (!result || typeof result[availabilityKey] !== 'boolean') {
+      throw new Error('Availability check returned an unexpected response.');
+    }
+
+    const available = result[availabilityKey];
+    setSignupAvailability(
+      field,
+      available ? 'available' : 'taken',
+      available ? 'Available' : 'Already in use'
+    );
+    return available;
+  } catch (error) {
+    console.error(`Signup ${field} availability check failed:`, error);
+    if (requestId === signupAvailabilityRequests[field]) {
+      setSignupAvailability(field, 'unavailable', 'Could not verify availability');
+    }
+    return null;
+  }
+}
+
+['username', 'email'].forEach(field => {
+  $(`create-${field}`).addEventListener('input', () => {
+    clearTimeout(signupAvailabilityTimers[field]);
+    signupAvailabilityRequests[field] += 1;
+    setSignupAvailability(field, '');
+    signupAvailabilityTimers[field] = setTimeout(
+      () => checkSignupAvailability(field),
+      450
+    );
+  });
+});
+
 
 async function verifyEmail(){
   if(!configCheck())return;
@@ -1707,12 +1968,9 @@ async function verifyEmail(){
   try{
     const {data:result,error}=await foodSafeProClient.auth.verifyOtp({email,token,type:'signup'});
     if(error){showMessage(error.message,'error');return;}
-    if (result.user) {
-      await foodSafeProClient.from('profiles').update({ approved: true }).eq('id', result.user.id);
-    }
     if(result.session) await foodSafeProClient.auth.signOut();
     pendingSignupEmail=''; $('verify-otp').value=''; showLogin();
-    showMessage('Email verified successfully. Your account is automatically approved. You can now log in.','success');
+    showMessage('Email verified successfully. Your account is approved. You can now log in.','success');
   }catch(error){showMessage(error.message||'Email verification failed.','error');}
 }
 
@@ -1724,46 +1982,193 @@ async function resendVerification(){
   if(error)showMessage(error.message,'error');else showMessage('A new verification code has been sent. Check your inbox and spam folder.','success');
 }
 
-async function login(){
-  if(!configCheck())return;
-  const identifier=$('login-username').value.trim(); const password=$('login-password').value;
-  if(!identifier||!password){showMessage('Enter your username or email address and password.','error');return;}
-  let authData=null, error=null;
-  try{
-    if(identifier.includes('@')){
-      const result=await foodSafeProClient.auth.signInWithPassword({email:identifier.toLowerCase(),password});
-      authData=result.data; error=result.error;
-    }else{
-      if(!/^[a-z0-9._-]{3,24}$/i.test(identifier)){showMessage('Enter a valid username or email address.','error');return;}
-      const result=await foodSafeProClient.functions.invoke('foodsafe-username-login',{body:{username:identifier.toLowerCase(),password}});
-      error=result.error;
-      if(!error && result.data?.session){
-        const sessionResult=await foodSafeProClient.auth.setSession({access_token:result.data.session.access_token,refresh_token:result.data.session.refresh_token});
-        error=sessionResult.error; authData={user:sessionResult.data?.user};
-      } else if(!error){error=new Error(result.data?.message||'Username login failed.');}
+async function login() {
+  if (!configCheck()) return;
+
+  const identifier = $('login-username').value.trim();
+  const password = $('login-password').value;
+
+  if (!identifier || !password) {
+    showMessage('Enter your username or email address and password.', 'error');
+    return;
+  }
+
+  let authData = null;
+  let error = null;
+
+  try {
+
+    // EMAIL LOGIN
+    if (identifier.includes('@')) {
+
+      const result = await foodSafeProClient.auth.signInWithPassword({
+        email: identifier.toLowerCase(),
+        password
+      });
+
+      authData = result.data;
+      error = result.error;
+
+      // 🩷 MODIFIED: Friendly email authentication error
+      if (error) {
+        showMessage('Invalid email or password. Please try again.', 'error');
+        return;
+      }
+
     }
-    if(error){showMessage(error.message||'Login failed. Check your details and try again.','error');return;}
-    if(!authData?.user){showMessage('Login did not return a valid user session.','error');return;}
-    
-    const {data:profile,error:profileError}=await foodSafeProClient.from('profiles').select('id,username,role,approved').eq('id',authData.user.id).single();
-    if(profileError||!profile){await foodSafeProClient.auth.signOut();showMessage('Your profile was not found. Contact the administrator.','error');return;}
-    
-    const inMaintenance = await checkMaintenanceStatus();
-    if (inMaintenance && profile.role !== 'admin') {
-      await foodSafeProClient.auth.signOut();
-      showMessage('System is under maintenance. Only administrators can log in right now.', 'error');
+
+    // USERNAME LOGIN
+    else {
+
+      if (!/^[a-z0-9._-]{3,24}$/i.test(identifier)) {
+        showMessage('Enter a valid username or email address.', 'error');
+        return;
+      }
+
+      const result = await foodSafeProClient.functions.invoke(
+        'foodsafe-username-login',
+        {
+          body: {
+            username: identifier.toLowerCase(),
+            password: password
+          }
+        }
+      );
+
+      // 🩷 MODIFIED: Better Edge Function error handling
+      if (result.error) {
+
+        console.error('Username login error:', result.error);
+
+        let errorMessage = 'Unable to log in. Please try again.';
+
+        try {
+          const response = result.error.context;
+
+          if (response) {
+            const errorBody = await response.clone().json();
+
+            if (response.status === 400 || response.status === 401) {
+              errorMessage = 'Invalid username or password. Please try again.';
+            } else {
+              errorMessage =
+                errorBody.message ||
+                errorBody.error ||
+                errorMessage;
+            }
+          }
+
+        } catch (e) {
+          console.error('Could not read Edge Function error:', e);
+        }
+
+        showMessage(errorMessage, 'error');
+        return;
+      }
+
+      // 🩷 MODIFIED: Validate returned session
+      if (
+        result.data?.session?.access_token &&
+        result.data?.session?.refresh_token
+      ) {
+
+        const sessionResult = await foodSafeProClient.auth.setSession({
+          access_token: result.data.session.access_token,
+          refresh_token: result.data.session.refresh_token
+        });
+
+        if (sessionResult.error) {
+          throw sessionResult.error;
+        }
+
+        authData = {
+          user: sessionResult.data.user
+        };
+
+      } else {
+
+        showMessage(
+          result.data?.message || 'Username login failed. Please try again.',
+          'error'
+        );
+
+        return;
+      }
+    }
+
+    // CHECK AUTHENTICATED USER
+    if (!authData?.user) {
+      showMessage('Login did not return a valid user session.', 'error');
       return;
     }
 
-    if(!profile.approved){await foodSafeProClient.auth.signOut();showMessage('Your account has been suspended by an administrator.','error');return;}
-    currentUser=profile.username||identifier; currentRole=profile.role; currentProfile=profile; currentAuthUser=authData.user;
+    // FETCH USER PROFILE
+    const {
+      data: profile,
+      error: profileError
+    } = await foodSafeProClient
+      .from('profiles')
+      .select('id,username,role,approved')
+      .eq('id', authData.user.id)
+      .single();
+
+    if (profileError || !profile) {
+      await foodSafeProClient.auth.signOut();
+      showMessage('Your profile was not found. Contact the administrator.', 'error');
+      return;
+    }
+
+    // CHECK MAINTENANCE MODE
+    const inMaintenance = await checkMaintenanceStatus();
+
+    if (inMaintenance && profile.role !== 'admin') {
+      await foodSafeProClient.auth.signOut();
+
+      showMessage(
+        'System is under maintenance. Only administrators can log in right now.',
+        'error'
+      );
+
+      return;
+    }
+
+    // CHECK ACCOUNT APPROVAL
+    if (!profile.approved) {
+      await foodSafeProClient.auth.signOut();
+
+      showMessage(
+        'Your account has been suspended by an administrator.',
+        'error'
+      );
+
+      return;
+    }
+
+    // SET CURRENT USER DETAILS
+    currentUser = profile.username || identifier;
+    currentRole = profile.role;
+    currentProfile = profile;
+    currentAuthUser = authData.user;
+
+    // SHOW APPLICATION
     $('maintenance-screen').classList.add('hidden');
     $('landing-page').classList.add('hidden');
     $('login-card').classList.add('hidden');
     $('app').classList.remove('hidden');
+
     updateDashboardRoleUI();
+
     await render();
-  }catch(err){console.error(err);showMessage(err.message||'Unable to log in. Please try again.','error');}
+
+  } catch (err) {
+
+    console.error('Login error:', err);
+
+    showMessage(
+      err.message || 'Unable to log in. Please try again.',
+      'error'
+    );
+  }
 }
 
 async function sendPasswordReset(){
@@ -1853,6 +2258,87 @@ async function sendAccountPasswordReset(){
     showSystemMessage('Check Your Email','If this email belongs to an account, a password reset link has been sent to the address shown in your account details. Check your inbox and spam folder.','green','OK');
   }catch(error){
     showSystemMessage('Reset Link Not Sent',`Could not send the password reset link: ${error.message||'Please try again.'}`,'error','Close');
+  }
+}
+function openDeleteAccountModal(){
+  if(!currentAuthUser?.id||!currentAuthUser?.email){
+    showSystemMessage('Account Unavailable','We could not verify your signed-in account. Please log out and sign in again before deleting it.','error','Close');
+    return;
+  }
+  openModalWithContent(`
+    <h2 class="text-xl font-bold mb-3 text-red-800">Delete your account?</h2>
+    <p class="text-sm text-gray-600 mb-4 leading-relaxed">This permanently deletes your sign-in account, profile, and all temperature records you created. Other users’ records and public visitor feedback are not linked to your account and will remain. This action cannot be undone.</p>
+    <label class="block text-xs font-semibold text-gray-700 mb-2" for="delete-account-password">Enter your current password to confirm</label>
+    <input id="delete-account-password" class="w-full border border-gray-300 rounded-lg p-3 mb-3" type="password" autocomplete="current-password" required>
+    <p id="delete-account-status" class="account-delete-status hidden" role="status" aria-live="polite"></p>
+    <div class="mt-4 flex justify-end gap-2">
+      <button type="button" onclick="closeModal()" class="px-3 py-2 bg-gray-100 text-gray-700 rounded-lg">Cancel</button>
+      <button id="delete-account-confirm" type="button" onclick="confirmDeleteAccount()" class="px-3 py-2 bg-red-700 hover:bg-red-800 text-white rounded-lg">Permanently delete</button>
+    </div>
+  `);
+}
+async function confirmDeleteAccount(){
+  const password=$('delete-account-password')?.value||'';
+  const button=$('delete-account-confirm');
+  const status=$('delete-account-status');
+  const showError=message=>{
+    status.textContent=message;
+    status.classList.remove('hidden');
+    status.classList.add('error');
+  };
+  if(!password){showError('Enter your current password to continue.');return;}
+  if(!foodSafeProClient||!foodSafeProPublicClient||!currentAuthUser?.id||!currentAuthUser?.email){
+    showError('Your account could not be verified. Please sign in again and retry.');
+    return;
+  }
+  button.disabled=true;
+  button.textContent='Verifying and deleting…';
+  try{
+    const verification=await foodSafeProPublicClient.auth.signInWithPassword({
+      email:currentAuthUser.email.toLowerCase(),
+      password
+    });
+    if(verification.error||verification.data.user?.id!==currentAuthUser.id){
+      throw new Error('The password could not be verified for this account.');
+    }
+    await foodSafeProPublicClient.auth.signOut({scope:'local'});
+
+    const deletion=await foodSafeProClient.functions.invoke('foodsafe-delete-account',{body:{}});
+    if(deletion.error){
+      let message=deletion.error.message||'The account could not be deleted. Please try again.';
+      const response=deletion.error.context;
+      if(response&&typeof response.clone==='function'){
+        try{
+          const payload=await response.clone().json();
+          if(payload?.message)message=payload.message;
+        }catch(parseError){
+          console.error('Could not read account deletion error response:',parseError);
+        }
+      }
+      throw new Error(message);
+    }
+    if(deletion.data?.error)throw new Error(deletion.data.error);
+
+    closeModal();
+    const signOut=await foodSafeProClient.auth.signOut({scope:'local'});
+    if(signOut.error)console.warn('Could not clear the deleted account session locally:',signOut.error);
+    currentUser=null;
+    currentRole=null;
+    currentProfile=null;
+    currentAuthUser=null;
+    currentDashboardView='account';
+    data=[];
+    filteredData=[];
+    $('app').classList.add('hidden');
+    hideAuthForms();
+    showLanding();
+    showSystemMessage('Account Deleted','Your account and its temperature records have been permanently deleted. You are returning to the homepage.','green','Return to homepage');
+    window.setTimeout(()=>window.location.assign(window.location.origin+window.location.pathname),3000);
+  }catch(error){
+    console.error('Could not delete the signed-in account:',error);
+    showError(error.message||'The account could not be deleted. Please try again.');
+    button.disabled=false;
+    button.textContent='Permanently delete';
   }
 }
 function openModalWithContent(html){const modal=$('modal');$('modalInner').innerHTML=html;modal.classList.remove('hidden');modal.classList.add('show');}
