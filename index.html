@@ -480,6 +480,19 @@ th{background:#f1f5f9;color:#6b7280;}
 .chat-compose-hint { display: flex; justify-content: space-between; gap: 10px; margin-top: 5px; color: #89948b; font-size: 8px; }
 .chat-status { min-height: 14px; margin: 5px 0 0; color: #397453; font-size: 9px; }
 .chat-status.error { color: #a5433f; }
+.workflow-confirm-modal { position: fixed; z-index: 120; inset: 0; box-sizing: border-box; padding: 20px; display: grid; place-items: center; background: rgba(18,34,24,.5); backdrop-filter: blur(4px); }
+.workflow-confirm-modal.hidden { display: none; }
+.workflow-confirm-dialog { width: min(440px,100%); padding: 25px; border: 1px solid #e8ece6; border-radius: 20px; background: #fff; box-shadow: 0 24px 75px rgba(19,39,26,.24); }
+.workflow-confirm-icon { width: 48px; height: 48px; margin-bottom: 15px; border: 1px solid #f1d8d5; border-radius: 15px; display: grid; place-items: center; color: #a5433f; background: #fff4f2; font-size: 19px; }
+.workflow-confirm-dialog h2 { margin: 0; color: #293d30; font-size: 18px; letter-spacing: -.3px; }
+.workflow-confirm-dialog > p { margin: 9px 0 0; color: #64736a; font-size: 12px; line-height: 1.65; }
+.workflow-confirm-warning { margin-top: 15px; padding: 11px 12px; border: 1px solid #f1e4cc; border-radius: 11px; color: #80622f; background: #fffaf0; font-size: 10px; line-height: 1.55; }
+.workflow-confirm-actions { display: flex; justify-content: flex-end; gap: 9px; margin-top: 21px; }
+.workflow-confirm-actions button { min-height: 39px; padding: 0 14px; border: 1px solid #dfe7dd; border-radius: 10px; color: #4b5e51; background: #fff; font: inherit; font-size: 11px; font-weight: 750; cursor: pointer; }
+.workflow-confirm-actions button:focus-visible { outline: 3px solid #cfe4d1; outline-offset: 2px; }
+.workflow-confirm-actions .workflow-confirm-delete { border-color: #a8443e; color: #fff; background: #a8443e; }
+.workflow-confirm-actions .workflow-confirm-delete:hover { border-color: #913a35; background: #913a35; }
+.workflow-confirm-actions .workflow-confirm-delete:disabled { opacity: .6; cursor: wait; }
 .dashboard-main { min-width: 0; }
 .dashboard-main .dashboard-topbar { min-height: 90px; max-width: none; margin: 0; padding: 17px clamp(18px, 3vw, 40px); border: 0; border-bottom: 1px solid #e7ece5; border-radius: 0; align-items: center; justify-content: space-between; flex-direction: row; gap: 20px; box-shadow: none; }
 .dashboard-topbar-kicker { color: #668170; font-size: 9px; font-weight: 800; letter-spacing: 1.7px; }
@@ -875,6 +888,19 @@ th{background:#f1f5f9;color:#6b7280;}
       <button id="system-message-btn" onclick="closeSystemMessage()" class="w-full py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-lg text-sm transition">OK</button>
     </div>
   </div>
+</div>
+
+<div id="workflowConfirmModal" class="workflow-confirm-modal hidden" role="presentation" onclick="if(event.target===this)resolveWorkflowConfirmation(false)">
+  <section class="workflow-confirm-dialog" role="alertdialog" aria-modal="true" aria-labelledby="workflowConfirmTitle" aria-describedby="workflowConfirmMessage">
+    <div class="workflow-confirm-icon" aria-hidden="true"><i class="fas fa-trash-can"></i></div>
+    <h2 id="workflowConfirmTitle">Confirm permanent deletion</h2>
+    <p id="workflowConfirmMessage"></p>
+    <div id="workflowConfirmWarning" class="workflow-confirm-warning"></div>
+    <div class="workflow-confirm-actions">
+      <button id="workflowConfirmCancel" type="button" onclick="resolveWorkflowConfirmation(false)">Cancel</button>
+      <button id="workflowConfirmDelete" class="workflow-confirm-delete" type="button" onclick="resolveWorkflowConfirmation(true)">Delete permanently</button>
+    </div>
+  </section>
 </div>
 
 <!-- LOGIN CARD -->
@@ -1367,7 +1393,7 @@ const configured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes
 const foodSafeProClient = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 const foodSafeProPublicClient = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {auth:{autoRefreshToken:false,persistSession:false,detectSessionInUrl:false}}) : null;
 
-let currentUser = null, currentRole = null, currentProfile = null, currentAuthUser = null, currentDashboardView = 'account', data = [], filteredData = [], charts = {}, cleaningAssignmentReport = [], workflowDeadlineTimer = null, workflowDeadlineChecksInitialized = false, workflowNotificationError = '', workflowNotificationEventsBound = false, staffAdminChatThreadId = null, staffAdminChatContacts = [], staffAdminChatPollTimer = null, staffAdminChatEventsBound = false;
+let currentUser = null, currentRole = null, currentProfile = null, currentAuthUser = null, currentDashboardView = 'account', data = [], filteredData = [], charts = {}, cleaningAssignmentReport = [], workflowDeadlineTimer = null, workflowDeadlineChecksInitialized = false, workflowNotificationError = '', workflowNotificationEventsBound = false, staffAdminChatThreadId = null, staffAdminChatContacts = [], staffAdminChatPollTimer = null, staffAdminChatEventsBound = false, workflowConfirmationResolver = null, workflowConfirmationPreviousFocus = null;
 const $ = id => document.getElementById(id);
 let pendingSignupEmail = '';
 
@@ -1487,6 +1513,29 @@ function setWorkflowStatus(id,message,isError=false){
   status.classList.toggle('error',isError);
 }
 
+function confirmWorkflowDeletion({title,message,warning,confirmLabel='Delete permanently'}){
+  if(workflowConfirmationResolver)return Promise.resolve(false);
+  const modal=$('workflowConfirmModal');
+  $('workflowConfirmTitle').textContent=title;
+  $('workflowConfirmMessage').textContent=message;
+  $('workflowConfirmWarning').textContent=warning;
+  $('workflowConfirmDelete').textContent=confirmLabel;
+  workflowConfirmationPreviousFocus=document.activeElement instanceof HTMLElement?document.activeElement:null;
+  modal.classList.remove('hidden');
+  $('workflowConfirmCancel').focus();
+  return new Promise(resolve=>{workflowConfirmationResolver=resolve;});
+}
+
+function resolveWorkflowConfirmation(confirmed){
+  if(!workflowConfirmationResolver)return;
+  const resolve=workflowConfirmationResolver;
+  workflowConfirmationResolver=null;
+  $('workflowConfirmModal').classList.add('hidden');
+  workflowConfirmationPreviousFocus?.focus();
+  workflowConfirmationPreviousFocus=null;
+  resolve(Boolean(confirmed));
+}
+
 function setWorkflowNotificationError(message){
   workflowNotificationError=message||'';
   const list=$('workflowNotificationList'),toggle=$('workflowNotificationToggle'),count=$('workflowNotificationCount');
@@ -1586,7 +1635,10 @@ function bindStaffAdminChatEvents(){
     $('staffAdminChatCharCount').textContent=`${event.currentTarget.value.length} / 2000`;
   });
   document.addEventListener('keydown',event=>{
-    if(event.key==='Escape'&&!$('staffAdminChatModal')?.classList.contains('hidden'))closeStaffAdminChat();
+    if(event.key==='Escape'&&!$('workflowConfirmModal')?.classList.contains('hidden')){
+      event.preventDefault();
+      resolveWorkflowConfirmation(false);
+    }else if(event.key==='Escape'&&!$('staffAdminChatModal')?.classList.contains('hidden'))closeStaffAdminChat();
   });
 }
 
@@ -1774,7 +1826,13 @@ async function deleteStaffAdminChat(){
   const contactName=currentRole==='admin'
     ?(staffAdminChatContacts.find(contact=>String(contact.threadId)===String(staffAdminChatThreadId))?.name||'this staff member')
     :'the admin team';
-  if(!confirm(`Permanently delete the entire conversation with ${contactName}, including all messages and notifications? It will disappear for both sides and cannot be undone.`))return;
+  const confirmed=await confirmWorkflowDeletion({
+    title:'Delete this conversation?',
+    message:`Permanently delete the entire conversation with ${contactName}, including all messages and notifications.`,
+    warning:'This removes the chat for both participants. This action cannot be undone.',
+    confirmLabel:'Delete conversation'
+  });
+  if(!confirmed)return;
   const button=$('staffAdminChatDelete');
   button.disabled=true;
   setStaffAdminChatStatus('Deleting conversation…');
@@ -2142,7 +2200,12 @@ async function removeWorkflowEvidenceBeforeDelete(entityType,id){
 
 async function deleteCorrectiveAction(id){
   if(currentRole!=='admin')return;
-  if(!confirm('Permanently delete this corrective action, its reviews, notifications, activity history and evidence? This removes the record for staff and admins and cannot be undone.'))return;
+  const confirmed=await confirmWorkflowDeletion({
+    title:'Delete this corrective action?',
+    message:'This permanently removes the corrective action and its review records, notifications, activity history, and evidence.',
+    warning:'Staff and admins will no longer see this record. This action cannot be undone.'
+  });
+  if(!confirmed)return;
   let evidenceCount=0;
   try{
     evidenceCount=await removeWorkflowEvidenceBeforeDelete('corrective_action',id);
@@ -2159,7 +2222,12 @@ async function deleteCorrectiveAction(id){
 
 async function deleteCleaningTask(taskId){
   if(currentRole!=='admin')return;
-  if(!confirm('Permanently delete this cleaning task and every scheduled assignment, completion, review, linked corrective action, notification, activity record and evidence file? This removes them for staff and admins and cannot be undone.'))return;
+  const confirmed=await confirmWorkflowDeletion({
+    title:'Delete this cleaning task and history?',
+    message:'This permanently removes the task, all assignments and completions, reviews, linked corrective actions, notifications, activity history, and evidence files.',
+    warning:'Staff and admins will no longer see this task or its related records. This action cannot be undone.'
+  });
+  if(!confirmed)return;
   let evidenceCount=0;
   try{
     evidenceCount=await removeWorkflowEvidenceBeforeDelete('cleaning_task',taskId);
