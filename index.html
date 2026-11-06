@@ -445,6 +445,8 @@ th{background:#f1f5f9;color:#6b7280;}
 .chat-dialog-heading h2 { margin: 0; color: #2e4435; font-size: 15px; }
 .chat-dialog-heading p { margin: 3px 0 0; color: #829087; font-size: 10px; }
 .chat-dialog-close { width: 34px; height: 34px; border: 0; border-radius: 9px; color: #65756a; background: #f2f5f1; cursor: pointer; }
+.chat-dialog-delete { min-height: 34px; padding: 0 10px; border: 1px solid #f0d7d4; border-radius: 9px; color: #a5433f; background: #fff8f7; font-size: 10px; font-weight: 750; cursor: pointer; }
+.chat-dialog-delete:disabled { opacity: .55; cursor: wait; }
 .chat-workspace { min-height: 0; flex: 1; display: grid; grid-template-columns: 260px minmax(0,1fr); }
 .chat-contacts { min-height: 0; overflow-y: auto; padding: 14px 10px; border-right: 1px solid #edf1ec; background: #fafcf9; }
 .chat-contacts-title { margin: 0 8px 10px; color: #819087; font-size: 9px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
@@ -548,6 +550,8 @@ th{background:#f1f5f9;color:#6b7280;}
 .workflow-badge.approved, .workflow-badge.closed { color: #397453; background: #edf7ee; }
 .workflow-item-actions { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
 .workflow-secondary { min-height: 34px; padding: 0 10px; border: 1px solid #dfe7dd; border-radius: 8px; color: #3d5945; background: #fff; font-size: 10px; font-weight: 700; cursor: pointer; }
+.workflow-secondary.workflow-danger { border-color: #f0d7d4; color: #a5433f; background: #fff8f7; }
+.workflow-secondary.workflow-danger:hover { border-color: #e6c6c3; background: #fff0ef; }
 .workflow-checklist { display: grid; gap: 7px; margin: 10px 0; color: #53665a; font-size: 11px; }
 .workflow-timeline { display: grid; gap: 5px; margin-top: 10px; padding-left: 13px; border-left: 2px solid #e4ece3; color: #728078; font-size: 10px; }
 @media (max-width: 1050px) {
@@ -993,7 +997,10 @@ th{background:#f1f5f9;color:#6b7280;}
     <div class="chat-dialog">
       <header class="chat-dialog-header">
         <div class="chat-dialog-heading"><span class="chat-dialog-mark"><i class="fas fa-comments" aria-hidden="true"></i></span><div><h2 id="staffAdminChatTitle">Team chat</h2><p>Private messages between staff and administrators</p></div></div>
-        <button class="chat-dialog-close" type="button" aria-label="Close team chat" onclick="closeStaffAdminChat()"><i class="fas fa-xmark" aria-hidden="true"></i></button>
+        <div class="chat-dialog-heading">
+          <button id="staffAdminChatDelete" class="chat-dialog-delete hidden" type="button" onclick="deleteStaffAdminChat()">Delete conversation</button>
+          <button class="chat-dialog-close" type="button" aria-label="Close team chat" onclick="closeStaffAdminChat()"><i class="fas fa-xmark" aria-hidden="true"></i></button>
+        </div>
       </header>
       <div class="chat-workspace">
         <aside id="staffAdminChatContacts" class="chat-contacts" aria-label="Chat contacts"><p class="chat-contacts-title">Conversations</p><div class="chat-contacts-message">Loading conversations…</div></aside>
@@ -1558,6 +1565,13 @@ function chatErrorMessage(error){
   return error?.message||'Please try again.';
 }
 
+function recordDeletionErrorMessage(error){
+  if(error?.code==='PGRST202'&&/foodsafe_(get_deletion_evidence|admin_delete_corrective_action|admin_delete_cleaning_task|delete_chat_thread)/i.test(error.message||'')){
+    return 'Admin deletion tools are not installed yet. Apply supabase/workflow-chat-record-deletion.sql in the Supabase SQL editor.';
+  }
+  return workflowErrorMessage(error);
+}
+
 function setStaffAdminChatStatus(message,isError=false){
   const status=$('staffAdminChatStatus');
   if(!status)return;
@@ -1694,6 +1708,7 @@ async function selectStaffAdminChatContact(staffId){
     contact.threadId=threadId;
   }
   staffAdminChatThreadId=threadId;
+  $('staffAdminChatDelete')?.classList.remove('hidden');
   renderStaffAdminChatContacts();
   await refreshStaffAdminChatConversation();
   $('staffAdminChatInput').disabled=false;
@@ -1754,6 +1769,38 @@ async function sendStaffAdminChatMessage(event){
   input.focus();
 }
 
+async function deleteStaffAdminChat(){
+  if(!staffAdminChatThreadId||!currentProfile)return;
+  const contactName=currentRole==='admin'
+    ?(staffAdminChatContacts.find(contact=>String(contact.threadId)===String(staffAdminChatThreadId))?.name||'this staff member')
+    :'the admin team';
+  if(!confirm(`Permanently delete the entire conversation with ${contactName}, including all messages and notifications? It will disappear for both sides and cannot be undone.`))return;
+  const button=$('staffAdminChatDelete');
+  button.disabled=true;
+  setStaffAdminChatStatus('Deleting conversation…');
+  const {error}=await foodSafeProClient.rpc('foodsafe_delete_chat_thread',{p_thread_id:staffAdminChatThreadId});
+  if(error){
+    console.error('Could not delete chat conversation:',error);
+    setStaffAdminChatStatus(`Could not delete conversation: ${recordDeletionErrorMessage(error)}`,true);
+    button.disabled=false;return;
+  }
+  staffAdminChatThreadId=null;
+  if(staffAdminChatPollTimer)clearInterval(staffAdminChatPollTimer);
+  staffAdminChatPollTimer=null;
+  $('staffAdminChatDelete')?.classList.add('hidden');
+  $('staffAdminChatDelete').disabled=false;
+  $('staffAdminChatMessages').innerHTML='<div class="chat-empty"><i class="fas fa-comments" aria-hidden="true"></i>This conversation was permanently deleted.</div>';
+  $('staffAdminChatInput').value='';
+  $('staffAdminChatInput').disabled=true;
+  $('staffAdminChatSend').disabled=true;
+  $('staffAdminChatContactName').textContent='Conversation deleted';
+  $('staffAdminChatContactStatus').textContent='The chat was removed for all participants.';
+  setStaffAdminChatStatus('');
+  await Promise.all([updateStaffAdminChatUnreadCount(),loadWorkflowNotifications()]);
+  if(currentRole==='staff')closeStaffAdminChat();
+  else await loadStaffAdminChatContacts();
+}
+
 async function openStaffAdminChat(threadId=null){
   if(!currentProfile)return;
   const modal=$('staffAdminChatModal');
@@ -1763,6 +1810,8 @@ async function openStaffAdminChat(threadId=null){
   closeWorkflowNotifications();
   if(staffAdminChatPollTimer)clearInterval(staffAdminChatPollTimer);
   staffAdminChatThreadId=null;
+  $('staffAdminChatDelete')?.classList.add('hidden');
+  $('staffAdminChatDelete').disabled=false;
   $('staffAdminChatMessages').innerHTML='<div class="chat-empty"><i class="fas fa-comments" aria-hidden="true"></i>Select a conversation to view messages.</div>';
   $('staffAdminChatInput').disabled=true;
   $('staffAdminChatSend').disabled=true;
@@ -2012,6 +2061,7 @@ async function loadCorrectiveActions(){
       ${action.corrective_steps?`<p><strong>Corrective steps:</strong> ${escapeHtml(action.corrective_steps)}</p>`:''}
       <p><strong>Food disposition:</strong> ${escapeHtml(action.food_disposition.replaceAll('_',' '))}</p>
       ${evidence?`<p><strong>Evidence:</strong> ${evidence}</p>`:''}
+      ${currentRole==='admin'?`<div class="workflow-item-actions"><button class="workflow-secondary workflow-danger" type="button" onclick="deleteCorrectiveAction(${Number(action.id)})">Delete record permanently</button></div>`:''}
       ${reviseButton}${editForm}${reviews}
       <div class="workflow-timeline">${(historyById.get(String(action.id))||[]).map(entry=>`<span>${formatWorkflowDate(entry.created_at)} · ${escapeHtml(actorNames.get(entry.actor_id)||entry.actor_id||'System')} · ${escapeHtml(entry.event_type.replaceAll('_',' '))}${entry.details?` — ${escapeHtml(entry.details)}`:''}</span>`).join('')||`Current status: ${escapeHtml(action.status.replaceAll('_',' '))}.`}</div>
     </article>`;
@@ -2067,6 +2117,60 @@ async function reviewCorrectiveAction(id,decision){
   }catch(error){
     console.error('Could not review corrective action:',error);
     alert(`Could not save review: ${workflowErrorMessage(error)}`);
+  }
+}
+
+async function removeWorkflowEvidenceBeforeDelete(entityType,id){
+  const {data:paths,error}=await foodSafeProClient.rpc('foodsafe_get_deletion_evidence',{
+    p_entity_type:entityType,p_entity_id:id
+  });
+  if(error)throw error;
+  const storage=foodSafeProClient.storage.from('foodsafe-workflow-evidence');
+  let removed=0;
+  for(let offset=0;offset<(paths||[]).length;offset+=100){
+    const batch=paths.slice(offset,offset+100);
+    const {error:storageError}=await storage.remove(batch);
+    if(storageError){
+      const failure=new Error(`Could not remove stored evidence: ${workflowErrorMessage(storageError)}`);
+      failure.evidenceFilesRemoved=removed;
+      throw failure;
+    }
+    removed+=batch.length;
+  }
+  return removed;
+}
+
+async function deleteCorrectiveAction(id){
+  if(currentRole!=='admin')return;
+  if(!confirm('Permanently delete this corrective action, its reviews, notifications, activity history and evidence? This removes the record for staff and admins and cannot be undone.'))return;
+  let evidenceCount=0;
+  try{
+    evidenceCount=await removeWorkflowEvidenceBeforeDelete('corrective_action',id);
+    const {error}=await foodSafeProClient.rpc('foodsafe_admin_delete_corrective_action',{p_action_id:id});
+    if(error)throw error;
+    await loadCorrectiveActions();
+    if(evidenceCount)await loadWorkflowNotifications();
+  }catch(error){
+    console.error('Could not delete corrective action:',error);
+    const removed=error.evidenceFilesRemoved??evidenceCount;
+    alert(`Could not completely delete this corrective action: ${recordDeletionErrorMessage(error)}${removed?` ${removed} evidence file(s) were removed before the failure.`:''}${error.message?.startsWith('Could not remove stored evidence:')?' Workflow records were not deleted.':''}`);
+  }
+}
+
+async function deleteCleaningTask(taskId){
+  if(currentRole!=='admin')return;
+  if(!confirm('Permanently delete this cleaning task and every scheduled assignment, completion, review, linked corrective action, notification, activity record and evidence file? This removes them for staff and admins and cannot be undone.'))return;
+  let evidenceCount=0;
+  try{
+    evidenceCount=await removeWorkflowEvidenceBeforeDelete('cleaning_task',taskId);
+    const {error}=await foodSafeProClient.rpc('foodsafe_admin_delete_cleaning_task',{p_task_id:taskId});
+    if(error)throw error;
+    await loadCleaningAssignments();
+    if(evidenceCount)await loadWorkflowNotifications();
+  }catch(error){
+    console.error('Could not delete cleaning task and history:',error);
+    const removed=error.evidenceFilesRemoved??evidenceCount;
+    alert(`Could not completely delete this cleaning task: ${recordDeletionErrorMessage(error)}${removed?` ${removed} evidence file(s) were removed before the failure.`:''}${error.message?.startsWith('Could not remove stored evidence:')?' Workflow records were not deleted.':''}`);
   }
 }
 
@@ -2181,6 +2285,7 @@ async function loadCleaningAssignments(){
         ${lastReview?.decision==='rejected'?`<p><strong>Review notes:</strong> ${escapeHtml(lastReview.reason||'Re-cleaning is required.')}</p>`:''}
         ${history.length?`<div class="workflow-timeline">${history.map(entry=>`<span>${formatWorkflowDate(entry.created_at)} · ${escapeHtml(actorNames.get(entry.actor_id)||entry.actor_id||'System')} · ${escapeHtml(entry.event_type.replaceAll('_',' '))}${entry.details?` — ${escapeHtml(entry.details)}`:''}</span>`).join('')}</div>`:''}
         ${staffForm}${reviseCleaning}${adminReview}
+        ${isAdmin?`<div class="workflow-item-actions"><button class="workflow-secondary workflow-danger" type="button" onclick="deleteCleaningTask(${Number(assignment.task_id)})">Delete task &amp; all history</button></div>`:''}
       </article>`;
     }).join('');
   }
