@@ -500,6 +500,8 @@ th{background:#f1f5f9;color:#6b7280;}
 .dashboard-topbar p { margin: 4px 0 0; color: #829087; font-size: 11px; }
 .dashboard-topbar-meta { position: relative; display: flex; align-items: center; gap: 9px; }
 .dashboard-role-pill { padding: 8px 11px; border: 1px solid #e2eae1; border-radius: 999px; color: #54705b; background: #f4f8f2; font-size: 10px; font-weight: 800; text-transform: capitalize; }
+.demo-readonly-banner { display: none; margin: 0; color: #8a5a13; font-size: 12px; font-weight: 700; }
+.demo-readonly-banner.is-visible { display: block; }
 .dashboard-main .dashboard-content { max-width: 1480px; margin: auto; padding: 27px clamp(16px, 3vw, 40px) 44px; }
 .account-panel { max-width: 1040px; margin: 0 auto; padding: clamp(20px,4vw,36px); border: 1px solid #e3ebe2; border-radius: 20px; background: linear-gradient(120deg,#fff 15%,#f3f8f2 100%); box-shadow: 0 12px 34px rgba(34,53,39,.06); }
 .account-panel-heading { margin-bottom: 15px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
@@ -998,7 +1000,7 @@ th{background:#f1f5f9;color:#6b7280;}
   </aside>
   <div class="dashboard-main">
   <header class="dashboard-topbar">
-    <div><span class="dashboard-topbar-kicker">FOODSAFE PRO WORKSPACE</span><h2 id="dashboard-header-title">Team overview</h2><p>Shared food safety operations and temperature monitoring.</p></div>
+    <div><span class="dashboard-topbar-kicker">FOODSAFE PRO WORKSPACE</span><h2 id="dashboard-header-title">Team overview</h2><p id="dashboard-topbar-description">Shared food safety operations and temperature monitoring.</p><p id="demoReadOnlyBanner" class="demo-readonly-banner" role="status">Read-only visitor mode · Sample data only · Changes are disabled.</p></div>
     <div class="dashboard-topbar-meta">
       <button id="staffAdminChatToggle" class="dashboard-chat-trigger" type="button" aria-label="Open staff and admin chat" aria-haspopup="dialog" aria-controls="staffAdminChatModal" onclick="openStaffAdminChat()">
         <i class="fas fa-comments" aria-hidden="true"></i><span id="staffAdminChatUnreadCount" class="dashboard-chat-count" aria-hidden="true"></span>
@@ -1410,14 +1412,34 @@ function togglePassword(id, btnId){const p=$(id),b=$(btnId);if(!p||!b)return;if(
 $('toggle-login-pass').onclick=()=>togglePassword('login-password','toggle-login-pass');
 $('toggle-create-pass').onclick=()=>togglePassword('create-password','toggle-create-pass');
 function configCheck(){if(!configured){showMessage('Connect FoodSafe Pro to Supabase by checking the project URL and publishable key in index.html.','error');return false;}if(!foodSafeProClient){showMessage('The Supabase library did not load. Check your internet connection and refresh.','error');return false;}return true;}
+function isReadOnlyDemo(){return currentProfile?.demo_read_only===true||['demo_staff','demo_admin'].includes(currentProfile?.username?.toLowerCase());}
+function demoDisplayRole(){return currentProfile?.demo_role||(
+  currentProfile?.username?.toLowerCase()==='demo_admin'?'admin':'staff'
+);}
 function updateDashboardRoleUI(){
-  const isAdmin=currentRole==='admin';
+  const isAdmin=currentRole==='admin'&&!isReadOnlyDemo();
+  const demoBanner=$('demoReadOnlyBanner');
   $('adminToolsGroup').style.display=isAdmin?'flex':'none';
-  $('dashboard-role-pill').textContent=isAdmin?'Administrator':'Staff';
+  $('dashboard-role-pill').textContent=isReadOnlyDemo()
+    ?`Demo ${demoDisplayRole()==='admin'?'Administrator':'Staff'}`
+    :(isAdmin?'Administrator':'Staff');
   $('account-username').textContent=currentUser||'—';
-  $('account-role').textContent=isAdmin?'Administrator':'Staff';
+  $('account-role').textContent=isReadOnlyDemo()
+    ?`Read-only demo ${demoDisplayRole()==='admin'?'administrator':'staff'}`
+    :(isAdmin?'Administrator':'Staff');
+  demoBanner?.classList.toggle('is-visible',isReadOnlyDemo());
+  $('dashboard-topbar-description').textContent=isReadOnlyDemo()
+    ?'Visitor access to demonstration records. No production data or changes are available.'
+    :'Shared food safety operations and temperature monitoring.';
+  $('staffAdminChatToggle').classList.toggle('hidden',isReadOnlyDemo());
+  $('workflowNotificationToggle').classList.toggle('hidden',isReadOnlyDemo());
+  $('correctiveReportForm')?.classList.toggle('hidden',isReadOnlyDemo());
+  document.querySelectorAll('.dashboard-side-actions button').forEach(button=>{
+    button.classList.toggle('hidden',isReadOnlyDemo()&&!button.getAttribute('onclick')?.includes('exportPDF'));
+  });
+  document.querySelector('.account-panel-actions')?.classList.toggle('hidden',isReadOnlyDemo());
   updateAccountDetails(currentAuthUser);
-  startWorkflowDeadlineChecks();
+  if(!isReadOnlyDemo())startWorkflowDeadlineChecks();
   showDashboardView('account');
   if(isAdmin)refreshMaintenanceControl();
 }
@@ -1441,7 +1463,7 @@ document.addEventListener('keydown',event=>{
 });
 
 function showDashboardView(view){
-  if(['feedback','staff'].includes(view)&&currentRole!=='admin')view='account';
+  if(['feedback','staff'].includes(view)&&(currentRole!=='admin'||isReadOnlyDemo()))view='account';
   currentDashboardView=['overview','records','trends','corrective','cleaning','guide','feedback','staff'].includes(view)?view:'account';
   const views={
     account:'dashboardAccountView',
@@ -2012,7 +2034,7 @@ async function loadWorkflowEvidence(entityType,entityIds){
 
 async function createCorrectiveAction(event){
   event.preventDefault();
-  if(!currentProfile)return;
+  if(!currentProfile||isReadOnlyDemo())return;
   const form=event.currentTarget,fields=new FormData(form),button=form.querySelector('button[type="submit"]');
   const statusId='correctiveReportStatus';
   const temperature=String(fields.get('temperature')||'').trim();
@@ -2051,7 +2073,25 @@ async function createCorrectiveAction(event){
 async function loadCorrectiveActions(){
   const list=$('correctiveActionList');
   if(!list||!currentProfile)return;
+  $('correctiveReportForm')?.classList.toggle('hidden',isReadOnlyDemo());
   list.textContent='Loading incident records…';
+  if(isReadOnlyDemo()){
+    const {data:actions,error}=await foodSafeProClient.from('foodsafe_demo_corrective_actions')
+      .select('*').order('created_at',{ascending:false});
+    if(error){
+      console.error('Could not load sample corrective actions:',error);
+      list.textContent=workflowErrorMessage(error);return;
+    }
+    list.innerHTML=actions?.length?actions.map(action=>`<article class="workflow-item">
+      <div class="workflow-item-header"><div><h4>${escapeHtml(action.incident_number)} · ${escapeHtml(action.item)}</h4><div class="workflow-item-meta">${escapeHtml(action.area||'Other issue')}${action.temperature===null?'':` · ${Number(action.temperature).toFixed(1)} °C`} · ${formatWorkflowDate(action.created_at)} · Reported by ${escapeHtml(action.reported_by_name)}</div></div>${workflowBadge(action.status)}</div>
+      <p><strong>Problem:</strong> ${escapeHtml(action.problem)}</p>
+      <p><strong>Immediate action:</strong> ${escapeHtml(action.immediate_action)}</p>
+      <p><strong>Corrective steps:</strong> ${escapeHtml(action.corrective_steps)}</p>
+      <p><strong>Food disposition:</strong> ${escapeHtml(action.food_disposition.replaceAll('_',' '))}</p>
+      <p class="workflow-status">Sample record · Read-only</p>
+    </article>`).join(''):'No sample corrective actions are available.';
+    return;
+  }
   const {data:actions,error}=await foodSafeProClient.from('corrective_actions').select('*').order('created_at',{ascending:false}).limit(100);
   if(error){
     console.error('Could not load corrective actions:',error);
@@ -2245,6 +2285,38 @@ async function deleteCleaningTask(taskId){
 async function loadCleaningAssignments(){
   const list=$('cleaningAssignmentList');
   if(!list||!currentProfile)return;
+  if(isReadOnlyDemo()){
+    $('cleaningAdminCreate')?.classList.add('hidden');
+    list.textContent='Loading sample cleaning tasks…';
+    const {data:assignments,error}=await foodSafeProClient.from('foodsafe_demo_cleaning_assignments')
+      .select('*').order('due_at',{ascending:true});
+    if(error){
+      console.error('Could not load sample cleaning tasks:',error);
+      list.textContent=workflowErrorMessage(error);return;
+    }
+    cleaningAssignmentReport=(assignments||[]).map(assignment=>({
+      ...assignment,
+      assigned_to:assignment.assigned_to_name,
+      reportAssignee:assignment.assigned_to_name,
+      cleaning_tasks:{
+        title:assignment.title,frequency:assignment.frequency,
+        instructions:assignment.instructions,materials:assignment.materials
+      },
+      reportCompletion:assignment.completed_at?{completed_at:assignment.completed_at,notes:assignment.notes}:null
+    }));
+    list.innerHTML=assignments?.length?assignments.map(assignment=>{
+      const overdue=new Date(assignment.due_at)<new Date()&&!['submitted','approved'].includes(assignment.status);
+      const checklist=(assignment.checklist||[]).map(item=>`<span><i class="fas fa-check" aria-hidden="true"></i> ${escapeHtml(item)}</span>`).join('');
+      return `<article class="workflow-item">
+        <div class="workflow-item-header"><div><h4>${escapeHtml(assignment.title)}</h4><div class="workflow-item-meta">${escapeHtml(assignment.frequency)} · Due ${formatWorkflowDate(assignment.due_at)} · Assigned to ${escapeHtml(assignment.assigned_to_name)}</div></div>${workflowBadge(overdue?'overdue':assignment.status)}</div>
+        <p>${escapeHtml(assignment.instructions)}</p><p><strong>Materials:</strong> ${escapeHtml(assignment.materials)}</p>
+        <div class="workflow-checklist">${checklist}</div>
+        ${assignment.notes?`<p><strong>Completion notes:</strong> ${escapeHtml(assignment.notes)}</p>`:''}
+        <p class="workflow-status">Sample record · Read-only</p>
+      </article>`;
+    }).join(''):'No sample cleaning tasks are available.';
+    return;
+  }
   const isAdmin=currentRole==='admin';
   $('cleaningAdminCreate')?.classList.toggle('hidden',!isAdmin);
   list.textContent='Loading cleaning tasks…';
@@ -3355,7 +3427,7 @@ async function login() {
       error: profileError
     } = await foodSafeProClient
       .from('profiles')
-      .select('id,username,role,approved')
+      .select('id,username,role,approved,demo_read_only,demo_role')
       .eq('id', authData.user.id)
       .single();
 
@@ -3368,7 +3440,7 @@ async function login() {
     // CHECK MAINTENANCE MODE
     const inMaintenance = await checkMaintenanceStatus();
 
-    if (inMaintenance && profile.role !== 'admin') {
+    if (inMaintenance && (profile.role !== 'admin' || profile.demo_read_only)) {
       await foodSafeProClient.auth.signOut();
 
       showMessage(
@@ -3440,6 +3512,7 @@ async function updatePassword(){
 }
 
 function openChangePasswordModal() {
+  if(isReadOnlyDemo())return;
   const html = `
     <h2 class="text-xl font-bold mb-4">Change Password</h2>
     <p class="text-xs text-gray-600 mb-4">Enter a new password for user: <strong>${escapeHtml(currentUser)}</strong> (${currentRole})</p>
@@ -3463,6 +3536,7 @@ function openChangePasswordModal() {
 }
 
 async function submitChangePassword() {
+  if(isReadOnlyDemo())return;
   const msgEl = $('modal-password-msg');
   const showModalError = (msg) => {
     if (msgEl) {
@@ -3496,6 +3570,7 @@ foodSafeProClient?.auth.onAuthStateChange((event,session)=>{
 async function logout(){if(workflowDeadlineTimer)clearInterval(workflowDeadlineTimer);workflowDeadlineTimer=null;workflowDeadlineChecksInitialized=false;if(foodSafeProClient)await foodSafeProClient.auth.signOut();currentUser=null;currentRole=null;currentProfile=null;currentAuthUser=null;currentDashboardView='account';data=[];showAuth();}
 function resetPassword(){showReset();}
 async function sendAccountPasswordReset(){
+  if(isReadOnlyDemo())return;
   const email=currentAuthUser?.email;
   if(!email){showSystemMessage('Email Unavailable','We could not load your account email. Please sign out and sign in again.','error','Close');return;}
   try{
@@ -3508,6 +3583,7 @@ async function sendAccountPasswordReset(){
   }
 }
 function openDeleteAccountModal(){
+  if(isReadOnlyDemo())return;
   if(!currentAuthUser?.id||!currentAuthUser?.email){
     showSystemMessage('Account Unavailable','We could not verify your signed-in account. Please log out and sign in again before deleting it.','error','Close');
     return;
@@ -3592,6 +3668,7 @@ function openModalWithContent(html){const modal=$('modal');$('modalInner').inner
 function closeModal(){$('modal').classList.remove('show');$('modal').classList.add('hidden');}
 
 async function openChangeEmailModal() {
+  if(isReadOnlyDemo())return;
   if (!foodSafeProClient || !currentRole) return;
   let user;
   try {
@@ -3820,7 +3897,9 @@ function updateDashboardSafetyPulse(todayData){
 
 async function render(){
   if(!foodSafeProClient)return;
-  const {data:rows,error}=await foodSafeProClient.from('temperature_records').select('id,item,area,temp,created_at,technician,user_id').order('created_at',{ascending:false});
+  const {data:rows,error}=isReadOnlyDemo()
+    ?await foodSafeProClient.from('foodsafe_demo_temperature_records').select('id,item,area,temp,created_at,technician').order('created_at',{ascending:false})
+    :await foodSafeProClient.from('temperature_records').select('id,item,area,temp,created_at,technician,user_id').order('created_at',{ascending:false});
   if(error){alert('Could not load temperature records: '+error.message);return;}
   data=(rows||[]).map(d=>({...d,createdAt:new Date(d.created_at),time:new Date(d.created_at).toLocaleString(),tech:d.technician||'Staff'}));
   updateDashboardSummary();
@@ -3853,7 +3932,7 @@ function applyFilters(){
     row.innerHTML=`<td class="records-empty" colspan="7">${data.length?'No readings match these filters.':'No temperature readings yet. Add your first check to get started.'}</td>`;
     tbody.appendChild(row);
   }
-  filteredData.forEach(d=>{const status=getStatus(d), f=(Number(d.temp)*9/5)+32;const canDelete=currentRole==='admin'||(currentRole==='staff'&&d.user_id===currentProfile?.id);const tr=document.createElement('tr');tr.innerHTML=`<td>${escapeHtml(d.item)}</td><td>${escapeHtml(d.area)}</td><td>${Number(d.temp).toFixed(1)} / ${f.toFixed(1)}</td><td><span class="status-badge ${status.cls}">${status.text}</span></td><td>${escapeHtml(d.time)}</td><td>${escapeHtml(d.tech)}</td><td>${canDelete?`<button onclick="deleteRecord('${d.id}')" class="px-2 py-1 bg-red-600 text-white rounded">Delete</button>`:'—'}</td>`;tbody.appendChild(tr);});drawCharts();
+  filteredData.forEach(d=>{const status=getStatus(d), f=(Number(d.temp)*9/5)+32;const canDelete=!isReadOnlyDemo()&&(currentRole==='admin'||(currentRole==='staff'&&d.user_id===currentProfile?.id));const tr=document.createElement('tr');tr.innerHTML=`<td>${escapeHtml(d.item)}</td><td>${escapeHtml(d.area)}</td><td>${Number(d.temp).toFixed(1)} / ${f.toFixed(1)}</td><td><span class="status-badge ${status.cls}">${status.text}</span></td><td>${escapeHtml(d.time)}</td><td>${escapeHtml(d.tech)}</td><td>${canDelete?`<button onclick="deleteRecord('${d.id}')" class="px-2 py-1 bg-red-600 text-white rounded">Delete</button>`:'—'}</td>`;tbody.appendChild(tr);});drawCharts();
 }
 
 function drawCharts(){
@@ -3936,6 +4015,7 @@ function openAddRecordModal(){
 }
 
 async function addReading(){
+  if(isReadOnlyDemo())return;
   const item=$('modal-reading-item').value.trim();
   const area=$('modal-reading-area').value;
   const temp=Number.parseFloat($('modal-reading-temp').value);
@@ -3947,7 +4027,7 @@ async function addReading(){
 }
 
 async function deleteRecord(id){
-  if(!currentProfile||!['admin','staff'].includes(currentRole))return;
+  if(isReadOnlyDemo()||!currentProfile||!['admin','staff'].includes(currentRole))return;
   const record=data.find(entry=>String(entry.id)===String(id));
   if(!record||(currentRole==='staff'&&record.user_id!==currentProfile.id)){
     alert('You can delete only your own temperature records.');
@@ -3971,9 +4051,9 @@ async function init(){
   const {data:{session}}=await foodSafeProClient.auth.getSession();
   
   if(session){
-    const {data:profile}=await foodSafeProClient.from('profiles').select('id,username,role,approved').eq('id',session.user.id).maybeSingle();
+    const {data:profile}=await foodSafeProClient.from('profiles').select('id,username,role,approved,demo_read_only,demo_role').eq('id',session.user.id).maybeSingle();
     if(profile){
-      if(inMaintenance && profile.role !== 'admin') {
+      if(inMaintenance && (profile.role !== 'admin' || profile.demo_read_only)) {
         await foodSafeProClient.auth.signOut();
         showAuth();
         return;
