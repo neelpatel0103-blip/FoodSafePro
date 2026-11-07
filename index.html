@@ -483,7 +483,8 @@ th{background:#f1f5f9;color:#6b7280;}
 .workflow-confirm-modal { position: fixed; z-index: 120; inset: 0; box-sizing: border-box; padding: 20px; display: grid; place-items: center; background: rgba(18,34,24,.5); backdrop-filter: blur(4px); }
 .workflow-confirm-modal.hidden { display: none; }
 .workflow-confirm-dialog { width: min(440px,100%); padding: 25px; border: 1px solid #e8ece6; border-radius: 20px; background: #fff; box-shadow: 0 24px 75px rgba(19,39,26,.24); }
-.workflow-confirm-icon { width: 48px; height: 48px; margin-bottom: 15px; border: 1px solid #f1d8d5; border-radius: 15px; display: grid; place-items: center; color: #a5433f; background: #fff4f2; font-size: 19px; }
+.workflow-confirm-icon { width: 48px; height: 48px; margin-bottom: 15px; border: 1px solid #d5e9d8; border-radius: 15px; display: grid; place-items: center; color: #397453; background: #edf7ee; font-size: 19px; }
+.workflow-confirm-icon.is-danger { border-color: #f1d8d5; color: #a5433f; background: #fff4f2; }
 .workflow-confirm-dialog h2 { margin: 0; color: #293d30; font-size: 18px; letter-spacing: -.3px; }
 .workflow-confirm-dialog > p { margin: 9px 0 0; color: #64736a; font-size: 12px; line-height: 1.65; }
 .workflow-confirm-warning { margin-top: 15px; padding: 11px 12px; border: 1px solid #f1e4cc; border-radius: 11px; color: #80622f; background: #fffaf0; font-size: 10px; line-height: 1.55; }
@@ -493,6 +494,8 @@ th{background:#f1f5f9;color:#6b7280;}
 .workflow-confirm-actions .workflow-confirm-delete { border-color: #a8443e; color: #fff; background: #a8443e; }
 .workflow-confirm-actions .workflow-confirm-delete:hover { border-color: #913a35; background: #913a35; }
 .workflow-confirm-actions .workflow-confirm-delete:disabled { opacity: .6; cursor: wait; }
+.workflow-confirm-actions .workflow-confirm-continue { border-color: #174b37; color: #fff; background: #174b37; }
+.workflow-confirm-actions .workflow-confirm-continue:hover { border-color: #103c2b; background: #103c2b; }
 .dashboard-main { min-width: 0; }
 .dashboard-main .dashboard-topbar { min-height: 90px; max-width: none; margin: 0; padding: 17px clamp(18px, 3vw, 40px); border: 0; border-bottom: 1px solid #e7ece5; border-radius: 0; align-items: center; justify-content: space-between; flex-direction: row; gap: 20px; box-shadow: none; }
 .dashboard-topbar-kicker { color: #668170; font-size: 9px; font-weight: 800; letter-spacing: 1.7px; }
@@ -544,7 +547,7 @@ th{background:#f1f5f9;color:#6b7280;}
 .workflow-form-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 11px; }
 .workflow-field { min-width: 0; display: grid; gap: 5px; color: #65756a; font-size: 11px; font-weight: 700; }
 .workflow-field.full { grid-column: 1 / -1; }
-.workflow-field input, .workflow-field select, .workflow-field textarea { box-sizing: border-box; width: 100%; min-height: 40px; padding: 9px 11px; border: 1px solid #dfe7dd; border-radius: 9px; color: #35483a; background: #fff; font: inherit; font-size: 12px; }
+.workflow-field input:not([type="checkbox"]):not([type="radio"]), .workflow-field select, .workflow-field textarea { box-sizing: border-box; width: 100%; min-height: 40px; padding: 9px 11px; border: 1px solid #dfe7dd; border-radius: 9px; color: #35483a; background: #fff; font: inherit; font-size: 12px; }
 .workflow-field textarea { min-height: 76px; resize: vertical; }
 .workflow-check-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; color: #53665a; font-size: 11px; }
 .workflow-check-row label, .workflow-checklist label { display: flex; align-items: center; gap: 7px; }
@@ -568,7 +571,24 @@ th{background:#f1f5f9;color:#6b7280;}
 .workflow-secondary.workflow-danger { border-color: #f0d7d4; color: #a5433f; background: #fff8f7; }
 .workflow-secondary.workflow-danger:hover { border-color: #e6c6c3; background: #fff0ef; }
 .workflow-checklist { display: grid; gap: 7px; margin: 10px 0; color: #53665a; font-size: 11px; }
+.workflow-checklist label { box-sizing: border-box; width: 100%; min-width: 0; padding: 9px 10px; border: 1px solid #e8eee7; border-radius: 9px; align-items: flex-start; background: #f9fbf8; line-height: 1.45; overflow-wrap: anywhere; }
+.workflow-checklist input[type="checkbox"] { width: 18px; height: 18px; min-height: 18px; flex: 0 0 18px; margin: 1px 0 0; padding: 0; accent-color: #28714e; }
 .workflow-timeline { display: grid; gap: 5px; margin-top: 10px; padding-left: 13px; border-left: 2px solid #e4ece3; color: #728078; font-size: 10px; }
+.system-message-modal { position: fixed; z-index: 140; inset: 0; box-sizing: border-box; padding: max(16px,env(safe-area-inset-top)) 16px max(16px,env(safe-area-inset-bottom)); display: grid; place-items: center; background: rgba(18,34,24,.5); backdrop-filter: blur(4px); }
+.system-message-modal.hidden { display: none; }
+.system-message-dialog { position: relative; box-sizing: border-box; width: min(420px,100%); max-height: calc(100dvh - 32px); overflow-y: auto; padding: clamp(20px,5vw,28px); border: 1px solid #e8ece6; border-radius: 20px; background: #fff; box-shadow: 0 24px 75px rgba(19,39,26,.24); }
+.system-message-dialog #system-message-text { overflow-wrap: anywhere; line-height: 1.6; }
+.workflow-input-modal { position: fixed; z-index: 130; inset: 0; box-sizing: border-box; padding: max(16px,env(safe-area-inset-top)) 16px max(16px,env(safe-area-inset-bottom)); display: grid; place-items: center; background: rgba(18,34,24,.5); backdrop-filter: blur(4px); }
+.workflow-input-modal.hidden { display: none; }
+.workflow-input-dialog { box-sizing: border-box; width: min(480px,100%); max-height: calc(100dvh - 32px); overflow-y: auto; padding: clamp(20px,5vw,28px); border: 1px solid #e8ece6; border-radius: 20px; background: #fff; box-shadow: 0 24px 75px rgba(19,39,26,.24); }
+.workflow-input-dialog h2 { margin: 0; color: #293d30; font-size: 18px; }
+.workflow-input-dialog p { margin: 9px 0 15px; color: #64736a; font-size: 12px; line-height: 1.6; overflow-wrap: anywhere; }
+.workflow-input-dialog .workflow-input-error { margin: 8px 0 0; color: #a5433f; font-size: 12px; font-weight: 700; }
+.workflow-input-dialog textarea { box-sizing: border-box; width: 100%; min-height: 120px; padding: 11px 12px; border: 1px solid #dfe7dd; border-radius: 10px; color: #35483a; background: #fff; font: inherit; font-size: 13px; resize: vertical; }
+.workflow-input-dialog textarea:focus { outline: 3px solid #d8ead8; border-color: #80a887; }
+.workflow-input-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 9px; margin-top: 16px; }
+.workflow-input-actions button { min-height: 42px; padding: 0 15px; border: 1px solid #dfe7dd; border-radius: 10px; color: #4b5e51; background: #fff; font: inherit; font-size: 12px; font-weight: 750; cursor: pointer; }
+.workflow-input-actions button[type="submit"] { border-color: #174b37; color: #fff; background: #174b37; }
 @media (max-width: 1050px) {
   .landing-hero { grid-template-columns: .9fr 1.1fr; gap: 34px; }
   .landing-features { grid-template-columns: repeat(3, 1fr); }
@@ -875,8 +895,8 @@ th{background:#f1f5f9;color:#6b7280;}
 </div>
 
 <!-- CENTERED SYSTEM MESSAGE NOTIFICATION MODAL -->
-<div id="system-message-modal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-[100] p-4" onclick="if(event.target===this)closeSystemMessage()">
-  <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6 text-center relative border border-gray-100 animate-in fade-in zoom-in duration-200">
+<div id="system-message-modal" class="system-message-modal hidden" role="presentation" onclick="if(event.target===this)closeSystemMessage()">
+  <section class="system-message-dialog text-center" role="alertdialog" aria-modal="true" aria-labelledby="system-message-title" aria-describedby="system-message-text">
     <button onclick="closeSystemMessage()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-lg font-bold p-1 rounded-full hover:bg-gray-100 transition">✕</button>
     
     <div id="system-message-icon" class="w-14 h-14 rounded-full flex items-center justify-center text-2xl mx-auto mb-3">
@@ -889,12 +909,26 @@ th{background:#f1f5f9;color:#6b7280;}
     <div class="flex space-x-2">
       <button id="system-message-btn" onclick="closeSystemMessage()" class="w-full py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-lg text-sm transition">OK</button>
     </div>
-  </div>
+  </section>
+</div>
+
+<div id="workflowInputModal" class="workflow-input-modal hidden" role="presentation" onclick="if(event.target===this)resolveWorkflowInput(null)">
+  <form class="workflow-input-dialog" role="dialog" aria-modal="true" aria-labelledby="workflowInputTitle" aria-describedby="workflowInputMessage" onsubmit="event.preventDefault();resolveWorkflowInput($('workflowInputValue').value)">
+    <h2 id="workflowInputTitle">Add details</h2>
+    <p id="workflowInputMessage"></p>
+    <label class="sr-only" for="workflowInputValue">Details</label>
+    <textarea id="workflowInputValue" maxlength="2000" oninput="$('workflowInputError').classList.add('hidden')"></textarea>
+    <p id="workflowInputError" class="workflow-input-error hidden" role="alert">Enter a reason before continuing.</p>
+    <div class="workflow-input-actions">
+      <button type="button" onclick="resolveWorkflowInput(null)">Cancel</button>
+      <button id="workflowInputSubmit" type="submit">Continue</button>
+    </div>
+  </form>
 </div>
 
 <div id="workflowConfirmModal" class="workflow-confirm-modal hidden" role="presentation" onclick="if(event.target===this)resolveWorkflowConfirmation(false)">
   <section class="workflow-confirm-dialog" role="alertdialog" aria-modal="true" aria-labelledby="workflowConfirmTitle" aria-describedby="workflowConfirmMessage">
-    <div class="workflow-confirm-icon" aria-hidden="true"><i class="fas fa-trash-can"></i></div>
+    <div id="workflowConfirmIcon" class="workflow-confirm-icon is-danger" aria-hidden="true"><i class="fas fa-trash-can"></i></div>
     <h2 id="workflowConfirmTitle">Confirm permanent deletion</h2>
     <p id="workflowConfirmMessage"></p>
     <div id="workflowConfirmWarning" class="workflow-confirm-warning"></div>
@@ -1395,7 +1429,7 @@ const configured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes
 const foodSafeProClient = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 const foodSafeProPublicClient = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {auth:{autoRefreshToken:false,persistSession:false,detectSessionInUrl:false}}) : null;
 
-let currentUser = null, currentRole = null, currentProfile = null, currentAuthUser = null, currentDashboardView = 'account', data = [], filteredData = [], charts = {}, cleaningAssignmentReport = [], workflowDeadlineTimer = null, workflowDeadlineChecksInitialized = false, workflowNotificationError = '', workflowNotificationEventsBound = false, staffAdminChatThreadId = null, staffAdminChatContacts = [], staffAdminChatPollTimer = null, staffAdminChatEventsBound = false, workflowConfirmationResolver = null, workflowConfirmationPreviousFocus = null;
+let currentUser = null, currentRole = null, currentProfile = null, currentAuthUser = null, currentDashboardView = 'account', data = [], filteredData = [], charts = {}, cleaningAssignmentReport = [], workflowDeadlineTimer = null, workflowDeadlineChecksInitialized = false, workflowNotificationError = '', workflowNotificationEventsBound = false, staffAdminChatThreadId = null, staffAdminChatContacts = [], staffAdminChatPollTimer = null, staffAdminChatEventsBound = false, workflowConfirmationResolver = null, workflowConfirmationPreviousFocus = null, workflowInputResolver = null, workflowInputPreviousFocus = null, systemMessagePreviousFocus = null;
 const $ = id => document.getElementById(id);
 let pendingSignupEmail = '';
 
@@ -1535,17 +1569,28 @@ function setWorkflowStatus(id,message,isError=false){
   status.classList.toggle('error',isError);
 }
 
-function confirmWorkflowDeletion({title,message,warning,confirmLabel='Delete permanently'}){
+function confirmWorkflowAction({title,message,warning='',confirmLabel='Continue',danger=false}){
   if(workflowConfirmationResolver)return Promise.resolve(false);
   const modal=$('workflowConfirmModal');
+  const icon=$('workflowConfirmIcon');
+  const confirmButton=$('workflowConfirmDelete');
   $('workflowConfirmTitle').textContent=title;
   $('workflowConfirmMessage').textContent=message;
   $('workflowConfirmWarning').textContent=warning;
-  $('workflowConfirmDelete').textContent=confirmLabel;
+  $('workflowConfirmWarning').classList.toggle('hidden',!warning);
+  icon.classList.toggle('is-danger',danger);
+  icon.innerHTML=`<i class="fas ${danger?'fa-triangle-exclamation':'fa-circle-question'}" aria-hidden="true"></i>`;
+  confirmButton.classList.toggle('workflow-confirm-delete',danger);
+  confirmButton.classList.toggle('workflow-confirm-continue',!danger);
+  confirmButton.textContent=confirmLabel;
   workflowConfirmationPreviousFocus=document.activeElement instanceof HTMLElement?document.activeElement:null;
   modal.classList.remove('hidden');
   $('workflowConfirmCancel').focus();
   return new Promise(resolve=>{workflowConfirmationResolver=resolve;});
+}
+
+function confirmWorkflowDeletion(options){
+  return confirmWorkflowAction({...options,danger:true});
 }
 
 function resolveWorkflowConfirmation(confirmed){
@@ -1557,6 +1602,50 @@ function resolveWorkflowConfirmation(confirmed){
   workflowConfirmationPreviousFocus=null;
   resolve(Boolean(confirmed));
 }
+
+function requestWorkflowInput({title,message,placeholder,confirmLabel='Submit'}){
+  if(workflowInputResolver)return Promise.resolve(null);
+  $('workflowInputTitle').textContent=title;
+  $('workflowInputMessage').textContent=message;
+  $('workflowInputValue').value='';
+  $('workflowInputError').classList.add('hidden');
+  $('workflowInputValue').placeholder=placeholder||'Enter details';
+  $('workflowInputSubmit').textContent=confirmLabel;
+  workflowInputPreviousFocus=document.activeElement instanceof HTMLElement?document.activeElement:null;
+  $('workflowInputModal').classList.remove('hidden');
+  $('workflowInputValue').focus();
+  return new Promise(resolve=>{workflowInputResolver=resolve;});
+}
+
+function resolveWorkflowInput(value){
+  if(!workflowInputResolver)return;
+  const response=typeof value==='string'?value.trim():null;
+  if(value!==null&&!response){
+    $('workflowInputError').classList.remove('hidden');
+    $('workflowInputValue').focus();
+    return;
+  }
+  const resolve=workflowInputResolver;
+  workflowInputResolver=null;
+  $('workflowInputModal').classList.add('hidden');
+  workflowInputPreviousFocus?.focus();
+  workflowInputPreviousFocus=null;
+  resolve(response);
+}
+
+document.addEventListener('keydown',event=>{
+  if(event.key!=='Escape')return;
+  if(!$('workflowInputModal')?.classList.contains('hidden')){
+    event.preventDefault();
+    resolveWorkflowInput(null);
+  }else if(!$('workflowConfirmModal')?.classList.contains('hidden')){
+    event.preventDefault();
+    resolveWorkflowConfirmation(false);
+  }else if(!$('system-message-modal')?.classList.contains('hidden')){
+    event.preventDefault();
+    closeSystemMessage();
+  }
+});
 
 function setWorkflowNotificationError(message){
   workflowNotificationError=message||'';
@@ -1969,7 +2058,7 @@ async function openWorkflowNotification(id,entityType,entityId){
 
 async function dismissWorkflowNotification(id,refresh=true){
   const {error}=await foodSafeProClient.rpc('foodsafe_mark_notification_read',{p_notification_id:id});
-  if(error){console.error('Could not mark notification read:',error);alert(`Could not update notification: ${workflowErrorMessage(error)}`);return false;}
+  if(error){console.error('Could not mark notification read:',error);showAppMessage(`Could not update notification: ${workflowErrorMessage(error)}`);return false;}
   if(refresh)await loadWorkflowNotifications();
   return true;
 }
@@ -2170,7 +2259,7 @@ async function submitCorrectiveWork(event,id){
   event.preventDefault();
   const form=event.currentTarget,fields=new FormData(form);
   const correctiveSteps=String(fields.get('corrective_steps')||'').trim();
-  if(!correctiveSteps){alert('Describe the corrective steps performed.');return;}
+  if(!correctiveSteps){showAppMessage('Describe the corrective steps performed.');return;}
   const button=form.querySelector('button[type="submit"]');button.disabled=true;
   try{
     await uploadWorkflowEvidence(fields.getAll('evidence'),'corrective_action',id);
@@ -2181,7 +2270,7 @@ async function submitCorrectiveWork(event,id){
     await loadCorrectiveActions();
   }catch(error){
     console.error('Could not submit corrective action:',error);
-    alert(`Could not submit corrective action: ${workflowErrorMessage(error)}`);
+    showAppMessage(`Could not submit corrective action: ${workflowErrorMessage(error)}`);
   }finally{button.disabled=false;}
 }
 
@@ -2192,7 +2281,7 @@ async function startCorrectiveAction(id){
       p_action_id:id
     });
     if(error)throw error;
-  }catch(error){console.error('Could not start corrective work:',error);alert(`Could not start corrective work: ${workflowErrorMessage(error)}`);return;}
+  }catch(error){console.error('Could not start corrective work:',error);showAppMessage(`Could not start corrective work: ${workflowErrorMessage(error)}`);return;}
   await loadCorrectiveActions();
 }
 
@@ -2201,20 +2290,30 @@ async function reopenCorrectiveAction(id){
     const {error}=await foodSafeProClient.rpc('foodsafe_reopen_corrective_action',{p_action_id:id});
     if(error)throw error;
     await loadCorrectiveActions();
-  }catch(error){console.error('Could not reopen corrective action:',error);alert(`Could not edit this submission: ${workflowErrorMessage(error)}`);}
+  }catch(error){console.error('Could not reopen corrective action:',error);showAppMessage(`Could not edit this submission: ${workflowErrorMessage(error)}`);}
 }
 
 async function reviewCorrectiveAction(id,decision){
-  if(currentRole!=='admin')return;
-  const reason=decision==='approved'?'Verified and resolved.':prompt(decision==='rejected'?'Explain what needs to be corrected:':'Describe the follow-up verification required:');
+  if(currentRole!=='admin'||isReadOnlyDemo())return;
+  const reason=decision==='approved'
+    ?'Verified and resolved.'
+    :await requestWorkflowInput({
+      title:decision==='rejected'?'Return incident for correction':'Request follow-up verification',
+      message:decision==='rejected'
+        ?'Describe the corrective work or evidence the staff member needs to provide.'
+        :'Describe the additional check needed before this incident can be closed.',
+      placeholder:decision==='rejected'?'What needs to be corrected?':'What follow-up verification is required?',
+      confirmLabel:decision==='rejected'?'Send back to staff':'Request follow-up'
+    });
   if(reason===null)return;
+  if(decision!=='approved'&&!reason)return;
   try{
     const {error}=await foodSafeProClient.rpc('foodsafe_review_corrective_action',{p_action_id:id,p_decision:decision,p_reason:reason});
     if(error)throw error;
     await loadCorrectiveActions();
   }catch(error){
     console.error('Could not review corrective action:',error);
-    alert(`Could not save review: ${workflowErrorMessage(error)}`);
+    showAppMessage(`Could not save review: ${workflowErrorMessage(error)}`);
   }
 }
 
@@ -2256,7 +2355,7 @@ async function deleteCorrectiveAction(id){
   }catch(error){
     console.error('Could not delete corrective action:',error);
     const removed=error.evidenceFilesRemoved??evidenceCount;
-    alert(`Could not completely delete this corrective action: ${recordDeletionErrorMessage(error)}${removed?` ${removed} evidence file(s) were removed before the failure.`:''}${error.message?.startsWith('Could not remove stored evidence:')?' Workflow records were not deleted.':''}`);
+    showAppMessage(`Could not completely delete this corrective action: ${recordDeletionErrorMessage(error)}${removed?` ${removed} evidence file(s) were removed before the failure.`:''}${error.message?.startsWith('Could not remove stored evidence:')?' Workflow records were not deleted.':''}`);
   }
 }
 
@@ -2278,7 +2377,7 @@ async function deleteCleaningTask(taskId){
   }catch(error){
     console.error('Could not delete cleaning task and history:',error);
     const removed=error.evidenceFilesRemoved??evidenceCount;
-    alert(`Could not completely delete this cleaning task: ${recordDeletionErrorMessage(error)}${removed?` ${removed} evidence file(s) were removed before the failure.`:''}${error.message?.startsWith('Could not remove stored evidence:')?' Workflow records were not deleted.':''}`);
+    showAppMessage(`Could not completely delete this cleaning task: ${recordDeletionErrorMessage(error)}${removed?` ${removed} evidence file(s) were removed before the failure.`:''}${error.message?.startsWith('Could not remove stored evidence:')?' Workflow records were not deleted.':''}`);
   }
 }
 
@@ -2433,8 +2532,8 @@ async function loadCleaningAssignments(){
 }
 
 function exportCleaningReport(){
-  if(!window.jspdf?.jsPDF){alert('PDF library did not load. Check your internet connection.');return;}
-  if(!cleaningAssignmentReport.length){alert('There are no cleaning tasks to include in this report.');return;}
+  if(!window.jspdf?.jsPDF){showAppMessage('PDF library did not load. Check your internet connection.');return;}
+  if(!cleaningAssignmentReport.length){showAppMessage('There are no cleaning tasks to include in this report.');return;}
   const {jsPDF}=window.jspdf,doc=new jsPDF('l','pt','a4');
   doc.setFontSize(18);doc.text('FoodSafe Pro - Cleaning & Sanitation Report',40,42);
   doc.setFontSize(10);doc.text(`Generated by: ${currentUser} · ${new Date().toLocaleString()}`,40,61);
@@ -2500,7 +2599,7 @@ async function startCleaningTask(id){
   try{
     const {error}=await foodSafeProClient.rpc('foodsafe_start_cleaning_assignment',{p_assignment_id:id});
     if(error)throw error;
-  }catch(error){console.error('Could not start cleaning task:',error);alert(`Could not start task: ${workflowErrorMessage(error)}`);return;}
+  }catch(error){console.error('Could not start cleaning task:',error);showAppMessage(`Could not start task: ${workflowErrorMessage(error)}`);return;}
   await loadCleaningAssignments();
 }
 
@@ -2509,18 +2608,18 @@ async function reopenCleaningSubmission(id){
     const {error}=await foodSafeProClient.rpc('foodsafe_reopen_cleaning_assignment',{p_assignment_id:id});
     if(error)throw error;
     await loadCleaningAssignments();
-  }catch(error){console.error('Could not reopen cleaning submission:',error);alert(`Could not edit this submission: ${workflowErrorMessage(error)}`);}
+  }catch(error){console.error('Could not reopen cleaning submission:',error);showAppMessage(`Could not edit this submission: ${workflowErrorMessage(error)}`);}
 }
 
 async function submitCleaningCompletion(event,id,requiresSanitizer,requiresPhoto){
   event.preventDefault();
   const form=event.currentTarget,fields=new FormData(form),checked=fields.getAll('checklist').map(Number);
-  if(!checked.length){alert('Complete every required checklist item.');return;}
+  if(!checked.length){showAppMessage('Complete every required checklist item.');return;}
   const files=fields.getAll('evidence');
   const validFiles=files.filter(file=>file instanceof File&&file.size>0);
-  if(requiresPhoto&&!validFiles.length){alert('Photo evidence is required for this cleaning task.');return;}
+  if(requiresPhoto&&!validFiles.length){showAppMessage('Photo evidence is required for this cleaning task.');return;}
   const sanitizer=String(fields.get('sanitizer')||'').trim();
-  if(requiresSanitizer&&(!sanitizer||!Number.isFinite(Number(sanitizer)))){alert('Enter a valid sanitizer concentration.');return;}
+  if(requiresSanitizer&&(!sanitizer||!Number.isFinite(Number(sanitizer)))){showAppMessage('Enter a valid sanitizer concentration.');return;}
   const button=form.querySelector('button[type="submit"]');button.disabled=true;
   try{
     await uploadWorkflowEvidence(validFiles,'cleaning_assignment',id);
@@ -2533,14 +2632,22 @@ async function submitCleaningCompletion(event,id,requiresSanitizer,requiresPhoto
     await loadCleaningAssignments();
   }catch(error){
     console.error('Could not submit cleaning task:',error);
-    alert(`Could not submit cleaning task: ${workflowErrorMessage(error)}`);
+    showAppMessage(`Could not submit cleaning task: ${workflowErrorMessage(error)}`);
   }finally{button.disabled=false;}
 }
 
 async function reviewCleaningAssignment(id,decision){
-  if(currentRole!=='admin')return;
-  const reason=decision==='approved'?'Cleaning completion verified.':prompt('Explain why the task must be re-cleaned:');
+  if(currentRole!=='admin'||isReadOnlyDemo())return;
+  const reason=decision==='approved'
+    ?'Cleaning completion verified.'
+    :await requestWorkflowInput({
+      title:'Request re-cleaning',
+      message:'Explain what needs to be cleaned again or corrected before you can approve this task.',
+      placeholder:'Describe the re-cleaning required.',
+      confirmLabel:'Request re-cleaning'
+    });
   if(reason===null)return;
+  if(decision!=='approved'&&!reason)return;
   try{
     const {error}=await foodSafeProClient.rpc('foodsafe_review_cleaning_assignment',{
       p_assignment_id:id,p_decision:decision,p_reason:reason
@@ -2549,7 +2656,7 @@ async function reviewCleaningAssignment(id,decision){
     await loadCleaningAssignments();
   }catch(error){
     console.error('Could not review cleaning task:',error);
-    alert(`Could not save review: ${workflowErrorMessage(error)}`);
+    showAppMessage(`Could not save review: ${workflowErrorMessage(error)}`);
   }
 }
 
@@ -2768,12 +2875,18 @@ async function loadWebsiteFeedback(){
 }
 
 async function setWebsiteFeedbackPublished(id,isPublished,button){
-  if(currentRole!=='admin'){
+  if(currentRole!=='admin'||isReadOnlyDemo()){
     showDashboardView('account');
     return;
   }
   const action=isPublished?'publish this message on the public homepage':'remove this message from the public homepage';
-  if(!confirm(`Are you sure you want to ${action}?${isPublished?' The message and any name provided will be public; the sender email will remain private.':''}`))return;
+  const confirmed=await confirmWorkflowAction({
+    title:isPublished?'Publish visitor feedback?':'Unpublish visitor feedback?',
+    message:`Are you sure you want to ${action}?`,
+    warning:isPublished?'The message and any name provided will be public; the sender email will remain private.':'This message will no longer appear on the public homepage.',
+    confirmLabel:isPublished?'Publish message':'Unpublish message'
+  });
+  if(!confirmed)return;
   button.disabled=true;
   try{
     const {data:updatedRows,error}=await foodSafeProClient
@@ -2797,11 +2910,18 @@ async function setWebsiteFeedbackPublished(id,isPublished,button){
 }
 
 async function deleteWebsiteFeedback(id,button){
-  if(currentRole!=='admin'){
+  if(currentRole!=='admin'||isReadOnlyDemo()){
     showDashboardView('account');
     return;
   }
-  if(!confirm('Permanently delete this visitor feedback? This cannot be undone.'))return;
+  const confirmed=await confirmWorkflowAction({
+    title:'Delete visitor feedback?',
+    message:'Permanently delete this visitor feedback?',
+    warning:'This action cannot be undone.',
+    confirmLabel:'Delete permanently',
+    danger:true
+  });
+  if(!confirmed)return;
   button.disabled=true;
   try{
     const {data:deletedRows,error}=await foodSafeProClient
@@ -2963,6 +3083,10 @@ async function toggleMaintenanceMode() {
 }
 
 function showSystemMessage(title, text, type, btnText = 'OK') {
+  const modal=$('system-message-modal');
+  if(modal.classList.contains('hidden')){
+    systemMessagePreviousFocus=document.activeElement instanceof HTMLElement?document.activeElement:null;
+  }
   $('system-message-title').textContent = title;
   $('system-message-text').textContent = text;
   const btn = $('system-message-btn') || $('system-message-modal')?.querySelector('button:last-of-type');
@@ -2978,11 +3102,18 @@ function showSystemMessage(title, text, type, btnText = 'OK') {
     iconBox.className = 'w-14 h-14 rounded-full flex items-center justify-center text-2xl mx-auto mb-3 bg-amber-50 text-amber-500';
     iconBox.innerHTML = '<i class="fas fa-tools"></i>';
   }
-  $('system-message-modal').classList.remove('hidden');
+  modal.classList.remove('hidden');
+  $('system-message-btn').focus();
 }
 
 function closeSystemMessage() {
   $('system-message-modal').classList.add('hidden');
+  systemMessagePreviousFocus?.focus();
+  systemMessagePreviousFocus=null;
+}
+
+function showAppMessage(message){
+  showSystemMessage('FoodSafe Pro',String(message),'error','Close');
 }
 
 function bypassMaintenance() {
@@ -3543,7 +3674,7 @@ async function submitChangePassword() {
       msgEl.textContent = msg;
       msgEl.className = 'block text-xs p-2.5 rounded-lg mb-3 bg-red-100 text-red-700 border border-red-200';
     } else {
-      alert(msg);
+      showAppMessage(msg);
     }
   };
 
@@ -3900,7 +4031,7 @@ async function render(){
   const {data:rows,error}=isReadOnlyDemo()
     ?await foodSafeProClient.from('foodsafe_demo_temperature_records').select('id,item,area,temp,created_at,technician').order('created_at',{ascending:false})
     :await foodSafeProClient.from('temperature_records').select('id,item,area,temp,created_at,technician,user_id').order('created_at',{ascending:false});
-  if(error){alert('Could not load temperature records: '+error.message);return;}
+  if(error){showAppMessage('Could not load temperature records: '+error.message);return;}
   data=(rows||[]).map(d=>({...d,createdAt:new Date(d.created_at),time:new Date(d.created_at).toLocaleString(),tech:d.technician||'Staff'}));
   updateDashboardSummary();
   applyFilters();
@@ -4019,9 +4150,9 @@ async function addReading(){
   const item=$('modal-reading-item').value.trim();
   const area=$('modal-reading-area').value;
   const temp=Number.parseFloat($('modal-reading-temp').value);
-  if(!item||!area||!Number.isFinite(temp)){alert('Enter all fields.');return;}
+  if(!item||!area||!Number.isFinite(temp)){showAppMessage('Enter all fields.');return;}
   const {error}=await foodSafeProClient.from('temperature_records').insert({item,area,temp,user_id:currentProfile.id,technician:currentUser});
-  if(error){alert('Could not save record: '+error.message);return;}
+  if(error){showAppMessage('Could not save record: '+error.message);return;}
   closeModal();
   await render();
 }
@@ -4030,18 +4161,25 @@ async function deleteRecord(id){
   if(isReadOnlyDemo()||!currentProfile||!['admin','staff'].includes(currentRole))return;
   const record=data.find(entry=>String(entry.id)===String(id));
   if(!record||(currentRole==='staff'&&record.user_id!==currentProfile.id)){
-    alert('You can delete only your own temperature records.');
+    showAppMessage('You can delete only your own temperature records.');
     return;
   }
-  if(!confirm('Delete this temperature record?'))return;
+  const confirmed=await confirmWorkflowAction({
+    title:'Delete temperature record?',
+    message:'Are you sure you want to delete this temperature record?',
+    warning:'This action cannot be undone.',
+    confirmLabel:'Delete record',
+    danger:true
+  });
+  if(!confirmed)return;
   let deletion=foodSafeProClient.from('temperature_records').delete().eq('id',id);
   if(currentRole==='staff')deletion=deletion.eq('user_id',currentProfile.id);
   const {data:deletedRows,error}=await deletion.select('id');
-  if(error){alert('Could not delete record: '+error.message);return;}
-  if(!deletedRows?.length){alert('No record was deleted. Check your account permissions or refresh the records.');return;}
+  if(error){showAppMessage('Could not delete record: '+error.message);return;}
+  if(!deletedRows?.length){showAppMessage('No record was deleted. Check your account permissions or refresh the records.');return;}
   await render();
 }
-function exportPDF(){if(!window.jspdf||!window.jspdf.jsPDF){alert('PDF library did not load. Check your internet connection.');return;}if(!filteredData.length){alert('There are no temperature readings to export for these filters.');return;}const {jsPDF}=window.jspdf;const doc=new jsPDF('p','pt','a4');doc.setFontSize(18);doc.text('FoodSafe Pro - Temperature Records',40,40);doc.setFontSize(11);doc.text(`Generated by: ${currentUser}`,40,60);doc.text(`Date: ${new Date().toLocaleString()}`,40,76);const columns=['Item','Area','Temp (°C / °F)','Status','Time','Technician'];const rows=filteredData.map(d=>{const s=getStatus(d),f=Number(d.temp)*9/5+32;return [d.item,d.area,`${Number(d.temp).toFixed(1)} / ${f.toFixed(1)}`,s.text,d.time,d.tech];});doc.autoTable({head:[columns],body:rows,startY:92,styles:{fontSize:9},headStyles:{fillColor:[33,37,41]},margin:{left:40,right:40}});doc.save(`FoodSafePro_Report_${new Date().toISOString().slice(0,10)}.pdf`);}
+function exportPDF(){if(!window.jspdf||!window.jspdf.jsPDF){showAppMessage('PDF library did not load. Check your internet connection.');return;}if(!filteredData.length){showAppMessage('There are no temperature readings to export for these filters.');return;}const {jsPDF}=window.jspdf;const doc=new jsPDF('p','pt','a4');doc.setFontSize(18);doc.text('FoodSafe Pro - Temperature Records',40,40);doc.setFontSize(11);doc.text(`Generated by: ${currentUser}`,40,60);doc.text(`Date: ${new Date().toLocaleString()}`,40,76);const columns=['Item','Area','Temp (°C / °F)','Status','Time','Technician'];const rows=filteredData.map(d=>{const s=getStatus(d),f=Number(d.temp)*9/5+32;return [d.item,d.area,`${Number(d.temp).toFixed(1)} / ${f.toFixed(1)}`,s.text,d.time,d.tech];});doc.autoTable({head:[columns],body:rows,startY:92,styles:{fontSize:9},headStyles:{fillColor:[33,37,41]},margin:{left:40,right:40}});doc.save(`FoodSafePro_Report_${new Date().toISOString().slice(0,10)}.pdf`);}
 
 async function init(){
   loadPublishedWebsiteFeedback();
