@@ -568,6 +568,12 @@ th{background:#f1f5f9;color:#6b7280;}
 .workflow-badge.approved, .workflow-badge.closed { color: #397453; background: #edf7ee; }
 .workflow-item-actions { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
 .workflow-secondary { min-height: 34px; padding: 0 10px; border: 1px solid #dfe7dd; border-radius: 8px; color: #3d5945; background: #fff; font-size: 10px; font-weight: 700; cursor: pointer; }
+.workflow-report-toolbar { align-items: flex-end; gap: 10px; margin: 0; }
+.workflow-report-period { width: min(190px,42vw); }
+.workflow-export-button { box-sizing: border-box; min-height: 44px; padding: 0 15px; border: 1px solid #174b37; border-radius: 10px; display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center; gap: 9px; color: #fff; background: linear-gradient(135deg,#226447,#174b37); box-shadow: 0 5px 12px rgba(23,75,55,.16); font: inherit; font-size: 12px; font-weight: 750; white-space: nowrap; cursor: pointer; transition: background .18s ease, box-shadow .18s ease, transform .18s ease; }
+.workflow-export-button:hover { background: linear-gradient(135deg,#1c583e,#103c2b); box-shadow: 0 7px 16px rgba(23,75,55,.22); transform: translateY(-1px); }
+.workflow-export-button:focus-visible { outline: 3px solid #b9d8bd; outline-offset: 3px; }
+.workflow-export-button i { font-size: 14px; }
 .workflow-secondary.workflow-danger { border-color: #f0d7d4; color: #a5433f; background: #fff8f7; }
 .workflow-secondary.workflow-danger:hover { border-color: #e6c6c3; background: #fff0ef; }
 .workflow-checklist { display: grid; gap: 7px; margin: 10px 0; color: #53665a; font-size: 11px; }
@@ -703,6 +709,8 @@ th{background:#f1f5f9;color:#6b7280;}
   .dashboard-chart-card { padding: 14px; }
   .dashboard-chart { height: 290px; }
   .workflow-panel { padding: 15px; }
+  .workflow-report-toolbar { width: 100%; justify-content: flex-start; margin-top: 4px; }
+  .workflow-report-period { flex: 1 1 165px; max-width: 210px; }
   .workflow-form-grid { grid-template-columns: 1fr; }
   .workflow-field.full { grid-column: auto; }
   .records-filters { flex-basis: 100%; justify-content: stretch; }
@@ -1230,10 +1238,10 @@ th{background:#f1f5f9;color:#6b7280;}
       </div>
     </div>
     <div class="workflow-panel">
-      <div class="workflow-item-header"><h3>Cleaning schedule and submissions</h3>
-        <div class="workflow-item-actions">
-          <label class="workflow-field">Report period<select id="cleaningReportPeriod" onchange="loadCleaningAssignments()"><option value="all">All loaded tasks</option><option value="1">Today</option><option value="7">Last 7 days</option><option value="30">Last 30 days</option></select></label>
-          <button class="workflow-secondary" type="button" onclick="exportCleaningReport()">Export PDF</button>
+      <div class="workflow-item-header workflow-report-header"><h3>Cleaning schedule and submissions</h3>
+        <div class="workflow-item-actions workflow-report-toolbar">
+          <label class="workflow-field workflow-report-period">Report period<select id="cleaningReportPeriod" onchange="loadCleaningAssignments()"><option value="all">All loaded tasks</option><option value="1">Today</option><option value="7">Last 7 days</option><option value="30">Last 30 days</option></select></label>
+          <button class="workflow-export-button" type="button" onclick="exportCleaningReport()" aria-label="Export cleaning report as PDF"><i class="fas fa-file-pdf" aria-hidden="true"></i><span>Export PDF</span></button>
         </div>
       </div>
       <p>Overdue is calculated from the due date and is not a staff-selectable status.</p>
@@ -2096,6 +2104,15 @@ function formatWorkflowDate(value){
   return Number.isNaN(date.getTime())?'—':date.toLocaleString();
 }
 
+function workflowActorName(actorId,names){
+  if(!actorId)return 'System';
+  return names.get(actorId)||(
+    actorId===currentProfile?.id
+      ?currentUser||'You'
+      :currentRole==='admin'?'Staff member':'Administrator'
+  );
+}
+
 function workflowBadge(status,dueAt){
   const overdue=dueAt&&new Date(dueAt)<new Date()&&!['submitted','approved'].includes(status);
   const label=overdue?'Overdue':status.replaceAll('_',' ');
@@ -2241,7 +2258,7 @@ async function loadCorrectiveActions(){
     </div>`:'';
     const evidence=(evidenceById.get(String(action.id))||[]).map((url,index)=>`<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">Evidence ${index+1}</a>`).join(' · ');
     return `<article class="workflow-item">
-      <div class="workflow-item-header"><div><h4>${escapeHtml(action.incident_number||`CA-${String(action.id).padStart(6,'0')}`)} · ${escapeHtml(action.item)}</h4><div class="workflow-item-meta">${escapeHtml(action.area||'Other issue')}${action.temperature===null?'':` · ${Number(action.temperature).toFixed(1)} °C`} · ${formatWorkflowDate(action.created_at)} · ${currentRole==='admin'?`Reported by ${escapeHtml(reporters.get(action.reported_by)||action.reported_by)}`:'Reported by you'}</div></div>${workflowBadge(action.status)}</div>
+      <div class="workflow-item-header"><div><h4>${escapeHtml(action.incident_number||`CA-${String(action.id).padStart(6,'0')}`)} · ${escapeHtml(action.item)}</h4><div class="workflow-item-meta">${escapeHtml(action.area||'Other issue')}${action.temperature===null?'':` · ${Number(action.temperature).toFixed(1)} °C`} · ${formatWorkflowDate(action.created_at)} · ${currentRole==='admin'?`Reported by ${escapeHtml(workflowActorName(action.reported_by,reporters))}`:'Reported by you'}</div></div>${workflowBadge(action.status)}</div>
       ${action.linked_cleaning_assignment_id?`<p>Linked cleaning task #${Number(action.linked_cleaning_assignment_id)}.</p>`:''}
       <p><strong>Problem:</strong> ${escapeHtml(action.problem)}</p>
       ${action.immediate_action?`<p><strong>Immediate action:</strong> ${escapeHtml(action.immediate_action)}</p>`:''}
@@ -2250,7 +2267,7 @@ async function loadCorrectiveActions(){
       ${evidence?`<p><strong>Evidence:</strong> ${evidence}</p>`:''}
       ${currentRole==='admin'?`<div class="workflow-item-actions"><button class="workflow-secondary workflow-danger" type="button" onclick="deleteCorrectiveAction(${Number(action.id)})">Delete record permanently</button></div>`:''}
       ${reviseButton}${editForm}${reviews}
-      <div class="workflow-timeline">${(historyById.get(String(action.id))||[]).map(entry=>`<span>${formatWorkflowDate(entry.created_at)} · ${escapeHtml(actorNames.get(entry.actor_id)||entry.actor_id||'System')} · ${escapeHtml(entry.event_type.replaceAll('_',' '))}${entry.details?` — ${escapeHtml(entry.details)}`:''}</span>`).join('')||`Current status: ${escapeHtml(action.status.replaceAll('_',' '))}.`}</div>
+      <div class="workflow-timeline">${(historyById.get(String(action.id))||[]).map(entry=>`<span>${formatWorkflowDate(entry.created_at)} · ${escapeHtml(workflowActorName(entry.actor_id,actorNames))} · ${escapeHtml(entry.event_type.replaceAll('_',' '))}${entry.details?` — ${escapeHtml(entry.details)}`:''}</span>`).join('')||`Current status: ${escapeHtml(action.status.replaceAll('_',' '))}.`}</div>
     </article>`;
   }).join('');
 }
@@ -2467,7 +2484,7 @@ async function loadCleaningAssignments(){
     (reviewsResult.data||[]).forEach(review=>{if(!latestReviews.has(String(review.assignment_id)))latestReviews.set(String(review.assignment_id),review);});
     cleaningAssignmentReport=filteredAssignments.map((assignment,index)=>({
       ...assignment,
-      reportAssignee:isAdmin?(staffNames.get(assignment.assigned_to)||assignment.assigned_to):currentUser,
+      reportAssignee:isAdmin?(staffNames.get(assignment.assigned_to)||'Staff member'):currentUser,
       reportCompletion:completionResults[index]?.data,
       reportReview:latestReviews.get(String(assignment.id))
     }));
@@ -2497,11 +2514,11 @@ async function loadCleaningAssignments(){
       const overdue=assignment.due_at&&new Date(assignment.due_at)<new Date()&&!['submitted','approved'].includes(assignment.status);
       const displayStatus=overdue?'overdue':assignment.status;
       const staffForm=!isAdmin&&!['submitted','approved'].includes(assignment.status)?`
-        <form class="workflow-form-grid" onsubmit="submitCleaningCompletion(event,${Number(assignment.id)},${task.requires_sanitizer?'true':'false'},${task.requires_photo?'true':'false'})">
+        <form class="workflow-form-grid" novalidate onsubmit="submitCleaningCompletion(event,${Number(assignment.id)},${task.requires_sanitizer?'true':'false'},${task.requires_photo?'true':'false'})">
           ${assignment.status!=='in_progress'?`<div class="workflow-field full"><p class="workflow-status">Start the task to open its checklist and completion record.</p><button class="workflow-secondary" type="button" onclick="startCleaningTask(${Number(assignment.id)})">${assignment.status==='rejected'?'Restart':'Start'} cleaning task</button></div>`:`
             ${checklistError?'<p class="workflow-status error">Could not load the checklist. Refresh and try again.</p>':`<div class="workflow-field full workflow-checklist">${checklist.map(item=>`<label><input type="checkbox" name="checklist" value="${Number(item.id)}" required> ${escapeHtml(item.label)}</label>`).join('')}</div>`}
-            ${task.requires_sanitizer?'<label class="workflow-field">Sanitizer concentration (ppm)<input name="sanitizer" type="number" step="0.1" required></label>':''}
-            <label class="workflow-field${task.requires_sanitizer?'':' full'}">Completion notes<textarea name="notes" maxlength="2000" placeholder="Notes or issues found"></textarea></label>
+            <label class="workflow-field">Sanitizer concentration (ppm) (${task.requires_sanitizer?'required':'optional'})<input name="sanitizer" type="number" min="0.01" step="0.01"${task.requires_sanitizer?' required':''}></label>
+            <label class="workflow-field">Completion notes<textarea name="notes" maxlength="2000" placeholder="Notes or issues found"></textarea></label>
             <label class="workflow-field full">Report a sanitation problem (optional)<textarea name="issue" maxlength="2000" placeholder="If you found a food-safety issue, describe it. A linked corrective action will be opened."></textarea></label>
             <label class="workflow-field full">Before/after photo evidence ${task.requires_photo?'(required)':'(optional)'}<input name="evidence" type="file" accept="image/*" multiple${task.requires_photo?' required':''}></label>
             <div class="workflow-field full"><button class="workflow-submit" type="submit">Submit for review</button></div>`}
@@ -2516,13 +2533,13 @@ async function loadCleaningAssignments(){
       const history=activityById.get(String(assignment.id))||[];
       const checklistDisplay=checklist.length?`<div class="workflow-checklist">${checklist.map(item=>`<span><i class="fas fa-check" aria-hidden="true"></i> ${escapeHtml(item.label)}</span>`).join('')}</div>`:'';
       return `<article class="workflow-item">
-        <div class="workflow-item-header"><div><h4>${escapeHtml(task.title||'Cleaning task')}</h4><div class="workflow-item-meta">${escapeHtml(task.frequency||'')} · Due ${formatWorkflowDate(assignment.due_at)} · ${isAdmin?`Assigned to ${escapeHtml(staffNames.get(assignment.assigned_to)||assignment.assigned_to)}`:'Assigned to you'}</div></div>${workflowBadge(displayStatus)}</div>
+        <div class="workflow-item-header"><div><h4>${escapeHtml(task.title||'Cleaning task')}</h4><div class="workflow-item-meta">${escapeHtml(task.frequency||'')} · Due ${formatWorkflowDate(assignment.due_at)} · ${isAdmin?`Assigned to ${escapeHtml(staffNames.get(assignment.assigned_to)||'Staff member')}`:'Assigned to you'}</div></div>${workflowBadge(displayStatus)}</div>
         ${task.instructions?`<p>${escapeHtml(task.instructions)}</p>`:''}
         ${task.materials?`<p><strong>Materials:</strong> ${escapeHtml(task.materials)}</p>`:''}
         ${isAdmin?checklistDisplay:''}
         ${isAdmin&&assignment.status==='submitted'?(completionError?`<p class="workflow-status error">Could not load completion details: ${escapeHtml(workflowErrorMessage(completionError))}</p>`:`<p><strong>Staff notes:</strong> ${escapeHtml(completion?.notes||'No additional notes.')}${completion?.sanitizer_concentration===null||completion?.sanitizer_concentration===undefined?'':` · Sanitizer concentration: ${Number(completion.sanitizer_concentration)}`}</p><p><strong>Submitted:</strong> ${formatWorkflowDate(completion?.completed_at)}</p>${evidence?`<p><strong>Evidence:</strong> ${evidence}</p>`:''}`):''}
         ${lastReview?.decision==='rejected'?`<p><strong>Review notes:</strong> ${escapeHtml(lastReview.reason||'Re-cleaning is required.')}</p>`:''}
-        ${history.length?`<div class="workflow-timeline">${history.map(entry=>`<span>${formatWorkflowDate(entry.created_at)} · ${escapeHtml(actorNames.get(entry.actor_id)||entry.actor_id||'System')} · ${escapeHtml(entry.event_type.replaceAll('_',' '))}${entry.details?` — ${escapeHtml(entry.details)}`:''}</span>`).join('')}</div>`:''}
+        ${history.length?`<div class="workflow-timeline">${history.map(entry=>`<span>${formatWorkflowDate(entry.created_at)} · ${escapeHtml(workflowActorName(entry.actor_id,actorNames))} · ${escapeHtml(entry.event_type.replaceAll('_',' '))}${entry.details?` — ${escapeHtml(entry.details)}`:''}</span>`).join('')}</div>`:''}
         ${staffForm}${reviseCleaning}${adminReview}
         ${isAdmin?`<div class="workflow-item-actions"><button class="workflow-secondary workflow-danger" type="button" onclick="deleteCleaningTask(${Number(assignment.task_id)})">Delete task &amp; all history</button></div>`:''}
       </article>`;
@@ -2614,25 +2631,38 @@ async function reopenCleaningSubmission(id){
 async function submitCleaningCompletion(event,id,requiresSanitizer,requiresPhoto){
   event.preventDefault();
   const form=event.currentTarget,fields=new FormData(form),checked=fields.getAll('checklist').map(Number);
-  if(!checked.length){showAppMessage('Complete every required checklist item.');return;}
+  if(!checked.length||checked.length!==form.querySelectorAll('input[name="checklist"]').length){
+    showAppMessage('Complete every required checklist item.');
+    return;
+  }
   const files=fields.getAll('evidence');
   const validFiles=files.filter(file=>file instanceof File&&file.size>0);
   if(requiresPhoto&&!validFiles.length){showAppMessage('Photo evidence is required for this cleaning task.');return;}
-  const sanitizer=String(fields.get('sanitizer')||'').trim();
-  if(requiresSanitizer&&(!sanitizer||!Number.isFinite(Number(sanitizer)))){showAppMessage('Enter a valid sanitizer concentration.');return;}
+  const sanitizerValue=String(fields.get('sanitizer')||'').trim();
+  const sanitizer=sanitizerValue===''?null:Number(sanitizerValue);
+  if((requiresSanitizer&&sanitizer===null)||(sanitizer!==null&&(!Number.isFinite(sanitizer)||sanitizer<=0))){
+    showAppMessage('Enter a sanitizer concentration greater than zero before submitting.');
+    return;
+  }
   const button=form.querySelector('button[type="submit"]');button.disabled=true;
   try{
     await uploadWorkflowEvidence(validFiles,'cleaning_assignment',id);
     const {error}=await foodSafeProClient.rpc('foodsafe_submit_cleaning_completion',{
       p_assignment_id:id,p_notes:String(fields.get('notes')||'').trim(),
-      p_sanitizer_concentration:sanitizer?Number(sanitizer):null,p_checklist_item_ids:checked,
+      p_sanitizer_concentration:sanitizer,p_checklist_item_ids:checked,
       p_issue:String(fields.get('issue')||'').trim()
     });
     if(error)throw error;
     await loadCleaningAssignments();
   }catch(error){
     console.error('Could not submit cleaning task:',error);
-    showAppMessage(`Could not submit cleaning task: ${workflowErrorMessage(error)}`);
+    const message=workflowErrorMessage(error);
+    if(message.includes('Enter a sanitizer concentration greater than zero')){
+      form.querySelector('[name="sanitizer"]')?.focus();
+      showAppMessage('This task requires a sanitizer concentration greater than zero. Enter the measured value, then submit again.');
+    }else{
+      showAppMessage(`Could not submit cleaning task: ${message}`);
+    }
   }finally{button.disabled=false;}
 }
 
