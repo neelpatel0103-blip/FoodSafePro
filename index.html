@@ -949,7 +949,7 @@ th{background:#f1f5f9;color:#6b7280;}
 
 <!-- LOGIN CARD -->
 <div id="login-card" class="auth-shell hidden">
-  <button class="auth-back-btn" onclick="showLanding()"><i class="fas fa-arrow-left"></i> Back to home</button>
+  <button class="auth-back-btn" onclick="returnToLanding(event)"><i class="fas fa-arrow-left"></i> Back to home</button>
   <div class="card flex flex-col items-center w-full p-8 space-y-4 transform transition duration-500 scale-100">
     <h1 class="foodsafe-brand cursive-brand text-5xl text-center mb-1">FoodSafe Pro</h1>
     <p class="text-xs text-gray-500 text-center mb-2 font-medium">Securing Food Safety. Empowering Smarter Decisions.</p>
@@ -1664,6 +1664,54 @@ function setWorkflowNotificationError(message){
     count?.classList.toggle('has-count',Boolean(workflowNotificationError));
     if(count){count.textContent=workflowNotificationError?'!':'';count.setAttribute('aria-hidden','true');}
   }
+}
+  async function returnToLanding(event) {
+  if (event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  const btn = event ? event.currentTarget : null;
+  if (btn) btn.style.pointerEvents = 'none';
+
+  try {
+    const isMaintenance = await checkMaintenanceStatus();
+    const isAdmin = typeof currentRole !== 'undefined' && currentRole === 'admin';
+
+    // If maintenance is ON and user is NOT admin, route to maintenance notice screen
+    if (isMaintenance && !isAdmin) {
+      showMaintenanceScreen();
+      return false;
+    }
+  } catch (error) {
+    console.error('Failed to check maintenance mode status:', error);
+  } finally {
+    if (btn) btn.style.pointerEvents = 'auto';
+  }
+
+  // If maintenance is OFF, safely proceed to homepage
+  showLanding();
+  return false;
+}
+
+function showLanding() {
+  const landing = $('landing-page') || $('home-section');
+  const login = $('login-card');
+  const maintenance = $('maintenance-screen') || $('maintenance-notice');
+
+  if (landing) landing.classList.remove('hidden');
+  if (login) login.classList.add('hidden');
+  if (maintenance) maintenance.classList.add('hidden');
+}
+
+function showMaintenanceScreen() {
+  const landing = $('landing-page') || $('home-section');
+  const login = $('login-card');
+  const maintenance = $('maintenance-screen') || $('maintenance-notice');
+
+  if (landing) landing.classList.add('hidden');
+  if (login) login.classList.add('hidden');
+  if (maintenance) maintenance.classList.remove('hidden');
 }
 
 async function loadWorkflowNotifications(){
