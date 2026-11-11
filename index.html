@@ -488,7 +488,7 @@ th{background:#f1f5f9;color:#6b7280;}
 .dashboard-chat-count.has-count { display: grid; }
 .chat-modal { position: fixed; z-index: 80; inset: 0; box-sizing: border-box; width: 100vw; height: 100vh; height: 100dvh; padding: 24px; display: grid; place-items: center; background: rgba(20,35,26,.42); backdrop-filter: blur(3px); }
 .chat-modal.hidden { display: none; }
-.chat-dialog { width: min(940px,100%); height: min(680px,calc(100vh - 48px)); display: flex; flex-direction: column; overflow: hidden; border: 1px solid #dfe8de; border-radius: 20px; background: #fff; box-shadow: 0 25px 80px rgba(18,39,26,.25); }
+.chat-dialog { width: min(1180px,100%); height: min(760px,calc(100vh - 48px)); display: flex; flex-direction: column; overflow: hidden; border: 1px solid #dfe8de; border-radius: 20px; background: #fff; box-shadow: 0 25px 80px rgba(18,39,26,.25); }
 .chat-dialog-header { min-height: 68px; padding: 14px 18px; border-bottom: 1px solid #edf1ec; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .chat-dialog-heading { display: flex; align-items: center; gap: 11px; }
 .chat-dialog-mark { width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; color: #286343; background: #edf6ec; }
@@ -497,9 +497,11 @@ th{background:#f1f5f9;color:#6b7280;}
 .chat-dialog-close { width: 34px; height: 34px; border: 0; border-radius: 9px; color: #65756a; background: #f2f5f1; cursor: pointer; }
 .chat-dialog-delete { min-height: 34px; padding: 0 10px; border: 1px solid #f0d7d4; border-radius: 9px; color: #a5433f; background: #fff8f7; font-size: 10px; font-weight: 750; cursor: pointer; }
 .chat-dialog-delete:disabled { opacity: .55; cursor: wait; }
-.chat-workspace { min-height: 0; flex: 1; display: grid; grid-template-columns: 260px minmax(0,1fr); }
+.chat-workspace { min-height: 0; flex: 1; display: grid; grid-template-columns: 320px minmax(0,1fr); }
 .chat-contacts { min-height: 0; overflow-y: auto; padding: 14px 10px; border-right: 1px solid #edf1ec; background: #fafcf9; }
 .chat-contacts-title { margin: 0 8px 10px; color: #819087; font-size: 9px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+.chat-contact-search { box-sizing: border-box; width: calc(100% - 12px); min-height: 38px; margin: 0 6px 11px; padding: 0 11px; border: 1px solid #e5ebe3; border-radius: 10px; color: #34483a; background: #fff; font: inherit; font-size: 11px; }
+.chat-contact-search:focus { outline: 2px solid #d8ead8; border-color: #80a887; }
 .chat-contact { width: 100%; min-height: 57px; padding: 9px; border: 1px solid transparent; border-radius: 11px; display: flex; align-items: center; gap: 10px; color: #405347; background: transparent; text-align: left; cursor: pointer; }
 .chat-contact:hover { background: #f0f5ef; }
 .chat-contact.active { border-color: #dce9da; background: #edf5eb; }
@@ -508,11 +510,16 @@ th{background:#f1f5f9;color:#6b7280;}
 .chat-contact-copy strong, .chat-contact-copy small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .chat-contact-copy strong { color: #34483a; font-size: 11px; }
 .chat-contact-copy small { margin-top: 4px; color: #839087; font-size: 9px; }
+.chat-contact-time { flex: 0 0 auto; align-self: flex-start; color: #87938a; font-size: 8px; }
 .chat-contact-unread { min-width: 18px; height: 18px; padding: 0 4px; border-radius: 999px; display: grid; place-items: center; color: #fff; background: #397453; font-size: 9px; font-weight: 800; }
 .chat-contacts-message { padding: 12px 9px; color: #829087; font-size: 10px; line-height: 1.5; }
 .chat-contacts-message.error { color: #a5433f; }
 .chat-conversation { min-width: 0; min-height: 0; display: flex; flex-direction: column; }
 .chat-conversation-header { min-height: 58px; padding: 11px 16px; border-bottom: 1px solid #f0f2ef; display: flex; align-items: center; gap: 10px; }
+.chat-conversation-header-copy { min-width: 0; flex: 1; }
+.chat-back { display: none; width: 34px; height: 34px; border: 0; border-radius: 9px; color: #52665a; background: #f1f5ef; cursor: pointer; }
+.chat-admin-delete-all { min-height: 34px; padding: 0 10px; border: 1px solid #f0d7d4; border-radius: 9px; color: #a5433f; background: #fff8f7; font-size: 10px; font-weight: 750; cursor: pointer; }
+.chat-admin-delete-all:disabled { opacity: .55; cursor: wait; }
 .chat-conversation-header strong { display: block; color: #34483a; font-size: 12px; }
 .chat-conversation-header small { display: block; margin-top: 3px; color: #839087; font-size: 9px; }
 .chat-messages { min-height: 0; flex: 1; padding: 16px; display: flex; flex-direction: column; gap: 10px; overflow-y: auto; background: linear-gradient(#fbfcfa,#fff); }
@@ -781,12 +788,18 @@ th{background:#f1f5f9;color:#6b7280;}
   .chat-dialog { box-sizing: border-box; width: 100%; height: 100%; max-height: 100dvh; border: 0; border-radius: 0; }
   .chat-dialog-header { min-height: 62px; padding: 11px 13px; }
   .chat-workspace { grid-template-columns: minmax(0,1fr); grid-template-rows: auto minmax(0,1fr); }
-  .chat-contacts { max-height: 116px; padding: 8px; border-right: 0; border-bottom: 1px solid #edf1ec; display: flex; flex-wrap: wrap; align-content: flex-start; gap: 5px; }
-  .chat-contacts-title { width: 100%; margin: 0 4px 2px; }
-  .chat-contact { width: auto; min-width: 150px; min-height: 48px; flex: 0 0 auto; padding: 6px 8px; }
+  .chat-workspace { grid-template-columns: minmax(0,1fr); grid-template-rows: minmax(0,1fr); }
+  .chat-contacts { max-height: none; min-height: 0; padding: 11px 8px; border-right: 0; border-bottom: 0; display: block; overflow-y: auto; }
+  .chat-workspace.is-conversation .chat-contacts { display: none; }
+  .chat-workspace:not(.is-conversation) .chat-conversation { display: none; }
+  .chat-contacts-title { width: 100%; margin: 0 6px 9px; }
+  .chat-contact-search { width: calc(100% - 12px); margin-bottom: 9px; }
+  .chat-contact { width: 100%; min-height: 60px; padding: 9px; }
   .chat-contact-avatar { width: 30px; height: 30px; flex-basis: 30px; }
-  .chat-contacts-message { padding: 5px; }
+  .chat-contacts-message { padding: 12px 9px; }
   .chat-conversation-header { min-height: 52px; padding: 8px 12px; }
+  .chat-back { display: inline-grid; flex: 0 0 auto; place-items: center; }
+  .chat-admin-delete-all { padding: 0 8px; font-size: 9px; }
   .chat-messages { padding: 12px; }
   .chat-compose { padding: 9px 10px max(9px, env(safe-area-inset-bottom)); }
   .dashboard-main .dashboard-content { padding: 18px 13px 30px; }
@@ -1566,19 +1579,20 @@ th{background:#f1f5f9;color:#6b7280;}
   <section id="staffAdminChatModal" class="chat-modal hidden" role="dialog" aria-modal="true" aria-labelledby="staffAdminChatTitle" onclick="if(event.target===this)closeStaffAdminChat()">
     <div class="chat-dialog">
       <header class="chat-dialog-header">
-        <div class="chat-dialog-heading"><span class="chat-dialog-mark"><i class="fas fa-comments" aria-hidden="true"></i></span><div><h2 id="staffAdminChatTitle">Team chat</h2><p>Private messages between staff and administrators</p></div></div>
+        <div class="chat-dialog-heading"><span class="chat-dialog-mark"><i class="fas fa-comments" aria-hidden="true"></i></span><div><h2 id="staffAdminChatTitle">Team chat</h2><p>Private one-to-one messages for your team</p></div></div>
         <div class="chat-dialog-heading">
-          <button id="staffAdminChatDelete" class="chat-dialog-delete hidden" type="button" onclick="deleteStaffAdminChat()">Delete conversation</button>
+          <button id="staffAdminChatDelete" class="chat-dialog-delete hidden" type="button" onclick="deleteStaffAdminChat()">Delete for me</button>
+          <button id="staffAdminChatDeleteAll" class="chat-admin-delete-all hidden" type="button" onclick="deleteAllStaffChats()">Delete all chats</button>
           <button class="chat-dialog-close" type="button" aria-label="Close team chat" onclick="closeStaffAdminChat()"><i class="fas fa-xmark" aria-hidden="true"></i></button>
         </div>
       </header>
-      <div class="chat-workspace">
-        <aside id="staffAdminChatContacts" class="chat-contacts" aria-label="Chat contacts"><p class="chat-contacts-title">Conversations</p><div class="chat-contacts-message">Loading conversations…</div></aside>
+      <div id="staffAdminChatWorkspace" class="chat-workspace">
+        <aside id="staffAdminChatContacts" class="chat-contacts" aria-label="Chat contacts"><p class="chat-contacts-title">Chats and people</p><input id="staffAdminChatSearch" class="chat-contact-search" type="search" placeholder="Search people and chats" aria-label="Search people and chats"><div class="chat-contacts-list"><div class="chat-contacts-message">Loading conversations…</div></div></aside>
         <section class="chat-conversation" aria-label="Chat conversation">
-          <header class="chat-conversation-header"><span id="staffAdminChatAvatar" class="chat-contact-avatar"><i class="fas fa-user" aria-hidden="true"></i></span><div><strong id="staffAdminChatContactName">Select a conversation</strong><small id="staffAdminChatContactStatus">Messages are visible only to you and the admin team.</small></div></header>
+          <header class="chat-conversation-header"><button class="chat-back" type="button" aria-label="Back to chats" onclick="showStaffAdminChatContacts()"><i class="fas fa-arrow-left" aria-hidden="true"></i></button><span id="staffAdminChatAvatar" class="chat-contact-avatar"><i class="fas fa-user" aria-hidden="true"></i></span><div class="chat-conversation-header-copy"><strong id="staffAdminChatContactName">Select a conversation</strong><small id="staffAdminChatContactStatus">Choose a person to start a private chat.</small></div></header>
           <div id="staffAdminChatMessages" class="chat-messages" role="log" aria-live="polite"><div class="chat-empty"><i class="fas fa-comments" aria-hidden="true"></i>Select a conversation to view messages.</div></div>
           <form id="staffAdminChatForm" class="chat-compose" onsubmit="sendStaffAdminChatMessage(event)">
-            <div class="chat-compose-row"><textarea id="staffAdminChatInput" maxlength="2000" rows="1" placeholder="Write a message to the admin team…" aria-label="Write a chat message" disabled required></textarea><button id="staffAdminChatSend" class="chat-send" type="submit" aria-label="Send message" disabled><i class="fas fa-paper-plane" aria-hidden="true"></i></button></div>
+            <div class="chat-compose-row"><textarea id="staffAdminChatInput" maxlength="2000" rows="1" placeholder="Write a message…" aria-label="Write a chat message" disabled required></textarea><button id="staffAdminChatSend" class="chat-send" type="submit" aria-label="Send message" disabled><i class="fas fa-paper-plane" aria-hidden="true"></i></button></div>
             <div class="chat-compose-hint"><span>Keep messages professional. Do not share passwords.</span><span id="staffAdminChatCharCount">0 / 2000</span></div>
             <p id="staffAdminChatStatus" class="chat-status" role="status" aria-live="polite"></p>
           </form>
@@ -2303,14 +2317,14 @@ function closeWorkflowNotifications(){
 
 function chatErrorMessage(error){
   if(['42P01','PGRST202','PGRST204','PGRST205'].includes(error?.code)){
-    return 'Team chat is not installed yet. Apply supabase/staff-admin-chat.sql in the Supabase SQL editor.';
+    return 'The chat update is not installed yet. Apply staff-admin-chat.sql and workflow-chat-record-deletion.sql in the Supabase SQL editor.';
   }
   return error?.message||'Please try again.';
 }
 
 function recordDeletionErrorMessage(error){
-  if(error?.code==='PGRST202'&&/foodsafe_(get_deletion_evidence|admin_delete_corrective_action|admin_delete_cleaning_task|delete_chat_thread)/i.test(error.message||'')){
-    return 'Admin deletion tools are not installed yet. Apply supabase/workflow-chat-record-deletion.sql in the Supabase SQL editor.';
+  if(error?.code==='PGRST202'&&/foodsafe_(get_deletion_evidence|admin_delete_corrective_action|admin_delete_cleaning_task|delete_chat_thread|admin_delete_all_chats)/i.test(error.message||'')){
+    return 'Admin deletion tools are not installed yet. Apply workflow-chat-record-deletion.sql in the Supabase SQL editor.';
   }
   return workflowErrorMessage(error);
 }
@@ -2328,6 +2342,7 @@ function bindStaffAdminChatEvents(){
   $('staffAdminChatInput')?.addEventListener('input',event=>{
     $('staffAdminChatCharCount').textContent=`${event.currentTarget.value.length} / 2000`;
   });
+  $('staffAdminChatSearch')?.addEventListener('input',renderStaffAdminChatContacts);
   document.addEventListener('keydown',event=>{
     if(event.key==='Escape'&&!$('workflowConfirmModal')?.classList.contains('hidden')){
       event.preventDefault();
@@ -2339,14 +2354,13 @@ function bindStaffAdminChatEvents(){
 async function updateStaffAdminChatUnreadCount(){
   if(!currentProfile)return;
   const badge=$('staffAdminChatUnreadCount'),toggle=$('staffAdminChatToggle');
-  const {count,error}=await foodSafeProClient.from('food_safe_chat_messages')
-    .select('id',{count:'exact',head:true}).neq('sender_id',currentProfile.id).is('read_at',null);
+  const {data:unreadCount,error}=await foodSafeProClient.rpc('foodsafe_chat_unread_count');
   if(error){
     console.error('Could not load unread chat count:',error);
     if(toggle)toggle.setAttribute('aria-label',`Open staff and admin chat. ${chatErrorMessage(error)}`);
     return;
   }
-  const unread=Number(count)||0;
+  const unread=Number(unreadCount)||0;
   if(badge){
     badge.textContent=unread>99?'99+':String(unread);
     badge.classList.toggle('has-count',unread>0);
@@ -2358,17 +2372,25 @@ async function updateStaffAdminChatUnreadCount(){
 function renderStaffAdminChatContacts(){
   const container=$('staffAdminChatContacts');
   if(!container)return;
-  const heading='<p class="chat-contacts-title">Conversations</p>';
-  if(!staffAdminChatContacts.length){
-    container.innerHTML=`${heading}<div class="chat-contacts-message${staffAdminChatContacts.error?' error':''}">${escapeHtml(staffAdminChatContacts.error||'No staff accounts are available.')}</div>`;
+  const list=container.querySelector('.chat-contacts-list');
+  if(!list)return;
+  const query=($('staffAdminChatSearch')?.value||'').trim().toLocaleLowerCase();
+  const filtered=staffAdminChatContacts.filter(contact=>
+    !query||`${contact.name} ${contact.preview||''}`.toLocaleLowerCase().includes(query)
+  );
+  if(!filtered.length){
+    list.innerHTML=`<div class="chat-contacts-message${staffAdminChatContacts.error?' error':''}">${escapeHtml(staffAdminChatContacts.error|| (query?'No chats or people match your search.':'No team contacts are available.'))}</div>`;
     return;
   }
-  container.innerHTML=heading+staffAdminChatContacts.map(contact=>{
+  list.innerHTML=filtered.map(contact=>{
     const active=contact.threadId&&String(contact.threadId)===String(staffAdminChatThreadId);
     const initials=(contact.name||'').trim().split(/\s+/).slice(0,2).map(part=>part.charAt(0).toUpperCase()).join('')||'F';
     const unread=Number(contact.unread)||0;
-    return `<button class="chat-contact${active?' active':''}" type="button" aria-current="${active?'true':'false'}" onclick="selectStaffAdminChatContact('${escapeHtml(contact.staffId)}')">
+    const time=contact.updatedAt?formatWorkflowDate(contact.updatedAt):'';
+    const contactIndex=staffAdminChatContacts.indexOf(contact);
+    return `<button class="chat-contact${active?' active':''}" type="button" aria-current="${active?'true':'false'}" onclick="selectStaffAdminChatContact(${contactIndex})">
       <span class="chat-contact-avatar">${escapeHtml(initials)}</span><span class="chat-contact-copy"><strong>${escapeHtml(contact.name)}</strong><small>${escapeHtml(contact.preview||'Start a private conversation')}</small></span>
+      ${time?`<span class="chat-contact-time">${escapeHtml(time)}</span>`:''}
       ${unread?`<span class="chat-contact-unread" aria-label="${unread} unread messages">${unread>99?'99+':unread}</span>`:''}
     </button>`;
   }).join('');
@@ -2377,66 +2399,39 @@ function renderStaffAdminChatContacts(){
 async function loadStaffAdminChatContacts(){
   const container=$('staffAdminChatContacts');
   if(!container||!currentProfile)return;
-  container.innerHTML='<p class="chat-contacts-title">Conversations</p><div class="chat-contacts-message">Loading conversations…</div>';
+  const list=container.querySelector('.chat-contacts-list');
+  if(list)list.innerHTML='<div class="chat-contacts-message">Loading chats and people…</div>';
   staffAdminChatContacts=[];
-
-  if(currentRole==='admin'){
-    const [{data:staff,error:staffError},{data:threads,error:threadError}]=await Promise.all([
-      foodSafeProClient.from('profiles').select('id,username').eq('role','staff').eq('approved',true).order('username'),
-      foodSafeProClient.from('food_safe_chat_threads').select('id,staff_id,updated_at').order('updated_at',{ascending:false})
-    ]);
-    if(staffError||threadError){
-      const error=staffError||threadError;
-      console.error('Could not load staff chat conversations:',error);
-      staffAdminChatContacts.error=chatErrorMessage(error);
-      renderStaffAdminChatContacts();return;
-    }
-    const threadByStaff=new Map((threads||[]).map(thread=>[thread.staff_id,{...thread,unread:0,preview:''}]));
-    const threadIds=(threads||[]).map(thread=>thread.id);
-    if(threadIds.length){
-      const {data:messages,error:messageError}=await foodSafeProClient.from('food_safe_chat_messages')
-        .select('thread_id,body,sender_id,created_at,read_at').in('thread_id',threadIds)
-        .order('created_at',{ascending:false}).limit(Math.min(threadIds.length*25,1000));
-      if(messageError){
-        console.error('Could not load chat previews:',messageError);
-        staffAdminChatContacts.error=chatErrorMessage(messageError);
-        renderStaffAdminChatContacts();return;
-      }
-      const seenLatest=new Set();
-      (messages||[]).forEach(message=>{
-        const thread=threadByStaff.get((threads||[]).find(candidate=>String(candidate.id)===String(message.thread_id))?.staff_id);
-        if(!thread)return;
-        if(!seenLatest.has(String(message.thread_id))){
-          thread.preview=message.body;
-          seenLatest.add(String(message.thread_id));
-        }
-        if(message.sender_id!==currentProfile.id&&!message.read_at)thread.unread++;
-      });
-    }
-    staffAdminChatContacts=(staff||[]).map(person=>{
-      const thread=threadByStaff.get(person.id);
-      return {staffId:person.id,name:person.username||'Staff member',threadId:thread?.id||null,unread:thread?.unread||0,preview:thread?.preview||''};
-    });
-    staffAdminChatContacts.sort((a,b)=>Number(b.unread>0)-Number(a.unread>0)||(a.name||'').localeCompare(b.name||''));
-  }else{
-    const {data:threadId,error}=await foodSafeProClient.rpc('foodsafe_get_or_create_chat_thread',{p_staff_id:currentProfile.id});
-    if(error){
-      console.error('Could not open staff chat:',error);
-      staffAdminChatContacts.error=chatErrorMessage(error);
-      renderStaffAdminChatContacts();return;
-    }
-    staffAdminChatContacts=[{staffId:currentProfile.id,name:'Admin team',threadId:threadId,unread:0,preview:''}];
+  const {data:contacts,error}=await foodSafeProClient.rpc('foodsafe_list_chat_contacts');
+  if(error){
+    console.error('Could not load team chat contacts:',error);
+    staffAdminChatContacts.error=chatErrorMessage(error);
+    renderStaffAdminChatContacts();return;
   }
+  staffAdminChatContacts=(contacts||[]).map(contact=>({
+    contactId:contact.contact_id,
+    name:contact.contact_name||'Team member',
+    threadId:contact.thread_id,
+    type:contact.conversation_type,
+    unread:Number(contact.unread_count)||0,
+    preview:contact.preview||'',
+    updatedAt:contact.updated_at
+  }));
+  staffAdminChatContacts.sort((a,b)=>Number(b.unread>0)-Number(a.unread>0)
+    ||new Date(b.updatedAt||0)-new Date(a.updatedAt||0)
+    ||a.name.localeCompare(b.name));
   renderStaffAdminChatContacts();
 }
 
-async function selectStaffAdminChatContact(staffId){
+async function selectStaffAdminChatContact(contactIndex){
   setStaffAdminChatStatus('');
-  const contact=staffAdminChatContacts.find(item=>String(item.staffId)===String(staffId));
+  const contact=staffAdminChatContacts[contactIndex];
   if(!contact||!currentProfile)return;
-  const name=contact.name||'Admin team';
+  const name=contact.name||'Team member';
   $('staffAdminChatContactName').textContent=name;
-  $('staffAdminChatContactStatus').textContent='Private conversation · Visible only to you and the admin team';
+  $('staffAdminChatContactStatus').textContent=contact.type==='staff_pair'
+    ?'Staff conversation · Admin view'
+    :contact.type==='admin_team'?'Private conversation with the admin team':'Private conversation with a staff member';
   $('staffAdminChatAvatar').textContent=name.split(/\s+/).slice(0,2).map(part=>part.charAt(0).toUpperCase()).join('');
   $('staffAdminChatMessages').innerHTML='<div class="chat-empty">Loading messages…</div>';
   $('staffAdminChatInput').disabled=true;
@@ -2444,7 +2439,7 @@ async function selectStaffAdminChatContact(staffId){
 
   let threadId=contact.threadId;
   if(!threadId){
-    const {data,error}=await foodSafeProClient.rpc('foodsafe_get_or_create_chat_thread',{p_staff_id:contact.staffId});
+    const {data,error}=await foodSafeProClient.rpc('foodsafe_get_or_create_chat_thread',{p_contact_id:contact.contactId});
     if(error){
       console.error('Could not create chat thread:',error);
       $('staffAdminChatMessages').innerHTML=`<div class="chat-empty">${escapeHtml(chatErrorMessage(error))}</div>`;
@@ -2455,6 +2450,10 @@ async function selectStaffAdminChatContact(staffId){
   }
   staffAdminChatThreadId=threadId;
   $('staffAdminChatDelete')?.classList.remove('hidden');
+  $('staffAdminChatDelete').textContent='Delete for me';
+  $('staffAdminChatDeleteAll')?.classList.toggle('hidden',currentRole!=='admin');
+  $('staffAdminChatWorkspace')?.classList.add('is-conversation');
+  $('staffAdminChatInput').placeholder=`Message ${name}…`;
   renderStaffAdminChatContacts();
   await refreshStaffAdminChatConversation();
   $('staffAdminChatInput').disabled=false;
@@ -2482,10 +2481,8 @@ async function refreshStaffAdminChatConversation(){
   }else{
     pane.innerHTML=messages.map(message=>{
       const own=message.sender_id===currentProfile.id;
-      const contactName=currentRole==='admin'
-        ?(staffAdminChatContacts.find(contact=>String(contact.threadId)===String(staffAdminChatThreadId))?.name||'Staff member')
-        :'Admin team';
-      const sender=own?(currentRole==='admin'?'You':'You'):contactName;
+      const contactName=staffAdminChatContacts.find(contact=>String(contact.threadId)===String(staffAdminChatThreadId))?.name||'Team member';
+      const sender=own?'You':contactName;
       return `<article class="chat-bubble${own?' own':''}">${escapeHtml(message.body)}<span class="chat-bubble-meta">${escapeHtml(sender)} · ${escapeHtml(formatWorkflowDate(message.created_at))}</span></article>`;
     }).join('');
   }
@@ -2517,40 +2514,67 @@ async function sendStaffAdminChatMessage(event){
 
 async function deleteStaffAdminChat(){
   if(!staffAdminChatThreadId||!currentProfile)return;
-  const contactName=currentRole==='admin'
-    ?(staffAdminChatContacts.find(contact=>String(contact.threadId)===String(staffAdminChatThreadId))?.name||'this staff member')
-    :'the admin team';
+  const contactName=staffAdminChatContacts.find(contact=>String(contact.threadId)===String(staffAdminChatThreadId))?.name||'this conversation';
   const confirmed=await confirmWorkflowDeletion({
-    title:'Delete this conversation?',
-    message:`Permanently delete the entire conversation with ${contactName}, including all messages and notifications.`,
-    warning:'This removes the chat for both participants. This action cannot be undone.',
-    confirmLabel:'Delete conversation'
+    title:'Hide this conversation?',
+    message:`Hide your conversation with ${contactName} from your chat list?`,
+    warning:'This only hides it for you. Other participants keep their messages; a new message will make the chat visible to you again.',
+    confirmLabel:'Hide for me'
   });
   if(!confirmed)return;
   const button=$('staffAdminChatDelete');
   button.disabled=true;
-  setStaffAdminChatStatus('Deleting conversation…');
+  setStaffAdminChatStatus('Hiding conversation…');
   const {error}=await foodSafeProClient.rpc('foodsafe_delete_chat_thread',{p_thread_id:staffAdminChatThreadId});
   if(error){
-    console.error('Could not delete chat conversation:',error);
-    setStaffAdminChatStatus(`Could not delete conversation: ${recordDeletionErrorMessage(error)}`,true);
+    console.error('Could not hide chat conversation:',error);
+    setStaffAdminChatStatus(`Could not hide conversation: ${recordDeletionErrorMessage(error)}`,true);
     button.disabled=false;return;
   }
   staffAdminChatThreadId=null;
-  if(staffAdminChatPollTimer)clearInterval(staffAdminChatPollTimer);
-  staffAdminChatPollTimer=null;
   $('staffAdminChatDelete')?.classList.add('hidden');
   $('staffAdminChatDelete').disabled=false;
-  $('staffAdminChatMessages').innerHTML='<div class="chat-empty"><i class="fas fa-comments" aria-hidden="true"></i>This conversation was permanently deleted.</div>';
+  $('staffAdminChatMessages').innerHTML='<div class="chat-empty"><i class="fas fa-comments" aria-hidden="true"></i>This conversation is hidden from your chat list.</div>';
   $('staffAdminChatInput').value='';
   $('staffAdminChatInput').disabled=true;
   $('staffAdminChatSend').disabled=true;
-  $('staffAdminChatContactName').textContent='Conversation deleted';
-  $('staffAdminChatContactStatus').textContent='The chat was removed for all participants.';
+  $('staffAdminChatContactName').textContent='Conversation hidden';
+  $('staffAdminChatContactStatus').textContent='Other participants still have their chat history.';
   setStaffAdminChatStatus('');
-  await Promise.all([updateStaffAdminChatUnreadCount(),loadWorkflowNotifications()]);
-  if(currentRole==='staff')closeStaffAdminChat();
-  else await loadStaffAdminChatContacts();
+  $('staffAdminChatWorkspace')?.classList.remove('is-conversation');
+  await Promise.all([updateStaffAdminChatUnreadCount(),loadStaffAdminChatContacts(),loadWorkflowNotifications()]);
+}
+
+async function deleteAllStaffChats(){
+  if(currentRole!=='admin'||!currentProfile)return;
+  const confirmed=await confirmWorkflowDeletion({
+    title:'Permanently delete every team chat?',
+    message:'Delete all conversations and messages, including staff-to-staff chats and staff-to-admin chats, for every participant?',
+    warning:'This permanently removes all team chat history and notifications. This action cannot be undone.',
+    confirmLabel:'Delete all chats'
+  });
+  if(!confirmed)return;
+  const button=$('staffAdminChatDeleteAll');
+  button.disabled=true;
+  setStaffAdminChatStatus('Deleting all team chats…');
+  const {error}=await foodSafeProClient.rpc('foodsafe_admin_delete_all_chats');
+  if(error){
+    console.error('Could not delete all team chats:',error);
+    setStaffAdminChatStatus(`Could not delete all chats: ${recordDeletionErrorMessage(error)}`,true);
+    button.disabled=false;return;
+  }
+  staffAdminChatThreadId=null;
+  button.disabled=false;
+  $('staffAdminChatDelete')?.classList.add('hidden');
+  $('staffAdminChatInput').value='';
+  $('staffAdminChatInput').disabled=true;
+  $('staffAdminChatSend').disabled=true;
+  $('staffAdminChatContactName').textContent='Team chat';
+  $('staffAdminChatContactStatus').textContent='All conversations have been permanently deleted.';
+  $('staffAdminChatMessages').innerHTML='<div class="chat-empty"><i class="fas fa-comments" aria-hidden="true"></i>All team chat history was deleted.</div>';
+  $('staffAdminChatWorkspace')?.classList.remove('is-conversation');
+  setStaffAdminChatStatus('');
+  await Promise.all([updateStaffAdminChatUnreadCount(),loadStaffAdminChatContacts(),loadWorkflowNotifications()]);
 }
 
 async function openStaffAdminChat(threadId=null){
@@ -2564,6 +2588,9 @@ async function openStaffAdminChat(threadId=null){
   staffAdminChatThreadId=null;
   $('staffAdminChatDelete')?.classList.add('hidden');
   $('staffAdminChatDelete').disabled=false;
+  $('staffAdminChatDeleteAll')?.classList.toggle('hidden',currentRole!=='admin');
+  $('staffAdminChatDeleteAll').disabled=false;
+  $('staffAdminChatWorkspace')?.classList.remove('is-conversation');
   $('staffAdminChatMessages').innerHTML='<div class="chat-empty"><i class="fas fa-comments" aria-hidden="true"></i>Select a conversation to view messages.</div>';
   $('staffAdminChatInput').disabled=true;
   $('staffAdminChatSend').disabled=true;
@@ -2575,24 +2602,16 @@ async function openStaffAdminChat(threadId=null){
     return;
   }
 
-  if(threadId&&currentRole==='admin'){
-    const {data:thread,error}=await foodSafeProClient.from('food_safe_chat_threads')
-      .select('id,staff_id').eq('id',threadId).maybeSingle();
-    if(error){
-      console.error('Could not open notified chat thread:',error);
-      setStaffAdminChatStatus(chatErrorMessage(error),true);
-    }else if(thread){
-      const target=staffAdminChatContacts.find(contact=>String(contact.staffId)===String(thread.staff_id));
-      if(target)await selectStaffAdminChatContact(target.staffId);
-    }
-  }else if(currentRole==='staff'&&staffAdminChatContacts.length){
-    await selectStaffAdminChatContact(currentProfile.id);
+  if(threadId){
+    const targetIndex=staffAdminChatContacts.findIndex(contact=>String(contact.threadId)===String(threadId));
+    if(targetIndex>=0)await selectStaffAdminChatContact(targetIndex);
   }
   await updateStaffAdminChatUnreadCount();
   $('staffAdminChatToggle')?.focus();
   staffAdminChatPollTimer=setInterval(async()=>{
     if($('staffAdminChatModal')?.classList.contains('hidden'))return;
-    await refreshStaffAdminChatConversation();
+    if(staffAdminChatThreadId)await refreshStaffAdminChatConversation();
+    else await loadStaffAdminChatContacts();
     await Promise.all([loadWorkflowNotifications(),updateStaffAdminChatUnreadCount()]);
   },5000);
 }
@@ -2603,6 +2622,10 @@ function closeStaffAdminChat(){
   if(staffAdminChatPollTimer)clearInterval(staffAdminChatPollTimer);
   staffAdminChatPollTimer=null;
   $('staffAdminChatToggle')?.focus();
+}
+
+function showStaffAdminChatContacts(){
+  $('staffAdminChatWorkspace')?.classList.remove('is-conversation');
 }
 
 async function startWorkflowDeadlineChecks(){
