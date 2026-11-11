@@ -497,6 +497,8 @@ th{background:#f1f5f9;color:#6b7280;}
 .chat-dialog-close { width: 34px; height: 34px; border: 0; border-radius: 9px; color: #65756a; background: #f2f5f1; cursor: pointer; }
 .chat-dialog-delete { min-height: 34px; padding: 0 10px; border: 1px solid #f0d7d4; border-radius: 9px; color: #a5433f; background: #fff8f7; font-size: 10px; font-weight: 750; cursor: pointer; }
 .chat-dialog-delete:disabled { opacity: .55; cursor: wait; }
+.chat-admin-delete-thread { min-height: 34px; padding: 0 10px; border: 1px solid #e8c5c2; border-radius: 9px; color: #9e332e; background: #fff3f2; font-size: 10px; font-weight: 750; cursor: pointer; }
+.chat-admin-delete-thread:disabled { opacity: .55; cursor: wait; }
 .chat-workspace { min-height: 0; flex: 1; display: grid; grid-template-columns: 320px minmax(0,1fr); }
 .chat-contacts { min-height: 0; overflow-y: auto; padding: 14px 10px; border-right: 1px solid #edf1ec; background: #fafcf9; }
 .chat-contacts-title { margin: 0 8px 10px; color: #819087; font-size: 9px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
@@ -522,6 +524,16 @@ th{background:#f1f5f9;color:#6b7280;}
 .chat-admin-delete-all:disabled { opacity: .55; cursor: wait; }
 .chat-conversation-header strong { display: block; color: #34483a; font-size: 12px; }
 .chat-conversation-header small { display: block; margin-top: 3px; color: #839087; font-size: 9px; }
+.chat-conversation-actions { padding: 8px 14px; border-bottom: 1px solid #edf1ec; display: flex; justify-content: flex-end; gap: 7px; }
+.chat-conversation-actions.hidden { display: none; }
+.chat-request-delete { min-height: 32px; padding: 0 10px; border: 1px solid #f0d7d4; border-radius: 9px; color: #a5433f; background: #fff8f7; font-size: 10px; font-weight: 750; cursor: pointer; }
+.chat-request-delete:disabled, .chat-delete-review button:disabled { opacity: .55; cursor: wait; }
+.chat-delete-request { padding: 10px 14px; border-bottom: 1px solid #f0e2c8; color: #735422; background: #fffaf0; font-size: 10px; line-height: 1.5; }
+.chat-delete-request.hidden { display: none; }
+.chat-delete-request p { margin: 0; }
+.chat-delete-review { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 8px; }
+.chat-delete-review button { min-height: 30px; padding: 0 10px; border: 1px solid #e6d5aa; border-radius: 8px; color: #72531d; background: #fff; font-size: 10px; font-weight: 750; cursor: pointer; }
+.chat-delete-review button:first-child { border-color: #b7d4bc; color: #286343; background: #f2f8f1; }
 .chat-messages { min-height: 0; flex: 1; padding: 16px; display: flex; flex-direction: column; gap: 10px; overflow-y: auto; background: linear-gradient(#fbfcfa,#fff); }
 .chat-empty { margin: auto; max-width: 260px; color: #829087; font-size: 11px; line-height: 1.55; text-align: center; }
 .chat-empty i { display: block; margin-bottom: 9px; color: #78a07e; font-size: 23px; }
@@ -800,6 +812,9 @@ th{background:#f1f5f9;color:#6b7280;}
   .chat-conversation-header { min-height: 52px; padding: 8px 12px; }
   .chat-back { display: inline-grid; flex: 0 0 auto; place-items: center; }
   .chat-admin-delete-all { padding: 0 8px; font-size: 9px; }
+  .chat-admin-delete-thread { padding: 0 8px; font-size: 9px; }
+  .chat-conversation-actions { padding: 6px 10px; }
+  .chat-delete-request { padding: 8px 10px; }
   .chat-messages { padding: 12px; }
   .chat-compose { padding: 9px 10px max(9px, env(safe-area-inset-bottom)); }
   .dashboard-main .dashboard-content { padding: 18px 13px 30px; }
@@ -1579,7 +1594,7 @@ th{background:#f1f5f9;color:#6b7280;}
   <section id="staffAdminChatModal" class="chat-modal hidden" role="dialog" aria-modal="true" aria-labelledby="staffAdminChatTitle" onclick="if(event.target===this)closeStaffAdminChat()">
     <div class="chat-dialog">
       <header class="chat-dialog-header">
-        <div class="chat-dialog-heading"><span class="chat-dialog-mark"><i class="fas fa-comments" aria-hidden="true"></i></span><div><h2 id="staffAdminChatTitle">Team chat</h2><p>Private one-to-one messages for your team</p></div></div>
+        <div class="chat-dialog-heading"><span class="chat-dialog-mark"><i class="fas fa-comments" aria-hidden="true"></i></span><div><h2 id="staffAdminChatTitle">Team chat</h2><p>One-to-one messages · Admins can view team conversations</p></div></div>
         <div class="chat-dialog-heading">
           <button id="staffAdminChatDelete" class="chat-dialog-delete hidden" type="button" onclick="deleteStaffAdminChat()">Delete for me</button>
           <button id="staffAdminChatDeleteAll" class="chat-admin-delete-all hidden" type="button" onclick="deleteAllStaffChats()">Delete all chats</button>
@@ -1590,6 +1605,14 @@ th{background:#f1f5f9;color:#6b7280;}
         <aside id="staffAdminChatContacts" class="chat-contacts" aria-label="Chat contacts"><p class="chat-contacts-title">Chats and people</p><input id="staffAdminChatSearch" class="chat-contact-search" type="search" placeholder="Search people and chats" aria-label="Search people and chats"><div class="chat-contacts-list"><div class="chat-contacts-message">Loading conversations…</div></div></aside>
         <section class="chat-conversation" aria-label="Chat conversation">
           <header class="chat-conversation-header"><button class="chat-back" type="button" aria-label="Back to chats" onclick="showStaffAdminChatContacts()"><i class="fas fa-arrow-left" aria-hidden="true"></i></button><span id="staffAdminChatAvatar" class="chat-contact-avatar"><i class="fas fa-user" aria-hidden="true"></i></span><div class="chat-conversation-header-copy"><strong id="staffAdminChatContactName">Select a conversation</strong><small id="staffAdminChatContactStatus">Choose a person to start a private chat.</small></div></header>
+          <div id="staffAdminChatConversationActions" class="chat-conversation-actions hidden"><button id="staffAdminChatRequestDelete" class="chat-request-delete hidden" type="button" onclick="requestStaffAdminChatDeletion()">Request permanent deletion</button><button id="staffAdminChatDeleteSelected" class="chat-admin-delete-thread hidden" type="button" onclick="adminDeleteSelectedStaffChat()">Permanently delete conversation</button></div>
+          <section id="staffAdminChatDeleteRequest" class="chat-delete-request hidden" aria-live="polite">
+            <p id="staffAdminChatDeleteRequestText"></p>
+            <div id="staffAdminChatDeleteReview" class="chat-delete-review hidden">
+              <button type="button" onclick="reviewStaffAdminChatDeletion('approved')">Approve permanent deletion</button>
+              <button type="button" onclick="reviewStaffAdminChatDeletion('rejected')">Keep this conversation</button>
+            </div>
+          </section>
           <div id="staffAdminChatMessages" class="chat-messages" role="log" aria-live="polite"><div class="chat-empty"><i class="fas fa-comments" aria-hidden="true"></i>Select a conversation to view messages.</div></div>
           <form id="staffAdminChatForm" class="chat-compose" onsubmit="sendStaffAdminChatMessage(event)">
             <div class="chat-compose-row"><textarea id="staffAdminChatInput" maxlength="2000" rows="1" placeholder="Write a message…" aria-label="Write a chat message" disabled required></textarea><button id="staffAdminChatSend" class="chat-send" type="submit" aria-label="Send message" disabled><i class="fas fa-paper-plane" aria-hidden="true"></i></button></div>
@@ -2319,12 +2342,18 @@ function chatErrorMessage(error){
   if(['42P01','PGRST202','PGRST204','PGRST205'].includes(error?.code)){
     return 'The chat update is not installed yet. Apply staff-admin-chat.sql and workflow-chat-record-deletion.sql in the Supabase SQL editor.';
   }
+  if(error?.code==='42501'&&/food_safe_chat|foodsafe_(get_or_create_chat_thread|list_chat_contacts|chat_unread_count|send_chat_message|mark_chat_read|delete_chat_thread|request_chat_deletion|review_chat_deletion|admin_delete_all_chats)/i.test(error.message||'')){
+    return 'Chat database permissions are not fully installed. Reapply staff-admin-chat.sql and workflow-chat-record-deletion.sql in the Supabase SQL editor.';
+  }
   return error?.message||'Please try again.';
 }
 
 function recordDeletionErrorMessage(error){
-  if(error?.code==='PGRST202'&&/foodsafe_(get_deletion_evidence|admin_delete_corrective_action|admin_delete_cleaning_task|delete_chat_thread|admin_delete_all_chats)/i.test(error.message||'')){
+  if(error?.code==='PGRST202'&&/foodsafe_(get_deletion_evidence|admin_delete_corrective_action|admin_delete_cleaning_task|delete_chat_thread|request_chat_deletion|review_chat_deletion|admin_delete_chat_thread|admin_delete_all_chats)/i.test(error.message||'')){
     return 'Admin deletion tools are not installed yet. Apply workflow-chat-record-deletion.sql in the Supabase SQL editor.';
+  }
+  if(error?.code==='42501'&&/food_safe_chat|foodsafe_(delete_chat_thread|request_chat_deletion|review_chat_deletion|admin_delete_chat_thread|admin_delete_all_chats)/i.test(error.message||'')){
+    return 'Chat deletion permissions are not fully installed. Reapply workflow-chat-record-deletion.sql in the Supabase SQL editor.';
   }
   return workflowErrorMessage(error);
 }
@@ -2415,12 +2444,59 @@ async function loadStaffAdminChatContacts(){
     type:contact.conversation_type,
     unread:Number(contact.unread_count)||0,
     preview:contact.preview||'',
-    updatedAt:contact.updated_at
+    updatedAt:contact.updated_at,
+    deletionRequestedBy:contact.deletion_requested_by,
+    deletionRequestedAt:contact.deletion_requested_at
   }));
   staffAdminChatContacts.sort((a,b)=>Number(b.unread>0)-Number(a.unread>0)
     ||new Date(b.updatedAt||0)-new Date(a.updatedAt||0)
     ||a.name.localeCompare(b.name));
   renderStaffAdminChatContacts();
+  updateStaffAdminChatDeletionControls();
+}
+
+function updateStaffAdminChatDeletionControls(){
+  const contact=staffAdminChatContacts.find(item=>String(item.threadId)===String(staffAdminChatThreadId));
+  const actions=$('staffAdminChatConversationActions');
+  const requestButton=$('staffAdminChatRequestDelete');
+  const requestPanel=$('staffAdminChatDeleteRequest');
+  const reviewPanel=$('staffAdminChatDeleteReview');
+  if(!contact||!staffAdminChatThreadId){
+    actions?.classList.add('hidden');
+    requestButton?.classList.add('hidden');
+    $('staffAdminChatDeleteSelected')?.classList.add('hidden');
+    requestPanel?.classList.add('hidden');
+    reviewPanel?.classList.add('hidden');
+    $('staffAdminChatDelete').disabled=false;
+    $('staffAdminChatDeleteSelected')?.classList.add('hidden');
+    $('staffAdminChatDeleteSelected').disabled=false;
+    $('staffAdminChatInput').disabled=true;
+    $('staffAdminChatSend').disabled=true;
+    return false;
+  }
+
+  const adminDeleteButton=$('staffAdminChatDeleteSelected');
+  adminDeleteButton?.classList.toggle('hidden',currentRole!=='admin');
+  adminDeleteButton.disabled=false;
+  const requestedBy=contact.deletionRequestedBy;
+  const pending=Boolean(requestedBy);
+  const isRequester=requestedBy===currentProfile?.id;
+  const mayReview=pending&&!isRequester&&(
+    currentRole==='admin'&&contact.type==='admin_team'
+      ||currentRole==='staff'&&contact.type==='staff_pair'
+  );
+  actions?.classList.toggle('hidden',currentRole==='staff'?pending:currentRole!=='admin');
+  requestButton?.classList.toggle('hidden',currentRole!=='staff'||pending);
+  requestPanel?.classList.toggle('hidden',!pending);
+  reviewPanel?.classList.toggle('hidden',!mayReview);
+  $('staffAdminChatDelete').disabled=pending;
+  $('staffAdminChatDeleteRequestText').textContent=!pending?''
+    :isRequester?'Your request is pending. The other participant must approve permanent deletion before this conversation can be removed.'
+      :mayReview?`${contact.name} requested permanent deletion of this conversation. Approving will permanently remove its messages for everyone.`
+        :'A participant requested permanent deletion. The other participant must approve or decline.';
+  $('staffAdminChatInput').disabled=pending;
+  $('staffAdminChatSend').disabled=pending;
+  return pending;
 }
 
 async function selectStaffAdminChatContact(contactIndex){
@@ -2436,6 +2512,8 @@ async function selectStaffAdminChatContact(contactIndex){
   $('staffAdminChatMessages').innerHTML='<div class="chat-empty">Loading messages…</div>';
   $('staffAdminChatInput').disabled=true;
   $('staffAdminChatSend').disabled=true;
+  $('staffAdminChatConversationActions')?.classList.add('hidden');
+  $('staffAdminChatDeleteRequest')?.classList.add('hidden');
 
   let threadId=contact.threadId;
   if(!threadId){
@@ -2450,14 +2528,18 @@ async function selectStaffAdminChatContact(contactIndex){
   }
   staffAdminChatThreadId=threadId;
   $('staffAdminChatDelete')?.classList.remove('hidden');
+  $('staffAdminChatDeleteSelected')?.classList.toggle('hidden',currentRole!=='admin');
+  $('staffAdminChatDeleteSelected').disabled=false;
   $('staffAdminChatDelete').textContent='Delete for me';
   $('staffAdminChatDeleteAll')?.classList.toggle('hidden',currentRole!=='admin');
   $('staffAdminChatWorkspace')?.classList.add('is-conversation');
   $('staffAdminChatInput').placeholder=`Message ${name}…`;
   renderStaffAdminChatContacts();
   await refreshStaffAdminChatConversation();
-  $('staffAdminChatInput').disabled=false;
-  $('staffAdminChatSend').disabled=false;
+  if(!updateStaffAdminChatDeletionControls()){
+    $('staffAdminChatInput').disabled=false;
+    $('staffAdminChatSend').disabled=false;
+  }
 }
 
 async function refreshStaffAdminChatConversation(){
@@ -2488,6 +2570,7 @@ async function refreshStaffAdminChatConversation(){
   }
   if(wasAtBottom||!messages?.length)pane.scrollTop=pane.scrollHeight;
   await Promise.all([updateStaffAdminChatUnreadCount(),loadStaffAdminChatContacts()]);
+  updateStaffAdminChatDeletionControls();
 }
 
 async function sendStaffAdminChatMessage(event){
@@ -2534,6 +2617,10 @@ async function deleteStaffAdminChat(){
   staffAdminChatThreadId=null;
   $('staffAdminChatDelete')?.classList.add('hidden');
   $('staffAdminChatDelete').disabled=false;
+  $('staffAdminChatDeleteSelected')?.classList.add('hidden');
+  $('staffAdminChatDeleteSelected').disabled=false;
+  $('staffAdminChatConversationActions')?.classList.add('hidden');
+  $('staffAdminChatDeleteRequest')?.classList.add('hidden');
   $('staffAdminChatMessages').innerHTML='<div class="chat-empty"><i class="fas fa-comments" aria-hidden="true"></i>This conversation is hidden from your chat list.</div>';
   $('staffAdminChatInput').value='';
   $('staffAdminChatInput').disabled=true;
@@ -2545,12 +2632,117 @@ async function deleteStaffAdminChat(){
   await Promise.all([updateStaffAdminChatUnreadCount(),loadStaffAdminChatContacts(),loadWorkflowNotifications()]);
 }
 
+async function adminDeleteSelectedStaffChat(){
+  if(currentRole!=='admin'||!currentProfile||!staffAdminChatThreadId)return;
+  const contact=staffAdminChatContacts.find(item=>String(item.threadId)===String(staffAdminChatThreadId));
+  const contactName=contact?.name||'this conversation';
+  const confirmed=await confirmWorkflowDeletion({
+    title:'Permanently delete this conversation?',
+    message:`Delete the conversation with ${contactName} for everyone?`,
+    warning:'This permanently deletes every message and any pending deletion request in this conversation. It cannot be undone. Other conversations will not be affected.',
+    confirmLabel:'Delete conversation'
+  });
+  if(!confirmed)return;
+
+  const button=$('staffAdminChatDeleteSelected');
+  button.disabled=true;
+  setStaffAdminChatStatus('Permanently deleting conversation…');
+  const {error}=await foodSafeProClient.rpc('foodsafe_admin_delete_chat_thread',{
+    p_thread_id:staffAdminChatThreadId
+  });
+  if(error){
+    console.error('Could not permanently delete selected team chat:',error);
+    setStaffAdminChatStatus(`Could not delete conversation: ${recordDeletionErrorMessage(error)}`,true);
+    button.disabled=false;return;
+  }
+
+  staffAdminChatThreadId=null;
+  $('staffAdminChatDelete')?.classList.add('hidden');
+  $('staffAdminChatDeleteSelected')?.classList.add('hidden');
+  $('staffAdminChatDeleteSelected').disabled=false;
+  $('staffAdminChatDeleteRequest')?.classList.add('hidden');
+  $('staffAdminChatMessages').innerHTML='<div class="chat-empty"><i class="fas fa-comments" aria-hidden="true"></i>This conversation and its messages were permanently deleted for everyone.</div>';
+  $('staffAdminChatInput').value='';
+  $('staffAdminChatInput').disabled=true;
+  $('staffAdminChatSend').disabled=true;
+  $('staffAdminChatContactName').textContent='Conversation deleted';
+  $('staffAdminChatContactStatus').textContent='The administrator permanently deleted this conversation.';
+  setStaffAdminChatStatus('');
+  await Promise.all([loadStaffAdminChatContacts(),updateStaffAdminChatUnreadCount(),loadWorkflowNotifications()]);
+}
+
+async function requestStaffAdminChatDeletion(){
+  if(currentRole!=='staff'||!staffAdminChatThreadId||!currentProfile)return;
+  const contact=staffAdminChatContacts.find(item=>String(item.threadId)===String(staffAdminChatThreadId));
+  const confirmed=await confirmWorkflowDeletion({
+    title:'Request permanent chat deletion?',
+    message:`Ask ${contact?.name||'the other participant'} to approve permanent deletion of this conversation?`,
+    warning:'The messages remain available to both participants unless the other participant approves. The conversation stays visible until the request is approved or declined.',
+    confirmLabel:'Send deletion request'
+  });
+  if(!confirmed)return;
+  const button=$('staffAdminChatRequestDelete');
+  button.disabled=true;
+  setStaffAdminChatStatus('Sending deletion request…');
+  const {error}=await foodSafeProClient.rpc('foodsafe_request_chat_deletion',{p_thread_id:staffAdminChatThreadId});
+  if(error){
+    console.error('Could not request permanent chat deletion:',error);
+    setStaffAdminChatStatus(`Could not request deletion: ${recordDeletionErrorMessage(error)}`,true);
+    button.disabled=false;return;
+  }
+  setStaffAdminChatStatus('Deletion request sent. The other participant must approve it.');
+  await Promise.all([refreshStaffAdminChatConversation(),loadWorkflowNotifications()]);
+}
+
+async function reviewStaffAdminChatDeletion(decision){
+  if(!staffAdminChatThreadId||!currentProfile||!['approved','rejected'].includes(decision))return;
+  const approved=decision==='approved';
+  const confirmed=await confirmWorkflowDeletion({
+    title:approved?'Permanently delete this conversation?':'Decline the deletion request?',
+    message:approved?'Delete every message in this conversation for both participants?':'Keep the conversation and its message history?',
+    warning:approved?'This permanently removes the conversation and all messages. This cannot be undone.':'The requester will be notified that the conversation will remain available.',
+    confirmLabel:approved?'Approve and delete':'Decline request'
+  });
+  if(!confirmed)return;
+  const buttons=$('staffAdminChatDeleteReview').querySelectorAll('button');
+  buttons.forEach(button=>button.disabled=true);
+  setStaffAdminChatStatus(approved?'Deleting conversation for both participants…':'Declining deletion request…');
+  const {error}=await foodSafeProClient.rpc('foodsafe_review_chat_deletion',{
+    p_thread_id:staffAdminChatThreadId,p_decision:decision
+  });
+  if(error){
+    console.error('Could not review chat deletion request:',error);
+    setStaffAdminChatStatus(`Could not review deletion request: ${recordDeletionErrorMessage(error)}`,true);
+    buttons.forEach(button=>button.disabled=false);return;
+  }
+  if(approved){
+    staffAdminChatThreadId=null;
+    $('staffAdminChatDelete')?.classList.add('hidden');
+    $('staffAdminChatDelete').disabled=false;
+    $('staffAdminChatDeleteSelected')?.classList.add('hidden');
+    $('staffAdminChatDeleteSelected').disabled=false;
+    $('staffAdminChatConversationActions')?.classList.add('hidden');
+    $('staffAdminChatDeleteRequest')?.classList.add('hidden');
+    $('staffAdminChatMessages').innerHTML='<div class="chat-empty"><i class="fas fa-comments" aria-hidden="true"></i>This conversation and its messages were permanently deleted for both participants.</div>';
+    $('staffAdminChatInput').value='';
+    $('staffAdminChatInput').disabled=true;
+    $('staffAdminChatSend').disabled=true;
+    $('staffAdminChatContactName').textContent='Conversation deleted';
+    $('staffAdminChatContactStatus').textContent='The other participant approved permanent deletion.';
+    setStaffAdminChatStatus('');
+    await Promise.all([loadStaffAdminChatContacts(),updateStaffAdminChatUnreadCount(),loadWorkflowNotifications()]);
+  }else{
+    setStaffAdminChatStatus('Deletion request declined. The conversation remains available.');
+    await refreshStaffAdminChatConversation();
+  }
+}
+
 async function deleteAllStaffChats(){
   if(currentRole!=='admin'||!currentProfile)return;
   const confirmed=await confirmWorkflowDeletion({
     title:'Permanently delete every team chat?',
-    message:'Delete all conversations and messages, including staff-to-staff chats and staff-to-admin chats, for every participant?',
-    warning:'This permanently removes all team chat history and notifications. This action cannot be undone.',
+    message:'Delete every conversation and message for all staff, including staff-to-staff chats and your admin-to-staff conversations?',
+    warning:'This permanently removes all team chat history and chat notifications for everyone. This action cannot be undone.',
     confirmLabel:'Delete all chats'
   });
   if(!confirmed)return;
@@ -2566,6 +2758,10 @@ async function deleteAllStaffChats(){
   staffAdminChatThreadId=null;
   button.disabled=false;
   $('staffAdminChatDelete')?.classList.add('hidden');
+  $('staffAdminChatDeleteSelected')?.classList.add('hidden');
+  $('staffAdminChatDeleteSelected').disabled=false;
+  $('staffAdminChatConversationActions')?.classList.add('hidden');
+  $('staffAdminChatDeleteRequest')?.classList.add('hidden');
   $('staffAdminChatInput').value='';
   $('staffAdminChatInput').disabled=true;
   $('staffAdminChatSend').disabled=true;
@@ -2588,6 +2784,8 @@ async function openStaffAdminChat(threadId=null){
   staffAdminChatThreadId=null;
   $('staffAdminChatDelete')?.classList.add('hidden');
   $('staffAdminChatDelete').disabled=false;
+  $('staffAdminChatDeleteSelected')?.classList.add('hidden');
+  $('staffAdminChatDeleteSelected').disabled=false;
   $('staffAdminChatDeleteAll')?.classList.toggle('hidden',currentRole!=='admin');
   $('staffAdminChatDeleteAll').disabled=false;
   $('staffAdminChatWorkspace')?.classList.remove('is-conversation');
