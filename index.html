@@ -505,6 +505,15 @@ th{background:#f1f5f9;color:#6b7280;}
 .chat-contact-search { box-sizing: border-box; width: calc(100% - 12px); min-height: 38px; margin: 0 6px 11px; padding: 0 11px; border: 1px solid #e5ebe3; border-radius: 10px; color: #34483a; background: #fff; font: inherit; font-size: 11px; }
 .chat-contact-search:focus { outline: 2px solid #d8ead8; border-color: #80a887; }
 .chat-contact { width: 100%; min-height: 57px; padding: 9px; border: 1px solid transparent; border-radius: 11px; display: flex; align-items: center; gap: 10px; color: #405347; background: transparent; text-align: left; cursor: pointer; }
+.chat-contact-entry { padding: 3px; border-radius: 12px; }
+.chat-contact-entry.pending-deletion { border: 1px solid #f0dfbd; background: #fffaf0; }
+.chat-contact-deletion-review { margin: 0 7px 7px 52px; padding: 8px; border: 1px solid #f0dfbd; border-radius: 9px; color: #735422; background: #fff; font-size: 9px; line-height: 1.45; }
+.chat-contact-deletion-review p { margin: 0 0 7px; }
+.chat-contact-deletion-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+.chat-contact-deletion-actions button { min-height: 28px; padding: 0 8px; border: 1px solid #e6d5aa; border-radius: 7px; color: #72531d; background: #fff; font-size: 9px; font-weight: 750; cursor: pointer; }
+.chat-contact-deletion-actions button:first-child { border-color: #b7d4bc; color: #286343; background: #f2f8f1; }
+.chat-contact-deletion-actions button:disabled { opacity: .55; cursor: wait; }
+.chat-contact-pending { margin: 0 7px 7px 52px; color: #735422; font-size: 9px; line-height: 1.45; }
 .chat-contact:hover { background: #f0f5ef; }
 .chat-contact.active { border-color: #dce9da; background: #edf5eb; }
 .chat-contact-avatar { width: 34px; height: 34px; flex: 0 0 34px; border-radius: 50%; display: grid; place-items: center; color: #356c49; background: #e5efe3; font-size: 12px; font-weight: 800; }
@@ -2417,11 +2426,20 @@ function renderStaffAdminChatContacts(){
     const unread=Number(contact.unread)||0;
     const time=contact.updatedAt?formatWorkflowDate(contact.updatedAt):'';
     const contactIndex=staffAdminChatContacts.indexOf(contact);
-    return `<button class="chat-contact${active?' active':''}" type="button" aria-current="${active?'true':'false'}" onclick="selectStaffAdminChatContact(${contactIndex})">
+    const pending=Boolean(contact.deletionRequestedBy);
+    const isRequester=contact.deletionRequestedBy===currentProfile?.id;
+    const canReview=pending&&!isRequester&&(
+      currentRole==='admin'&&contact.type==='admin_team'
+        ||currentRole==='staff'&&contact.type==='staff'
+    );
+    const contactRow=`<button class="chat-contact${active?' active':''}" type="button" aria-current="${active?'true':'false'}" onclick="selectStaffAdminChatContact(${contactIndex})">
       <span class="chat-contact-avatar">${escapeHtml(initials)}</span><span class="chat-contact-copy"><strong>${escapeHtml(contact.name)}</strong><small>${escapeHtml(contact.preview||'Start a private conversation')}</small></span>
       ${time?`<span class="chat-contact-time">${escapeHtml(time)}</span>`:''}
       ${unread?`<span class="chat-contact-unread" aria-label="${unread} unread messages">${unread>99?'99+':unread}</span>`:''}
     </button>`;
+    const deletionReview=canReview?`<div class="chat-contact-deletion-review"><p>Deletion request received. Approve to permanently delete this chat for both participants.</p><div class="chat-contact-deletion-actions"><button type="button" onclick="respondToChatDeletionFromList(event,${contactIndex},'approved')">Approve &amp; delete</button><button type="button" onclick="respondToChatDeletionFromList(event,${contactIndex},'rejected')">Decline</button></div></div>`
+      :pending&&isRequester?'<p class="chat-contact-pending">Your permanent deletion request is pending approval.</p>':'';
+    return `<div class="chat-contact-entry${canReview||isRequester&&pending?' pending-deletion':''}">${contactRow}${deletionReview}</div>`;
   }).join('');
 }
 
@@ -2483,7 +2501,7 @@ function updateStaffAdminChatDeletionControls(){
   const isRequester=requestedBy===currentProfile?.id;
   const mayReview=pending&&!isRequester&&(
     currentRole==='admin'&&contact.type==='admin_team'
-      ||currentRole==='staff'&&contact.type==='staff_pair'
+      ||currentRole==='staff'&&contact.type==='staff'
   );
   actions?.classList.toggle('hidden',currentRole==='staff'?pending:currentRole!=='admin');
   requestButton?.classList.toggle('hidden',currentRole!=='staff'||pending);
@@ -2497,6 +2515,22 @@ function updateStaffAdminChatDeletionControls(){
   $('staffAdminChatInput').disabled=pending;
   $('staffAdminChatSend').disabled=pending;
   return pending;
+}
+
+function showStaffAdminChatDeletedState(message='This chat was deleted for both participants.'){
+  staffAdminChatThreadId=null;
+  $('staffAdminChatDelete')?.classList.add('hidden');
+  $('staffAdminChatDeleteSelected')?.classList.add('hidden');
+  $('staffAdminChatConversationActions')?.classList.add('hidden');
+  $('staffAdminChatDeleteRequest')?.classList.add('hidden');
+  $('staffAdminChatMessages').innerHTML=`<div class="chat-empty"><i class="fas fa-trash-can" aria-hidden="true"></i><strong>Chat deleted</strong>${escapeHtml(message)}</div>`;
+  $('staffAdminChatInput').value='';
+  $('staffAdminChatInput').disabled=true;
+  $('staffAdminChatSend').disabled=true;
+  $('staffAdminChatContactName').textContent='Chat deleted';
+  $('staffAdminChatContactStatus').textContent='This conversation is no longer available.';
+  $('staffAdminChatWorkspace')?.classList.add('is-conversation');
+  setStaffAdminChatStatus('');
 }
 
 async function selectStaffAdminChatContact(contactIndex){
@@ -2547,6 +2581,11 @@ async function refreshStaffAdminChatConversation(){
   const {error:readError}=await foodSafeProClient.rpc('foodsafe_mark_chat_read',{p_thread_id:staffAdminChatThreadId});
   if(readError){
     console.error('Could not mark chat messages as read:',readError);
+    if(/chat thread not found|conversation not found|already deleted/i.test(readError.message||'')){
+      showStaffAdminChatDeletedState();
+      await Promise.all([updateStaffAdminChatUnreadCount(),loadStaffAdminChatContacts(),loadWorkflowNotifications()]);
+      return;
+    }
     setStaffAdminChatStatus(chatErrorMessage(readError),true);
   }
   const {data:messages,error}=await foodSafeProClient.from('food_safe_chat_messages')
@@ -2694,6 +2733,16 @@ async function requestStaffAdminChatDeletion(){
   await Promise.all([refreshStaffAdminChatConversation(),loadWorkflowNotifications()]);
 }
 
+async function respondToChatDeletionFromList(event,contactIndex,decision){
+  event?.stopPropagation();
+  const contact=staffAdminChatContacts[contactIndex];
+  if(!contact||!['approved','rejected'].includes(decision))return;
+  await selectStaffAdminChatContact(contactIndex);
+  if(String(staffAdminChatThreadId)===String(contact.threadId)){
+    await reviewStaffAdminChatDeletion(decision);
+  }
+}
+
 async function reviewStaffAdminChatDeletion(decision){
   if(!staffAdminChatThreadId||!currentProfile||!['approved','rejected'].includes(decision))return;
   const approved=decision==='approved';
@@ -2716,20 +2765,7 @@ async function reviewStaffAdminChatDeletion(decision){
     buttons.forEach(button=>button.disabled=false);return;
   }
   if(approved){
-    staffAdminChatThreadId=null;
-    $('staffAdminChatDelete')?.classList.add('hidden');
-    $('staffAdminChatDelete').disabled=false;
-    $('staffAdminChatDeleteSelected')?.classList.add('hidden');
-    $('staffAdminChatDeleteSelected').disabled=false;
-    $('staffAdminChatConversationActions')?.classList.add('hidden');
-    $('staffAdminChatDeleteRequest')?.classList.add('hidden');
-    $('staffAdminChatMessages').innerHTML='<div class="chat-empty"><i class="fas fa-comments" aria-hidden="true"></i>This conversation and its messages were permanently deleted for both participants.</div>';
-    $('staffAdminChatInput').value='';
-    $('staffAdminChatInput').disabled=true;
-    $('staffAdminChatSend').disabled=true;
-    $('staffAdminChatContactName').textContent='Conversation deleted';
-    $('staffAdminChatContactStatus').textContent='The other participant approved permanent deletion.';
-    setStaffAdminChatStatus('');
+    showStaffAdminChatDeletedState('The other participant approved permanent deletion. Messages were removed for both participants.');
     await Promise.all([loadStaffAdminChatContacts(),updateStaffAdminChatUnreadCount(),loadWorkflowNotifications()]);
   }else{
     setStaffAdminChatStatus('Deletion request declined. The conversation remains available.');
