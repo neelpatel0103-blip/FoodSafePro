@@ -314,6 +314,18 @@ th{background:#f1f5f9;color:#6b7280;}
 .published-feedback-author-copy strong { color: #435348; font-size: 11px; }
 .published-feedback-author-copy small { color: #8a958c; font-size: 9px; font-weight: 500; }
 .published-feedback-footer { margin: 16px 0 0; color: #879188; font-size: 9px; line-height: 1.6; text-align: center; }
+.published-incident-stories { max-width: 1400px; margin: 62px auto 0; padding: clamp(22px,4vw,42px); overflow: hidden; border: 1px solid #dfe9e4; border-radius: 25px; background: radial-gradient(circle at 100% 0,rgba(190,224,208,.42),transparent 30%),linear-gradient(145deg,#fff 0%,#f3f8f5 100%); box-shadow: 0 16px 45px rgba(34,53,39,.06); }
+.published-incident-stories[hidden] { display: none !important; }
+.published-incident-header { max-width: 780px; margin: 0 auto 22px; text-align: center; }
+.published-incident-kicker,.incident-learning-kicker { color: #548064; font-size: 10px; font-weight: 800; letter-spacing: 1.8px; }
+.published-incident-title { margin: 8px 0; color: #143b2c; font-family: 'Dancing Script','Pacifico','Brush Script MT','Lucida Handwriting',cursive; font-size: clamp(36px,4.7vw,54px); font-weight: 700; line-height: 1.1; }
+.published-incident-header p { margin: 0; color: #78857b; font-size: 12px; line-height: 1.7; }
+.published-incident-list { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; }
+.published-incident-card { min-width: 0; padding: 19px; border: 1px solid #e1ebe4; border-radius: 17px; background: rgba(255,255,255,.92); box-shadow: 0 7px 21px rgba(41,68,46,.045); }
+.published-incident-card h3 { margin: 7px 0 10px; color: #244332; font-size: 16px; }
+.published-incident-card p { margin: 7px 0; color: #596a5f; font-size: 11px; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
+.published-incident-number { color: #64816f; font-size: 9px; font-weight: 800; letter-spacing: .8px; }
+.published-incident-footer { margin: 16px 0 0; color: #879188; font-size: 9px; line-height: 1.6; text-align: center; }
 .staff-management-header { margin-bottom: 18px; padding: 22px; border: 1px solid #e2ebe0; border-radius: 18px; background: radial-gradient(circle at 100% 0,rgba(210,232,210,.48),transparent 36%),linear-gradient(135deg,#fff,#f6f8f3); }
 .staff-management-kicker { color: #598064; font-size: 9px; font-weight: 800; letter-spacing: 1.5px; }
 .staff-management-header h3 { margin: 7px 0 5px; color: #263b2d; font-size: 21px; letter-spacing: -.4px; }
@@ -339,6 +351,39 @@ th{background:#f1f5f9;color:#6b7280;}
 .staff-management-action.suspend { color: #a5433f; }
 .staff-management-action:hover { background: #f7faf6; }
 .staff-management-empty { padding: 24px 14px; color: #78867c; text-align: center; }
+.access-control-header { margin-bottom: 18px; padding: 24px; border: 1px solid #dfe9e1; border-radius: 20px; background: radial-gradient(circle at 100% 0,rgba(191,224,202,.45),transparent 34%),linear-gradient(135deg,#fff,#f4f8f3); }
+.access-control-header .staff-management-kicker { color: #548064; }
+.access-control-header h3 { margin: 8px 0; color: #263b2d; font-size: 22px; }
+.access-control-header p { max-width: 760px; margin: 0; color: #748177; font-size: 12px; line-height: 1.7; }
+.access-control-toolbar { margin: 0 0 15px; padding: 16px; border: 1px solid #e4ebe3; border-radius: 14px; display: flex; flex-wrap: wrap; align-items: end; gap: 14px; background: #fff; }
+.access-control-toolbar .workflow-field { min-width: min(320px,100%); margin: 0; }
+.access-control-list { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+.access-control-card { min-width: 0; padding: 16px; border: 1px solid #e4ebe3; border-radius: 14px; display: flex; align-items: center; justify-content: space-between; gap: 14px; background: #fff; }
+.access-control-card strong { display: block; color: #344a3a; font-size: 12px; }
+.access-control-card small { display: block; margin-top: 4px; color: #829087; font-size: 10px; line-height: 1.5; }
+.access-toggle { position: relative; width: 48px; height: 28px; flex: 0 0 48px; border: 0; border-radius: 99px; background: #cbd5ce; cursor: pointer; transition: background .2s; }
+.access-toggle::after { position: absolute; top: 4px; left: 4px; width: 20px; height: 20px; border-radius: 50%; content: ""; background: #fff; box-shadow: 0 1px 4px #0002; transition: transform .2s; }
+.access-toggle[aria-checked="true"] { background: #b74842; }
+.access-toggle[aria-checked="true"]::after { transform: translateX(20px); }
+.access-toggle.is-setting[aria-checked="true"] { background: #286344; }
+.access-control-status { min-height: 20px; margin: 0 0 10px; color: #718076; font-size: 11px; }
+.access-control-status.error { color: #a5433f; }
+.team-knowledge-header { margin-bottom: 18px; padding: 24px; border: 1px solid #dfe9e4; border-radius: 20px; background: radial-gradient(circle at 100% 0,rgba(190,224,208,.42),transparent 30%),linear-gradient(145deg,#fff,#f3f8f5); }
+.team-knowledge-header .incident-learning-kicker { letter-spacing: 1.8px; }
+.team-knowledge-header h3 { margin: 8px 0; color: #143b2c; font-size: 23px; }
+.team-knowledge-header p { max-width: 760px; margin: 0; color: #78857b; font-size: 12px; line-height: 1.7; }
+.team-knowledge-panel { padding: 20px; border: 1px solid #e1ebe4; border-radius: 18px; background: #fff; }
+.team-knowledge-panel .incident-learning-heading { display: none; }
+body.foodsafe-night-mode { color-scheme: dark; background: #101814; color: #e2ebe4; }
+body.foodsafe-night-mode .dashboard-shell,body.foodsafe-night-mode .dashboard-main { color: #e2ebe4; background: #101814; }
+body.foodsafe-night-mode .dashboard-main .dashboard-topbar,body.foodsafe-night-mode .dashboard-overview,body.foodsafe-night-mode .dashboard-chart-card,body.foodsafe-night-mode .account-panel,body.foodsafe-night-mode .workflow-panel,body.foodsafe-night-mode .card,body.foodsafe-night-mode .download-center-card,body.foodsafe-night-mode .access-control-card,body.foodsafe-night-mode .team-knowledge-panel,body.foodsafe-night-mode .access-control-toolbar,body.foodsafe-night-mode .staff-management-header,body.foodsafe-night-mode .published-incident-stories { color: #e2ebe4; background: #19231d; border-color: #34453a; }
+body.foodsafe-night-mode .dashboard-overview h2,body.foodsafe-night-mode .dashboard-chart-card h3,body.foodsafe-night-mode .account-panel-heading h2,body.foodsafe-night-mode .card h3,body.foodsafe-night-mode .workflow-panel h3,body.foodsafe-night-mode .access-control-card strong,body.foodsafe-night-mode .download-center-copy strong,body.foodsafe-night-mode .team-knowledge-header h3,body.foodsafe-night-mode .published-incident-card h3 { color: #e2ebe4; }
+body.foodsafe-night-mode input,body.foodsafe-night-mode select,body.foodsafe-night-mode textarea,body.foodsafe-night-mode .incident-learning-card,body.foodsafe-night-mode .download-center-row,body.foodsafe-night-mode .published-incident-card { color: #e2ebe4; background: #202c25; border-color: #3a4b40; }
+body.foodsafe-night-mode p,body.foodsafe-night-mode small,body.foodsafe-night-mode .dashboard-overview p,body.foodsafe-night-mode .dashboard-chart-card p,body.foodsafe-night-mode .download-center-copy small,body.foodsafe-night-mode .incident-learning-card p,body.foodsafe-night-mode .published-incident-card p { color: #aab9ae; }
+body.foodsafe-night-mode .summary-card,body.foodsafe-night-mode .dashboard-pulse,body.foodsafe-night-mode .dashboard-pulse-item,body.foodsafe-night-mode .dashboard-pulse-empty,body.foodsafe-night-mode .guideline-card,body.foodsafe-night-mode .account-detail,body.foodsafe-night-mode .incident-learning-panel { color: #e2ebe4; background: #19231d; border-color: #34453a; }
+body.foodsafe-night-mode .summary-value,body.foodsafe-night-mode .dashboard-pulse-header h3,body.foodsafe-night-mode .dashboard-pulse-item strong,body.foodsafe-night-mode .account-detail-value,body.foodsafe-night-mode .guideline-card .guideline-title,body.foodsafe-night-mode .guideline-card .guideline-range { color: #e2ebe4; }
+body.foodsafe-night-mode .dashboard-shell th,body.foodsafe-night-mode .dashboard-shell td,body.foodsafe-night-mode .dashboard-role-pill,body.foodsafe-night-mode .overview-date { color: #d3dfd6; background: #202c25; border-color: #3a4b40; }
+body.foodsafe-night-mode .dashboard-main .dashboard-topbar h2,body.foodsafe-night-mode .dashboard-topbar-kicker,body.foodsafe-night-mode .dashboard-footer { color: #c1d0c4; }
 .support-assistant { position: fixed; right: 20px; bottom: 20px; z-index: 60; }
 .support-launcher { min-height: 48px; padding: 0 17px; border: 0; border-radius: 999px; display: inline-flex; align-items: center; gap: 9px; color: white; background: #174b37; box-shadow: 0 8px 26px rgba(23,75,55,.25); font-size: 13px; font-weight: 700; cursor: pointer; }
 .support-launcher:hover { background: #103c2b; }
@@ -507,13 +552,6 @@ th{background:#f1f5f9;color:#6b7280;}
 .chat-contact { width: 100%; min-height: 57px; padding: 9px; border: 1px solid transparent; border-radius: 11px; display: flex; align-items: center; gap: 10px; color: #405347; background: transparent; text-align: left; cursor: pointer; }
 .chat-contact-entry { padding: 3px; border-radius: 12px; }
 .chat-contact-entry.pending-deletion { border: 1px solid #f0dfbd; background: #fffaf0; }
-.chat-contact-deletion-review { margin: 0 7px 7px 52px; padding: 8px; border: 1px solid #f0dfbd; border-radius: 9px; color: #735422; background: #fff; font-size: 9px; line-height: 1.45; }
-.chat-contact-deletion-review p { margin: 0 0 7px; }
-.chat-contact-deletion-actions { display: flex; flex-wrap: wrap; gap: 6px; }
-.chat-contact-deletion-actions button { min-height: 28px; padding: 0 8px; border: 1px solid #e6d5aa; border-radius: 7px; color: #72531d; background: #fff; font-size: 9px; font-weight: 750; cursor: pointer; }
-.chat-contact-deletion-actions button:first-child { border-color: #b7d4bc; color: #286343; background: #f2f8f1; }
-.chat-contact-deletion-actions button:disabled { opacity: .55; cursor: wait; }
-.chat-contact-pending { margin: 0 7px 7px 52px; color: #735422; font-size: 9px; line-height: 1.45; }
 .chat-contact:hover { background: #f0f5ef; }
 .chat-contact.active { border-color: #dce9da; background: #edf5eb; }
 .chat-contact-avatar { width: 34px; height: 34px; flex: 0 0 34px; border-radius: 50%; display: grid; place-items: center; color: #356c49; background: #e5efe3; font-size: 12px; font-weight: 800; }
@@ -558,6 +596,69 @@ th{background:#f1f5f9;color:#6b7280;}
 .chat-compose-hint { display: flex; justify-content: space-between; gap: 10px; margin-top: 5px; color: #89948b; font-size: 8px; }
 .chat-status { min-height: 14px; margin: 5px 0 0; color: #397453; font-size: 9px; }
 .chat-status.error { color: #a5433f; }
+.chat-modal.is-admin { background: rgba(3,8,13,.78); backdrop-filter: blur(7px); }
+.chat-modal.is-admin .chat-dialog { border-color: #26333e; background: #0e161e; box-shadow: 0 28px 90px rgba(0,0,0,.48); }
+.chat-modal.is-admin .chat-dialog-header { border-color: #202c36; background: #111b24; }
+.chat-modal.is-admin .chat-dialog-mark { color: #61c5a1; background: #17352f; }
+.chat-modal.is-admin .chat-dialog-heading h2 { color: #edf3f6; }
+.chat-modal.is-admin .chat-dialog-heading p { color: #91a0ad; }
+.chat-modal.is-admin .chat-dialog-close { color: #aebac4; background: #202c36; }
+.chat-modal.is-admin .chat-dialog-close:hover { color: #fff; background: #2a3945; }
+.chat-modal.is-admin .chat-dialog-delete,.chat-modal.is-admin .chat-admin-delete-thread,.chat-modal.is-admin .chat-admin-delete-all,.chat-modal.is-admin .chat-request-delete {
+  border-color: #573b3c; color: #ffaaa4; background: #2b2023;
+}
+.chat-modal.is-admin .chat-dialog-delete:hover,.chat-modal.is-admin .chat-admin-delete-thread:hover,.chat-modal.is-admin .chat-admin-delete-all:hover,.chat-modal.is-admin .chat-request-delete:hover {
+  border-color: #875452; background: #392629;
+}
+.chat-modal.is-admin .chat-workspace { background: #0e161e; }
+.chat-modal.is-admin .chat-contacts { border-color: #202c36; background: #0b131a; }
+.chat-modal.is-admin .chat-contacts-title { color: #8797a4; }
+.chat-modal.is-admin .chat-contact-search { border-color: #293742; color: #e5edf1; background: #121e27; }
+.chat-modal.is-admin .chat-contact-search::placeholder { color: #788995; }
+.chat-modal.is-admin .chat-contact-search:focus { outline-color: #245846; border-color: #39856b; }
+.chat-modal.is-admin .chat-contact-entry.pending-deletion { border-color: #59492e; background: #211e18; }
+.chat-modal.is-admin .chat-contact:hover { background: #16222b; }
+.chat-modal.is-admin .chat-contact.active { border-color: #315044; background: #182a2b; }
+.chat-modal.is-admin .chat-contact-avatar { color: #80d7b6; background: #194138; }
+.chat-modal.is-admin .chat-contact-copy strong { color: #e6edf1; }
+.chat-modal.is-admin .chat-contact-copy small,.chat-modal.is-admin .chat-contact-time { color: #8d9ba6; }
+.chat-modal.is-admin .chat-contact-unread { background: #148365; }
+.chat-modal.is-admin .chat-contacts-message { color: #8d9ba6; }
+.chat-modal.is-admin .chat-contacts-message.error { color: #ffaaa4; }
+.chat-modal.is-admin .chat-conversation-header { border-color: #202c36; background: #111b24; }
+.chat-modal.is-admin .chat-back { color: #b6c1ca; background: #202c36; }
+.chat-modal.is-admin .chat-conversation-header strong { color: #edf3f6; }
+.chat-modal.is-admin .chat-conversation-header small { color: #91a0ad; }
+.chat-modal.is-admin .chat-conversation-actions { border-color: #202c36; background: #101922; }
+.chat-modal.is-admin .chat-delete-request { border-color: #59492e; color: #e6c982; background: #241f16; }
+.chat-modal.is-admin .chat-delete-review button { border-color: #59492e; color: #ead9ae; background: #30291c; }
+.chat-modal.is-admin .chat-delete-review button:first-child { border-color: #34664e; color: #9de0bd; background: #183229; }
+.chat-modal.is-admin .chat-messages { background: radial-gradient(ellipse at top,#111f28,#0b131a 72%); }
+.chat-modal.is-admin .chat-empty { color: #95a4af; }
+.chat-modal.is-admin .chat-empty i { color: #62c6a2; }
+.chat-modal.is-admin .chat-bubble { border-color: #263743; color: #e1e9ed; background: #1a2731; }
+.chat-modal.is-admin .chat-bubble.own { border-color: #168062; color: #f3fbf8; background: #126b55; }
+.chat-modal.is-admin .chat-compose { border-color: #202c36; background: #111b24; }
+.chat-modal.is-admin .chat-compose textarea { border-color: #2b3a45; color: #e6edf1; background: #0d161e; }
+.chat-modal.is-admin .chat-compose textarea::placeholder { color: #788995; }
+.chat-modal.is-admin .chat-compose textarea:focus { outline-color: #245846; border-color: #39856b; }
+.chat-modal.is-admin .chat-send { background: #148365; }
+.chat-modal.is-admin .chat-send:hover { background: #189875; }
+.chat-modal.is-admin .chat-compose-hint { color: #7f909c; }
+.chat-modal.is-admin .chat-status { color: #80d7b6; }
+.chat-modal.is-admin .chat-status.error { color: #ffaaa4; }
+.admin-chat-management-content { min-height: 0; flex: 1; padding: 18px; overflow-y: auto; }
+.admin-chat-management-intro { margin: 0 0 14px; color: #91a0ad; font-size: 11px; line-height: 1.6; }
+.admin-chat-management-search { box-sizing: border-box; width: 100%; min-height: 40px; margin-bottom: 12px; padding: 0 12px; border: 1px solid #293742; border-radius: 10px; color: #e5edf1; background: #121e27; font: inherit; font-size: 11px; }
+.admin-chat-management-list { display: grid; gap: 9px; }
+.admin-chat-management-row { padding: 13px; border: 1px solid #263743; border-radius: 12px; display: flex; align-items: center; gap: 14px; background: #121e27; }
+.admin-chat-management-copy { min-width: 0; flex: 1; color: #e6edf1; font-size: 11px; }
+.admin-chat-management-copy strong { display: block; overflow-wrap: anywhere; }
+.admin-chat-management-copy small { display: block; margin-top: 5px; color: #91a0ad; font-size: 9px; }
+.admin-chat-management-delete { min-height: 34px; padding: 0 10px; border: 1px solid #573b3c; border-radius: 9px; color: #ffaaa4; background: #2b2023; font-size: 10px; font-weight: 750; cursor: pointer; }
+.admin-chat-management-delete:disabled { opacity: .55; cursor: wait; }
+.admin-chat-management-status { min-height: 16px; margin-top: 10px; color: #80d7b6; font-size: 10px; }
+.admin-chat-management-status.error { color: #ffaaa4; }
 .workflow-confirm-modal { position: fixed; z-index: 120; inset: 0; box-sizing: border-box; padding: 20px; display: grid; place-items: center; background: rgba(18,34,24,.5); backdrop-filter: blur(4px); }
 .workflow-confirm-modal.hidden { display: none; }
 .workflow-confirm-dialog { width: min(440px,100%); padding: 25px; border: 1px solid #e8ece6; border-radius: 20px; background: #fff; box-shadow: 0 24px 75px rgba(19,39,26,.24); }
@@ -642,6 +743,38 @@ th{background:#f1f5f9;color:#6b7280;}
 .dashboard-footer a { color: #397258; font-weight: 700; text-decoration: none; }
 .dashboard-footer a:hover { text-decoration: underline; }
 .workflow-page { display: grid; gap: 16px; }
+.incident-learning-panel { margin: 15px 0 18px; padding: 17px; border: 1px solid #dce9df; border-radius: 15px; background: linear-gradient(140deg,#f7fbf6,#eff7f2); }
+.incident-learning-heading { margin-bottom: 12px; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.incident-learning-heading h3 { margin: 5px 0 4px; color: #294536; font-size: 16px; }
+.incident-learning-heading p { max-width: 680px; margin: 0; color: #718078; font-size: 11px; line-height: 1.55; }
+.incident-learning-heading > i { color: #4a8963; font-size: 22px; }
+.incident-learning-search { box-sizing: border-box; width: 100%; min-height: 39px; margin-bottom: 10px; padding: 0 11px; border: 1px solid #dce6dc; border-radius: 9px; color: #334439; background: #fff; font: inherit; font-size: 11px; }
+.incident-learning-list { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 9px; }
+.incident-learning-card { padding: 13px; border: 1px solid #e1e9e1; border-radius: 11px; background: #fff; }
+.incident-learning-card h4 { margin: 0 0 6px; color: #304337; font-size: 12px; }
+.incident-learning-card p { margin: 5px 0; color: #728078; font-size: 10px; line-height: 1.6; white-space: pre-wrap; overflow-wrap: anywhere; }
+.incident-learning-card-actions { margin-top: 9px; display: flex; justify-content: flex-end; }
+.incident-learning-empty { margin: 0; padding: 9px; color: #78877c; font-size: 10px; line-height: 1.5; }
+.incident-learning-editor { margin-top: 12px; padding: 13px; border: 1px solid #e0e9df; border-radius: 11px; background: #f9fbf8; }
+.incident-learning-editor > strong { display: block; margin-bottom: 9px; color: #395543; font-size: 11px; }
+.incident-learning-editor .workflow-form-grid { gap: 8px; }
+.incident-learning-editor label { font-size: 10px; }
+.incident-learning-editor input,.incident-learning-editor textarea { padding: 8px; font-size: 10px; }
+.incident-learning-editor textarea { min-height: 58px; }
+.incident-learning-publish-state { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.incident-learning-publish-state span { padding: 5px 8px; border: 1px solid #d7e8d8; border-radius: 999px; color: #326449; background: #f0f7ef; font-size: 9px; font-weight: 700; }
+.incident-report-header { margin-bottom: 13px; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.incident-report-header h3 { margin: 0; color: #334439; font-size: 16px; }
+.incident-report-header p { margin: 5px 0 0; color: #829087; font-size: 11px; line-height: 1.5; }
+.incident-follow-up-notice { margin: 11px 0; padding: 12px 13px; border: 1px solid #eeddb9; border-radius: 11px; color: #715522; background: #fffaf0; font-size: 11px; line-height: 1.6; white-space: pre-wrap; }
+.incident-follow-up-notice strong { display: block; margin-bottom: 3px; color: #795b27; }
+.incident-follow-up-notice .workflow-secondary { margin-top: 9px; }
+.incident-learning-credits { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 13px 0 2px; }
+.incident-learning-person { min-width: 0; display: flex; align-items: center; gap: 8px; color: #68766d; font-size: 10px; line-height: 1.4; }
+.incident-learning-person strong { display: block; color: #344a3a; font-size: 10px; overflow-wrap: anywhere; }
+.incident-learning-person small { display: block; color: #829087; font-size: 8px; }
+.incident-learning-avatar { width: 32px; height: 32px; flex: 0 0 32px; border: 1px solid hsl(var(--avatar-hue) 28% 82%); border-radius: 50%; display: grid; place-items: center; color: hsl(var(--avatar-hue) 40% 32%); background: hsl(var(--avatar-hue) 45% 94%); font-size: 14px; }
+.incident-learning-pdf-meta { color: #58675d; font-size: 10px; }
 .workflow-panel { padding: 20px; border: 1px solid #e6ece4; border-radius: 17px; background: #fff; box-shadow: 0 5px 18px rgba(34,53,39,.035); }
 .workflow-panel h3 { margin: 0; color: #334439; font-size: 16px; }
 .workflow-panel > p { margin: 5px 0 15px; color: #829087; font-size: 12px; }
@@ -675,6 +808,25 @@ th{background:#f1f5f9;color:#6b7280;}
 .workflow-secondary { min-height: 34px; padding: 0 10px; border: 1px solid #dfe7dd; border-radius: 8px; color: #3d5945; background: #fff; font-size: 10px; font-weight: 700; cursor: pointer; }
 .workflow-report-toolbar { align-items: flex-end; gap: 10px; margin: 0; }
 .workflow-report-period { width: min(190px,42vw); }
+.records-export-icon { width: 40px; height: 40px; border: 1px solid #d5e4d7; border-radius: 11px; display: inline-grid; place-items: center; color: #174b37; background: #f5faf4; font-size: 15px; cursor: pointer; }
+.records-export-icon:hover { border-color: #a9c8ac; color: #103c2b; background: #eaf5e9; }
+.records-export-icon:focus-visible { outline: 3px solid #b9d8bd; outline-offset: 3px; }
+.download-center-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; }
+.download-center-card { min-width: 0; padding: 16px; border: 1px solid #e4ebe3; border-radius: 15px; background: #fff; }
+.download-center-card h3 { margin: 0 0 5px; color: #304337; font-size: 14px; }
+.download-center-card > p { margin: 0 0 12px; color: #829087; font-size: 10px; line-height: 1.5; }
+.download-center-list { display: grid; gap: 8px; }
+.download-center-row { min-width: 0; padding: 10px; border: 1px solid #e7ece5; border-radius: 10px; display: flex; align-items: center; gap: 9px; background: #f9fbf8; }
+.download-center-copy { min-width: 0; flex: 1; }
+.download-center-copy strong { display: block; color: #344a3a; font-size: 10px; overflow-wrap: anywhere; }
+.download-center-copy small { display: block; margin-top: 3px; color: #829087; font-size: 9px; }
+.download-center-button { width: 34px; height: 34px; flex: 0 0 34px; border: 1px solid #d6e5d7; border-radius: 9px; color: #174b37; background: #fff; cursor: pointer; }
+.download-center-button:hover { border-color: #9dc2a3; background: #edf7ee; }
+.download-center-empty { padding: 12px; border: 1px dashed #dfe7dd; border-radius: 10px; color: #829087; font-size: 10px; text-align: center; }
+.download-center-temperature { margin-bottom: 14px; padding: 18px; border: 1px solid #dce8dd; border-radius: 16px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; background: linear-gradient(120deg,#f3f8f2,#fff); }
+.download-center-temperature h3 { margin: 0; color: #304337; font-size: 15px; }
+.download-center-temperature p { margin: 4px 0 0; color: #829087; font-size: 10px; }
+@media (max-width: 850px) { .download-center-grid { grid-template-columns: 1fr; } }
 .workflow-export-button { box-sizing: border-box; min-height: 44px; padding: 0 15px; border: 1px solid #174b37; border-radius: 10px; display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center; gap: 9px; color: #fff; background: linear-gradient(135deg,#226447,#174b37); box-shadow: 0 5px 12px rgba(23,75,55,.16); font: inherit; font-size: 12px; font-weight: 750; white-space: nowrap; cursor: pointer; transition: background .18s ease, box-shadow .18s ease, transform .18s ease; }
 .workflow-export-button:hover { background: linear-gradient(135deg,#1c583e,#103c2b); box-shadow: 0 7px 16px rgba(23,75,55,.22); transform: translateY(-1px); }
 .workflow-export-button:focus-visible { outline: 3px solid #b9d8bd; outline-offset: 3px; }
@@ -775,6 +927,13 @@ th{background:#f1f5f9;color:#6b7280;}
   .admin-feedback-date { text-align: left; }
   .published-feedback { margin-top: 42px; padding: 20px 14px; border-radius: 19px; }
   .published-feedback-list { grid-template-columns: 1fr; }
+  .published-incident-stories { margin-top: 42px; padding: 20px 14px; border-radius: 19px; }
+  .published-incident-list,.incident-learning-list { grid-template-columns: 1fr; }
+  .published-incident-card { padding: 15px; }
+  .incident-report-header { align-items: flex-start; flex-direction: column; }
+  .admin-chat-management-content { padding: 14px; }
+  .admin-chat-management-row { align-items: flex-start; flex-direction: column; }
+  .admin-chat-management-delete { width: 100%; }
   .published-feedback-card { min-height: 0; padding: 15px; }
   .staff-management-header { padding: 17px; }
   .food-safety-guide { margin-top: 30px; padding: 19px 14px; border-radius: 19px; }
@@ -1180,6 +1339,144 @@ th{background:#f1f5f9;color:#6b7280;}
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
   .hero-visual::before,.hero-visual::after,.hero-3d-badge { animation: none !important; }
 }
+body.foodsafe-night-mode .dashboard-shell { background: #101814; color: #e2ebe4; }
+body.foodsafe-night-mode .dashboard-shell .dashboard-topbar,
+body.foodsafe-night-mode .dashboard-shell .dashboard-overview,
+body.foodsafe-night-mode .dashboard-shell .dashboard-chart-card,
+body.foodsafe-night-mode .dashboard-shell .account-panel,
+body.foodsafe-night-mode .dashboard-shell .workflow-panel,
+body.foodsafe-night-mode .dashboard-shell .card,
+body.foodsafe-night-mode .dashboard-shell .download-center-card,
+body.foodsafe-night-mode .dashboard-shell .access-control-card,
+body.foodsafe-night-mode .dashboard-shell .team-knowledge-panel,
+body.foodsafe-night-mode .dashboard-shell .access-control-toolbar,
+body.foodsafe-night-mode .dashboard-shell .staff-management-header,
+body.foodsafe-night-mode .dashboard-shell .summary-card,
+body.foodsafe-night-mode .dashboard-shell .dashboard-pulse,
+body.foodsafe-night-mode .dashboard-shell .dashboard-pulse-item,
+body.foodsafe-night-mode .dashboard-shell .dashboard-pulse-empty,
+body.foodsafe-night-mode .dashboard-shell .guideline-card,
+body.foodsafe-night-mode .dashboard-shell .account-detail,
+body.foodsafe-night-mode .dashboard-shell .incident-learning-panel,
+body.foodsafe-night-mode .dashboard-shell .published-incident-stories,
+body.foodsafe-night-mode .dashboard-shell .incident-learning-card,
+body.foodsafe-night-mode .dashboard-shell .published-incident-card,
+body.foodsafe-night-mode .dashboard-shell .download-center-row { color: #e2ebe4; background: #19231d; border-color: #34453a; }
+body.foodsafe-night-mode .dashboard-shell h2,
+body.foodsafe-night-mode .dashboard-shell h3,
+body.foodsafe-night-mode .dashboard-shell h4,
+body.foodsafe-night-mode .dashboard-shell .summary-value,
+body.foodsafe-night-mode .dashboard-shell .account-detail-value,
+body.foodsafe-night-mode .dashboard-shell .dashboard-pulse-item strong,
+body.foodsafe-night-mode .dashboard-shell .guideline-title,
+body.foodsafe-night-mode .dashboard-shell .guideline-range { color: #e2ebe4; }
+body.foodsafe-night-mode .dashboard-shell p,
+body.foodsafe-night-mode .dashboard-shell small,
+body.foodsafe-night-mode .dashboard-shell .dashboard-footer,
+body.foodsafe-night-mode .dashboard-shell .dashboard-topbar-kicker { color: #aab9ae; }
+body.foodsafe-night-mode .dashboard-shell input,
+body.foodsafe-night-mode .dashboard-shell select,
+body.foodsafe-night-mode .dashboard-shell textarea,
+body.foodsafe-night-mode .dashboard-shell th,
+body.foodsafe-night-mode .dashboard-shell td,
+body.foodsafe-night-mode .dashboard-shell .records-filters input,
+body.foodsafe-night-mode .dashboard-shell .records-filters select { color: #e2ebe4; background: #202c25; border-color: #3a4b40; }
+body.foodsafe-night-mode .dashboard-shell { background: #08130f; color: #e8f3ec; }
+body.foodsafe-night-mode .dashboard-sidebar { color: #d6e5dc; background: #13251f; border-right: 1px solid #263d33; }
+body.foodsafe-night-mode .dashboard-sidebar .foodsafe-brand,
+body.foodsafe-night-mode .dashboard-sidebar .dashboard-brand h1 { color: #e5f1e9; }
+body.foodsafe-night-mode .dashboard-sidebar .dashboard-brand-mark { color: #74d8b3; background: #1c3b30; border-color: #315746; }
+body.foodsafe-night-mode .dashboard-side-label { color: #9fb6a8; }
+body.foodsafe-night-mode .dashboard-side-nav a,
+body.foodsafe-night-mode .dashboard-side-actions button,
+body.foodsafe-night-mode .dashboard-side-admin button,
+body.foodsafe-night-mode .dashboard-side-admin a { color: #c9d9cf; }
+body.foodsafe-night-mode .dashboard-side-nav a:hover,
+body.foodsafe-night-mode .dashboard-side-actions button:hover,
+body.foodsafe-night-mode .dashboard-side-admin button:hover,
+body.foodsafe-night-mode .dashboard-side-admin a:hover { color: #eafff5; background: #203b30; }
+body.foodsafe-night-mode .dashboard-side-nav a.active,
+body.foodsafe-night-mode .dashboard-side-admin button.active { color: #08251a; background: #51d1a5; }
+body.foodsafe-night-mode .dashboard-main,
+body.foodsafe-night-mode .dashboard-main .dashboard-topbar { color: #e7f0e9; background: #08130f; }
+body.foodsafe-night-mode .dashboard-main .dashboard-topbar { border-color: #20342b; }
+body.foodsafe-night-mode .dashboard-main .dashboard-topbar h2 { color: #f0f7f2; }
+body.foodsafe-night-mode .dashboard-main .dashboard-topbar p,
+body.foodsafe-night-mode .dashboard-topbar-kicker { color: #9caf9f; }
+body.foodsafe-night-mode .dashboard-main .dashboard-content { color: #e7f0e9; }
+body.foodsafe-night-mode .dashboard-shell .dashboard-overview,
+body.foodsafe-night-mode .dashboard-shell .dashboard-chart-card,
+body.foodsafe-night-mode .dashboard-shell .account-panel,
+body.foodsafe-night-mode .dashboard-shell .workflow-panel,
+body.foodsafe-night-mode .dashboard-shell .card,
+body.foodsafe-night-mode .dashboard-shell .download-center-card,
+body.foodsafe-night-mode .dashboard-shell .access-control-card,
+body.foodsafe-night-mode .dashboard-shell .team-knowledge-panel,
+body.foodsafe-night-mode .dashboard-shell .access-control-toolbar,
+body.foodsafe-night-mode .dashboard-shell .staff-management-header,
+body.foodsafe-night-mode .dashboard-shell .summary-card,
+body.foodsafe-night-mode .dashboard-shell .dashboard-pulse,
+body.foodsafe-night-mode .dashboard-shell .dashboard-pulse-item,
+body.foodsafe-night-mode .dashboard-shell .dashboard-pulse-empty,
+body.foodsafe-night-mode .dashboard-shell .guideline-card,
+body.foodsafe-night-mode .dashboard-shell .account-detail,
+body.foodsafe-night-mode .dashboard-shell .incident-learning-panel,
+body.foodsafe-night-mode .dashboard-shell .published-incident-stories,
+body.foodsafe-night-mode .dashboard-shell .incident-learning-card,
+body.foodsafe-night-mode .dashboard-shell .published-incident-card,
+body.foodsafe-night-mode .dashboard-shell .download-center-row { color: #e3eee7; background: #12251d; border-color: #284337; box-shadow: 0 8px 26px rgba(0,0,0,.14); }
+body.foodsafe-night-mode .dashboard-shell h2,
+body.foodsafe-night-mode .dashboard-shell h3,
+body.foodsafe-night-mode .dashboard-shell h4,
+body.foodsafe-night-mode .dashboard-shell .summary-value,
+body.foodsafe-night-mode .dashboard-shell .account-detail-value,
+body.foodsafe-night-mode .dashboard-shell .dashboard-pulse-item strong,
+body.foodsafe-night-mode .dashboard-shell .guideline-title,
+body.foodsafe-night-mode .dashboard-shell .guideline-range,
+body.foodsafe-night-mode .dashboard-shell .incident-learning-card h4,
+body.foodsafe-night-mode .dashboard-shell .download-center-copy strong { color: #edf7f0; }
+body.foodsafe-night-mode .dashboard-shell p,
+body.foodsafe-night-mode .dashboard-shell small,
+body.foodsafe-night-mode .dashboard-shell .dashboard-footer,
+body.foodsafe-night-mode .dashboard-shell .dashboard-overview p,
+body.foodsafe-night-mode .dashboard-shell .dashboard-chart-card p,
+body.foodsafe-night-mode .dashboard-shell .download-center-copy small,
+body.foodsafe-night-mode .dashboard-shell .incident-learning-card p,
+body.foodsafe-night-mode .dashboard-shell .published-incident-card p { color: #a9beb0; }
+body.foodsafe-night-mode .dashboard-shell input,
+body.foodsafe-night-mode .dashboard-shell select,
+body.foodsafe-night-mode .dashboard-shell textarea,
+body.foodsafe-night-mode .dashboard-shell th,
+body.foodsafe-night-mode .dashboard-shell td,
+body.foodsafe-night-mode .dashboard-shell .records-filters input,
+body.foodsafe-night-mode .dashboard-shell .records-filters select,
+body.foodsafe-night-mode .dashboard-shell .download-center-row { color: #e3eee7; background: #0c1a14; border-color: #2a4336; }
+body.foodsafe-night-mode .dashboard-shell th { color: #a9c1b2; background: #1a3026; }
+body.foodsafe-night-mode .dashboard-shell .workflow-submit,
+body.foodsafe-night-mode .dashboard-shell .workflow-export-button,
+body.foodsafe-night-mode .dashboard-shell .incident-learning-card-actions button { color: #062319; background: #51d1a5; border-color: #51d1a5; }
+body.foodsafe-night-mode .dashboard-shell .workflow-submit:hover,
+body.foodsafe-night-mode .dashboard-shell .workflow-export-button:hover,
+body.foodsafe-night-mode .dashboard-shell .incident-learning-card-actions button:hover { background: #71dfba; }
+body.foodsafe-night-mode .dashboard-shell .dashboard-role-pill { color: #a9e8ca; background: #163628; border-color: #2d5943; }
+body.foodsafe-night-mode .dashboard-shell .overview-date,
+body.foodsafe-night-mode .dashboard-shell .dashboard-pulse-count { color: #b7e7c9; background: #1a3829; border-color: #31533d; }
+body.foodsafe-night-mode .dashboard-shell .dashboard-pulse-count.has-alerts { color: #f2c27e; background: #3b2d1a; }
+body.foodsafe-night-mode .dashboard-shell .staff-management-table th { color: #a9beb0; background: #1a3026; }
+body.foodsafe-night-mode .dashboard-shell .staff-management-table td { color: #d8e6dc; border-color: #263d32; }
+body.foodsafe-night-mode .dashboard-shell .access-toggle[aria-checked="true"] { background: #b74842; }
+body.foodsafe-night-mode .dashboard-shell .access-toggle.is-setting[aria-checked="true"] { background: #51bd91; }
+body.foodsafe-night-mode .dashboard-shell .dashboard-footer a { color: #69d7ad; }
+body.foodsafe-night-mode .dashboard-shell .workflow-notification-popover,
+body.foodsafe-night-mode .dashboard-shell .workflow-notification-item { color: #e3eee7; background: #12251d; border-color: #284337; }
+body.foodsafe-night-mode .dashboard-shell .workflow-notification-item h4 { color: #edf7f0; }
+body.foodsafe-night-mode .dashboard-shell .workflow-notification-item time { color: #a9beb0; }
+body.foodsafe-night-mode .dashboard-topbar-meta .dashboard-chat-trigger,
+body.foodsafe-night-mode .dashboard-topbar-meta .workflow-notification-trigger { color: #b7ead2; background: #12271f; border-color: #2b4939; }
+body.foodsafe-night-mode .dashboard-topbar-meta .dashboard-chat-trigger:hover,
+body.foodsafe-night-mode .dashboard-topbar-meta .workflow-notification-trigger:hover,
+body.foodsafe-night-mode .dashboard-topbar-meta .dashboard-chat-trigger[aria-pressed="true"] { color: #062319; background: #51d1a5; border-color: #51d1a5; }
+body.foodsafe-night-mode .dashboard-chat-count { border-color: #12251d; }
 </style>
 </head>
 <body class="min-h-screen">
@@ -1355,6 +1652,15 @@ th{background:#f1f5f9;color:#6b7280;}
       </header>
       <div class="published-feedback-list" id="publishedFeedbackList"></div>
       <p class="published-feedback-footer">Only messages reviewed and published by a FoodSafe Pro administrator appear here. Sender email addresses are never displayed.</p>
+    </section>
+    <section class="published-incident-stories" id="publishedIncidentStoriesSection" aria-labelledby="published-incident-title" hidden>
+      <header class="published-incident-header">
+        <span class="published-incident-kicker">FOOD SAFETY IN PRACTICE</span>
+        <h2 class="published-incident-title" id="published-incident-title">How we learn and improve</h2>
+        <p>Examples of how reported food-safety issues were investigated, corrected and followed through. Shared by administrators without staff names or private account details.</p>
+      </header>
+      <div id="publishedIncidentStoriesList" class="published-incident-list"></div>
+      <p class="published-incident-footer">These examples describe our response to specific incidents and do not replace your site’s approved food-safety plan or local health-authority guidance.</p>
     </section>
   </main>
   <div class="support-assistant">
@@ -1553,6 +1859,8 @@ th{background:#f1f5f9;color:#6b7280;}
         <a class="active" aria-current="page" href="#accountDetails" onclick="showDashboardView('account');return false;"><i class="fas fa-user-circle"></i> Account</a>
         <a href="#dashboardOverview" onclick="showDashboardView('overview');return false;"><i class="fas fa-house"></i> Overview</a>
         <a href="#dashboardRecords" onclick="showDashboardView('records');return false;"><i class="fas fa-clipboard-list"></i> Temperature records</a>
+        <a href="#dashboardDownloads" onclick="showDashboardView('downloads');return false;"><i class="fas fa-file-arrow-down"></i> Downloads</a>
+        <a href="#dashboardTeamKnowledge" onclick="showDashboardView('knowledge');return false;"><i class="fas fa-book-open"></i> Team knowledge</a>
         <a href="#dashboardTrends" onclick="showDashboardView('trends');return false;"><i class="fas fa-chart-column"></i> Safety trends</a>
         <a href="#dashboardCorrectiveActions" onclick="showDashboardView('corrective');return false;"><i class="fas fa-triangle-exclamation"></i> Corrective actions</a>
         <a href="#dashboardCleaning" onclick="showDashboardView('cleaning');return false;"><i class="fas fa-broom"></i> Cleaning &amp; sanitation</a>
@@ -1561,13 +1869,14 @@ th{background:#f1f5f9;color:#6b7280;}
       <div class="dashboard-side-actions">
         <span class="dashboard-side-label">QUICK ACTIONS</span>
         <button class="side-action-primary" onclick="openAddRecordModal()"><i class="fas fa-plus"></i> Add reading</button>
-        <button onclick="exportPDF()"><i class="fas fa-file-arrow-down"></i> Export report</button>
+        <button id="quickOpenDownloads" onclick="showDashboardView('downloads')"><i class="fas fa-folder-open"></i> Open downloads</button>
         <button onclick="openChangeEmailModal()"><i class="fas fa-envelope"></i> Change email</button>
         <button onclick="openChangePasswordModal()"><i class="fas fa-lock"></i> Change password</button>
       </div>
       <div id="adminToolsGroup" class="dashboard-side-admin" style="display:none;">
         <span class="dashboard-side-label">ADMINISTRATION</span>
         <button id="adminManageBtn" type="button" onclick="showDashboardView('staff');manageStaff()"><i class="fas fa-users"></i> Manage staff</button>
+        <button id="adminAccessControlsBtn" type="button" onclick="showDashboardView('access')"><i class="fas fa-user-shield"></i> Staff access controls</button>
         <button id="adminMaintenanceBtn" class="maintenance-switch-row" type="button" role="switch" aria-checked="false" aria-label="Maintenance mode, off" onclick="toggleMaintenanceMode()">
           <span class="maintenance-control-name"><i class="fas fa-screwdriver-wrench"></i><span>Maintenance mode</span></span>
           <span id="maintenanceSwitchState" class="maintenance-switch-state"><span class="maintenance-switch-label">OFF</span><span class="maintenance-switch-track" aria-hidden="true"><span class="maintenance-switch-thumb"><i class="fas fa-check"></i></span></span></span>
@@ -1583,6 +1892,12 @@ th{background:#f1f5f9;color:#6b7280;}
     <div class="dashboard-topbar-meta">
       <button id="staffAdminChatToggle" class="dashboard-chat-trigger" type="button" aria-label="Open staff and admin chat" aria-haspopup="dialog" aria-controls="staffAdminChatModal" onclick="openStaffAdminChat()">
         <i class="fas fa-comments" aria-hidden="true"></i><span id="staffAdminChatUnreadCount" class="dashboard-chat-count" aria-hidden="true"></span>
+      </button>
+      <button id="nightModeToggle" class="dashboard-chat-trigger hidden" type="button" aria-label="Enable night mode" aria-pressed="false" title="Enable night mode" onclick="toggleNightMode()">
+        <i class="fas fa-moon" aria-hidden="true"></i>
+      </button>
+      <button id="adminStaffPairChatsToggle" class="dashboard-chat-trigger hidden" type="button" aria-label="Manage private staff-to-staff conversations" aria-haspopup="dialog" aria-controls="adminStaffPairChatsModal" onclick="openAdminStaffPairChats()">
+        <i class="fas fa-user-lock" aria-hidden="true"></i>
       </button>
       <div class="workflow-notification-menu">
         <button id="workflowNotificationToggle" class="workflow-notification-trigger" type="button" aria-label="Food safety notifications" aria-controls="workflowNotificationPopover" aria-expanded="false" onclick="toggleWorkflowNotifications(event)">
@@ -1603,7 +1918,7 @@ th{background:#f1f5f9;color:#6b7280;}
   <section id="staffAdminChatModal" class="chat-modal hidden" role="dialog" aria-modal="true" aria-labelledby="staffAdminChatTitle" onclick="if(event.target===this)closeStaffAdminChat()">
     <div class="chat-dialog">
       <header class="chat-dialog-header">
-        <div class="chat-dialog-heading"><span class="chat-dialog-mark"><i class="fas fa-comments" aria-hidden="true"></i></span><div><h2 id="staffAdminChatTitle">Team chat</h2><p>One-to-one messages · Admins can view team conversations</p></div></div>
+        <div class="chat-dialog-heading"><span class="chat-dialog-mark"><i class="fas fa-comments" aria-hidden="true"></i></span><div><h2 id="staffAdminChatTitle">Team chat</h2><p>Private one-to-one conversations</p></div></div>
         <div class="chat-dialog-heading">
           <button id="staffAdminChatDelete" class="chat-dialog-delete hidden" type="button" onclick="deleteStaffAdminChat()">Delete for me</button>
           <button id="staffAdminChatDeleteAll" class="chat-admin-delete-all hidden" type="button" onclick="deleteAllStaffChats()">Delete all chats</button>
@@ -1629,6 +1944,20 @@ th{background:#f1f5f9;color:#6b7280;}
             <p id="staffAdminChatStatus" class="chat-status" role="status" aria-live="polite"></p>
           </form>
         </section>
+      </div>
+    </div>
+  </section>
+  <section id="adminStaffPairChatsModal" class="chat-modal is-admin hidden" role="dialog" aria-modal="true" aria-labelledby="adminStaffPairChatsTitle" onclick="if(event.target===this)closeAdminStaffPairChats()">
+    <div class="chat-dialog">
+      <header class="chat-dialog-header">
+        <div class="chat-dialog-heading"><span class="chat-dialog-mark"><i class="fas fa-user-lock" aria-hidden="true"></i></span><div><h2 id="adminStaffPairChatsTitle">Staff-to-staff conversations</h2><p>Administrator deletion access</p></div></div>
+        <button class="chat-dialog-close" type="button" aria-label="Close staff conversation manager" onclick="closeAdminStaffPairChats()"><i class="fas fa-xmark" aria-hidden="true"></i></button>
+      </header>
+      <div class="admin-chat-management-content">
+        <p class="admin-chat-management-intro">These conversations are private. Their messages are not available to administrators; this separate list shows only participants and dates so you can remove a conversation when needed.</p>
+        <input id="adminStaffPairChatsSearch" class="admin-chat-management-search" type="search" placeholder="Search staff names" aria-label="Search staff-to-staff conversations" oninput="renderAdminStaffPairChats()">
+        <div id="adminStaffPairChatsList" class="admin-chat-management-list" aria-live="polite"><div class="chat-contacts-message">Loading private conversations…</div></div>
+        <p id="adminStaffPairChatsStatus" class="admin-chat-management-status" role="status" aria-live="polite"></p>
       </div>
     </div>
   </section>
@@ -1696,7 +2025,7 @@ th{background:#f1f5f9;color:#6b7280;}
   <div class="card overflow-x-auto" id="dashboardRecords">
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
       <div><h3 class="font-semibold mb-1" id="records-section-title">Temperature records</h3><p class="text-xs text-gray-500 m-0">Readings visible to your account. Staff can delete their own records; admins can delete any record.</p></div>
-      <div class="records-count" id="records-count" aria-live="polite"></div>
+      <div class="flex items-center gap-2"><div class="records-count" id="records-count" aria-live="polite"></div><button class="records-export-icon" type="button" aria-label="Download all temperature records as PDF" title="Download all temperature records as PDF" onclick="exportPDF()"><i class="fas fa-file-arrow-down" aria-hidden="true"></i></button></div>
     </div>
     <div class="records-toolbar">
       <div class="records-filters">
@@ -1757,7 +2086,7 @@ th{background:#f1f5f9;color:#6b7280;}
       </form>
     </div>
     <div class="workflow-panel">
-      <h3>Incident records</h3><p>Unsafe temperature readings and sanitation issues explicitly reported in submitted cleaning forms are recorded here as separate corrective actions.</p>
+      <div class="incident-report-header"><div><h3>Incident records</h3><p>Unsafe temperature readings and sanitation issues explicitly reported in submitted cleaning forms are recorded here as separate corrective actions. Export each incident from its own record.</p></div></div>
       <div id="correctiveActionList" class="workflow-list" aria-live="polite">Loading incident records…</div>
     </div>
   </section>
@@ -1787,11 +2116,38 @@ th{background:#f1f5f9;color:#6b7280;}
       <div class="workflow-item-header workflow-report-header"><h3>Cleaning schedule and submissions</h3>
         <div class="workflow-item-actions workflow-report-toolbar">
           <label class="workflow-field workflow-report-period">Report period<select id="cleaningReportPeriod" onchange="loadCleaningAssignments()"><option value="all">All loaded tasks</option><option value="1">Today</option><option value="7">Last 7 days</option><option value="30">Last 30 days</option></select></label>
-          <button class="workflow-export-button" type="button" onclick="exportCleaningReport()" aria-label="Export cleaning report as PDF"><i class="fas fa-file-pdf" aria-hidden="true"></i><span>Export PDF</span></button>
         </div>
       </div>
-      <p>Overdue is calculated from the due date and is not a staff-selectable status.</p>
+      <p>Overdue is calculated from the due date and is not a staff-selectable status. Each task has its own detailed PDF export.</p>
       <div id="cleaningAssignmentList" class="workflow-list" aria-live="polite">Loading cleaning tasks…</div>
+    </div>
+  </section>
+  <section class="dashboard-section-view hidden workflow-page" id="dashboardDownloadsView" aria-labelledby="downloads-section-title">
+    <div class="workflow-panel" id="dashboardDownloads">
+      <div class="incident-report-header"><div><h3 id="downloads-section-title">Downloads</h3><p>Find and export the complete temperature report or an individual cleaning or incident record.</p></div></div>
+      <label class="workflow-field" for="downloadCenterSearch">Search available records<input id="downloadCenterSearch" type="search" placeholder="Search task name, incident, ticket number or status" oninput="renderDownloadCenter()"></label>
+      <div class="download-center-temperature">
+        <div><h3><i class="fas fa-temperature-half" aria-hidden="true"></i> Temperature readings</h3><p>One report containing all temperature readings, independent of the table filters.</p></div>
+        <button class="workflow-export-button" type="button" onclick="exportPDF()"><i class="fas fa-file-arrow-down" aria-hidden="true"></i> Download all readings</button>
+      </div>
+      <div class="download-center-grid">
+        <section class="download-center-card" aria-labelledby="download-incidents-title"><h3 id="download-incidents-title"><i class="fas fa-triangle-exclamation" aria-hidden="true"></i> Incident records</h3><p>One detailed PDF per incident, identified by its ticket number.</p><div id="downloadIncidentList" class="download-center-list"></div></section>
+        <section class="download-center-card" aria-labelledby="download-cleaning-title"><h3 id="download-cleaning-title"><i class="fas fa-broom" aria-hidden="true"></i> Cleaning &amp; sanitation</h3><p>One detailed PDF per cleaning assignment and submission.</p><div id="downloadCleaningList" class="download-center-list"></div></section>
+        <section class="download-center-card" aria-labelledby="download-temperature-title"><h3 id="download-temperature-title"><i class="fas fa-temperature-half" aria-hidden="true"></i> Temperature report</h3><p>All readings appear together in this compliance report.</p><div class="download-center-row"><div class="download-center-copy"><strong>All temperature readings</strong><small id="downloadTemperatureCount">Loading records… · Includes Health Canada guidance</small></div><button class="download-center-button" type="button" aria-label="Download all temperature readings" title="Download PDF" onclick="exportPDF()"><i class="fas fa-download" aria-hidden="true"></i></button></div></section>
+      </div>
+    </div>
+  </section>
+  <section class="dashboard-section-view hidden workflow-page" id="dashboardTeamKnowledgeView" aria-labelledby="team-knowledge-title">
+    <header class="team-knowledge-header">
+      <span class="incident-learning-kicker">TEAM KNOWLEDGE</span>
+      <h3 id="team-knowledge-title">Learn from past incidents</h3>
+      <p>Find verified case studies, review what was done and the outcome, and use those lessons to help prevent similar issues. Only cases published for staff are shown here.</p>
+    </header>
+    <div class="team-knowledge-panel">
+      <label class="sr-only" for="incidentLearningSearch">Search incident learning cases</label>
+      <input id="incidentLearningSearch" class="incident-learning-search" type="search" placeholder="Search item, issue, cause, corrective steps or outcome" oninput="renderIncidentLearningCases()">
+      <div id="incidentLearningList" class="incident-learning-list" aria-live="polite"><p class="incident-learning-empty">Loading published learning cases…</p></div>
+      <p id="incidentLearningStatus" class="workflow-status" role="status" aria-live="polite"></p>
     </div>
   </section>
   <section class="dashboard-section-view hidden" id="dashboardFeedbackView" aria-labelledby="feedback-inbox-title">
@@ -1827,6 +2183,20 @@ th{background:#f1f5f9;color:#6b7280;}
           <tbody id="staffManagementList"><tr><td class="staff-management-empty" colspan="3">Loading staff accounts…</td></tr></tbody>
         </table>
       </div>
+    </div>
+  </section>
+  <section class="dashboard-section-view hidden" id="dashboardAccessControlsView" aria-labelledby="access-controls-title">
+    <div class="card">
+      <header class="access-control-header">
+        <span class="staff-management-kicker">STAFF ADMINISTRATION</span>
+        <h3 id="access-controls-title">Individual access controls</h3>
+        <p>Select one staff member, then adjust their access independently. A restriction applies only to the selected account. Staff can continue to view their workspace when read-only mode is enabled, but cannot make changes. Changes are saved immediately.</p>
+      </header>
+      <div class="access-control-toolbar">
+        <label class="workflow-field" for="accessControlStaffSelect">Select staff member<select id="accessControlStaffSelect" onchange="loadSelectedStaffAccessControls()"><option value="">Choose a staff member…</option></select></label>
+      </div>
+      <p id="accessControlStatus" class="access-control-status" role="status" aria-live="polite">Choose a staff member to manage their individual access.</p>
+      <div id="accessControlList" class="access-control-list" aria-live="polite"></div>
     </div>
   </section>
   <section class="dashboard-section-view dashboard-food-safety-view hidden" id="dashboardFoodSafetyView" aria-label="Food safety guide for staff and administrators">
@@ -1983,8 +2353,28 @@ const configured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes
 const foodSafeProClient = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 const foodSafeProPublicClient = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {auth:{autoRefreshToken:false,persistSession:false,detectSessionInUrl:false}}) : null;
 
-let currentUser = null, currentRole = null, currentProfile = null, currentAuthUser = null, currentDashboardView = 'account', data = [], filteredData = [], charts = {}, cleaningAssignmentReport = [], workflowDeadlineTimer = null, workflowDeadlineChecksInitialized = false, workflowNotificationError = '', workflowNotificationEventsBound = false, staffAdminChatThreadId = null, staffAdminChatContacts = [], staffAdminChatPollTimer = null, staffAdminChatEventsBound = false, workflowConfirmationResolver = null, workflowConfirmationPreviousFocus = null, workflowInputResolver = null, workflowInputPreviousFocus = null, systemMessagePreviousFocus = null;
+let currentUser = null, currentRole = null, currentProfile = null, currentAuthUser = null, currentDashboardView = 'account', data = [], filteredData = [], charts = {}, cleaningAssignmentReport = [], correctiveActionReport = [], incidentLearningCases = [], adminStaffPairChats = [], staffAccessBlocked = new Set(), staffAccessStaff = [], selectedAccessStaffId = '', staffAccessRefreshTimer = null, nightModeActive = false, workflowDeadlineTimer = null, workflowDeadlineChecksInitialized = false, workflowNotificationError = '', workflowNotificationEventsBound = false, staffAdminChatThreadId = null, staffAdminChatContacts = [], staffAdminChatPollTimer = null, staffAdminChatEventsBound = false, workflowConfirmationResolver = null, workflowConfirmationPreviousFocus = null, workflowInputResolver = null, workflowInputPreviousFocus = null, systemMessagePreviousFocus = null;
 const $ = id => document.getElementById(id);
+const STAFF_ACCESS_FEATURES=[
+  {key:'change_email',label:'Change email address',detail:'Prevent this staff member from requesting an email-address change.'},
+  {key:'change_password',label:'Change password',detail:'Prevent this staff member from updating or resetting their password from the app.'},
+  {key:'account_settings',label:'Account settings',detail:'Block access to account details and account-management settings.'},
+  {key:'delete_account',label:'Delete account',detail:'Prevent this staff member from requesting account deletion.'},
+  {key:'temperature_records',label:'Temperature records section',detail:'Block access to temperature records and related charts.'},
+  {key:'add_temperature',label:'Add temperature readings',detail:'Prevent this staff member from creating temperature readings.'},
+  {key:'downloads',label:'Downloads center',detail:'Block the downloads section and all in-app PDF exports.'},
+  {key:'trends',label:'Safety trends',detail:'Block access to the trends and dashboard charts.'},
+  {key:'corrective_actions',label:'Corrective actions',detail:'Block incident reporting, incident records, and corrective-action changes.'},
+  {key:'cleaning',label:'Cleaning & sanitation',detail:'Block cleaning assignments, checklists, and submissions.'},
+  {key:'team_knowledge',label:'Team knowledge',detail:'Block published incident-learning case studies.'},
+  {key:'food_safety_guide',label:'Food safety guide',detail:'Block access to the food-safety guide.'},
+  {key:'overview',label:'Workspace overview',detail:'Block access to the overview dashboard and its safety summary.'},
+  {key:'chat',label:'Team chat',detail:'Block staff chat access and sending messages.'},
+  {key:'notifications',label:'Notifications',detail:'Block the food-safety notification center.'},
+  {key:'data_changes',label:'Read-only access',detail:'When enabled, this staff member can view accessible data but cannot add, update, delete, submit, or send messages.'},
+  {key:'night_mode',label:'Night mode',detail:'Enable the dark appearance for this staff member.'}
+];
+const STAFF_ACCESS_VIEW_FEATURES={account:'account_settings',overview:'overview',records:'temperature_records',downloads:'downloads',trends:'trends',corrective:'corrective_actions',cleaning:'cleaning',knowledge:'team_knowledge',guide:'food_safety_guide'};
 let pendingSignupEmail = '';
 
 function showMessage(message, type='info') { const box=$('auth-message'); if(!box)return; box.textContent=message; box.className='w-full rounded-lg p-3 text-sm '+type; }
@@ -2004,10 +2394,189 @@ function isReadOnlyDemo(){return currentProfile?.demo_read_only===true||['demo_s
 function demoDisplayRole(){return currentProfile?.demo_role||(
   currentProfile?.username?.toLowerCase()==='demo_admin'?'admin':'staff'
 );}
+function isStaffAccessBlocked(feature){
+  return currentRole==='staff'&&!isReadOnlyDemo()&&staffAccessBlocked.has(feature);
+}
+function showAccessBlockedMessage(feature,actionLabel='this feature'){
+  const entry=STAFF_ACCESS_FEATURES.find(item=>item.key===feature);
+  const title=feature==='data_changes'?'Read-only access':'Access restricted';
+  const message=feature==='data_changes'
+    ?'Your administrator has enabled read-only access for your account. You can continue to view available information, but changes are temporarily unavailable.'
+    :`Your administrator has restricted ${entry?.label?.toLowerCase()||actionLabel} for your account. Contact your administrator if you need access.`;
+  showSystemMessage(title,message,'info','Understood');
+}
+function requireStaffAccess(feature,{changes=false,actionLabel='this feature'}={}){
+  if(currentRole!=='staff'||isReadOnlyDemo())return true;
+  const accountFeatureBlocked=['change_email','change_password','delete_account'].includes(feature)
+    &&isStaffAccessBlocked('account_settings');
+  const blocked=isStaffAccessBlocked(feature)||accountFeatureBlocked;
+  const readOnly=changes&&isStaffAccessBlocked('data_changes');
+  if(blocked||readOnly){
+    showAccessBlockedMessage(blocked?(accountFeatureBlocked?'account_settings':feature):'data_changes',actionLabel);
+    return false;
+  }
+  return true;
+}
+function applyStaffAccessAppearance(){
+  const canUseNightMode=currentRole==='admin'&&!isReadOnlyDemo()
+    ||currentRole==='staff'&&!isReadOnlyDemo()&&staffAccessBlocked.has('night_mode');
+  if(currentRole==='staff'&&!staffAccessBlocked.has('night_mode'))nightModeActive=false;
+  document.body.classList.toggle('foodsafe-night-mode',canUseNightMode&&nightModeActive);
+  const toggle=$('nightModeToggle');
+  toggle?.classList.toggle('hidden',!canUseNightMode);
+  if(toggle){
+    toggle.setAttribute('aria-pressed',String(canUseNightMode&&nightModeActive));
+    toggle.setAttribute('aria-label',nightModeActive?'Disable night mode':'Enable night mode');
+    toggle.title=nightModeActive?'Disable night mode':'Enable night mode';
+    const icon=toggle.querySelector('i');
+    icon?.classList.toggle('fa-moon',!nightModeActive);
+    icon?.classList.toggle('fa-sun',nightModeActive);
+  }
+}
+function setNightModePreference(enabled){
+  nightModeActive=Boolean(enabled);
+  applyStaffAccessAppearance();
+  if(currentProfile&&currentRole){
+    localStorage.setItem(`foodsafe-night-mode:${currentRole}:${currentProfile.id}`,String(nightModeActive));
+  }
+}
+function toggleNightMode(){
+  const allowed=currentRole==='admin'&&!isReadOnlyDemo()
+    ||currentRole==='staff'&&!isReadOnlyDemo()&&staffAccessBlocked.has('night_mode');
+  if(!allowed)return;
+  setNightModePreference(!nightModeActive);
+}
+async function loadMyStaffAccessControls(){
+  if(currentRole!=='staff'||isReadOnlyDemo()){
+    applyStaffAccessAppearance();
+    return;
+  }
+  const {data:controls,error}=await foodSafeProClient.from('staff_access_controls')
+    .select('feature,blocked').eq('staff_id',currentProfile.id);
+  if(error){
+    console.error('Could not load staff access controls:',error);
+    showSystemMessage('Access settings unavailable',`Could not load your administrator’s access settings. ${workflowErrorMessage(error)}`,'error','Close');
+    if(staffAccessRefreshTimer){clearInterval(staffAccessRefreshTimer);staffAccessRefreshTimer=null;}
+    staffAccessBlocked.delete('night_mode');
+    applyStaffAccessAppearance();
+    return;
+  }
+  const previous=staffAccessBlocked;
+  const next=new Set();
+  for(const control of controls||[]){
+    if(control.blocked)next.add(control.feature);
+  }
+  staffAccessBlocked=next;
+  applyStaffAccessAppearance();
+  const newlyBlocked=[...next].find(feature=>!previous.has(feature));
+  const currentFeature=STAFF_ACCESS_VIEW_FEATURES[currentDashboardView];
+  if(newlyBlocked&&(newlyBlocked==='data_changes'||next.has(currentFeature)||(['change_email','change_password','delete_account'].includes(newlyBlocked)&&currentDashboardView==='account'))){
+    showAccessBlockedMessage(newlyBlocked);
+    const firstView=['account','overview','records','downloads','knowledge','trends','corrective','cleaning','guide']
+      .find(view=>!STAFF_ACCESS_VIEW_FEATURES[view]||!next.has(STAFF_ACCESS_VIEW_FEATURES[view]));
+    if(firstView&&firstView!==currentDashboardView)showDashboardView(firstView);
+  }
+  if(!staffAccessRefreshTimer){
+    staffAccessRefreshTimer=setInterval(()=>loadMyStaffAccessControls(),20000);
+  }
+}
+async function loadAccessControlStaff(){
+  if(currentRole!=='admin'||isReadOnlyDemo())return;
+  const select=$('accessControlStaffSelect'),status=$('accessControlStatus'),list=$('accessControlList');
+  if(!select||!status||!list)return;
+  status.classList.remove('error');
+  status.textContent='Loading staff accounts…';
+  list.replaceChildren();
+  try{
+    const {data:staff,error}=await foodSafeProClient.from('profiles')
+      .select('id,username').eq('role','staff').order('username');
+    if(error)throw error;
+    staffAccessStaff=staff||[];
+    const previous=select.value||selectedAccessStaffId;
+    select.replaceChildren(new Option('Choose a staff member…',''));
+    staffAccessStaff.forEach(account=>select.add(new Option(account.username||'Staff member',account.id)));
+    if(staffAccessStaff.some(account=>account.id===previous)){
+      select.value=previous;
+      selectedAccessStaffId=previous;
+      await loadSelectedStaffAccessControls();
+    }else{
+      selectedAccessStaffId='';
+      status.textContent=staffAccessStaff.length?'Choose a staff member to manage their individual access.':'No staff accounts are available.';
+    }
+  }catch(error){
+    console.error('Could not load access-control staff list:',error);
+    status.classList.add('error');
+    status.textContent=`Could not load staff accounts. ${workflowErrorMessage(error)}`;
+  }
+}
+async function loadSelectedStaffAccessControls(){
+  if(currentRole!=='admin'||isReadOnlyDemo())return;
+  const staffId=$('accessControlStaffSelect')?.value||'';
+  selectedAccessStaffId=staffId;
+  const status=$('accessControlStatus'),list=$('accessControlList');
+  if(!staffId){
+    list?.replaceChildren();
+    if(status)status.textContent='Choose a staff member to manage their individual access.';
+    return;
+  }
+  const account=staffAccessStaff.find(staff=>staff.id===staffId);
+  if(status){status.classList.remove('error');status.textContent=`Loading access settings for ${account?.username||'this staff member'}…`;}
+  list?.replaceChildren();
+  try{
+    const {data:controls,error}=await foodSafeProClient.from('staff_access_controls')
+      .select('feature,blocked').eq('staff_id',staffId);
+    if(error)throw error;
+    const settings=new Map((controls||[]).map(control=>[control.feature,Boolean(control.blocked)]));
+    STAFF_ACCESS_FEATURES.forEach(feature=>{
+      const enabled=settings.get(feature.key)||false;
+      const isSetting=feature.key==='night_mode';
+      const card=document.createElement('article');
+      card.className='access-control-card';
+      const label=document.createElement('div');
+      label.innerHTML=`<strong>${escapeHtml(feature.label)}</strong><small>${escapeHtml(feature.detail)}</small>`;
+      const toggle=document.createElement('button');
+      toggle.type='button';
+      toggle.className=`access-toggle${isSetting?' is-setting':''}`;
+      toggle.setAttribute('role','switch');
+      toggle.setAttribute('aria-checked',String(enabled));
+      toggle.setAttribute('aria-label',`${isSetting?'Enable':'Block'} ${feature.label} for ${account?.username||'selected staff'}`);
+      toggle.title=isSetting?(enabled?'Night mode enabled':'Night mode disabled'):(enabled?'Access blocked':'Access allowed');
+      toggle.addEventListener('click',()=>saveStaffAccessControl(feature.key,!enabled,toggle));
+      card.append(label,toggle);
+      list.appendChild(card);
+    });
+    if(status)status.textContent=`Access settings for ${account?.username||'this staff member'}. Toggle a control to save it immediately.`;
+  }catch(error){
+    console.error('Could not load staff access settings:',error);
+    if(status){status.classList.add('error');status.textContent=`Could not load access settings. ${workflowErrorMessage(error)}`;}
+  }
+}
+async function saveStaffAccessControl(feature,blocked,button){
+  if(currentRole!=='admin'||isReadOnlyDemo()||!selectedAccessStaffId)return;
+  button.disabled=true;
+  const status=$('accessControlStatus');
+  if(status){status.classList.remove('error');status.textContent='Saving access setting…';}
+  try{
+    const {error}=await foodSafeProClient.rpc('foodsafe_set_staff_access_control',{
+      p_staff_id:selectedAccessStaffId,p_feature:feature,p_blocked:blocked
+    });
+    if(error)throw error;
+    await loadSelectedStaffAccessControls();
+  }catch(error){
+    console.error('Could not save staff access setting:',error);
+    if(status){status.classList.add('error');status.textContent=`Could not save this setting. ${workflowErrorMessage(error)}`;}
+    button.disabled=false;
+  }
+}
 function updateDashboardRoleUI(){
   const isAdmin=currentRole==='admin'&&!isReadOnlyDemo();
+  const nightModeKey=`foodsafe-night-mode:${currentRole}:${currentProfile?.id||''}`;
+  nightModeActive=localStorage.getItem(nightModeKey)==='true';
+  applyStaffAccessAppearance();
   const demoBanner=$('demoReadOnlyBanner');
   $('adminToolsGroup').style.display=isAdmin?'flex':'none';
+  $('quickOpenDownloads')?.classList.toggle('hidden',isAdmin);
+  $('adminStaffPairChatsToggle')?.classList.toggle('hidden',!isAdmin);
   $('dashboard-role-pill').textContent=isReadOnlyDemo()
     ?`Demo ${demoDisplayRole()==='admin'?'Administrator':'Staff'}`
     :(isAdmin?'Administrator':'Staff');
@@ -2023,12 +2592,15 @@ function updateDashboardRoleUI(){
   $('workflowNotificationToggle').classList.toggle('hidden',isReadOnlyDemo());
   $('correctiveReportForm')?.classList.toggle('hidden',isReadOnlyDemo());
   document.querySelectorAll('.dashboard-side-actions button').forEach(button=>{
-    button.classList.toggle('hidden',isReadOnlyDemo()&&!button.getAttribute('onclick')?.includes('exportPDF'));
+    const hideForDemo=isReadOnlyDemo()&&!button.getAttribute('onclick')?.includes('exportPDF');
+    button.classList.toggle('hidden',hideForDemo||(isAdmin&&button.id==='quickOpenDownloads'));
   });
   document.querySelector('.account-panel-actions')?.classList.toggle('hidden',isReadOnlyDemo());
   updateAccountDetails(currentAuthUser);
   if(!isReadOnlyDemo())startWorkflowDeadlineChecks();
-  showDashboardView('account');
+  const firstView=['account','overview','records','downloads','knowledge','trends','corrective','cleaning','guide']
+    .find(view=>!STAFF_ACCESS_VIEW_FEATURES[view]||!isStaffAccessBlocked(STAFF_ACCESS_VIEW_FEATURES[view]));
+  showDashboardView(firstView||'account');
   if(isAdmin)refreshMaintenanceControl();
 }
 
@@ -2072,41 +2644,52 @@ document.addEventListener('keydown',event=>{
 });
 
 function showDashboardView(view){
-  if(['feedback','staff'].includes(view)&&(currentRole!=='admin'||isReadOnlyDemo()))view='account';
-  currentDashboardView=['overview','records','trends','corrective','cleaning','guide','feedback','staff'].includes(view)?view:'account';
+  if(['feedback','staff','access'].includes(view)&&(currentRole!=='admin'||isReadOnlyDemo()))view='account';
+  const requiredFeature=STAFF_ACCESS_VIEW_FEATURES[view];
+  if(requiredFeature&&!requireStaffAccess(requiredFeature,{actionLabel:view}))return;
+  currentDashboardView=['overview','records','downloads','knowledge','trends','corrective','cleaning','guide','feedback','staff','access'].includes(view)?view:'account';
   const views={
     account:'dashboardAccountView',
     overview:'dashboardOverviewView',
     records:'dashboardRecordsView',
+    downloads:'dashboardDownloadsView',
+    knowledge:'dashboardTeamKnowledgeView',
     trends:'dashboardTrendsView',
     corrective:'dashboardCorrectiveView',
     cleaning:'dashboardCleaningView',
     guide:'dashboardFoodSafetyView',
     feedback:'dashboardFeedbackView',
-    staff:'dashboardStaffView'
+    staff:'dashboardStaffView',
+    access:'dashboardAccessControlsView'
   };
   const navTargets={
     account:'#accountDetails',
     overview:'#dashboardOverview',
     records:'#dashboardRecords',
+    downloads:'#dashboardDownloads',
+    knowledge:'#dashboardTeamKnowledge',
     trends:'#dashboardTrends',
     corrective:'#dashboardCorrectiveActions',
     cleaning:'#dashboardCleaning',
     guide:'#dashboardFoodSafetyGuide',
     feedback:'#dashboardFeedback',
-    staff:'#dashboardStaffView'
+    staff:'#dashboardStaffView',
+    access:'#dashboardAccessControlsView'
   };
   Object.entries(views).forEach(([name,id])=>$(id).classList.toggle('hidden',name!==currentDashboardView));
   const titles={
     account:'Account settings',
     overview:currentRole==='admin'?'Admin control center':'Staff workspace',
     records:'Temperature records',
+    downloads:'Downloads',
+    knowledge:'Team knowledge',
     trends:'Safety trends',
     corrective:'Corrective actions',
     cleaning:'Cleaning & sanitation',
     guide:'Food safety guide',
     feedback:'Visitor feedback',
-    staff:'Manage staff'
+    staff:'Manage staff',
+    access:'Staff access controls'
   };
   $('dashboard-header-title').textContent=titles[currentDashboardView];
   document.querySelectorAll('.dashboard-side-nav a[href^="#"]').forEach(link=>{
@@ -2129,12 +2712,52 @@ function showDashboardView(view){
     if(active)staffNav.setAttribute('aria-current','page');
     else staffNav.removeAttribute('aria-current');
   }
+  const accessNav=$('adminAccessControlsBtn');
+  if(accessNav){
+    const active=currentDashboardView==='access'&&currentRole==='admin';
+    accessNav.classList.toggle('active',active);
+    if(active)accessNav.setAttribute('aria-current','page');
+    else accessNav.removeAttribute('aria-current');
+  }
   if(currentDashboardView==='trends'){
     requestAnimationFrame(()=>Object.values(charts).forEach(instance=>instance.resize()));
   }
   if(currentDashboardView==='corrective')loadCorrectiveActions();
   if(currentDashboardView==='cleaning')loadCleaningAssignments();
+  if(currentDashboardView==='downloads')loadDownloadCenter();
+  if(currentDashboardView==='knowledge')loadIncidentLearningCases();
+  if(currentDashboardView==='access')loadAccessControlStaff();
   document.querySelector('.dashboard-main')?.scrollTo({top:0,behavior:'smooth'});
+}
+
+async function loadDownloadCenter(){
+  const incidentList=$('downloadIncidentList'),cleaningList=$('downloadCleaningList');
+  if(incidentList)incidentList.innerHTML='<div class="download-center-empty">Loading incident records…</div>';
+  if(cleaningList)cleaningList.innerHTML='<div class="download-center-empty">Loading cleaning records…</div>';
+  await Promise.all([loadCorrectiveActions(),loadCleaningAssignments('all')]);
+  renderDownloadCenter();
+}
+
+function renderDownloadCenter(){
+  const query=String($('downloadCenterSearch')?.value||'').trim().toLowerCase();
+  const incidentList=$('downloadIncidentList'),cleaningList=$('downloadCleaningList');
+  const incidentSourceMessage=String($('correctiveActionList')?.textContent||'').trim();
+  const cleaningSourceMessage=String($('cleaningAssignmentList')?.textContent||'').trim();
+  const noIncidentRecords=['No corrective actions have been reported.','No sample corrective actions are available.'];
+  const noCleaningRecords=['No cleaning tasks match this report period.','No sample cleaning tasks are available.'];
+  if($('downloadTemperatureCount'))$('downloadTemperatureCount').textContent=`${data.length} records · Includes Health Canada guidance`;
+  const incidents=[...correctiveActionReport].sort((a,b)=>new Date(b.created_at||0)-new Date(a.created_at||0))
+    .filter(record=>`${record.incident_number||''} ${record.item||''} ${record.status||''} ${record.problem||''}`.toLowerCase().includes(query));
+  const cleaning=[...cleaningAssignmentReport].sort((a,b)=>new Date(b.due_at||0)-new Date(a.due_at||0))
+    .filter(record=>`${record.cleaning_tasks?.title||''} ${record.id||''} ${record.status||''} ${record.reportAssignee||''}`.toLowerCase().includes(query));
+  if(incidentList)incidentList.innerHTML=incidents.length?incidents.map(record=>{
+    const ticket=record.incident_number||`CA-${String(record.id).padStart(6,'0')}`;
+    return `<article class="download-center-row"><div class="download-center-copy"><strong>${escapeHtml(ticket)} · ${escapeHtml(record.item||'Incident')}</strong><small>${escapeHtml(String(record.status||'').replaceAll('_',' '))} · ${escapeHtml(formatWorkflowDate(record.created_at))}</small></div><button class="download-center-button" type="button" aria-label="Download incident ${escapeHtml(ticket)}" title="Download incident PDF" onclick="exportIncidentReport(${Number(record.id)})"><i class="fas fa-download" aria-hidden="true"></i></button></article>`;
+  }).join(''):`<div class="download-center-empty">${escapeHtml(!correctiveActionReport.length&&incidentSourceMessage&&!noIncidentRecords.includes(incidentSourceMessage)?incidentSourceMessage:'No matching incident records are available.')}</div>`;
+  if(cleaningList)cleaningList.innerHTML=cleaning.length?cleaning.map(record=>{
+    const title=record.cleaning_tasks?.title||'Cleaning task';
+    return `<article class="download-center-row"><div class="download-center-copy"><strong>${escapeHtml(title)}</strong><small>CR-${escapeHtml(String(record.id))} · ${escapeHtml(String(record.status||'').replaceAll('_',' '))} · ${escapeHtml(record.reportAssignee||'')}</small></div><button class="download-center-button" type="button" aria-label="Download cleaning record ${escapeHtml(title)}" title="Download cleaning PDF" onclick="exportCleaningReport(${Number(record.id)})"><i class="fas fa-download" aria-hidden="true"></i></button></article>`;
+  }).join(''):`<div class="download-center-empty">${escapeHtml(!cleaningAssignmentReport.length&&cleaningSourceMessage&&!noCleaningRecords.includes(cleaningSourceMessage)?cleaningSourceMessage:'No matching cleaning records are available.')}</div>`;
 }
 
 function setWorkflowStatus(id,message,isError=false){
@@ -2184,12 +2807,13 @@ function resolveWorkflowConfirmation(confirmed){
   resolve(Boolean(confirmed));
 }
 
-function requestWorkflowInput({title,message,placeholder,confirmLabel='Submit'}){
+function requestWorkflowInput({title,message,placeholder,confirmLabel='Submit',requiredMessage='Enter a reason before continuing.'}){
   if(workflowInputResolver)return Promise.resolve(null);
   $('workflowInputTitle').textContent=title;
   $('workflowInputMessage').textContent=message;
   $('workflowInputValue').value='';
   $('workflowInputError').classList.add('hidden');
+  $('workflowInputError').textContent=requiredMessage;
   $('workflowInputValue').placeholder=placeholder||'Enter details';
   $('workflowInputSubmit').textContent=confirmLabel;
   workflowInputPreviousFocus=document.activeElement instanceof HTMLElement?document.activeElement:null;
@@ -2333,6 +2957,7 @@ function bindWorkflowNotificationEvents(){
 
 function toggleWorkflowNotifications(event){
   event?.stopPropagation();
+  if(!requireStaffAccess('notifications',{actionLabel:'notifications'}))return;
   const popover=$('workflowNotificationPopover'),toggle=$('workflowNotificationToggle');
   if(!popover||!toggle)return;
   const open=popover.classList.contains('hidden');
@@ -2351,7 +2976,7 @@ function chatErrorMessage(error){
   if(['42P01','PGRST202','PGRST204','PGRST205'].includes(error?.code)){
     return 'The chat update is not installed yet. Apply staff-admin-chat.sql and workflow-chat-record-deletion.sql in the Supabase SQL editor.';
   }
-  if(error?.code==='42501'&&/food_safe_chat|foodsafe_(get_or_create_chat_thread|list_chat_contacts|chat_unread_count|send_chat_message|mark_chat_read|delete_chat_thread|request_chat_deletion|review_chat_deletion|admin_delete_all_chats)/i.test(error.message||'')){
+  if(error?.code==='42501'&&/food_safe_chat|foodsafe_(get_or_create_chat_thread|list_chat_contacts|admin_list_staff_pair_chats|chat_unread_count|send_chat_message|mark_chat_read|delete_chat_thread|request_chat_deletion|review_chat_deletion|admin_delete_chat_thread|admin_delete_all_chats)/i.test(error.message||'')){
     return 'Chat database permissions are not fully installed. Reapply staff-admin-chat.sql and workflow-chat-record-deletion.sql in the Supabase SQL editor.';
   }
   return error?.message||'Please try again.';
@@ -2385,7 +3010,8 @@ function bindStaffAdminChatEvents(){
     if(event.key==='Escape'&&!$('workflowConfirmModal')?.classList.contains('hidden')){
       event.preventDefault();
       resolveWorkflowConfirmation(false);
-    }else if(event.key==='Escape'&&!$('staffAdminChatModal')?.classList.contains('hidden'))closeStaffAdminChat();
+    }else if(event.key==='Escape'&&!$('adminStaffPairChatsModal')?.classList.contains('hidden'))closeAdminStaffPairChats();
+    else if(event.key==='Escape'&&!$('staffAdminChatModal')?.classList.contains('hidden'))closeStaffAdminChat();
   });
 }
 
@@ -2405,6 +3031,87 @@ async function updateStaffAdminChatUnreadCount(){
     badge.setAttribute('aria-hidden','true');
   }
   if(toggle)toggle.setAttribute('aria-label',`Open staff and admin chat${unread?`, ${unread} unread message${unread===1?'':'s'}`:''}`);
+}
+
+function renderAdminStaffPairChats(){
+  const list=$('adminStaffPairChatsList');
+  if(!list)return;
+  const query=($('adminStaffPairChatsSearch')?.value||'').trim().toLocaleLowerCase();
+  const chats=adminStaffPairChats.filter(chat=>
+    !query||`${chat.first_staff_name} ${chat.second_staff_name}`.toLocaleLowerCase().includes(query)
+  );
+  if(!chats.length){
+    list.innerHTML=`<div class="chat-contacts-message">${query?'No staff conversations match your search.':'There are no staff-to-staff conversations to manage.'}</div>`;
+    return;
+  }
+  list.innerHTML=chats.map(chat=>`<article class="admin-chat-management-row">
+    <div class="admin-chat-management-copy">
+      <strong>${escapeHtml(chat.first_staff_name)} ↔ ${escapeHtml(chat.second_staff_name)}</strong>
+      <small>${chat.deletion_requested_at?'Deletion request pending · ':''}Updated ${escapeHtml(formatWorkflowDate(chat.updated_at||chat.created_at))}</small>
+    </div>
+    <button class="admin-chat-management-delete" type="button" onclick="adminDeleteStaffPairChat(${Number(chat.thread_id)})">Delete conversation</button>
+  </article>`).join('');
+}
+
+async function loadAdminStaffPairChats(){
+  const list=$('adminStaffPairChatsList');
+  if(!list||currentRole!=='admin'||isReadOnlyDemo())return;
+  list.innerHTML='<div class="chat-contacts-message">Loading private conversations…</div>';
+  const {data:chats,error}=await foodSafeProClient.rpc('foodsafe_admin_list_staff_pair_chats');
+  if(error){
+    console.error('Could not load staff-to-staff conversation metadata:',error);
+    adminStaffPairChats=[];
+    list.innerHTML=`<div class="chat-contacts-message error">${escapeHtml(chatErrorMessage(error))}</div>`;
+    return;
+  }
+  adminStaffPairChats=chats||[];
+  renderAdminStaffPairChats();
+}
+
+async function openAdminStaffPairChats(){
+  if(currentRole!=='admin'||!currentProfile||isReadOnlyDemo())return;
+  closeWorkflowNotifications();
+  const modal=$('adminStaffPairChatsModal');
+  modal?.classList.add('is-admin');
+  modal?.classList.remove('hidden');
+  $('adminStaffPairChatsToggle')?.setAttribute('aria-expanded','true');
+  $('adminStaffPairChatsSearch').value='';
+  $('adminStaffPairChatsStatus').textContent='';
+  await loadAdminStaffPairChats();
+  $('adminStaffPairChatsSearch')?.focus();
+}
+
+function closeAdminStaffPairChats(){
+  $('adminStaffPairChatsModal')?.classList.add('hidden');
+  $('adminStaffPairChatsToggle')?.setAttribute('aria-expanded','false');
+  $('adminStaffPairChatsToggle')?.focus();
+}
+
+async function adminDeleteStaffPairChat(threadId){
+  if(currentRole!=='admin'||!Number.isSafeInteger(Number(threadId)))return;
+  const chat=adminStaffPairChats.find(item=>Number(item.thread_id)===Number(threadId));
+  if(!chat)return;
+  const confirmed=await confirmWorkflowDeletion({
+    title:'Delete this staff-to-staff conversation?',
+    message:`Permanently remove the private conversation between ${chat.first_staff_name} and ${chat.second_staff_name}?`,
+    warning:'Only conversation metadata is visible here. This permanently deletes all messages for both staff participants.',
+    confirmLabel:'Delete conversation'
+  });
+  if(!confirmed)return;
+  const buttons=$('adminStaffPairChatsList').querySelectorAll('button');
+  buttons.forEach(button=>button.disabled=true);
+  $('adminStaffPairChatsStatus').textContent='Deleting conversation…';
+  $('adminStaffPairChatsStatus').classList.remove('error');
+  const {error}=await foodSafeProClient.rpc('foodsafe_admin_delete_chat_thread',{p_thread_id:Number(threadId)});
+  if(error){
+    console.error('Could not delete staff-to-staff conversation:',error);
+    $('adminStaffPairChatsStatus').textContent=`Could not delete conversation: ${chatErrorMessage(error)}`;
+    $('adminStaffPairChatsStatus').classList.add('error');
+    buttons.forEach(button=>button.disabled=false);
+    return;
+  }
+  $('adminStaffPairChatsStatus').textContent='Conversation deleted for both participants.';
+  await Promise.all([loadAdminStaffPairChats(),loadStaffAdminChatContacts(),updateStaffAdminChatUnreadCount()]);
 }
 
 function renderStaffAdminChatContacts(){
@@ -2427,19 +3134,15 @@ function renderStaffAdminChatContacts(){
     const time=contact.updatedAt?formatWorkflowDate(contact.updatedAt):'';
     const contactIndex=staffAdminChatContacts.indexOf(contact);
     const pending=Boolean(contact.deletionRequestedBy);
-    const isRequester=contact.deletionRequestedBy===currentProfile?.id;
-    const canReview=pending&&!isRequester&&(
-      currentRole==='admin'&&contact.type==='admin_team'
-        ||currentRole==='staff'&&contact.type==='staff'
-    );
+    const preview=contact.type==='staff_pair_admin'
+      ?'Private staff conversation · messages hidden'
+      :contact.preview||'Start a private conversation';
     const contactRow=`<button class="chat-contact${active?' active':''}" type="button" aria-current="${active?'true':'false'}" onclick="selectStaffAdminChatContact(${contactIndex})">
-      <span class="chat-contact-avatar">${escapeHtml(initials)}</span><span class="chat-contact-copy"><strong>${escapeHtml(contact.name)}</strong><small>${escapeHtml(contact.preview||'Start a private conversation')}</small></span>
+      <span class="chat-contact-avatar">${contact.type==='staff_pair_admin'?'<i class="fas fa-lock" aria-hidden="true"></i>':escapeHtml(initials)}</span><span class="chat-contact-copy"><strong>${escapeHtml(contact.name)}</strong><small>${escapeHtml(pending?'Deletion request pending · open conversation':preview)}</small></span>
       ${time?`<span class="chat-contact-time">${escapeHtml(time)}</span>`:''}
       ${unread?`<span class="chat-contact-unread" aria-label="${unread} unread messages">${unread>99?'99+':unread}</span>`:''}
     </button>`;
-    const deletionReview=canReview?`<div class="chat-contact-deletion-review"><p>Deletion request received. Approve to permanently delete this chat for both participants.</p><div class="chat-contact-deletion-actions"><button type="button" onclick="respondToChatDeletionFromList(event,${contactIndex},'approved')">Approve &amp; delete</button><button type="button" onclick="respondToChatDeletionFromList(event,${contactIndex},'rejected')">Decline</button></div></div>`
-      :pending&&isRequester?'<p class="chat-contact-pending">Your permanent deletion request is pending approval.</p>':'';
-    return `<div class="chat-contact-entry${canReview||isRequester&&pending?' pending-deletion':''}">${contactRow}${deletionReview}</div>`;
+    return `<div class="chat-contact-entry${pending?' pending-deletion':''}">${contactRow}</div>`;
   }).join('');
 }
 
@@ -2539,8 +3242,8 @@ async function selectStaffAdminChatContact(contactIndex){
   if(!contact||!currentProfile)return;
   const name=contact.name||'Team member';
   $('staffAdminChatContactName').textContent=name;
-  $('staffAdminChatContactStatus').textContent=contact.type==='staff_pair'
-    ?'Staff conversation · Admin view'
+  $('staffAdminChatContactStatus').textContent=contact.type==='staff_pair_admin'
+    ?'Private staff conversation · message content is hidden from administrators'
     :contact.type==='admin_team'?'Private conversation with the admin team':'Private conversation with a staff member';
   $('staffAdminChatAvatar').textContent=name.split(/\s+/).slice(0,2).map(part=>part.charAt(0).toUpperCase()).join('');
   $('staffAdminChatMessages').innerHTML='<div class="chat-empty">Loading messages…</div>';
@@ -2561,6 +3264,16 @@ async function selectStaffAdminChatContact(contactIndex){
     contact.threadId=threadId;
   }
   staffAdminChatThreadId=threadId;
+  if(currentRole==='admin'&&contact.type==='staff_pair_admin'){
+    $('staffAdminChatDelete')?.classList.add('hidden');
+    $('staffAdminChatDeleteAll')?.classList.remove('hidden');
+    $('staffAdminChatWorkspace')?.classList.add('is-conversation');
+    $('staffAdminChatMessages').innerHTML='<div class="chat-empty"><i class="fas fa-lock" aria-hidden="true"></i>This staff-to-staff conversation is private. Administrators can permanently delete it, but cannot view or send messages.</div>';
+    updateStaffAdminChatDeletionControls();
+    $('staffAdminChatInput').disabled=true;
+    $('staffAdminChatSend').disabled=true;
+    return;
+  }
   $('staffAdminChatDelete')?.classList.remove('hidden');
   $('staffAdminChatDeleteSelected')?.classList.toggle('hidden',currentRole!=='admin');
   $('staffAdminChatDeleteSelected').disabled=false;
@@ -2578,6 +3291,8 @@ async function selectStaffAdminChatContact(contactIndex){
 
 async function refreshStaffAdminChatConversation(){
   if(!staffAdminChatThreadId||!currentProfile)return;
+  const selectedContact=staffAdminChatContacts.find(contact=>String(contact.threadId)===String(staffAdminChatThreadId));
+  if(currentRole==='admin'&&selectedContact?.type==='staff_pair_admin')return;
   const {error:readError}=await foodSafeProClient.rpc('foodsafe_mark_chat_read',{p_thread_id:staffAdminChatThreadId});
   if(readError){
     console.error('Could not mark chat messages as read:',readError);
@@ -2613,6 +3328,7 @@ async function refreshStaffAdminChatConversation(){
 }
 
 async function sendStaffAdminChatMessage(event){
+  if(!requireStaffAccess('chat',{changes:true,actionLabel:'team chat'}))return;
   event.preventDefault();
   const input=$('staffAdminChatInput'),button=$('staffAdminChatSend'),body=input.value.trim();
   if(!staffAdminChatThreadId||!body)return;
@@ -2635,6 +3351,7 @@ async function sendStaffAdminChatMessage(event){
 }
 
 async function deleteStaffAdminChat(){
+  if(!requireStaffAccess('chat',{changes:true,actionLabel:'team chat'}))return;
   if(!staffAdminChatThreadId||!currentProfile)return;
   const contactName=staffAdminChatContacts.find(contact=>String(contact.threadId)===String(staffAdminChatThreadId))?.name||'this conversation';
   const confirmed=await confirmWorkflowDeletion({
@@ -2711,6 +3428,7 @@ async function adminDeleteSelectedStaffChat(){
 }
 
 async function requestStaffAdminChatDeletion(){
+  if(!requireStaffAccess('chat',{changes:true,actionLabel:'team chat'}))return;
   if(currentRole!=='staff'||!staffAdminChatThreadId||!currentProfile)return;
   const contact=staffAdminChatContacts.find(item=>String(item.threadId)===String(staffAdminChatThreadId));
   const confirmed=await confirmWorkflowDeletion({
@@ -2733,17 +3451,8 @@ async function requestStaffAdminChatDeletion(){
   await Promise.all([refreshStaffAdminChatConversation(),loadWorkflowNotifications()]);
 }
 
-async function respondToChatDeletionFromList(event,contactIndex,decision){
-  event?.stopPropagation();
-  const contact=staffAdminChatContacts[contactIndex];
-  if(!contact||!['approved','rejected'].includes(decision))return;
-  await selectStaffAdminChatContact(contactIndex);
-  if(String(staffAdminChatThreadId)===String(contact.threadId)){
-    await reviewStaffAdminChatDeletion(decision);
-  }
-}
-
 async function reviewStaffAdminChatDeletion(decision){
+  if(!requireStaffAccess('chat',{changes:true,actionLabel:'team chat'}))return;
   if(!staffAdminChatThreadId||!currentProfile||!['approved','rejected'].includes(decision))return;
   const approved=decision==='approved';
   const confirmed=await confirmWorkflowDeletion({
@@ -2811,7 +3520,9 @@ async function deleteAllStaffChats(){
 
 async function openStaffAdminChat(threadId=null){
   if(!currentProfile)return;
+  if(!requireStaffAccess('chat',{actionLabel:'team chat'}))return;
   const modal=$('staffAdminChatModal');
+  modal?.classList.add('is-admin');
   modal?.classList.remove('hidden');
   $('staffAdminChatToggle')?.setAttribute('aria-expanded','true');
   bindStaffAdminChatEvents();
@@ -2887,6 +3598,7 @@ async function startWorkflowDeadlineChecks(){
 }
 
 async function openWorkflowNotification(id,entityType,entityId){
+  if(!requireStaffAccess('notifications',{actionLabel:'notifications'}))return;
   if(!await dismissWorkflowNotification(id,false))return;
   closeWorkflowNotifications();
   if(entityType==='chat_thread'){
@@ -2897,6 +3609,7 @@ async function openWorkflowNotification(id,entityType,entityId){
 }
 
 async function dismissWorkflowNotification(id,refresh=true){
+  if(!requireStaffAccess('notifications',{changes:true,actionLabel:'notifications'}))return false;
   const {error}=await foodSafeProClient.rpc('foodsafe_mark_notification_read',{p_notification_id:id});
   if(error){console.error('Could not mark notification read:',error);showAppMessage(`Could not update notification: ${workflowErrorMessage(error)}`);return false;}
   if(refresh)await loadWorkflowNotifications();
@@ -2904,11 +3617,21 @@ async function dismissWorkflowNotification(id,refresh=true){
 }
 
 function workflowErrorMessage(error){
-  if(['42P01','PGRST202','PGRST204','PGRST205'].includes(error?.code))return 'Workflow database is not installed yet. Apply supabase/food-safety-operations.sql in the Supabase SQL editor.';
+  if(['42P01','42883','PGRST202','PGRST204','PGRST205'].includes(error?.code))return 'Workflow database updates are not installed yet. Apply the latest food-safety-operations.sql in the Supabase SQL editor.';
+  if(/administrator has enabled read-only access/i.test(error?.message||'')){
+    showAccessBlockedMessage('data_changes');
+    return 'Your administrator has enabled read-only access for your account.';
+  }
+  if(/administrator has restricted/i.test(error?.message||'')){
+    showSystemMessage('Access restricted','Your administrator has restricted this feature for your account. Contact your administrator if you need access.','info','Understood');
+    return 'Your administrator has restricted this feature for your account.';
+  }
   return error?.message||'Please try again.';
 }
 
 async function uploadWorkflowEvidence(files,entityType,entityId){
+  const feature=entityType==='cleaning_assignment'?'cleaning':'corrective_actions';
+  if(!requireStaffAccess(feature,{changes:true,actionLabel:feature==='cleaning'?'cleaning tasks':'corrective actions'}))return [];
   const uploaded=[];
   for(const file of Array.from(files||[]).filter(candidate=>candidate instanceof File&&candidate.size>0)){
     if(!file.type.startsWith('image/'))throw new Error('Evidence files must be images.');
@@ -2972,6 +3695,7 @@ async function loadWorkflowEvidence(entityType,entityIds){
 
 async function createCorrectiveAction(event){
   event.preventDefault();
+  if(!requireStaffAccess('corrective_actions',{changes:true,actionLabel:'corrective actions'}))return;
   if(!currentProfile||isReadOnlyDemo())return;
   const form=event.currentTarget,fields=new FormData(form),button=form.querySelector('button[type="submit"]');
   const statusId='correctiveReportStatus';
@@ -3008,6 +3732,142 @@ async function createCorrectiveAction(event){
   }finally{button.disabled=false;}
 }
 
+async function loadIncidentLearningCases(){
+  const list=$('incidentLearningList');
+  if(!list||!currentProfile)return;
+  if(isReadOnlyDemo()){
+    incidentLearningCases=[];
+    renderIncidentLearningCases();
+    return;
+  }
+  const {data:cases,error}=await foodSafeProClient.from('incident_learning_cases')
+    .select('action_id,incident_number,item,area,title,problem_summary,root_cause,corrective_steps,outcome,submitted_by_name,concluded_by_name,concluded_at,published_for_staff,published_on_homepage,updated_at')
+    .order('updated_at',{ascending:false}).limit(100);
+  if(error){
+    console.error('Could not load incident learning cases:',error);
+    incidentLearningCases=[];
+    list.innerHTML=`<p class="incident-learning-empty">Could not load learning cases: ${escapeHtml(workflowErrorMessage(error))}</p>`;
+    return;
+  }
+  incidentLearningCases=cases||[];
+  renderIncidentLearningCases();
+}
+
+function renderIncidentLearningCases(){
+  const list=$('incidentLearningList');
+  if(!list)return;
+  const query=($('incidentLearningSearch')?.value||'').trim().toLocaleLowerCase();
+  const visible=incidentLearningCases.filter(record=>
+    (currentRole!=='admin'||record.published_for_staff)&&
+    (!query||[
+      record.incident_number,record.item,record.area,record.title,
+      record.problem_summary,record.root_cause,record.corrective_steps,record.outcome
+    ].some(value=>String(value||'').toLocaleLowerCase().includes(query)))
+  );
+  if(!visible.length){
+    list.innerHTML=`<p class="incident-learning-empty">${query?'No published case studies match your search.':'No published incident learning cases are available yet.'}</p>`;
+    return;
+  }
+  list.innerHTML=visible.map(record=>`<article class="incident-learning-card">
+    <h4>${escapeHtml(record.title)} <span class="workflow-item-meta">· ${escapeHtml(record.incident_number)}</span></h4>
+    ${renderIncidentLearningCredits(record)}
+    <p><strong>Issue:</strong> ${escapeHtml(record.problem_summary)}</p>
+    ${record.root_cause?`<p><strong>Cause:</strong> ${escapeHtml(record.root_cause)}</p>`:''}
+    <p><strong>Corrective steps:</strong> ${escapeHtml(record.corrective_steps)}</p>
+    <p><strong>Outcome and prevention:</strong> ${escapeHtml(record.outcome)}</p>
+    <div class="incident-learning-card-actions"><button class="workflow-secondary" type="button" onclick="exportIncidentLearningPdf(${Number(record.action_id)})"><i class="fas fa-file-pdf" aria-hidden="true"></i> Download case PDF</button></div>
+  </article>`).join('');
+}
+
+function incidentAvatarHue(name){
+  let hash=0;
+  for(const character of String(name||'FoodSafe Pro'))hash=(hash*31+character.charCodeAt(0))%360;
+  return hash;
+}
+
+function renderIncidentLearningCredits(record){
+  const people=[
+    {name:record.submitted_by_name||'Staff member',role:'Submitted the incident'},
+    {name:record.concluded_by_name||'Administrator',role:'Verified and concluded'}
+  ];
+  return `<div class="incident-learning-credits">${people.map(person=>`
+    <div class="incident-learning-person">
+      <span class="incident-learning-avatar" style="--avatar-hue:${incidentAvatarHue(person.name)}" aria-hidden="true"><i class="fas fa-user"></i></span>
+      <span><strong>${escapeHtml(person.name)}</strong><small>${person.role}</small></span>
+    </div>`).join('')}</div>`;
+}
+
+async function saveIncidentLearning(event,actionId,mode){
+  event?.preventDefault();
+  if(currentRole!=='admin'||isReadOnlyDemo())return;
+  const action=correctiveActionReport.find(record=>Number(record.id)===Number(actionId));
+  const form=$(`incidentLearningForm${Number(actionId)}`);
+  if(!action||!form)return;
+  const fields=new FormData(form);
+  const title=String(fields.get('title')||'').trim();
+  const problemSummary=String(fields.get('problem_summary')||'').trim();
+  const rootCause=String(fields.get('root_cause')||'').trim();
+  const correctiveSteps=String(fields.get('corrective_steps')||'').trim();
+  const outcome=String(fields.get('outcome')||'').trim();
+  if(!title||!problemSummary||!rootCause||!correctiveSteps||!outcome){
+    showAppMessage('Complete the title, issue, cause, corrective steps, and outcome before saving or publishing this case.');
+    return;
+  }
+  const existing=incidentLearningCases.find(record=>Number(record.action_id)===Number(actionId));
+  const approval=(action.reportHistory||[]).filter(entry=>entry.event_type==='approved').slice(-1)[0];
+  const staffWasPublished=Boolean(existing?.published_for_staff);
+  const homepageWasPublished=Boolean(existing?.published_on_homepage);
+  let publishedForStaff=staffWasPublished,publishedOnHomepage=homepageWasPublished;
+  if(mode==='staff')publishedForStaff=!staffWasPublished;
+  if(mode==='homepage'){
+    publishedOnHomepage=!homepageWasPublished;
+  }
+  if((mode==='staff'&&!staffWasPublished)||(mode==='homepage'&&!homepageWasPublished)){
+    if(action.status!=='closed'||!approval){
+      showAppMessage('Publish only after an administrator verifies and closes the incident, so the case study includes a confirmed outcome.');
+      return;
+    }
+  }
+  if(mode==='homepage'){
+    if(publishedOnHomepage){
+      const confirmed=await confirmWorkflowAction({
+        title:'Publish this incident on the homepage?',
+        message:'This case-study summary will be public on the FoodSafe Pro homepage.',
+        warning:'This public case study includes its title, issue, cause, corrective steps, outcome, and the display names of the staff submitter and administrator reviewer. Emails, account IDs, and private incident notes are not included.',
+        confirmLabel:'Publish case study'
+      });
+      if(!confirmed)return;
+    }
+  }
+  const buttons=form.querySelectorAll('button');
+  buttons.forEach(button=>button.disabled=true);
+  try{
+    const {error}=await foodSafeProClient.rpc('foodsafe_save_incident_learning_case',{
+      p_action_id:Number(actionId),
+      p_title:title,
+      p_problem_summary:problemSummary,
+      p_root_cause:rootCause,
+      p_corrective_steps:correctiveSteps,
+      p_outcome:outcome,
+      p_published_for_staff:publishedForStaff,
+      p_published_on_homepage:publishedOnHomepage
+    });
+    if(error)throw error;
+    await Promise.all([loadPublishedIncidentStories()]);
+    await loadCorrectiveActions();
+    showAppMessage(mode==='staff'
+      ?publishedForStaff?'Incident learning published to staff.':'Incident learning removed from staff search.'
+      :mode==='homepage'
+        ?publishedOnHomepage?'Incident learning published on the homepage.':'Incident learning removed from the homepage.'
+        :'Incident learning case saved.');
+  }catch(error){
+    console.error('Could not save incident learning case:',error);
+    showAppMessage(`Could not save incident learning case: ${workflowErrorMessage(error)}`);
+  }finally{
+    buttons.forEach(button=>button.disabled=false);
+  }
+}
+
 async function loadCorrectiveActions(){
   const list=$('correctiveActionList');
   if(!list||!currentProfile)return;
@@ -3020,16 +3880,24 @@ async function loadCorrectiveActions(){
       console.error('Could not load sample corrective actions:',error);
       list.textContent=workflowErrorMessage(error);return;
     }
+    correctiveActionReport=(actions||[]).map(action=>({
+      ...action,reportSubmittedBy:action.reported_by_name||'Staff member',
+      reportConcludedBy:'',reportConcludedAt:null,reportHistory:[],reportLearningCase:null,
+      reportLinkedCleaning:null,reportEvidence:[]
+    }));
     list.innerHTML=actions?.length?actions.map(action=>`<article class="workflow-item">
       <div class="workflow-item-header"><div><h4>${escapeHtml(action.incident_number)} · ${escapeHtml(action.item)}</h4><div class="workflow-item-meta">${escapeHtml(action.area||'Other issue')}${action.temperature===null?'':` · ${Number(action.temperature).toFixed(1)} °C`} · ${formatWorkflowDate(action.created_at)} · Reported by ${escapeHtml(action.reported_by_name)}</div></div>${workflowBadge(action.status)}</div>
       <p><strong>Problem:</strong> ${escapeHtml(action.problem)}</p>
       <p><strong>Immediate action:</strong> ${escapeHtml(action.immediate_action)}</p>
       <p><strong>Corrective steps:</strong> ${escapeHtml(action.corrective_steps)}</p>
       <p><strong>Food disposition:</strong> ${escapeHtml(action.food_disposition.replaceAll('_',' '))}</p>
+      <div class="workflow-item-actions"><button class="workflow-secondary" type="button" onclick="exportIncidentReport(${Number(action.id)})"><i class="fas fa-file-pdf" aria-hidden="true"></i> Download this incident report (PDF)</button></div>
       <p class="workflow-status">Sample record · Read-only</p>
     </article>`).join(''):'No sample corrective actions are available.';
     return;
   }
+  await loadIncidentLearningCases();
+  correctiveActionReport=[];
   const {data:actions,error}=await foodSafeProClient.from('corrective_actions').select('*').order('created_at',{ascending:false}).limit(100);
   if(error){
     console.error('Could not load corrective actions:',error);
@@ -3106,30 +3974,82 @@ async function loadCorrectiveActions(){
     const history=historyById.get(entry.entity_id)||[];
     history.push(entry);historyById.set(entry.entity_id,history);
   });
+  const learningById=new Map(incidentLearningCases.map(record=>[String(record.action_id),record]));
+  correctiveActionReport=actions.map(action=>{
+    const reportHistory=(historyById.get(String(action.id))||[]).map(entry=>({
+      ...entry,actorName:workflowActorName(entry.actor_id,actorNames)
+    }));
+    const approvedReview=reportHistory.filter(entry=>entry.event_type==='approved').slice(-1)[0];
+    return {
+      ...action,
+      reportHistory,
+      reportSubmittedBy:workflowActorName(action.reported_by,reporters),
+      reportConcludedBy:approvedReview?.actorName||'',
+      reportConcludedAt:approvedReview?.created_at||null,
+      reportLearningCase:learningById.get(String(action.id))||null,
+      reportEvidence:evidenceById.get(String(action.id))||[],
+      reportLinkedCleaning:action.linked_cleaning_assignment_id
+        ?cleaningDetailsById.get(String(action.linked_cleaning_assignment_id))||null
+        :null
+    };
+  });
   list.innerHTML=actions.map(action=>{
     const editable=action.reported_by===currentProfile.id&&action.status!=='closed';
     const reviewable=currentRole==='admin'&&['submitted','verification_required'].includes(action.status);
     const reviseButton=editable&&action.status==='submitted'?`<div class="workflow-item-actions"><button class="workflow-secondary" type="button" onclick="reopenCorrectiveAction(${Number(action.id)})">Edit my unreviewed submission</button></div>`:'';
-    const editForm=editable&&action.status!=='submitted'?`
+    const restartCorrectiveButton=editable&&['open','rejected'].includes(action.status)?`
+      <div class="workflow-item-actions"><button class="workflow-secondary" type="button" onclick="startCorrectiveAction(${Number(action.id)})">${action.status==='rejected'?'Restart corrective action work':'Start corrective action work'}</button></div>`:'';
+    const editForm=editable&&action.status==='in_progress'?`
       <form class="workflow-form-grid" onsubmit="submitCorrectiveWork(event,${Number(action.id)})">
-        ${['open','rejected','verification_required'].includes(action.status)?`<div class="workflow-field full"><button class="workflow-secondary" type="button" onclick="startCorrectiveAction(${Number(action.id)})">${action.status==='open'?'Start':'Restart'} corrective work</button></div>`:''}
-        <label class="workflow-field full">Corrective steps performed<textarea name="corrective_steps" required maxlength="2000"${action.status==='in_progress'?'':' disabled'}>${escapeHtml(action.corrective_steps||'')}</textarea></label>
-        <label class="workflow-field">Food disposition<select name="food_disposition"${action.status==='in_progress'?' required':' disabled'}>
+        <label class="workflow-field full">Corrective steps performed<textarea name="corrective_steps" required maxlength="2000">${escapeHtml(action.corrective_steps||'')}</textarea></label>
+        <label class="workflow-field">Food disposition<select name="food_disposition" required>
           ${action.temperature!==null&&action.food_disposition==='not_applicable'?'<option value="" selected disabled>Select disposition</option>':''}
           ${['not_applicable','hold','discard','release'].filter(value=>action.temperature===null||value!=='not_applicable').map(value=>`<option value="${value}"${action.food_disposition===value?' selected':''}>${value.replaceAll('_',' ')}</option>`).join('')}
         </select></label>
-        <label class="workflow-field">Additional photo evidence<input name="evidence" type="file" accept="image/*" multiple${action.status==='in_progress'?'':' disabled'}></label>
-        <div class="workflow-field full">${action.status==='in_progress'?'<button class="workflow-submit" type="submit">Submit for verification</button>':'<p class="workflow-status">Start work before submitting the corrective action.</p>'}</div>
+        <label class="workflow-field">Additional photo evidence<input name="evidence" type="file" accept="image/*" multiple></label>
+        <div class="workflow-field full"><button class="workflow-submit" type="submit">Submit for verification</button></div>
       </form>`:'';
+    const followUpEntries=(historyById.get(String(action.id))||[])
+      .filter(entry=>entry.event_type==='follow_up')
+      .sort((a,b)=>new Date(a.created_at)-new Date(b.created_at));
+    const canReplyToFollowUp=currentRole==='staff'&&action.reported_by===currentProfile.id;
+    const latestFollowUp=followUpEntries[followUpEntries.length-1];
+    const followUpNotice=latestFollowUp&&canReplyToFollowUp&&action.status==='verification_required'?`
+      <section class="incident-follow-up-notice" aria-label="Administrator follow-up message">
+        <strong><i class="fas fa-message" aria-hidden="true"></i> Administrator follow-up · ${escapeHtml(formatWorkflowDate(latestFollowUp.created_at))}</strong>
+        ${escapeHtml(latestFollowUp.details||'Please provide additional information about this incident.')}
+        <div><button class="workflow-secondary" type="button" onclick="submitCorrectiveFollowUp(${Number(action.id)})">Reply to follow-up</button></div>
+      </section>`:'';
+    const restartNotice=currentRole==='staff'&&action.reported_by===currentProfile.id&&action.status==='rejected'
+      ?'<p class="workflow-status">The administrator requested more corrective work. Restart it separately from any follow-up reply.</p>'
+      :'';
     const reviews=reviewable?`<div class="workflow-item-actions">
       <button class="workflow-secondary" type="button" onclick="reviewCorrectiveAction(${Number(action.id)},'approved')">Approve and close</button>
-      <button class="workflow-secondary" type="button" onclick="reviewCorrectiveAction(${Number(action.id)},'rejected')">Reject to staff</button>
-      <button class="workflow-secondary" type="button" onclick="reviewCorrectiveAction(${Number(action.id)},'follow_up')">Request follow-up</button>
+      <button class="workflow-secondary" type="button" onclick="reviewCorrectiveAction(${Number(action.id)},'rejected')">Request corrective work restart</button>
+      <button class="workflow-secondary" type="button" onclick="reviewCorrectiveAction(${Number(action.id)},'follow_up')">Send follow-up message</button>
     </div>`:'';
     const evidence=(evidenceById.get(String(action.id))||[]).map((url,index)=>`<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">Evidence ${index+1}</a>`).join(' · ');
     const linkedCleaning=action.linked_cleaning_assignment_id
       ?cleaningDetailsById.get(String(action.linked_cleaning_assignment_id))
       :null;
+    const learningCase=learningById.get(String(action.id));
+    const learningEditor=currentRole==='admin'?`
+      <form id="incidentLearningForm${Number(action.id)}" class="incident-learning-editor">
+        <strong><i class="fas fa-graduation-cap" aria-hidden="true"></i> Incident learning and publication</strong>
+        <div class="workflow-form-grid">
+          <label class="workflow-field full">Case-study title<input name="title" maxlength="180" required value="${escapeHtml(learningCase?.title||`${action.item} incident learning`)}"></label>
+          <label class="workflow-field full">What happened?<textarea name="problem_summary" maxlength="2500" required>${escapeHtml(learningCase?.problem_summary||action.problem||'')}</textarea></label>
+          <label class="workflow-field full">Cause or contributing factors<textarea name="root_cause" maxlength="2500" required>${escapeHtml(learningCase?.root_cause||'')}</textarea></label>
+          <label class="workflow-field full">Corrective steps performed<textarea name="corrective_steps" maxlength="2500" required>${escapeHtml(learningCase?.corrective_steps||action.corrective_steps||action.immediate_action||'')}</textarea></label>
+          <label class="workflow-field full">Outcome and prevention<textarea name="outcome" maxlength="2500" required>${escapeHtml(learningCase?.outcome||`Food disposition: ${action.food_disposition.replaceAll('_',' ')}. Current incident status: ${action.status.replaceAll('_',' ')}.`)}</textarea></label>
+          <div class="workflow-field full workflow-item-actions">
+            <button class="workflow-secondary" type="button" onclick="saveIncidentLearning(event,${Number(action.id)},'draft')">Save learning case</button>
+            <button class="workflow-secondary" type="button" onclick="saveIncidentLearning(event,${Number(action.id)},'staff')">${learningCase?.published_for_staff?'Remove from staff search':'Publish to all staff'}</button>
+            <button class="workflow-secondary" type="button" onclick="saveIncidentLearning(event,${Number(action.id)},'homepage')">${learningCase?.published_on_homepage?'Remove from homepage':'Publish on homepage'}</button>
+          </div>
+        </div>
+        ${learningCase?.published_for_staff||learningCase?.published_on_homepage?`<div class="incident-learning-publish-state">${learningCase.published_for_staff?'<span>Visible to staff</span>':''}${learningCase.published_on_homepage?'<span>Visible on homepage</span>':''}</div>`:''}
+      </form>`:'';
     let linkedCleaningDetails='';
     if(action.linked_cleaning_assignment_id){
       if(cleaningDetailsError){
@@ -3153,13 +4073,15 @@ async function loadCorrectiveActions(){
     return `<article class="workflow-item">
       <div class="workflow-item-header"><div><h4>${escapeHtml(action.incident_number||`CA-${String(action.id).padStart(6,'0')}`)} · ${escapeHtml(action.item)}</h4><div class="workflow-item-meta">${escapeHtml(action.area||'Other issue')}${action.temperature===null?'':` · ${Number(action.temperature).toFixed(1)} °C`} · ${formatWorkflowDate(action.created_at)} · ${currentRole==='admin'?`Reported by ${escapeHtml(workflowActorName(action.reported_by,reporters))}`:'Reported by you'}</div></div>${workflowBadge(action.status)}</div>
       ${linkedCleaningDetails}
+      ${followUpNotice}${restartNotice}
       <p><strong>Problem:</strong> ${escapeHtml(action.problem)}</p>
       ${action.immediate_action?`<p><strong>Immediate action:</strong> ${escapeHtml(action.immediate_action)}</p>`:''}
       ${action.corrective_steps?`<p><strong>Corrective steps:</strong> ${escapeHtml(action.corrective_steps)}</p>`:''}
       <p><strong>Food disposition:</strong> ${escapeHtml(action.food_disposition.replaceAll('_',' '))}</p>
       ${evidence?`<p><strong>Evidence:</strong> ${evidence}</p>`:''}
+      <div class="workflow-item-actions"><button class="workflow-secondary" type="button" onclick="exportIncidentReport(${Number(action.id)})"><i class="fas fa-file-pdf" aria-hidden="true"></i> Download this incident report (PDF)</button></div>
       ${currentRole==='admin'?`<div class="workflow-item-actions"><button class="workflow-secondary workflow-danger" type="button" onclick="deleteCorrectiveAction(${Number(action.id)})">Delete record permanently</button></div>`:''}
-      ${reviseButton}${editForm}${reviews}
+      ${reviseButton}${restartCorrectiveButton}${editForm}${reviews}${learningEditor}
       <div class="workflow-timeline">${(historyById.get(String(action.id))||[]).map(entry=>`<span>${formatWorkflowDate(entry.created_at)} · ${escapeHtml(workflowActorName(entry.actor_id,actorNames))} · ${escapeHtml(entry.event_type.replaceAll('_',' '))}${entry.details?` — ${escapeHtml(entry.details)}`:''}</span>`).join('')||`Current status: ${escapeHtml(action.status.replaceAll('_',' '))}.`}</div>
     </article>`;
   }).join('');
@@ -3167,6 +4089,7 @@ async function loadCorrectiveActions(){
 
 async function submitCorrectiveWork(event,id){
   event.preventDefault();
+  if(!requireStaffAccess('corrective_actions',{changes:true,actionLabel:'corrective actions'}))return;
   const form=event.currentTarget,fields=new FormData(form);
   const correctiveSteps=String(fields.get('corrective_steps')||'').trim();
   if(!correctiveSteps){showAppMessage('Describe the corrective steps performed.');return;}
@@ -3185,6 +4108,7 @@ async function submitCorrectiveWork(event,id){
 }
 
 async function startCorrectiveAction(id){
+  if(!requireStaffAccess('corrective_actions',{changes:true,actionLabel:'corrective actions'}))return;
   if(!currentProfile)return;
   try{
     const {error}=await foodSafeProClient.rpc('foodsafe_start_corrective_action',{
@@ -3196,6 +4120,7 @@ async function startCorrectiveAction(id){
 }
 
 async function reopenCorrectiveAction(id){
+  if(!requireStaffAccess('corrective_actions',{changes:true,actionLabel:'corrective actions'}))return;
   try{
     const {error}=await foodSafeProClient.rpc('foodsafe_reopen_corrective_action',{p_action_id:id});
     if(error)throw error;
@@ -3208,12 +4133,12 @@ async function reviewCorrectiveAction(id,decision){
   const reason=decision==='approved'
     ?'Verified and resolved.'
     :await requestWorkflowInput({
-      title:decision==='rejected'?'Return incident for correction':'Request follow-up verification',
+      title:decision==='rejected'?'Request corrective work restart':'Send a follow-up message to staff',
       message:decision==='rejected'
-        ?'Describe the corrective work or evidence the staff member needs to provide.'
-        :'Describe the additional check needed before this incident can be closed.',
-      placeholder:decision==='rejected'?'What needs to be corrected?':'What follow-up verification is required?',
-      confirmLabel:decision==='rejected'?'Send back to staff':'Request follow-up'
+        ?'Describe the corrective work that must be restarted. Staff will get a separate restart control.'
+        :'Ask a question or request an explanation. Staff will reply from the incident record; the response will be saved in its audit history.',
+      placeholder:decision==='rejected'?'What corrective work must be redone?':'What question should staff answer?',
+      confirmLabel:decision==='rejected'?'Request restart':'Send follow-up message'
     });
   if(reason===null)return;
   if(decision!=='approved'&&!reason)return;
@@ -3224,6 +4149,32 @@ async function reviewCorrectiveAction(id,decision){
   }catch(error){
     console.error('Could not review corrective action:',error);
     showAppMessage(`Could not save review: ${workflowErrorMessage(error)}`);
+  }
+}
+
+async function submitCorrectiveFollowUp(id){
+  if(!requireStaffAccess('corrective_actions',{changes:true,actionLabel:'corrective actions'}))return;
+  if(currentRole!=='staff'||isReadOnlyDemo())return;
+  const action=correctiveActionReport.find(record=>Number(record.id)===Number(id));
+  if(!action||action.reported_by!==currentProfile?.id||action.status!=='verification_required')return;
+  const reply=await requestWorkflowInput({
+    title:'Reply to administrator follow-up',
+    message:`Reply to the administrator’s follow-up for ${action.incident_number||`CA-${String(action.id).padStart(6,'0')}`}. Your response will be added to this incident’s history.`,
+    placeholder:'Write your follow-up reply…',
+    confirmLabel:'Send reply',
+    requiredMessage:'Enter a reply before sending.'
+  });
+  if(reply===null)return;
+  try{
+    const {error}=await foodSafeProClient.rpc('foodsafe_reply_corrective_follow_up',{
+      p_action_id:id,p_reply:reply
+    });
+    if(error)throw error;
+    await loadCorrectiveActions();
+    showAppMessage('Your follow-up reply was sent to the administrators.');
+  }catch(error){
+    console.error('Could not send corrective follow-up reply:',error);
+    showAppMessage(`Could not send follow-up reply: ${workflowErrorMessage(error)}`);
   }
 }
 
@@ -3291,9 +4242,10 @@ async function deleteCleaningTask(taskId){
   }
 }
 
-async function loadCleaningAssignments(){
+async function loadCleaningAssignments(periodOverride=null){
   const list=$('cleaningAssignmentList');
   if(!list||!currentProfile)return;
+  cleaningAssignmentReport=[];
   if(isReadOnlyDemo()){
     $('cleaningAdminCreate')?.classList.add('hidden');
     list.textContent='Loading sample cleaning tasks…';
@@ -3311,7 +4263,11 @@ async function loadCleaningAssignments(){
         title:assignment.title,frequency:assignment.frequency,
         instructions:assignment.instructions,materials:assignment.materials
       },
-      reportCompletion:assignment.completed_at?{completed_at:assignment.completed_at,notes:assignment.notes}:null
+      reportChecklist:(assignment.checklist||[]).map((label,index)=>({id:String(index),label})),
+      reportCompletionItems:(assignment.checklist||[]).map((label,index)=>({checklist_item_id:String(index),completed:['submitted','approved'].includes(assignment.status)})),
+      reportCompletion:assignment.completed_at?{completed_at:assignment.completed_at,notes:assignment.notes,submittedByName:assignment.assigned_to_name}:null,
+      reportReviews:[],reportHistory:[],reportCorrectiveActions:[],reportEvidence:[],
+      reportAssignedBy:'Administrator'
     }));
     list.innerHTML=assignments?.length?assignments.map(assignment=>{
       const overdue=new Date(assignment.due_at)<new Date()&&!['submitted','approved'].includes(assignment.status);
@@ -3321,6 +4277,7 @@ async function loadCleaningAssignments(){
         <p>${escapeHtml(assignment.instructions)}</p><p><strong>Materials:</strong> ${escapeHtml(assignment.materials)}</p>
         <div class="workflow-checklist">${checklist}</div>
         ${assignment.notes?`<p><strong>Completion notes:</strong> ${escapeHtml(assignment.notes)}</p>`:''}
+        <div class="workflow-item-actions"><button class="workflow-secondary" type="button" onclick="exportCleaningReport(${Number(assignment.id)})"><i class="fas fa-file-pdf" aria-hidden="true"></i> Download this cleaning record (PDF)</button></div>
         <p class="workflow-status">Sample record · Read-only</p>
       </article>`;
     }).join(''):'No sample cleaning tasks are available.';
@@ -3335,7 +4292,7 @@ async function loadCleaningAssignments(){
     console.error('Could not load cleaning assignments:',error);
     list.textContent=workflowErrorMessage(error);return;
   }
-  const reportPeriod=$('cleaningReportPeriod')?.value||'all';
+  const reportPeriod=periodOverride||$('cleaningReportPeriod')?.value||'all';
   const periodStart=new Date();periodStart.setHours(0,0,0,0);
   if(reportPeriod==='7')periodStart.setDate(periodStart.getDate()-6);
   if(reportPeriod==='30')periodStart.setDate(periodStart.getDate()-29);
@@ -3345,59 +4302,124 @@ async function loadCleaningAssignments(){
   cleaningAssignmentReport=filteredAssignments;
   if(!filteredAssignments.length){list.textContent='No cleaning tasks match this report period.';}
   else{
-    let checklistResults,completionResults,evidenceById,staffRows,reviewsResult,activityResult;
+    let checklistResults,completionResults,evidenceById,staffRows,reviewsResult,activityResult,correctiveResult,correctiveActivityResult,completionItemResult;
     try{
-      [checklistResults,completionResults,evidenceById,staffRows,reviewsResult,activityResult]=await Promise.all([
+      [checklistResults,completionResults,evidenceById,staffRows,reviewsResult,activityResult,correctiveResult]=await Promise.all([
       Promise.all(filteredAssignments.map(assignment=>
         foodSafeProClient.from('cleaning_checklist_items').select('id,label').eq('task_id',assignment.task_id).order('position')
       )),
       Promise.all(filteredAssignments.map(assignment=>
-        foodSafeProClient.from('cleaning_completions').select('notes,sanitizer_concentration,completed_at')
+        foodSafeProClient.from('cleaning_completions').select('id,submitted_by,notes,sanitizer_concentration,completed_at')
           .eq('assignment_id',assignment.id).order('created_at',{ascending:false}).limit(1).maybeSingle()
       )),
       loadWorkflowEvidence('cleaning_assignment',filteredAssignments.map(assignment=>String(assignment.id))),
       isAdmin?foodSafeProClient.from('profiles').select('id,username').in('id',filteredAssignments.map(assignment=>assignment.assigned_to)):Promise.resolve({data:[],error:null}),
-      foodSafeProClient.from('cleaning_reviews').select('assignment_id,decision,reason,created_at')
+      foodSafeProClient.from('cleaning_reviews').select('assignment_id,reviewer_id,decision,reason,created_at')
         .in('assignment_id',filteredAssignments.map(assignment=>assignment.id)).order('created_at',{ascending:false}),
       foodSafeProClient.from('activity_logs').select('entity_id,actor_id,event_type,details,created_at')
-        .eq('entity_type','cleaning_assignment').in('entity_id',filteredAssignments.map(assignment=>String(assignment.id))).order('created_at',{ascending:true})
+        .eq('entity_type','cleaning_assignment').in('entity_id',filteredAssignments.map(assignment=>String(assignment.id))).order('created_at',{ascending:true}),
+      foodSafeProClient.from('corrective_actions')
+        .select('id,linked_cleaning_assignment_id,problem,immediate_action,corrective_steps,food_disposition,status,created_at')
+        .in('linked_cleaning_assignment_id',filteredAssignments.map(assignment=>assignment.id)).order('created_at',{ascending:true})
       ]);
     }catch(error){
       console.error('Could not load cleaning records:',error);
       list.textContent=`Could not load cleaning records: ${workflowErrorMessage(error)}`;return;
     }
     if(staffRows.error)console.error('Could not load cleaning assignee names:',staffRows.error);
-    if(reviewsResult.error||activityResult.error){
-      const historyError=reviewsResult.error||activityResult.error;
-      console.error('Could not load cleaning review history:',historyError);
-      list.textContent=`Could not load cleaning history: ${workflowErrorMessage(historyError)}`;return;
+    const linkedCorrectiveIds=(correctiveResult.data||[]).map(action=>String(action.id));
+    correctiveActivityResult=linkedCorrectiveIds.length
+      ?await foodSafeProClient.from('activity_logs').select('entity_id,actor_id,event_type,details,created_at')
+        .eq('entity_type','corrective_action').in('entity_id',linkedCorrectiveIds).order('created_at',{ascending:true})
+      :{data:[],error:null};
+    const reportLoadError=reviewsResult.error||activityResult.error||correctiveResult.error||correctiveActivityResult.error
+      ||checklistResults.find(result=>result.error)?.error
+      ||completionResults.find(result=>result.error)?.error;
+    if(reportLoadError){
+      console.error('Could not load complete cleaning report details:',reportLoadError);
+      cleaningAssignmentReport=[];
+      list.textContent=`Could not load complete cleaning report details: ${workflowErrorMessage(reportLoadError)}`;return;
+    }
+    const completionIds=completionResults.map(result=>result.data?.id).filter(Boolean);
+    completionItemResult=completionIds.length
+      ?await foodSafeProClient.from('cleaning_completion_items')
+        .select('completion_id,checklist_item_id,completed').in('completion_id',completionIds)
+      :{data:[],error:null};
+    if(completionItemResult.error){
+      console.error('Could not load cleaning checklist completion details:',completionItemResult.error);
+      cleaningAssignmentReport=[];
+      list.textContent=`Could not load complete cleaning report details: ${workflowErrorMessage(completionItemResult.error)}`;return;
     }
     const staffNames=new Map((staffRows.data||[]).map(person=>[person.id,person.username||person.id]));
     const latestReviews=new Map();
     (reviewsResult.data||[]).forEach(review=>{if(!latestReviews.has(String(review.assignment_id)))latestReviews.set(String(review.assignment_id),review);});
-    cleaningAssignmentReport=filteredAssignments.map((assignment,index)=>({
-      ...assignment,
-      reportAssignee:isAdmin?(staffNames.get(assignment.assigned_to)||'Staff member'):currentUser,
-      reportCompletion:completionResults[index]?.data,
-      reportReview:latestReviews.get(String(assignment.id))
-    }));
     const activityById=new Map();
     (activityResult.data||[]).forEach(entry=>{
       const history=activityById.get(entry.entity_id)||[];
       history.push(entry);activityById.set(entry.entity_id,history);
     });
+    const correctiveActivityById=new Map();
+    (correctiveActivityResult.data||[]).forEach(entry=>{
+      const history=correctiveActivityById.get(entry.entity_id)||[];
+      history.push(entry);correctiveActivityById.set(entry.entity_id,history);
+    });
     const actorNames=new Map([[currentProfile.id,currentUser]]);
-    if(isAdmin){
-      const actorIds=[...new Set((activityResult.data||[]).map(entry=>entry.actor_id).filter(Boolean))];
-      if(actorIds.length){
-        const {data:actors,error:actorsError}=await foodSafeProClient.from('profiles').select('id,username').in('id',actorIds);
-        if(actorsError){
-          console.error('Could not load cleaning activity names:',actorsError);
-          list.textContent=`Could not load cleaning history: ${workflowErrorMessage(actorsError)}`;return;
-        }
-        actors.forEach(actor=>actorNames.set(actor.id,actor.username||actor.id));
+    const actorIds=[...new Set([
+      ...(activityResult.data||[]).map(entry=>entry.actor_id),
+      ...(correctiveActivityResult.data||[]).map(entry=>entry.actor_id),
+      ...(reviewsResult.data||[]).map(review=>review.reviewer_id),
+      ...completionResults.map(result=>result.data?.submitted_by),
+      ...filteredAssignments.map(assignment=>assignment.assigned_by)
+    ].filter(Boolean))];
+    if(isAdmin&&actorIds.length){
+      const {data:actors,error:actorsError}=await foodSafeProClient.from('profiles').select('id,username').in('id',actorIds);
+      if(actorsError){
+        console.error('Could not load cleaning activity names:',actorsError);
+        cleaningAssignmentReport=[];
+        list.textContent=`Could not load cleaning history: ${workflowErrorMessage(actorsError)}`;return;
       }
+      actors.forEach(actor=>actorNames.set(actor.id,actor.username||actor.id));
     }
+    const reviewsById=new Map();
+    (reviewsResult.data||[]).forEach(review=>{
+      const history=reviewsById.get(String(review.assignment_id))||[];
+      history.push(review);reviewsById.set(String(review.assignment_id),history);
+    });
+    const correctiveActionsByAssignment=new Map();
+    (correctiveResult.data||[]).forEach(action=>{
+      const actions=correctiveActionsByAssignment.get(String(action.linked_cleaning_assignment_id))||[];
+      actions.push(action);correctiveActionsByAssignment.set(String(action.linked_cleaning_assignment_id),actions);
+    });
+    const completionItemsById=new Map();
+    (completionItemResult.data||[]).forEach(item=>{
+      const items=completionItemsById.get(String(item.completion_id))||[];
+      items.push(item);completionItemsById.set(String(item.completion_id),items);
+    });
+    cleaningAssignmentReport=filteredAssignments.map((assignment,index)=>({
+      ...assignment,
+      reportAssignee:isAdmin?(staffNames.get(assignment.assigned_to)||'Staff member'):currentUser,
+      reportCompletion:completionResults[index]?.data?{
+        ...completionResults[index].data,
+        submittedByName:actorNames.get(completionResults[index].data.submitted_by)||'Staff member'
+      }:null,
+      reportChecklist:checklistResults[index]?.data||[],
+      reportCompletionItems:completionItemsById.get(String(completionResults[index]?.data?.id))||[],
+      reportEvidence:evidenceById.get(String(assignment.id))||[],
+      reportReviews:(reviewsById.get(String(assignment.id))||[]).map(review=>({
+        ...review,reviewerName:actorNames.get(review.reviewer_id)||'Administrator'
+      })),
+      reportAssignedBy:actorNames.get(assignment.assigned_by)||'Administrator',
+      reportReview:latestReviews.get(String(assignment.id)),
+      reportHistory:(activityById.get(String(assignment.id))||[]).map(entry=>({
+        ...entry,actorName:actorNames.get(entry.actor_id)||'Team member'
+      })),
+      reportCorrectiveActions:(correctiveActionsByAssignment.get(String(assignment.id))||[]).map(action=>({
+        ...action,
+        reportHistory:(correctiveActivityById.get(String(action.id))||[]).map(entry=>({
+          ...entry,actorName:actorNames.get(entry.actor_id)||'Team member'
+        }))
+      }))
+    }));
     list.innerHTML=filteredAssignments.map((assignment,index)=>{
       const task=assignment.cleaning_tasks||{};
       const checklist=checklistResults[index].data||[];
@@ -3426,7 +4448,7 @@ async function loadCleaningAssignments(){
       const history=activityById.get(String(assignment.id))||[];
       const checklistDisplay=checklist.length?`<div class="workflow-checklist">${checklist.map(item=>`<span><i class="fas fa-check" aria-hidden="true"></i> ${escapeHtml(item.label)}</span>`).join('')}</div>`:'';
       return `<article class="workflow-item">
-        <div class="workflow-item-header"><div><h4>${escapeHtml(task.title||'Cleaning task')}</h4><div class="workflow-item-meta">${escapeHtml(task.frequency||'')} · Due ${formatWorkflowDate(assignment.due_at)} · ${isAdmin?`Assigned to ${escapeHtml(staffNames.get(assignment.assigned_to)||'Staff member')}`:'Assigned to you'}</div></div>${workflowBadge(displayStatus)}</div>
+        <div class="workflow-item-header"><div><h4>${escapeHtml(task.title||'Cleaning task')}</h4><div class="workflow-item-meta">CR-${escapeHtml(String(assignment.id))} · ${escapeHtml(task.frequency||'')} · Due ${formatWorkflowDate(assignment.due_at)} · ${isAdmin?`Assigned to ${escapeHtml(staffNames.get(assignment.assigned_to)||'Staff member')}`:'Assigned to you'}</div></div>${workflowBadge(displayStatus)}</div>
         ${task.instructions?`<p>${escapeHtml(task.instructions)}</p>`:''}
         ${task.materials?`<p><strong>Materials:</strong> ${escapeHtml(task.materials)}</p>`:''}
         ${isAdmin?checklistDisplay:''}
@@ -3434,6 +4456,7 @@ async function loadCleaningAssignments(){
         ${lastReview?.decision==='rejected'?`<p><strong>Review notes:</strong> ${escapeHtml(lastReview.reason||'Re-cleaning is required.')}</p>`:''}
         ${history.length?`<div class="workflow-timeline">${history.map(entry=>`<span>${formatWorkflowDate(entry.created_at)} · ${escapeHtml(workflowActorName(entry.actor_id,actorNames))} · ${escapeHtml(entry.event_type.replaceAll('_',' '))}${entry.details?` — ${escapeHtml(entry.details)}`:''}</span>`).join('')}</div>`:''}
         ${staffForm}${reviseCleaning}${adminReview}
+        <div class="workflow-item-actions"><button class="workflow-secondary" type="button" onclick="exportCleaningReport(${Number(assignment.id)})"><i class="fas fa-file-pdf" aria-hidden="true"></i> Download this cleaning record (PDF)</button></div>
         ${isAdmin?`<div class="workflow-item-actions"><button class="workflow-secondary workflow-danger" type="button" onclick="deleteCleaningTask(${Number(assignment.task_id)})">Delete task &amp; all history</button></div>`:''}
       </article>`;
     }).join('');
@@ -3441,28 +4464,379 @@ async function loadCleaningAssignments(){
   if(isAdmin)loadCleaningStaffOptions();
 }
 
-function exportCleaningReport(){
-  if(!window.jspdf?.jsPDF){showAppMessage('PDF library did not load. Check your internet connection.');return;}
-  if(!cleaningAssignmentReport.length){showAppMessage('There are no cleaning tasks to include in this report.');return;}
-  const {jsPDF}=window.jspdf,doc=new jsPDF('l','pt','a4');
-  doc.setFontSize(18);doc.text('FoodSafe Pro - Cleaning & Sanitation Report',40,42);
-  doc.setFontSize(10);doc.text(`Generated by: ${currentUser} · ${new Date().toLocaleString()}`,40,61);
-  const rows=cleaningAssignmentReport.map(assignment=>{
-    const task=assignment.cleaning_tasks||{};
-    const overdue=assignment.due_at&&new Date(assignment.due_at)<new Date()&&!['submitted','approved'].includes(assignment.status);
-    const completion=assignment.reportCompletion;
-    return [
-      task.title||'Cleaning task',assignment.reportAssignee||String(assignment.assigned_to),
-      task.frequency||'',new Date(assignment.due_at).toLocaleString(),
-      overdue?'Overdue':assignment.status.replaceAll('_',' '),
-      completion?.completed_at?new Date(completion.completed_at).toLocaleString():'—',
-      completion?.sanitizer_concentration??'—',
-      completion?.notes||assignment.reportReview?.reason||'—'
-    ];
+function appendFoodSafePdfDetails(doc,records){
+  const pageWidth=doc.internal.pageSize.getWidth(),pageHeight=doc.internal.pageSize.getHeight(),margin=40,lineHeight=12;
+  let y=0,currentRecord=null;
+  const beginPage=continued=>{
+    doc.addPage();
+    writeFoodSafePdfHeader(doc,'Detailed Notes & Inspection Review');
+    y=104;
+    doc.setFont('helvetica','bold');doc.setFontSize(12);
+    doc.text('Detailed Notes, Inspection Review & Corrective Action Statement',margin,y);
+    y+=18;
+    doc.setFontSize(10);
+    doc.text(`${currentRecord.label}${continued?' (continued)':''}`,margin,y);
+    y+=16;doc.setFont('helvetica','normal');
+  };
+  records.forEach(record=>{
+    currentRecord=record;beginPage(false);
+    record.sections.forEach(section=>{
+      const content=String(section.content??'').trim();
+      if(!content)return;
+      const labelLines=doc.splitTextToSize(section.label,pageWidth-margin*2);
+      if(y+labelLines.length*lineHeight+lineHeight>pageHeight-margin)beginPage(true);
+      doc.setFont('helvetica','bold');doc.setFontSize(9);doc.text(labelLines,margin,y);
+      y+=labelLines.length*lineHeight;
+      doc.setFont('helvetica','normal');doc.setFontSize(9);
+      doc.splitTextToSize(content,pageWidth-margin*2).forEach(line=>{
+        if(y+lineHeight>pageHeight-margin)beginPage(true);
+        doc.text(line,margin,y);y+=lineHeight;
+      });
+      y+=8;
+    });
   });
-  doc.autoTable({head:[['Task','Assigned to','Frequency','Due','Status','Completed','Sanitizer ppm','Notes / review']],body:rows,startY:78,styles:{fontSize:7,cellWidth:'wrap'},headStyles:{fillColor:[20,59,44]},margin:{left:32,right:32}});
-  const period=$('cleaningReportPeriod')?.value||'all';
-  doc.save(`FoodSafePro_Cleaning_Report_${period}d_${new Date().toISOString().slice(0,10)}.pdf`);
+}
+
+function writeFoodSafePdfHeader(doc,title){
+  const width=doc.internal.pageSize.getWidth();
+  doc.setFillColor(20,59,44);
+  doc.rect(0,0,width,78,'F');
+  doc.setTextColor(255,255,255);
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(17);
+  doc.text(title,32,34);
+  doc.setFont('helvetica','normal');
+  doc.setFontSize(9);
+  doc.text(`Generated by: ${currentProfile?.username||currentUser||'Signed-in user'} (${currentRole==='admin'?'Administrator':'Staff'}) · ${new Date().toLocaleString()}`,32,58);
+  doc.setTextColor(35,51,40);
+}
+
+function drawFoodSafePdfSummary(doc,cards){
+  const width=doc.internal.pageSize.getWidth(),margin=32,gap=8,cardY=94,cardHeight=52;
+  const cardWidth=(width-margin*2-gap*(cards.length-1))/cards.length;
+  cards.forEach((card,index)=>{
+    const x=margin+index*(cardWidth+gap);
+    doc.setFillColor(244,248,244);doc.setDrawColor(220,232,220);
+    doc.roundedRect(x,cardY,cardWidth,cardHeight,6,6,'FD');
+    doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(100,117,104);
+    doc.text(String(card.label),x+9,cardY+16);
+    doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(31,72,49);
+    const valueLines=doc.splitTextToSize(String(card.value??'—'),cardWidth-18);
+    doc.text(valueLines.slice(0,2),x+9,cardY+32);
+  });
+  doc.setTextColor(35,51,40);
+  return cardY+cardHeight+18;
+}
+
+function drawFoodSafePdfSectionHeading(doc,title,x,y,width){
+  doc.setFillColor(231,241,231);
+  doc.roundedRect(x,y-12,width,21,4,4,'F');
+  doc.setFont('helvetica','bold');doc.setFontSize(10);doc.setTextColor(31,72,49);
+  doc.text(title,x+8,y+2);
+  doc.setTextColor(35,51,40);
+  return y+17;
+}
+
+function addFoodSafePdfFooters(doc){
+  const count=doc.getNumberOfPages(),width=doc.internal.pageSize.getWidth(),height=doc.internal.pageSize.getHeight();
+  for(let page=1;page<=count;page++){
+    doc.setPage(page);
+    doc.setDrawColor(218,227,218);
+    doc.line(32,height-28,width-32,height-28);
+    doc.setFont('helvetica','normal');
+    doc.setFontSize(8);
+    doc.setTextColor(105,120,109);
+    doc.text('FoodSafe Pro · Food safety record',32,height-14);
+    doc.text(`Page ${page} of ${count}`,width-32,height-14,{align:'right'});
+  }
+  doc.setTextColor(35,51,40);
+}
+
+function exportCleaningReport(assignmentId){
+  if(!requireStaffAccess('downloads',{actionLabel:'the downloads center'}))return;
+  if(!window.jspdf?.jsPDF){showAppMessage('PDF library did not load. Check your internet connection.');return;}
+  const assignment=cleaningAssignmentReport.find(record=>Number(record.id)===Number(assignmentId));
+  if(!assignment){showAppMessage('This cleaning record is not available for export. Refresh the cleaning list and try again.');return;}
+  const {jsPDF}=window.jspdf,doc=new jsPDF('p','pt','a4');
+  writeFoodSafePdfHeader(doc,'FoodSafe Pro | Cleaning & Sanitation Report');
+  const task=assignment.cleaning_tasks||{};
+  const overdue=assignment.due_at&&new Date(assignment.due_at)<new Date()&&!['submitted','approved'].includes(assignment.status);
+  const completion=assignment.reportCompletion;
+  const reportStatus=overdue?'Overdue':String(assignment.status||'').replaceAll('_',' ');
+  let summaryY=drawFoodSafePdfSummary(doc,[
+    {label:'CLEANING RECORD',value:`#CR-${assignment.id}`},
+    {label:'TASK',value:task.title||'Cleaning task'},
+    {label:'ASSIGNED TO',value:assignment.reportAssignee||String(assignment.assigned_to||'Staff member')},
+    {label:'STATUS',value:reportStatus}
+  ]);
+  summaryY=drawFoodSafePdfSectionHeading(doc,'Cleaning task summary',32,summaryY,doc.internal.pageSize.getWidth()-64);
+  doc.autoTable({
+    head:[['Task frequency','Due date','Completed','Sanitizer concentration']],
+    body:[[task.frequency||'—',assignment.due_at?new Date(assignment.due_at).toLocaleString():'—',
+      completion?.completed_at?new Date(completion.completed_at).toLocaleString():'Not submitted',
+      completion?.sanitizer_concentration===null||completion?.sanitizer_concentration===undefined?'Not recorded':`${completion.sanitizer_concentration} ppm`]],
+    startY:summaryY+3,styles:{fontSize:8,cellPadding:6,overflow:'linebreak'},
+    headStyles:{fillColor:[20,59,44]},alternateRowStyles:{fillColor:[244,248,244]},margin:{left:32,right:32}
+  });
+  const pageWidth=doc.internal.pageSize.getWidth(),pageHeight=doc.internal.pageSize.getHeight(),margin=40,lineHeight=12;
+  let detailY=0,currentAssignment=null;
+  const beginDetailPage=(continued=false)=>{
+    doc.addPage();writeFoodSafePdfHeader(doc,'Cleaning Record Details');detailY=102;
+    doc.setFont('helvetica','bold');doc.setFontSize(12);
+    doc.text('Detailed Notes, Inspection Review & Corrective Action Statement',margin,detailY);
+    detailY+=18;
+    if(currentAssignment){
+      const task=currentAssignment.cleaning_tasks||{};
+      doc.setFontSize(10);doc.text(`${task.title||'Cleaning task'} · ${currentAssignment.reportAssignee||'Staff member'}${continued?' (continued)':''}`,margin,detailY);
+      detailY+=16;
+    }
+    doc.setFont('helvetica','normal');
+  };
+  const writeDetailBlock=(label,value)=>{
+    const content=String(value??'').trim();
+    if(!content)return;
+    if(detailY+lineHeight*2>pageHeight-margin)beginDetailPage(true);
+    detailY=drawFoodSafePdfSectionHeading(doc,label,margin,detailY,pageWidth-margin*2);
+    doc.setFont('helvetica','normal');doc.setFontSize(9);
+    const lines=doc.splitTextToSize(content,pageWidth-margin*2);
+    lines.forEach(line=>{
+      if(detailY+lineHeight>pageHeight-margin)beginDetailPage(true);
+      doc.text(line,margin,detailY);detailY+=lineHeight;
+    });
+    detailY+=8;
+  };
+  currentAssignment=assignment;
+  beginDetailPage();
+    writeDetailBlock('Assignment and ownership',`Assigned to: ${assignment.reportAssignee||'Staff member'}\nAssigned by: ${assignment.reportAssignedBy||'Administrator'}\nTask status: ${String(assignment.status||'').replaceAll('_',' ')}\nDue: ${assignment.due_at?new Date(assignment.due_at).toLocaleString():'—'}`);
+    const completedById=new Map((assignment.reportCompletionItems||[]).map(item=>[String(item.checklist_item_id),item.completed]));
+    const checklist=(assignment.reportChecklist||[]).map(item=>
+      `${completedById.get(String(item.id))?'[x]':'[ ]'} ${item.label}`
+    ).join('\n');
+    writeDetailBlock('Task instructions',task.instructions);
+    writeDetailBlock('Materials',task.materials);
+    writeDetailBlock('Checklist completion',checklist);
+    writeDetailBlock('Photo evidence', (assignment.reportEvidence||[]).map((url,index)=>`Evidence ${index+1}: ${url}`).join('\n'));
+    if(completion){
+      writeDetailBlock('Completion record',`Submitted by: ${completion.submittedByName||'Staff member'}\nSubmitted: ${completion.completed_at?new Date(completion.completed_at).toLocaleString():'—'}${completion.sanitizer_concentration===null||completion.sanitizer_concentration===undefined?'':`\nSanitizer concentration: ${completion.sanitizer_concentration} ppm`}`);
+      writeDetailBlock('Completion notes',completion.notes);
+    }else{
+      writeDetailBlock('Completion record','No completion submission is recorded.');
+    }
+    const reviews=assignment.reportReviews||[];
+    writeDetailBlock('Inspection review history',reviews.length?reviews.map(review=>
+      `${new Date(review.created_at).toLocaleString()} · ${review.reviewerName||'Administrator'} · ${String(review.decision||'review').replaceAll('_',' ')}${review.reason?`\n${review.reason}`:''}`
+    ).join('\n\n'):'No inspection review notes are recorded.');
+    const actions=assignment.reportCorrectiveActions||[];
+    writeDetailBlock('Corrective action statement',actions.length?actions.map(action=>
+      [`Incident CA-${String(action.id).padStart(6,'0')} · ${String(action.status||'').replaceAll('_',' ')} · ${new Date(action.created_at).toLocaleString()}`,
+        `Problem: ${action.problem||'—'}`,
+        action.immediate_action?`Immediate action: ${action.immediate_action}`:'',
+        action.corrective_steps?`Corrective steps: ${action.corrective_steps}`:'',
+        `Food disposition: ${String(action.food_disposition||'not_applicable').replaceAll('_',' ')}`,
+        (action.reportHistory||[]).length?`Incident audit history:\n${action.reportHistory.map(entry=>
+          `${new Date(entry.created_at).toLocaleString()} · ${entry.actorName} · ${String(entry.event_type||'update').replaceAll('_',' ')}${entry.details?`\n${entry.details}`:''}`
+        ).join('\n\n')}`:''
+      ].filter(Boolean).join('\n')
+    ).join('\n\n'):'No linked corrective action is recorded.');
+    const history=assignment.reportHistory||[];
+    writeDetailBlock('Audit commentary',history.length?history.map(entry=>
+      `${new Date(entry.created_at).toLocaleString()} · ${entry.actorName} · ${String(entry.event_type||'update').replaceAll('_',' ')}${entry.details?`\n${entry.details}`:''}`
+    ).join('\n\n'):'No additional audit commentary is recorded.');
+    addFoodSafePdfFooters(doc);
+    doc.save(`FoodSafe Pro - Cleaning Record ${String(assignment.id).replace(/[^a-zA-Z0-9-]/g,'-')}.pdf`);
+}
+
+function exportIncidentReport(actionId){
+  if(!requireStaffAccess('downloads',{actionLabel:'the downloads center'}))return;
+  if(!window.jspdf?.jsPDF){showAppMessage('PDF library did not load. Check your internet connection.');return;}
+  const action=correctiveActionReport.find(record=>Number(record.id)===Number(actionId));
+  if(!action){showAppMessage('This incident is not available for export. Refresh the incident list and try again.');return;}
+  const {jsPDF}=window.jspdf,doc=new jsPDF('l','pt','a4');
+  const pageWidth=doc.internal.pageSize.getWidth(),pageHeight=doc.internal.pageSize.getHeight();
+  const margin=40,contentWidth=pageWidth-margin*2;
+  const ticket=action.incident_number||`CA-${String(action.id).padStart(6,'0')}`;
+  const reportDate=value=>value?new Date(value).toLocaleString():'—';
+  const readable=value=>String(value||'').replaceAll('_',' ').replace(/\b\w/g,char=>char.toUpperCase());
+  const auditStage=entry=>{
+    const stages={
+      created:'Created',in_progress:'In Progress',started:'In Progress',submitted:'Submitted',
+      follow_up:'Admin Follow-Up',staff_follow_up_reply:'Staff Reply',
+      approved:'Approved',rejected:'Restart Requested',verification_required:'Admin Follow-Up',
+      closed:'Closed',reopened:'Reopened'
+    };
+    return stages[entry.event_type]||readable(entry.event_type||'Updated');
+  };
+  const paintPageHeader=()=>{
+    doc.setFillColor(255,255,255);
+    doc.setFont('helvetica','bold');doc.setFontSize(15);doc.setTextColor(20,59,44);
+    doc.text('FOODSAFE PRO',margin,20);
+    doc.setFontSize(12);
+    doc.text('CORRECTIVE ACTION & INCIDENT REPORT',margin,36);
+    doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(94,112,101);
+    doc.text(`${ticket}  ·  Generated by ${currentProfile?.username||currentUser||'Signed-in user'}  ·  ${new Date().toLocaleString()}`,margin,49);
+    doc.setTextColor(35,51,40);
+  };
+  const paintSectionHeading=(text,y)=>{
+    if(y>pageHeight-55){
+      doc.addPage();paintPageHeader();y=82;
+    }
+    doc.setFillColor(43,137,94);
+    doc.rect(margin,y-13,3,20,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(12);doc.setTextColor(20,59,44);
+    doc.text(text,margin+10,y+1);
+    doc.setTextColor(35,51,40);
+    return y+10;
+  };
+  const tableStyles={
+    margin:{left:margin,right:margin,top:61,bottom:36},
+    styles:{
+      font:'helvetica',fontSize:7.5,cellPadding:4,overflow:'linebreak',
+      textColor:[34,51,43],lineColor:[218,228,235],lineWidth:.45
+    },
+    didDrawPage:paintPageHeader
+  };
+  paintPageHeader();
+  let y=65;
+  y=paintSectionHeading('1. INCIDENT IDENTIFICATION & INITIAL REPORT',y);
+  doc.autoTable({
+    ...tableStyles,startY:y,
+    body:[
+      [{content:'INCIDENT / TICKET',styles:{fontStyle:'bold',textColor:[48,69,87]}},{content:ticket,styles:{fontStyle:'bold'}},{content:'CURRENT STATUS',styles:{fontStyle:'bold',textColor:[48,69,87]}},{content:readable(action.status)}],
+      [{content:'REPORTED BY',styles:{fontStyle:'bold',textColor:[48,69,87]}},{content:`${action.reportSubmittedBy||'Staff member'} (Staff)`},{content:'DATE / TIME REPORTED',styles:{fontStyle:'bold',textColor:[48,69,87]}},{content:reportDate(action.created_at)}],
+      [{content:'ITEM / EQUIPMENT',styles:{fontStyle:'bold',textColor:[48,69,87]}},{content:action.item||'—'},{content:'AREA',styles:{fontStyle:'bold',textColor:[48,69,87]}},{content:readable(action.area||'Other issue')}],
+      [{content:'TEMPERATURE',styles:{fontStyle:'bold',textColor:[48,69,87]}},{content:action.temperature===null||action.temperature===undefined?'Not recorded':`${Number(action.temperature).toFixed(1)} °C`},{content:'FOOD DISPOSITION',styles:{fontStyle:'bold',textColor:[48,69,87]}},{content:readable(action.food_disposition||'not_applicable')}]
+    ],
+    columnStyles:{0:{cellWidth:112,fillColor:[246,249,251]},1:{cellWidth:contentWidth*.34},2:{cellWidth:122,fillColor:[246,249,251]},3:{cellWidth:'auto'}}
+  });
+  y=paintSectionHeading('2. CORRECTIVE ACTION & INSPECTION REVIEW',doc.lastAutoTable.finalY+15);
+  const linked=action.reportLinkedCleaning,completion=linked?.completion,task=linked?.cleaning_tasks||{};
+  const learning=action.reportLearningCase;
+  const evidenceCount=(action.reportEvidence||[]).length;
+  const correctiveRows=[
+    ['Problem / incident description',action.problem||'No problem description was entered.'],
+    ['Immediate action taken',action.immediate_action||'No immediate action was recorded.'],
+    ['Corrective steps performed',action.corrective_steps||'Corrective work has not yet been submitted.'],
+    ['Food disposition & outcome',`${readable(action.food_disposition||'not_applicable')} · Incident status: ${readable(action.status)}`],
+    ['Evidence attached',evidenceCount?`${evidenceCount} evidence file(s) attached to this incident. View securely in FoodSafe Pro.`:'No photo evidence was attached.']
+  ];
+  if(linked)correctiveRows.push(['Linked cleaning submission',
+    `${task.title||'Cleaning task'} · ${readable(linked.status)}${completion?`\nSubmitted: ${reportDate(completion.completed_at)} · Sanitizer: ${completion.sanitizer_concentration??'Not recorded'} ppm${completion.notes?`\nCompletion notes: ${completion.notes}`:''}`:'\nNo cleaning completion is recorded.'}`
+  ]);
+  doc.autoTable({
+    ...tableStyles,startY:y,body:correctiveRows,
+    columnStyles:{0:{cellWidth:156,fontStyle:'bold',fillColor:[246,249,251]},1:{cellWidth:'auto'}}
+  });
+  const history=action.reportHistory||[];
+  y=paintSectionHeading('3. REVIEW, FOLLOW-UP & ACTIVITY AUDIT TRAIL',doc.lastAutoTable.finalY+15);
+  const auditRows=history.length?history.map(entry=>{
+    const isStaff=['created','in_progress','started','submitted','staff_follow_up_reply','reopened'].includes(entry.event_type)
+      ||String(entry.actor_id)===String(action.reported_by);
+    const actor=entry.actorName||workflowActorName(entry.actor_id,new Map());
+    const role=isStaff?'Staff':'Administrator';
+    const actorLabel=`${actor}${actor==='Administrator'||actor==='Staff member'?'':` (${role})`}`;
+    return [reportDate(entry.created_at),actorLabel,auditStage(entry),entry.details||'—'];
+  }):[['—','System','No activity recorded','No review or activity history is available for this incident.']];
+  doc.autoTable({
+    ...tableStyles,startY:y,
+    head:[['TIMESTAMP','USER / ROLE','EVENT STAGE','LOG DETAILS & REVIEW REMARKS']],
+    body:auditRows,
+    headStyles:{fillColor:[20,59,44],textColor:[255,255,255],fontStyle:'bold',fontSize:7.5,cellPadding:4},
+    alternateRowStyles:{fillColor:[246,249,251]},
+    columnStyles:{0:{cellWidth:132},1:{cellWidth:130,fontStyle:'bold'},2:{cellWidth:116,fontStyle:'bold'},3:{cellWidth:'auto'}},
+    didParseCell(data){
+      if(data.section!=='body'||data.column.index!==2)return;
+      const event=history[data.row.index]?.event_type;
+      if(event==='follow_up'||event==='verification_required'){
+        data.cell.styles.fillColor=[222,234,255];data.cell.styles.textColor=[35,83,151];
+      }else if(event==='staff_follow_up_reply'){
+        data.cell.styles.fillColor=[219,248,229];data.cell.styles.textColor=[29,112,64];
+      }else{
+        data.cell.styles.fillColor=[219,248,229];data.cell.styles.textColor=[29,112,64];
+      }
+    }
+  });
+  y=paintSectionHeading('4. COMPLIANCE & SYSTEM CROSS-REFERENCES',doc.lastAutoTable.finalY+15);
+  const cleaningReference=linked
+    ?`${task.title||'Cleaning task'} · CR-${linked.id} · ${readable(linked.status)}${completion?` · Submitted ${reportDate(completion.completed_at)}`:''}`
+    :'None — This incident was not linked to a cleaning or sanitation checklist submission.';
+  const learningReference=learning
+    ?`${learning.published_for_staff||learning.published_on_homepage?'Published':'Pending / Not Published'} — ${learning.title||'Incident learning case'}${learning.published_for_staff?' · Visible to staff':''}${learning.published_on_homepage?' · Published on homepage':''}`
+    :'Pending / Not Published — No team knowledge learning case has been published for this incident yet.';
+  doc.autoTable({
+    ...tableStyles,startY:y,body:[
+      [{content:'Linked Cleaning Submission:',styles:{fontStyle:'bold',textColor:[48,69,87]}},cleaningReference],
+      [{content:'Published Learning Case:',styles:{fontStyle:'bold',textColor:[48,69,87]}},learningReference]
+    ],
+    styles:{
+      font:'helvetica',fontSize:7.5,cellPadding:6,overflow:'linebreak',
+      textColor:[34,51,43],lineColor:[210,220,230],lineWidth:.7,
+      fillColor:[248,250,252]
+    },
+    columnStyles:{0:{cellWidth:166,fontStyle:'bold'},1:{cellWidth:'auto'}}
+  });
+  y=doc.lastAutoTable.finalY+32;
+  if(y>pageHeight-38){
+    doc.addPage();paintPageHeader();y=126;
+  }
+  const signatureY=Math.max(y, pageHeight-66);
+  const halfWidth=(contentWidth-28)/2;
+  const adminName=action.reportConcludedBy||'';
+  const staffDate=action.created_at?new Date(action.created_at).toLocaleDateString():'________________';
+  const adminDate=action.reportConcludedAt?new Date(action.reportConcludedAt).toLocaleDateString():'________________';
+  doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(91,113,139);
+  doc.text('Staff Signature:',margin,signatureY);
+  doc.setFont('helvetica','normal');doc.text(action.reportSubmittedBy||'Staff member',margin+61,signatureY);
+  doc.setFont('helvetica','bold');doc.text('Date:',margin+177,signatureY);
+  doc.setFont('helvetica','normal');doc.text(staffDate,margin+201,signatureY);
+  doc.setDrawColor(151,170,190);doc.line(margin,signatureY+7,margin+halfWidth,signatureY+7);
+  const rightX=margin+halfWidth+28;
+  doc.setFont('helvetica','bold');doc.text('Administrator Verification Sign-Off',rightX,signatureY);
+  doc.setFont('helvetica','normal');
+  doc.text(adminName||'____________________________',rightX+155,signatureY);
+  doc.setFont('helvetica','bold');doc.text('Date:',rightX+305,signatureY);
+  doc.setFont('helvetica','normal');  doc.text(adminDate,rightX+329,signatureY);
+  doc.line(rightX,signatureY+7,rightX+halfWidth,signatureY+7);
+  const pages=doc.getNumberOfPages();
+  for(let page=1;page<=pages;page++){
+    doc.setPage(page);
+    doc.setDrawColor(210,220,230);doc.line(margin,pageHeight-29,pageWidth-margin,pageHeight-29);
+    doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(91,113,139);
+    doc.text('FoodSafe Pro · Safety Control Center — Confidential Compliance Record',margin,pageHeight-12);
+    doc.text(`Page ${page} of ${pages}`,pageWidth-margin,pageHeight-12,{align:'right'});
+  }
+  doc.setTextColor(35,51,40);
+  doc.save(`FoodSafe Pro - Incident ${String(action.incident_number||action.id).replace(/[^a-zA-Z0-9-]/g,'-')}.pdf`);
+}
+
+function exportIncidentLearningPdf(actionId){
+  if(!requireStaffAccess('downloads',{actionLabel:'the downloads center'}))return;
+  const record=incidentLearningCases.find(item=>Number(item.action_id)===Number(actionId));
+  if(!record||(!record.published_for_staff&&currentRole!=='admin')){
+    showAppMessage('This incident learning case is not available to your account.');
+    return;
+  }
+  if(!window.jspdf?.jsPDF){showAppMessage('PDF library did not load. Check your internet connection.');return;}
+  const {jsPDF}=window.jspdf,doc=new jsPDF('l','pt','a4');
+  writeFoodSafePdfHeader(doc,'FoodSafe Pro - Incident Learning Case');
+  doc.autoTable({
+    head:[['Incident','Item','Area','Case study']],
+    body:[[record.incident_number,record.item,record.area||'Other issue',record.title]],
+    startY:96,styles:{fontSize:8,cellWidth:'wrap'},
+    headStyles:{fillColor:[20,59,44]},margin:{left:32,right:32}
+  });
+  appendFoodSafePdfDetails(doc,[{
+    label:`${record.incident_number} · ${record.item}`,
+    sections:[
+      {label:'Case study title',content:record.title},
+      {label:'Contributors',content:`Submitted by: ${record.submitted_by_name||'Staff member'}\nConcluded by: ${record.concluded_by_name||'Administrator'}${record.concluded_at?`\nVerified: ${new Date(record.concluded_at).toLocaleString()}`:''}`},
+      {label:'What happened',content:record.problem_summary},
+      {label:'Cause or contributing factors',content:record.root_cause},
+      {label:'Corrective steps performed',content:record.corrective_steps},
+      {label:'Outcome and prevention',content:record.outcome}
+    ]
+  }]);
+  addFoodSafePdfFooters(doc);
+  doc.save(`FoodSafe Pro - Incident Case ${String(record.incident_number).replace(/[^a-zA-Z0-9-]/g,'-')}.pdf`);
 }
 
 async function loadCleaningStaffOptions(){
@@ -3506,6 +4880,7 @@ async function createCleaningAssignment(event){
 }
 
 async function startCleaningTask(id){
+  if(!requireStaffAccess('cleaning',{changes:true,actionLabel:'cleaning tasks'}))return;
   try{
     const {error}=await foodSafeProClient.rpc('foodsafe_start_cleaning_assignment',{p_assignment_id:id});
     if(error)throw error;
@@ -3514,6 +4889,7 @@ async function startCleaningTask(id){
 }
 
 async function reopenCleaningSubmission(id){
+  if(!requireStaffAccess('cleaning',{changes:true,actionLabel:'cleaning tasks'}))return;
   try{
     const {error}=await foodSafeProClient.rpc('foodsafe_reopen_cleaning_assignment',{p_assignment_id:id});
     if(error)throw error;
@@ -3523,6 +4899,7 @@ async function reopenCleaningSubmission(id){
 
 async function submitCleaningCompletion(event,id,requiresSanitizer,requiresPhoto){
   event.preventDefault();
+  if(!requireStaffAccess('cleaning',{changes:true,actionLabel:'cleaning tasks'}))return;
   const form=event.currentTarget,fields=new FormData(form),checked=fields.getAll('checklist').map(Number);
   if(!checked.length||checked.length!==form.querySelectorAll('input[name="checklist"]').length){
     showAppMessage('Complete every required checklist item.');
@@ -3665,6 +5042,70 @@ async function loadPublishedWebsiteFeedback(){
   }catch(error){
     console.error('Could not load published website feedback:',error);
   }
+}
+
+async function loadPublishedIncidentStories(){
+  const section=$('publishedIncidentStoriesSection');
+  const list=$('publishedIncidentStoriesList');
+  if(!section||!list||!configured||!foodSafeProPublicClient)return;
+  const {data:stories,error}=await foodSafeProPublicClient.from('incident_learning_cases')
+    .select('incident_number,item,area,title,problem_summary,root_cause,corrective_steps,outcome,submitted_by_name,concluded_by_name,concluded_at,updated_at')
+    .eq('published_on_homepage',true).order('updated_at',{ascending:false}).limit(6);
+  if(error){
+    console.error('Could not load published incident learning stories:',error);
+    return;
+  }
+  list.replaceChildren();
+  (stories||[]).forEach(story=>{
+    const card=document.createElement('article');
+    card.className='published-incident-card';
+    const number=document.createElement('span');
+    number.className='published-incident-number';
+    number.textContent=`${story.incident_number} · ${story.area||'Food safety incident'}`;
+    const title=document.createElement('h3');
+    title.textContent=story.title;
+    card.append(number,title);
+    const credits=document.createElement('div');
+    credits.className='incident-learning-credits';
+    [
+      [story.submitted_by_name||'Staff member','Submitted the incident'],
+      [story.concluded_by_name||'Administrator','Verified and concluded']
+    ].forEach(([name,role])=>{
+      const person=document.createElement('div');
+      person.className='incident-learning-person';
+      const avatar=document.createElement('span');
+      avatar.className='incident-learning-avatar';
+      avatar.style.setProperty('--avatar-hue',String(incidentAvatarHue(name)));
+      avatar.setAttribute('aria-hidden','true');
+      const icon=document.createElement('i');
+      icon.className='fas fa-user';
+      avatar.append(icon);
+      const copy=document.createElement('span');
+      const authorName=document.createElement('strong');
+      authorName.textContent=name;
+      const authorRole=document.createElement('small');
+      authorRole.textContent=role;
+      copy.append(authorName,authorRole);
+      person.append(avatar,copy);
+      credits.append(person);
+    });
+    card.append(credits);
+    [
+      ['What happened',story.problem_summary],
+      ['Contributing factors',story.root_cause],
+      ['How it was corrected',story.corrective_steps],
+      ['Outcome and prevention',story.outcome]
+    ].forEach(([label,value])=>{
+      if(!value)return;
+      const paragraph=document.createElement('p');
+      const strong=document.createElement('strong');
+      strong.textContent=`${label}: `;
+      paragraph.append(strong,document.createTextNode(value));
+      card.append(paragraph);
+    });
+    list.append(card);
+  });
+  section.hidden=!stories?.length;
 }
 
 async function submitWebsiteFeedback(event){
@@ -4547,6 +5988,7 @@ async function login() {
     $('login-card').classList.add('hidden');
     $('app').classList.remove('hidden');
 
+    await loadMyStaffAccessControls();
     updateDashboardRoleUI();
 
     await render();
@@ -4573,6 +6015,7 @@ async function sendPasswordReset(){
 
 async function updatePassword(){
   if(!configCheck())return;
+  if(!requireStaffAccess('change_password',{changes:true,actionLabel:'password changes'}))return;
   const password=$('new-password').value, confirm=$('confirm-new-password').value;
   if(password.length<8){showMessage('New password must be at least 8 characters.','error');return;}
   if(password!==confirm){showMessage('The new passwords do not match.','error');return;}
@@ -4585,6 +6028,7 @@ async function updatePassword(){
 
 function openChangePasswordModal() {
   if(isReadOnlyDemo())return;
+  if(!requireStaffAccess('change_password',{changes:true,actionLabel:'password changes'}))return;
   const html = `
     <h2 class="text-xl font-bold mb-4">Change Password</h2>
     <p class="text-xs text-gray-600 mb-4">Enter a new password for user: <strong>${escapeHtml(currentUser)}</strong> (${currentRole})</p>
@@ -4609,6 +6053,7 @@ function openChangePasswordModal() {
 
 async function submitChangePassword() {
   if(isReadOnlyDemo())return;
+  if(!requireStaffAccess('change_password',{changes:true,actionLabel:'password changes'}))return;
   const msgEl = $('modal-password-msg');
   const showModalError = (msg) => {
     if (msgEl) {
@@ -4639,7 +6084,7 @@ foodSafeProClient?.auth.onAuthStateChange((event,session)=>{
   }
 });
 
-async function logout(){if(workflowDeadlineTimer)clearInterval(workflowDeadlineTimer);workflowDeadlineTimer=null;workflowDeadlineChecksInitialized=false;if(foodSafeProClient)await foodSafeProClient.auth.signOut();currentUser=null;currentRole=null;currentProfile=null;currentAuthUser=null;currentDashboardView='account';data=[];showAuth();}
+async function logout(){if(workflowDeadlineTimer)clearInterval(workflowDeadlineTimer);workflowDeadlineTimer=null;workflowDeadlineChecksInitialized=false;if(staffAccessRefreshTimer)clearInterval(staffAccessRefreshTimer);staffAccessRefreshTimer=null;staffAccessBlocked=new Set();document.body.classList.remove('foodsafe-night-mode');if(foodSafeProClient)await foodSafeProClient.auth.signOut();currentUser=null;currentRole=null;currentProfile=null;currentAuthUser=null;currentDashboardView='account';data=[];showAuth();}
 function resetPassword(){showReset();}
 async function sendAccountPasswordReset(){
   if(isReadOnlyDemo())return;
@@ -4656,13 +6101,14 @@ async function sendAccountPasswordReset(){
 }
 function openDeleteAccountModal(){
   if(isReadOnlyDemo())return;
+  if(!requireStaffAccess('delete_account',{changes:true,actionLabel:'account deletion'}))return;
   if(!currentAuthUser?.id||!currentAuthUser?.email){
     showSystemMessage('Account Unavailable','We could not verify your signed-in account. Please log out and sign in again before deleting it.','error','Close');
     return;
   }
   openModalWithContent(`
     <h2 class="text-xl font-bold mb-3 text-red-800">Delete your account?</h2>
-    <p class="text-sm text-gray-600 mb-4 leading-relaxed">This permanently deletes your sign-in account, profile, and all temperature records you created. Other users’ records and public visitor feedback are not linked to your account and will remain. This action cannot be undone.</p>
+    <p class="text-sm text-gray-600 mb-4 leading-relaxed">This permanently deletes your sign-in account, profile, chat conversations, and temperature records. Workflow history is retained with your personal attribution removed. Other users’ records and public visitor feedback will remain. This action cannot be undone.</p>
     <label class="block text-xs font-semibold text-gray-700 mb-2" for="delete-account-password">Enter your current password to confirm</label>
     <input id="delete-account-password" class="w-full border border-gray-300 rounded-lg p-3 mb-3" type="password" autocomplete="current-password" required>
     <p id="delete-account-status" class="account-delete-status hidden" role="status" aria-live="polite"></p>
@@ -4673,6 +6119,7 @@ function openDeleteAccountModal(){
   `);
 }
 async function confirmDeleteAccount(){
+  if(!requireStaffAccess('delete_account',{changes:true,actionLabel:'account deletion'}))return;
   const password=$('delete-account-password')?.value||'';
   const button=$('delete-account-confirm');
   const status=$('delete-account-status');
@@ -4727,7 +6174,10 @@ async function confirmDeleteAccount(){
     $('app').classList.add('hidden');
     hideAuthForms();
     showLanding();
-    showSystemMessage('Account Deleted','Your account and its temperature records have been permanently deleted. You are returning to the homepage.','green','Return to homepage');
+    const completionMessage=deletion.data?.warning
+      ?`${deletion.data.message||'Your sign-in account was permanently deleted.'} ${deletion.data.warning}`
+      :'Your account and its temperature records have been permanently deleted. You are returning to the homepage.';
+    showSystemMessage('Account Deleted',completionMessage,'green','Return to homepage');
     window.setTimeout(()=>window.location.assign(window.location.origin+window.location.pathname),3000);
   }catch(error){
     console.error('Could not delete the signed-in account:',error);
@@ -4741,6 +6191,7 @@ function closeModal(){$('modal').classList.remove('show');$('modal').classList.a
 
 async function openChangeEmailModal() {
   if(isReadOnlyDemo())return;
+  if(!requireStaffAccess('change_email',{changes:true,actionLabel:'email changes'}))return;
   if (!foodSafeProClient || !currentRole) return;
   let user;
   try {
@@ -4773,6 +6224,7 @@ async function openChangeEmailModal() {
 }
 
 async function submitChangeEmail() {
+  if(!requireStaffAccess('change_email',{changes:true,actionLabel:'email changes'}))return;
   const emailInput = $('modal-new-email');
   const msgEl = $('modal-email-msg');
   const showEmailMessage = (message, isError = false) => {
@@ -5078,6 +6530,8 @@ function drawCharts(){
   });
 }
 function openAddRecordModal(){
+  if(!requireStaffAccess('temperature_records',{changes:true,actionLabel:'temperature readings'})
+    ||!requireStaffAccess('add_temperature',{changes:true,actionLabel:'temperature readings'}))return;
   if(!currentUser)return;
   let html=$('addReadingForm').innerHTML;
   html=html.replaceAll('reading-item','modal-reading-item')
@@ -5088,6 +6542,8 @@ function openAddRecordModal(){
 
 async function addReading(){
   if(isReadOnlyDemo())return;
+  if(!requireStaffAccess('temperature_records',{changes:true,actionLabel:'temperature readings'})
+    ||!requireStaffAccess('add_temperature',{changes:true,actionLabel:'temperature readings'}))return;
   const item=$('modal-reading-item').value.trim();
   const area=$('modal-reading-area').value;
   const temp=Number.parseFloat($('modal-reading-temp').value);
@@ -5099,6 +6555,7 @@ async function addReading(){
 }
 
 async function deleteRecord(id){
+  if(!requireStaffAccess('temperature_records',{changes:true,actionLabel:'temperature records'}))return;
   if(isReadOnlyDemo()||!currentProfile||!['admin','staff'].includes(currentRole))return;
   const record=data.find(entry=>String(entry.id)===String(id));
   if(!record||(currentRole==='staff'&&record.user_id!==currentProfile.id)){
@@ -5120,10 +6577,118 @@ async function deleteRecord(id){
   if(!deletedRows?.length){showAppMessage('No record was deleted. Check your account permissions or refresh the records.');return;}
   await render();
 }
-function exportPDF(){if(!window.jspdf||!window.jspdf.jsPDF){showAppMessage('PDF library did not load. Check your internet connection.');return;}if(!filteredData.length){showAppMessage('There are no temperature readings to export for these filters.');return;}const {jsPDF}=window.jspdf;const doc=new jsPDF('p','pt','a4');doc.setFontSize(18);doc.text('FoodSafe Pro - Temperature Records',40,40);doc.setFontSize(11);doc.text(`Generated by: ${currentUser}`,40,60);doc.text(`Date: ${new Date().toLocaleString()}`,40,76);const columns=['Item','Area','Temp (°C / °F)','Status','Time','Technician'];const rows=filteredData.map(d=>{const s=getStatus(d),f=Number(d.temp)*9/5+32;return [d.item,d.area,`${Number(d.temp).toFixed(1)} / ${f.toFixed(1)}`,s.text,d.time,d.tech];});doc.autoTable({head:[columns],body:rows,startY:92,styles:{fontSize:9},headStyles:{fillColor:[33,37,41]},margin:{left:40,right:40}});doc.save(`FoodSafePro_Report_${new Date().toISOString().slice(0,10)}.pdf`);}
+async function exportPDF(){
+  if(!requireStaffAccess('downloads',{actionLabel:'the downloads center'}))return;
+  if(!window.jspdf?.jsPDF){showAppMessage('PDF library did not load. Check your internet connection.');return;}
+  if(!data.length){showAppMessage('There are no temperature readings to export.');return;}
+  const {data:administrators,error:administratorError}=await foodSafeProClient
+    .from('profiles')
+    .select('id,username')
+    .eq('role','admin')
+    .eq('approved',true)
+    .order('username',{ascending:true});
+  if(administratorError){showAppMessage('Could not load the administrator name for the temperature report: '+administratorError.message);return;}
+  const administrator=(administrators||[]).find(profile=>profile.id===currentProfile?.id)
+    ||administrators?.[0];
+  const {jsPDF}=window.jspdf,doc=new jsPDF('l','pt','a4');
+  const pageWidth=doc.internal.pageSize.getWidth(),pageHeight=doc.internal.pageSize.getHeight();
+  const left=34,right=34,contentWidth=pageWidth-left-right;
+  writeFoodSafePdfHeader(doc,'FoodSafe Pro | Temperature Compliance Report');
+  const needingAttention=data.filter(record=>getStatus(record).cls==='status-danger').length;
+  const summaryY=drawFoodSafePdfSummary(doc,[
+    {label:'TOTAL READINGS',value:data.length},
+    {label:'WITHIN GUIDANCE',value:data.length-needingAttention},
+    {label:'NEEDS ATTENTION',value:needingAttention},
+    {label:'REPORT DATE',value:new Date().toLocaleDateString()}
+  ]);
+  const statement=needingAttention
+    ?`${needingAttention} of ${data.length} readings need review. Cold-held food should be maintained at 4 °C or colder and hot-held food at 60 °C or hotter. Follow the site food-safety plan and applicable provincial or territorial requirements.`
+    :`All ${data.length} recorded readings are within the configured holding guidance. Cold-held food should be maintained at 4 °C or colder and hot-held food at 60 °C or hotter. Follow the site food-safety plan and applicable provincial or territorial requirements.`;
+  const noticeY=summaryY;
+  doc.setFillColor(250,247,233);doc.setDrawColor(231,216,169);
+  doc.roundedRect(left,noticeY,contentWidth,52,6,6,'FD');
+  doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(112,84,31);
+  doc.text('THERMAL CONTROL & COMPLIANCE STATEMENT',left+11,noticeY+14);
+  doc.setFont('helvetica','normal');doc.setFontSize(8);
+  doc.text(doc.splitTextToSize(statement,contentWidth-24),left+11,noticeY+29);
+  doc.setTextColor(35,51,40);
+  const calibrationY=noticeY+62;
+  doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(65,79,68);
+  const calibrationParagraphs=[
+    'Use a clean, suitable food thermometer and verify its accuracy according to the manufacturer and site procedure. Record the item, location, time, and responsible person; investigate and document corrective action for readings outside limits.',
+    'Health Canada cooking examples: poultry 74 °C, ground meat 71 °C, whole cuts of beef 63 °C, and whole poultry 82 °C. Follow the complete current chart and local requirements.',
+    'Health Canada reference: canada.ca/en/health-canada/services/general-food-safety-tips/safe-internal-cooking-temperatures.html'
+  ].map(text=>doc.splitTextToSize(text,contentWidth-20));
+  const calibrationLineHeight=9.5;
+  const calibrationHeight=calibrationParagraphs.reduce(
+    (height,lines)=>height+lines.length*calibrationLineHeight+3,
+    27
+  )+5;
+  doc.setFillColor(243,247,244);doc.setDrawColor(220,232,220);
+  doc.roundedRect(left,calibrationY,contentWidth,calibrationHeight,5,5,'FD');
+  doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(31,72,49);
+  doc.text('THERMOMETER CALIBRATION & RECORDING NOTICE',left+10,calibrationY+14);
+  doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(65,79,68);
+  let calibrationTextY=calibrationY+27;
+  calibrationParagraphs.forEach(lines=>{
+    doc.text(lines,left+10,calibrationTextY,{lineHeightFactor:1.2});
+    calibrationTextY+=lines.length*calibrationLineHeight+3;
+  });
+  doc.setTextColor(35,51,40);
+  const tableY=drawFoodSafePdfSectionHeading(doc,'Temperature readings — complete record set',left,calibrationY+calibrationHeight+12,contentWidth);
+  const columns=['Food / equipment','Area','Temperature °C (°F)','Assessment','Recorded','Technician'];
+  const rows=data.map(record=>{
+    const status=getStatus(record),fahrenheit=Number(record.temp)*9/5+32;
+    return [record.item||'—',record.area||'—',`${Number(record.temp).toFixed(1)} °C (${fahrenheit.toFixed(1)} °F)`,
+      status.text,record.time||'—',record.tech||'Not recorded'];
+  });
+  doc.autoTable({
+    head:[columns],body:rows,startY:tableY+3,
+    styles:{fontSize:7,cellPadding:4,overflow:'linebreak',textColor:[35,51,40]},
+    headStyles:{fillColor:[20,59,44],textColor:[255,255,255],fontStyle:'bold'},
+    alternateRowStyles:{fillColor:[244,248,244]},
+    columnStyles:{0:{cellWidth:145},1:{cellWidth:100},2:{cellWidth:100},3:{cellWidth:95},4:{cellWidth:110},5:{cellWidth:'auto'}},
+    margin:{left,right,top:58,bottom:42},
+    didDrawPage:()=>writeFoodSafePdfHeader(doc,'FoodSafe Pro | Temperature Compliance Report')
+  });
+  let attestationY=doc.lastAutoTable.finalY+24;
+  if(attestationY+110>pageHeight-42){
+    doc.addPage();
+    writeFoodSafePdfHeader(doc,'FoodSafe Pro | Temperature Compliance Report');
+    attestationY=86;
+  }
+  attestationY=drawFoodSafePdfSectionHeading(doc,'Verification & quality assurance attestation',left,attestationY,contentWidth);
+  doc.setFont('helvetica','normal');doc.setFontSize(8);
+  const attestation='This report contains the temperature records available to the signed-in FoodSafe Pro account at export time. Electronic attribution identifies the report preparer and does not replace required onsite verification, thermometer calibration records, or documented corrective action.';
+  const attestationLines=doc.splitTextToSize(attestation,contentWidth-12);
+  doc.text(attestationLines,left+6,attestationY+6);
+  attestationY+=attestationLines.length*11+23;
+  const signedName=currentProfile?.username||currentUser||'Signed-in user';
+  const boxWidth=(contentWidth-16)/2;
+  [
+    {label:'TECHNICIAN SIGNATURE / REPORT PREPARED BY',name:signedName,detail:`Signed electronically · ${new Date().toLocaleString()}`},
+    {label:'ADMINISTRATOR PROFILE (DATABASE)',name:administrator?.username||'Administrator name unavailable'}
+  ].forEach((signature,index)=>{
+    const x=left+index*(boxWidth+16);
+    doc.setDrawColor(220,232,220);doc.setFillColor(249,251,248);
+    doc.roundedRect(x,attestationY,boxWidth,76,6,6,'FD');
+    doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(100,117,104);
+    doc.text(signature.label,x+10,attestationY+16);
+    doc.setFont('helvetica','bold');doc.setFontSize(12);doc.setTextColor(31,72,49);
+    doc.text(doc.splitTextToSize(signature.name,boxWidth-20),x+10,attestationY+37);
+    if(signature.detail){
+      doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(100,117,104);
+      doc.text(doc.splitTextToSize(signature.detail,boxWidth-20),x+10,attestationY+60);
+    }
+  });
+  doc.setTextColor(35,51,40);
+  addFoodSafePdfFooters(doc);
+  doc.save('FoodSafe Pro - Temperature Records Report.pdf');
+}
 
 async function init(){
   loadPublishedWebsiteFeedback();
+  loadPublishedIncidentStories();
   if(window.location.hash.includes('type=recovery') || window.location.search.includes('type=recovery'))return;
   if(!configured){console.warn('FoodSafe Pro needs Supabase URL and anon/publishable key configuration.');return;}
   const inMaintenance = await checkMaintenanceStatus();
