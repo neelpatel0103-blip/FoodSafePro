@@ -20,12 +20,12 @@ body { background-color: #f8fafc; font-family: "Arial", sans-serif; }
 .floating-label input:focus, .floating-label select:focus { border-color: #3b82f6; }
 .floating-label label { position: absolute; left: 12px; top: 12px; color: #9ca3af; transition: all 0.2s ease; pointer-events: none; background: #f8fafc; padding: 0 4px; font-size: 14px; }
 .floating-label input:focus + label, .floating-label select:focus + label, .floating-label input:not(:placeholder-shown) + label, .floating-label select:not([value=""]) + label { top: -8px; font-size: 12px; color: #3b82f6; }
-.availability-indicator { position: absolute; top: 12px; right: 12px; font-size: 17px; font-weight: 700; line-height: 1; }
+.availability-indicator { position: absolute; top: 10px; right: 10px; width: 23px; height: 23px; border-radius: 50%; display: grid; place-items: center; font-size: 14px; font-weight: 800; line-height: 1; }
 .availability-indicator[hidden] { display: none; }
-.availability-indicator.available { color: #15803d; }
-.availability-indicator.taken { color: #b91c1c; }
-.availability-indicator.checking { color: #64748b; }
-.availability-indicator.unavailable { color: #b45309; }
+.availability-indicator.available { color: #fff; background: #16a34a; box-shadow: 0 0 0 3px #dcfce7; }
+.availability-indicator.taken { color: #fff; background: #dc2626; }
+.availability-indicator.checking { color: #475569; background: #e2e8f0; }
+.availability-indicator.unavailable { color: #fff; background: #d97706; }
 .eye-btn { position: absolute; right: 12px; top: 12px; cursor: pointer; font-size: 14px; color: #9ca3af; }
 .login-btn { background-color: #3b82f6; }
 .login-btn:hover { background-color: #2563eb; }
@@ -725,6 +725,21 @@ body.foodsafe-night-mode .dashboard-main .dashboard-topbar h2,body.foodsafe-nigh
 .account-panel-actions .account-reset-button { color: #617468; }
 .account-panel-actions .account-delete-button { color: #a53d3d; border-color: #f0d7d5; }
 .account-panel-actions .account-delete-button:hover { color: #8d2929; border-color: #e8b8b5; background: #fff7f6; }
+.account-actions-wrap { position: relative; margin-top: 13px; }
+.account-actions-wrap .account-panel-actions { margin-top: 0; }
+.account-actions-toggle { display: none; }
+@media (max-width: 1024px) {
+  .account-actions-toggle { min-height: 40px; padding: 0 13px; border: 1px solid #dfe7dd; border-radius: 10px; display: inline-flex; align-items: center; gap: 9px; color: #315440; background: #fff; font-size: 11px; font-weight: 750; cursor: pointer; }
+  .account-actions-toggle:hover, .account-actions-toggle[aria-expanded="true"] { border-color: #b7cbb8; background: #f4f8f2; }
+  .account-actions-chevron { margin-left: 4px; font-size: 9px; transition: transform .15s ease; }
+  .account-actions-toggle[aria-expanded="true"] .account-actions-chevron { transform: rotate(180deg); }
+  .account-actions-wrap .account-panel-actions { position: absolute; z-index: 25; top: calc(100% + 8px); right: 0; width: min(320px,calc(100vw - 56px)); padding: 8px; border: 1px solid #dfe7dd; border-radius: 13px; display: none; flex-direction: column; gap: 5px; background: #fff; box-shadow: 0 16px 38px rgba(27,48,33,.16); }
+  .account-actions-wrap.is-open .account-panel-actions { display: flex; }
+  .account-actions-wrap .account-panel-actions button { width: 100%; min-height: 42px; justify-content: flex-start; padding: 0 11px; text-align: left; }
+  body.foodsafe-night-mode .account-actions-toggle, body.foodsafe-night-mode .account-actions-wrap .account-panel-actions { border-color: #34453a; color: #e2ebe4; background: #19231d; }
+  body.foodsafe-night-mode .account-actions-toggle:hover, body.foodsafe-night-mode .account-actions-toggle[aria-expanded="true"] { background: #24352a; }
+  body.foodsafe-night-mode .account-actions-wrap .account-panel-actions button { border-color: #34453a; color: #e2ebe4; background: #19231d; }
+}
 .account-delete-status { margin: 0 0 12px; color: #68776d; font-size: 12px; line-height: 1.6; }
 .account-delete-status.error { color: #a53d3d; }
 .dashboard-overview-kicker { color: #548064; font-size: 9px; font-weight: 800; letter-spacing: 1.5px; }
@@ -1975,13 +1990,18 @@ body.foodsafe-night-mode .dashboard-chat-count { border-color: #12251d; }
       <div class="account-detail"><span class="account-detail-label"><i class="fas fa-calendar-plus"></i> Account created</span><strong class="account-detail-value" id="account-created">Loading account…</strong></div>
       <div class="account-detail"><span class="account-detail-label"><i class="fas fa-lock"></i> Password</span><strong class="account-detail-value account-password-note">For your security, passwords cannot be viewed.</strong></div>
     </div>
-    <div class="account-panel-actions">
-      <button type="button" onclick="openChangeEmailModal()"><i class="fas fa-envelope"></i> Change email</button>
-      <button type="button" onclick="openChangePasswordModal()"><i class="fas fa-key"></i> Change password</button>
-      <button type="button" onclick="openChangeUsernameModal()"><i class="fas fa-user-pen"></i> Change username</button>
-      <button type="button" onclick="openTotpSettingsModal()"><i class="fas fa-mobile-screen-button"></i> Authenticator app</button>
-      <button type="button" class="account-reset-button" onclick="sendAccountPasswordReset()"><i class="fas fa-paper-plane"></i> Send password reset link</button>
-      <button type="button" class="account-delete-button" onclick="openDeleteAccountModal()"><i class="fas fa-user-xmark"></i> Delete account</button>
+    <div class="account-actions-wrap" id="accountActionsWrap">
+      <button id="accountActionsToggle" class="account-actions-toggle" type="button" aria-expanded="false" aria-controls="accountActionMenu" onclick="toggleAccountActions()" aria-label="Open account actions">
+        <i class="fas fa-user-gear" aria-hidden="true"></i><span>Account actions</span><i class="fas fa-chevron-down account-actions-chevron" aria-hidden="true"></i>
+      </button>
+      <div class="account-panel-actions" id="accountActionMenu">
+        <button type="button" onclick="openChangeEmailModal()"><i class="fas fa-envelope"></i> Change email</button>
+        <button type="button" onclick="openChangePasswordModal()"><i class="fas fa-key"></i> Change password</button>
+        <button type="button" onclick="openChangeUsernameModal()"><i class="fas fa-user-pen"></i> Change username</button>
+        <button type="button" onclick="openTotpSettingsModal()"><i class="fas fa-mobile-screen-button"></i> Authenticator app</button>
+        <button type="button" class="account-reset-button" onclick="sendAccountPasswordReset()"><i class="fas fa-paper-plane"></i> Send password reset link</button>
+        <button type="button" class="account-delete-button" onclick="openDeleteAccountModal()"><i class="fas fa-user-xmark"></i> Delete account</button>
+      </div>
     </div>
   </section>
   </section>
@@ -2356,6 +2376,7 @@ const foodSafeProClient = configured ? window.supabase.createClient(SUPABASE_URL
 const foodSafeProPublicClient = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {auth:{autoRefreshToken:false,persistSession:false,detectSessionInUrl:false}}) : null;
 
 let currentUser = null, currentRole = null, currentProfile = null, currentAuthUser = null, currentDashboardView = 'account', data = [], filteredData = [], charts = {}, cleaningAssignmentReport = [], correctiveActionReport = [], incidentLearningCases = [], adminStaffPairChats = [], staffAccessBlocked = new Set(), staffAccessStaff = [], selectedAccessStaffId = '', staffAccessRefreshTimer = null, nightModeActive = false, workflowDeadlineTimer = null, workflowDeadlineChecksInitialized = false, workflowNotificationError = '', workflowNotificationEventsBound = false, staffAdminChatThreadId = null, staffAdminChatContacts = [], staffAdminChatPollTimer = null, staffAdminChatEventsBound = false, workflowConfirmationResolver = null, workflowConfirmationPreviousFocus = null, workflowInputResolver = null, workflowInputPreviousFocus = null, systemMessagePreviousFocus = null, pendingTotpFactorId = '';
+let changeUsernameAvailabilityTimer=null,changeUsernameAvailabilityRequest=0;
 const $ = id => document.getElementById(id);
 const STAFF_ACCESS_FEATURES=[
   {key:'change_username',label:'Change username',detail:'Prevent this staff member from changing their account username.'},
@@ -2618,6 +2639,15 @@ function toggleDashboardMenu(forceOpen){
   toggle.querySelector('i')?.classList.replace(isOpen?'fa-bars':'fa-xmark',isOpen?'fa-xmark':'fa-bars');
 }
 
+function toggleAccountActions(forceOpen){
+  const wrap=$('accountActionsWrap'),toggle=$('accountActionsToggle');
+  if(!wrap||!toggle)return;
+  const isOpen=typeof forceOpen==='boolean'?forceOpen:!wrap.classList.contains('is-open');
+  wrap.classList.toggle('is-open',isOpen);
+  toggle.setAttribute('aria-expanded',String(isOpen));
+  toggle.setAttribute('aria-label',isOpen?'Close account actions':'Open account actions');
+}
+
 function toggleLandingMenu(forceOpen){
   const menu=$('landingMenu');
   const toggle=$('landingMenuToggle');
@@ -2639,11 +2669,18 @@ document.addEventListener('click',event=>{
 document.querySelector('.dashboard-sidebar-menu')?.addEventListener('click',event=>{
   if(event.target instanceof Element&&event.target.closest('a,button'))toggleDashboardMenu(false);
 });
+document.querySelector('#accountActionMenu')?.addEventListener('click',event=>{
+  if(event.target instanceof Element&&event.target.closest('button'))toggleAccountActions(false);
+});
 document.addEventListener('keydown',event=>{
   if(event.key==='Escape'){
     toggleDashboardMenu(false);
     toggleLandingMenu(false);
+    toggleAccountActions(false);
   }
+});
+document.addEventListener('click',event=>{
+  if(event.target instanceof Element&&!event.target.closest('#accountActionsWrap'))toggleAccountActions(false);
 });
 
 function showDashboardView(view){
@@ -6208,8 +6245,9 @@ function openChangeUsernameModal(){
     <p class="text-sm text-gray-600 mb-4">Choose a username used to sign in and identify your FoodSafe Pro account.</p>
     <div id="modal-username-msg" class="hidden text-sm p-2.5 rounded-lg mb-3" role="status" aria-live="polite"></div>
     <div class="relative floating-label">
-      <input type="text" id="modal-new-username" placeholder=" " autocomplete="username" maxlength="24" value="${escapeHtml(currentUser||'')}">
+      <input class="availability-input" type="text" id="modal-new-username" placeholder=" " autocomplete="username" maxlength="24" aria-describedby="modal-new-username-availability" oninput="scheduleChangeUsernameAvailability()">
       <label for="modal-new-username">New username (3–24 characters)</label>
+      <span id="modal-new-username-availability" class="availability-indicator" role="status" aria-live="polite" aria-atomic="true" hidden></span>
     </div>
     <p class="text-xs text-gray-500 mt-2">Use letters, numbers, dots, underscores, or hyphens.</p>
     <div class="mt-4 flex justify-end gap-2">
@@ -6217,6 +6255,56 @@ function openChangeUsernameModal(){
       <button id="submit-username-change" onclick="submitChangeUsername()" class="px-3 py-2 bg-green-700 hover:bg-green-800 text-white rounded-lg">Save username</button>
     </div>
   `);
+  if(changeUsernameAvailabilityTimer)clearTimeout(changeUsernameAvailabilityTimer);
+  changeUsernameAvailabilityRequest+=1;
+  const input=$('modal-new-username');
+  if(input)input.value=currentUser||'';
+}
+function setChangeUsernameAvailability(state,message=''){
+  const indicator=$('modal-new-username-availability'),input=$('modal-new-username');
+  if(!indicator||!input)return;
+  indicator.className=`availability-indicator${state?` ${state}`:''}`;
+  indicator.textContent=state==='available'?'✓':state==='taken'?'×':state==='checking'?'…':state==='unavailable'?'!':'';
+  indicator.hidden=!state;
+  indicator.setAttribute('aria-label',message);
+  indicator.title=message;
+  if(state==='taken')input.setAttribute('aria-invalid','true');
+  else if(state==='available')input.setAttribute('aria-invalid','false');
+  else input.removeAttribute('aria-invalid');
+}
+function scheduleChangeUsernameAvailability(){
+  if(changeUsernameAvailabilityTimer)clearTimeout(changeUsernameAvailabilityTimer);
+  changeUsernameAvailabilityRequest+=1;
+  const username=$('modal-new-username')?.value.trim().toLowerCase()||'';
+  if(username===String(currentUser||'').toLowerCase()){
+    setChangeUsernameAvailability('','This is your current username.');
+    return;
+  }
+  if(!/^[a-z0-9._-]{3,24}$/.test(username)){
+    setChangeUsernameAvailability('','Enter 3–24 valid username characters.');
+    return;
+  }
+  setChangeUsernameAvailability('checking','Checking username availability');
+  changeUsernameAvailabilityTimer=setTimeout(()=>checkChangeUsernameAvailability(username),450);
+}
+async function checkChangeUsernameAvailability(username=$('modal-new-username')?.value.trim().toLowerCase()||''){
+  if(!/^[a-z0-9._-]{3,24}$/.test(username)||username===String(currentUser||'').toLowerCase())return null;
+  const requestId=++changeUsernameAvailabilityRequest;
+  setChangeUsernameAvailability('checking','Checking username availability');
+  try{
+    const {data,error}=await foodSafeProClient.rpc('foodsafe_check_signup_availability',{p_username:username,p_email:null});
+    if(error)throw error;
+    const result=Array.isArray(data)?data[0]:data;
+    if(requestId!==changeUsernameAvailabilityRequest||$('modal-new-username')?.value.trim().toLowerCase()!==username)return null;
+    if(typeof result?.username_available!=='boolean')throw new Error('Username availability check returned an unexpected response.');
+    const available=result.username_available;
+    setChangeUsernameAvailability(available?'available':'taken',available?'Username is available':'Username is already in use');
+    return available;
+  }catch(error){
+    console.error('Could not check username availability:',error);
+    if(requestId===changeUsernameAvailabilityRequest)setChangeUsernameAvailability('unavailable','Could not check username availability');
+    return null;
+  }
 }
 async function submitChangeUsername(){
   if(isReadOnlyDemo())return;
@@ -6233,6 +6321,12 @@ async function submitChangeUsername(){
     return;
   }
   if(button)button.disabled=true;
+  const available=await checkChangeUsernameAvailability(username);
+  if(available!==true){
+    showUsernameModalMessage(available===false?'That username is already in use. Choose another username.':'Could not verify username availability. Please try again.',true);
+    if(button)button.disabled=false;
+    return;
+  }
   try{
     const {data:updatedUsername,error}=await foodSafeProClient.rpc('foodsafe_change_my_username',{p_username:username});
     if(error)throw error;
