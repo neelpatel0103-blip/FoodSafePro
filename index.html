@@ -1978,6 +1978,8 @@ body.foodsafe-night-mode .dashboard-chat-count { border-color: #12251d; }
     <div class="account-panel-actions">
       <button type="button" onclick="openChangeEmailModal()"><i class="fas fa-envelope"></i> Change email</button>
       <button type="button" onclick="openChangePasswordModal()"><i class="fas fa-key"></i> Change password</button>
+      <button type="button" onclick="openChangeUsernameModal()"><i class="fas fa-user-pen"></i> Change username</button>
+      <button type="button" onclick="openTotpSettingsModal()"><i class="fas fa-mobile-screen-button"></i> Authenticator app</button>
       <button type="button" class="account-reset-button" onclick="sendAccountPasswordReset()"><i class="fas fa-paper-plane"></i> Send password reset link</button>
       <button type="button" class="account-delete-button" onclick="openDeleteAccountModal()"><i class="fas fa-user-xmark"></i> Delete account</button>
     </div>
@@ -2353,9 +2355,10 @@ const configured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes
 const foodSafeProClient = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 const foodSafeProPublicClient = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {auth:{autoRefreshToken:false,persistSession:false,detectSessionInUrl:false}}) : null;
 
-let currentUser = null, currentRole = null, currentProfile = null, currentAuthUser = null, currentDashboardView = 'account', data = [], filteredData = [], charts = {}, cleaningAssignmentReport = [], correctiveActionReport = [], incidentLearningCases = [], adminStaffPairChats = [], staffAccessBlocked = new Set(), staffAccessStaff = [], selectedAccessStaffId = '', staffAccessRefreshTimer = null, nightModeActive = false, workflowDeadlineTimer = null, workflowDeadlineChecksInitialized = false, workflowNotificationError = '', workflowNotificationEventsBound = false, staffAdminChatThreadId = null, staffAdminChatContacts = [], staffAdminChatPollTimer = null, staffAdminChatEventsBound = false, workflowConfirmationResolver = null, workflowConfirmationPreviousFocus = null, workflowInputResolver = null, workflowInputPreviousFocus = null, systemMessagePreviousFocus = null;
+let currentUser = null, currentRole = null, currentProfile = null, currentAuthUser = null, currentDashboardView = 'account', data = [], filteredData = [], charts = {}, cleaningAssignmentReport = [], correctiveActionReport = [], incidentLearningCases = [], adminStaffPairChats = [], staffAccessBlocked = new Set(), staffAccessStaff = [], selectedAccessStaffId = '', staffAccessRefreshTimer = null, nightModeActive = false, workflowDeadlineTimer = null, workflowDeadlineChecksInitialized = false, workflowNotificationError = '', workflowNotificationEventsBound = false, staffAdminChatThreadId = null, staffAdminChatContacts = [], staffAdminChatPollTimer = null, staffAdminChatEventsBound = false, workflowConfirmationResolver = null, workflowConfirmationPreviousFocus = null, workflowInputResolver = null, workflowInputPreviousFocus = null, systemMessagePreviousFocus = null, pendingTotpFactorId = '';
 const $ = id => document.getElementById(id);
 const STAFF_ACCESS_FEATURES=[
+  {key:'change_username',label:'Change username',detail:'Prevent this staff member from changing their account username.'},
   {key:'change_email',label:'Change email address',detail:'Prevent this staff member from requesting an email-address change.'},
   {key:'change_password',label:'Change password',detail:'Prevent this staff member from updating or resetting their password from the app.'},
   {key:'account_settings',label:'Account settings',detail:'Block access to account details and account-management settings.'},
@@ -2407,7 +2410,7 @@ function showAccessBlockedMessage(feature,actionLabel='this feature'){
 }
 function requireStaffAccess(feature,{changes=false,actionLabel='this feature'}={}){
   if(currentRole!=='staff'||isReadOnlyDemo())return true;
-  const accountFeatureBlocked=['change_email','change_password','delete_account'].includes(feature)
+  const accountFeatureBlocked=['change_username','change_email','change_password','delete_account'].includes(feature)
     &&isStaffAccessBlocked('account_settings');
   const blocked=isStaffAccessBlocked(feature)||accountFeatureBlocked;
   const readOnly=changes&&isStaffAccessBlocked('data_changes');
@@ -5933,6 +5936,7 @@ async function login() {
       showMessage('Login did not return a valid user session.', 'error');
       return;
     }
+    if(!(await requireTotpForCurrentSession()))return;
 
     // FETCH USER PROFILE
     const {
@@ -6188,6 +6192,227 @@ async function confirmDeleteAccount(){
 }
 function openModalWithContent(html){const modal=$('modal');$('modalInner').innerHTML=html;modal.classList.remove('hidden');modal.classList.add('show');}
 function closeModal(){$('modal').classList.remove('show');$('modal').classList.add('hidden');}
+
+function showUsernameModalMessage(message,isError=false){
+  const element=$('modal-username-msg');
+  if(!element)return;
+  element.textContent=message;
+  element.className=`block text-sm p-2.5 rounded-lg mb-3 ${isError?'bg-red-100 text-red-700 border border-red-200':'bg-green-100 text-green-700 border border-green-200'}`;
+}
+function openChangeUsernameModal(){
+  if(isReadOnlyDemo())return;
+  if(!requireStaffAccess('change_username',{changes:true,actionLabel:'username changes'}))return;
+  if(!requireStaffAccess('account_settings',{actionLabel:'account settings'}))return;
+  openModalWithContent(`
+    <h2 class="text-xl font-bold mb-2">Change username</h2>
+    <p class="text-sm text-gray-600 mb-4">Choose a username used to sign in and identify your FoodSafe Pro account.</p>
+    <div id="modal-username-msg" class="hidden text-sm p-2.5 rounded-lg mb-3" role="status" aria-live="polite"></div>
+    <div class="relative floating-label">
+      <input type="text" id="modal-new-username" placeholder=" " autocomplete="username" maxlength="24" value="${escapeHtml(currentUser||'')}">
+      <label for="modal-new-username">New username (3–24 characters)</label>
+    </div>
+    <p class="text-xs text-gray-500 mt-2">Use letters, numbers, dots, underscores, or hyphens.</p>
+    <div class="mt-4 flex justify-end gap-2">
+      <button onclick="closeModal()" class="px-3 py-2 bg-gray-200 rounded-lg">Cancel</button>
+      <button id="submit-username-change" onclick="submitChangeUsername()" class="px-3 py-2 bg-green-700 hover:bg-green-800 text-white rounded-lg">Save username</button>
+    </div>
+  `);
+}
+async function submitChangeUsername(){
+  if(isReadOnlyDemo())return;
+  if(!requireStaffAccess('change_username',{changes:true,actionLabel:'username changes'})
+    ||!requireStaffAccess('account_settings',{actionLabel:'account settings'}))return;
+  const input=$('modal-new-username'),button=$('submit-username-change');
+  const username=input?.value.trim().toLowerCase()||'';
+  if(!/^[a-z0-9._-]{3,24}$/.test(username)){
+    showUsernameModalMessage('Username must be 3–24 characters and use only letters, numbers, dots, underscores, or hyphens.',true);
+    return;
+  }
+  if(username===String(currentUser||'').toLowerCase()){
+    showUsernameModalMessage('Enter a different username.',true);
+    return;
+  }
+  if(button)button.disabled=true;
+  try{
+    const {data:updatedUsername,error}=await foodSafeProClient.rpc('foodsafe_change_my_username',{p_username:username});
+    if(error)throw error;
+    currentUser=updatedUsername||username;
+    if(currentProfile)currentProfile.username=currentUser;
+    if(currentAuthUser?.user_metadata)currentAuthUser.user_metadata.username=currentUser;
+    $('account-username').textContent=currentUser;
+    closeModal();
+    showSystemMessage('Username updated',`Your username is now ${currentUser}. Use it the next time you sign in.`,'green','Done');
+  }catch(error){
+    console.error('Could not update account username:',error);
+    showUsernameModalMessage(error.message||'Your username could not be changed. Please try again.',true);
+    if(button)button.disabled=false;
+  }
+}
+
+function showTotpModalMessage(message,isError=false){
+  const element=$('modal-totp-msg');
+  if(!element)return;
+  element.textContent=message;
+  element.className=`block text-sm p-2.5 rounded-lg mb-3 ${isError?'bg-red-100 text-red-700 border border-red-200':'bg-green-100 text-green-700 border border-green-200'}`;
+}
+function totpApiAvailable(){
+  return Boolean(foodSafeProClient?.auth?.mfa?.enroll&&foodSafeProClient?.auth?.mfa?.challenge&&foodSafeProClient?.auth?.mfa?.verify);
+}
+async function openTotpSettingsModal(){
+  if(isReadOnlyDemo())return;
+  if(!requireStaffAccess('account_settings',{actionLabel:'account security settings'}))return;
+  if(!totpApiAvailable()){
+    showSystemMessage('Authenticator unavailable','The Supabase Authenticator app support did not load. Refresh the page and try again.','error','Close');
+    return;
+  }
+  try{
+    const {data,error}=await foodSafeProClient.auth.mfa.listFactors();
+    if(error)throw error;
+    const verified=(data?.totp||[]).find(factor=>factor.status==='verified');
+    const unverified=(data?.all||[]).filter(factor=>factor.factor_type==='totp'&&factor.status!=='verified');
+    const unverifiedNotice=unverified.length
+      ?'<p class="mt-3 text-xs text-amber-800">An unfinished authenticator setup exists. Remove its unfinished factor before starting again.</p>'+unverified.map(factor=>`<button type="button" class="mt-2 px-3 py-2 text-sm rounded-lg border" onclick="discardUnverifiedTotp('${escapeHtml(factor.id)}')">Remove unfinished setup</button>`).join('')
+      :'';
+    openModalWithContent(`
+      <h2 class="text-xl font-bold mb-2">Authenticator app</h2>
+      <p class="text-sm text-gray-600 mb-4">Use a time-based one-time password (TOTP) app to add a second sign-in verification step.</p>
+      <div id="modal-totp-msg" class="hidden text-sm p-2.5 rounded-lg mb-3" role="status" aria-live="polite"></div>
+      ${verified
+        ?`<div class="p-4 rounded-xl border border-green-200 bg-green-50 text-green-900"><strong>Authenticator app is enabled</strong><p class="text-sm mt-1">A verification code will be requested when you sign in on a session that needs additional assurance.</p></div><button type="button" class="mt-4 px-3 py-2 rounded-lg border border-red-200 text-red-700" onclick="promptTotpRemoval('${escapeHtml(verified.id)}')">Remove authenticator</button>`
+        :`<div class="p-4 rounded-xl border border-gray-200 bg-gray-50 text-gray-700"><strong>Authenticator app is not set up</strong><p class="text-sm mt-1">You will scan a QR code with your authenticator app and confirm a one-time code.</p></div>${unverified.length?unverifiedNotice:'<button type="button" class="mt-4 px-3 py-2 rounded-lg bg-green-700 text-white" onclick="beginTotpEnrollment()">Set up authenticator</button>'}`}
+      <div class="mt-4 flex justify-end"><button type="button" onclick="closeModal()" class="px-3 py-2 bg-gray-200 rounded-lg">Close</button></div>
+    `);
+  }catch(error){
+    console.error('Could not load authenticator factors:',error);
+    showSystemMessage('Authenticator unavailable',`Could not load your authenticator settings: ${error.message||'Please try again.'}`,'error','Close');
+  }
+}
+async function beginTotpEnrollment(){
+  if(isReadOnlyDemo())return;
+  if(!requireStaffAccess('account_settings',{actionLabel:'account security settings'}))return;
+  const button=document.querySelector('#modalInner button[onclick="beginTotpEnrollment()"]');
+  if(button)button.disabled=true;
+  try{
+    const {data,error}=await foodSafeProClient.auth.mfa.enroll({factorType:'totp',friendlyName:'FoodSafe Pro authenticator'});
+    if(error)throw error;
+    pendingTotpFactorId=data.id;
+    const qrCode=data.totp?.qr_code||'';
+    const secret=data.totp?.secret||'';
+    $('modalInner').innerHTML=`
+      <h2 class="text-xl font-bold mb-2">Connect your authenticator</h2>
+      <p class="text-sm text-gray-600 mb-4">Scan this QR code in your authenticator app, then enter its current six-digit code.</p>
+      <div id="modal-totp-msg" class="hidden text-sm p-2.5 rounded-lg mb-3" role="status" aria-live="polite"></div>
+      ${qrCode.startsWith('data:image/')?`<img class="mx-auto mb-4 w-44 h-44" alt="Authenticator setup QR code" src="${escapeHtml(qrCode)}">`:''}
+      <p class="text-xs text-gray-600 mb-1">If you cannot scan the QR code, enter this setup key manually:</p>
+      <code class="block p-3 rounded-lg bg-gray-100 text-sm break-all select-all">${escapeHtml(secret)}</code>
+      <div class="relative floating-label mt-4"><input id="modal-totp-code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="8" placeholder=" "><label for="modal-totp-code">6-digit verification code</label></div>
+      <div class="mt-4 flex justify-end gap-2"><button type="button" onclick="closeModal()" class="px-3 py-2 bg-gray-200 rounded-lg">Cancel</button><button type="button" id="verify-totp-enrollment" onclick="verifyTotpEnrollment()" class="px-3 py-2 bg-green-700 text-white rounded-lg">Verify and enable</button></div>
+    `;
+  }catch(error){
+    console.error('Could not start authenticator enrollment:',error);
+    showTotpModalMessage(error.message||'Could not start authenticator setup. Please try again.',true);
+    if(button)button.disabled=false;
+  }
+}
+async function verifyTotpCode(factorId,code){
+  const {data:challenge,error:challengeError}=await foodSafeProClient.auth.mfa.challenge({factorId});
+  if(challengeError)throw challengeError;
+  const {data,error}=await foodSafeProClient.auth.mfa.verify({factorId,challengeId:challenge.id,code});
+  if(error)throw error;
+  return data;
+}
+async function verifyTotpEnrollment(){
+  if(isReadOnlyDemo())return;
+  if(!requireStaffAccess('account_settings',{actionLabel:'account security settings'}))return;
+  const code=$('modal-totp-code')?.value.trim()||'';
+  const button=$('verify-totp-enrollment');
+  if(!/^\d{6,8}$/.test(code)){showTotpModalMessage('Enter the current code from your authenticator app.',true);return;}
+  if(button)button.disabled=true;
+  try{
+    await verifyTotpCode(pendingTotpFactorId,code);
+    pendingTotpFactorId='';
+    closeModal();
+    showSystemMessage('Authenticator enabled','Your authenticator app is now connected to your account.','green','Done');
+  }catch(error){
+    console.error('Could not verify authenticator setup:',error);
+    showTotpModalMessage(error.message||'That verification code could not be confirmed. Check the code and try again.',true);
+    if(button)button.disabled=false;
+  }
+}
+async function discardUnverifiedTotp(factorId){
+  if(isReadOnlyDemo()||!requireStaffAccess('account_settings',{actionLabel:'account security settings'}))return;
+  try{
+    const {error}=await foodSafeProClient.auth.mfa.unenroll({factorId});
+    if(error)throw error;
+    await openTotpSettingsModal();
+  }catch(error){
+    showTotpModalMessage(error.message||'Could not remove the unfinished authenticator setup.',true);
+  }
+}
+function promptTotpRemoval(factorId){
+  if(isReadOnlyDemo()||!requireStaffAccess('account_settings',{actionLabel:'account security settings'}))return;
+  $('modalInner').innerHTML=`
+    <h2 class="text-xl font-bold mb-2">Remove authenticator</h2>
+    <p class="text-sm text-gray-600 mb-4">Confirm your identity with a current authenticator code before removing this sign-in factor.</p>
+    <div id="modal-totp-msg" class="hidden text-sm p-2.5 rounded-lg mb-3" role="status" aria-live="polite"></div>
+    <div class="relative floating-label"><input id="modal-totp-code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="8" placeholder=" "><label for="modal-totp-code">Authenticator code</label></div>
+    <div class="mt-4 flex justify-end gap-2"><button type="button" onclick="openTotpSettingsModal()" class="px-3 py-2 bg-gray-200 rounded-lg">Cancel</button><button type="button" id="remove-totp-factor" onclick="removeTotpFactor('${escapeHtml(factorId)}')" class="px-3 py-2 bg-red-700 text-white rounded-lg">Verify and remove</button></div>
+  `;
+}
+async function removeTotpFactor(factorId){
+  if(isReadOnlyDemo()||!requireStaffAccess('account_settings',{actionLabel:'account security settings'}))return;
+  const code=$('modal-totp-code')?.value.trim()||'';
+  const button=$('remove-totp-factor');
+  if(!/^\d{6,8}$/.test(code)){showTotpModalMessage('Enter the current code from your authenticator app.',true);return;}
+  if(button)button.disabled=true;
+  try{
+    await verifyTotpCode(factorId,code);
+    const {error}=await foodSafeProClient.auth.mfa.unenroll({factorId});
+    if(error)throw error;
+    closeModal();
+    showSystemMessage('Authenticator removed','The authenticator factor has been removed from your account.','green','Done');
+  }catch(error){
+    console.error('Could not remove authenticator factor:',error);
+    showTotpModalMessage(error.message||'Could not remove the authenticator. Check the code and try again.',true);
+    if(button)button.disabled=false;
+  }
+}
+function promptTotpLogin(factorId){
+  openModalWithContent(`
+    <h2 class="text-xl font-bold mb-2">Verify your sign-in</h2>
+    <p class="text-sm text-gray-600 mb-4">Enter the current code from your authenticator app to continue.</p>
+    <div id="modal-totp-msg" class="hidden text-sm p-2.5 rounded-lg mb-3" role="status" aria-live="polite"></div>
+    <div class="relative floating-label"><input id="modal-totp-code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="8" placeholder=" "><label for="modal-totp-code">Authenticator code</label></div>
+    <div class="mt-4 flex justify-end"><button type="button" id="verify-login-totp" onclick="verifyTotpLogin('${escapeHtml(factorId)}')" class="px-3 py-2 bg-green-700 text-white rounded-lg">Verify and continue</button></div>
+  `);
+}
+async function verifyTotpLogin(factorId){
+  const code=$('modal-totp-code')?.value.trim()||'';
+  const button=$('verify-login-totp');
+  if(!/^\d{6,8}$/.test(code)){showTotpModalMessage('Enter the current code from your authenticator app.',true);return;}
+  if(button)button.disabled=true;
+  try{
+    await verifyTotpCode(factorId,code);
+    closeModal();
+    await init();
+  }catch(error){
+    console.error('Could not verify authenticator sign-in:',error);
+    showTotpModalMessage(error.message||'That code could not be verified. Check it and try again.',true);
+    if(button)button.disabled=false;
+  }
+}
+async function requireTotpForCurrentSession(){
+  if(!foodSafeProClient?.auth?.mfa?.getAuthenticatorAssuranceLevel)return true;
+  const {data:assurance,error:assuranceError}=await foodSafeProClient.auth.mfa.getAuthenticatorAssuranceLevel();
+  if(assuranceError)throw assuranceError;
+  if(assurance?.currentLevel==='aal2'||assurance?.nextLevel!=='aal2')return true;
+  const {data:factors,error:factorError}=await foodSafeProClient.auth.mfa.listFactors();
+  if(factorError)throw factorError;
+  const factor=(factors?.totp||[]).find(item=>item.status==='verified');
+  if(!factor)throw new Error('Additional sign-in verification is required, but no verified authenticator factor is available.');
+  promptTotpLogin(factor.id);
+  return false;
+}
 
 async function openChangeEmailModal() {
   if(isReadOnlyDemo())return;
@@ -6695,6 +6920,18 @@ async function init(){
   const {data:{session}}=await foodSafeProClient.auth.getSession();
   
   if(session){
+    try{
+      if(!(await requireTotpForCurrentSession())){
+        showLogin();
+        return;
+      }
+    }catch(error){
+      console.error('Could not verify authenticator requirements:',error);
+      await foodSafeProClient.auth.signOut();
+      showAuth();
+      showMessage(`Could not verify authenticator requirements: ${error.message||'Please sign in again.'}`,'error');
+      return;
+    }
     const {data:profile}=await foodSafeProClient.from('profiles').select('id,username,role,approved,demo_read_only,demo_role').eq('id',session.user.id).maybeSingle();
     if(profile){
       if(inMaintenance && (profile.role !== 'admin' || profile.demo_read_only)) {
