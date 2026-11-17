@@ -314,6 +314,10 @@ th{background:#f1f5f9;color:#6b7280;}
 .published-feedback-author-copy strong { color: #435348; font-size: 11px; }
 .published-feedback-author-copy small { color: #8a958c; font-size: 9px; font-weight: 500; }
 .published-feedback-footer { margin: 16px 0 0; color: #879188; font-size: 9px; line-height: 1.6; text-align: center; }
+.published-whats-new { max-width: 1400px; margin: 32px auto 0; padding: 22px; border: 1px solid #e1e9df; border-radius: 20px; background: linear-gradient(145deg,#fff,#f6f8f2); }
+.published-whats-new-header { margin: 0 0 16px; }
+.published-whats-new-header .section-title { margin: 5px 0; color: #1d2c22; font-family: 'Dancing Script','Pacifico','Brush Script MT',cursive; font-size: clamp(29px,3.8vw,40px); }
+.published-whats-new-header p { margin: 0; color: #849087; font-size: 10px; }
 .published-incident-stories { max-width: 1400px; margin: 62px auto 0; padding: clamp(22px,4vw,42px); overflow: hidden; border: 1px solid #dfe9e4; border-radius: 25px; background: radial-gradient(circle at 100% 0,rgba(190,224,208,.42),transparent 30%),linear-gradient(145deg,#fff 0%,#f3f8f5 100%); box-shadow: 0 16px 45px rgba(34,53,39,.06); }
 .published-incident-stories[hidden] { display: none !important; }
 .published-incident-header { max-width: 780px; margin: 0 auto 22px; text-align: center; }
@@ -368,6 +372,42 @@ th{background:#f1f5f9;color:#6b7280;}
 .access-toggle.is-setting[aria-checked="true"] { background: #286344; }
 .access-control-status { min-height: 20px; margin: 0 0 10px; color: #718076; font-size: 11px; }
 .access-control-status.error { color: #a5433f; }
+.access-control-bulk-button { min-height: 40px; padding: 0 14px; border: 1px solid #d5e5d7; border-radius: 10px; color: #2f6844; background: #f0f7ef; font-size: 11px; font-weight: 750; cursor: pointer; }
+.access-control-bulk-button:disabled { opacity: .6; cursor: wait; }
+.whats-new-header, .homepage-visibility-header { margin-bottom: 18px; padding: 24px; border: 1px solid #dfe9e1; border-radius: 20px; background: radial-gradient(circle at 100% 0,rgba(191,224,202,.4),transparent 34%),linear-gradient(135deg,#fff,#f4f8f3); }
+.whats-new-header h3, .homepage-visibility-header h3 { margin: 8px 0; color: #263b2d; font-size: 22px; }
+.whats-new-header p, .homepage-visibility-header p { max-width: 760px; margin: 0; color: #748177; font-size: 12px; line-height: 1.7; }
+.whats-new-form, .homepage-visibility-settings { margin-bottom: 18px; padding: 20px; border: 1px solid #e4ebe3; border-radius: 15px; background: #fff; }
+.whats-new-targets { display: flex; flex-wrap: wrap; gap: 12px 20px; }
+.whats-new-targets label { display: inline-flex; align-items: center; gap: 7px; color: #47584c; font-size: 11px; font-weight: 700; }
+.whats-new-targets input, .homepage-visibility-setting input { accent-color: #286344; }
+.whats-new-form-actions { display: flex; flex-wrap: wrap; gap: 9px; }
+.whats-new-form-actions button, .whats-new-item-actions button, .homepage-visibility-actions button { min-height: 36px; padding: 0 12px; border: 1px solid #dfe7dd; border-radius: 9px; color: #3d5945; background: #fff; font-size: 10px; font-weight: 750; cursor: pointer; }
+.whats-new-form-actions button[type="submit"], .homepage-visibility-actions button { border-color: #174b37; color: #fff; background: #174b37; }
+.whats-new-status, .homepage-visibility-status { min-height: 20px; margin: 10px 0 0; color: #718076; font-size: 11px; }
+.whats-new-status.error, .homepage-visibility-status.error { color: #a5433f; }
+.whats-new-list, .homepage-visibility-list { display: grid; gap: 12px; }
+.whats-new-card { padding: 17px; border: 1px solid #e4ebe3; border-radius: 14px; background: #fff; }
+.whats-new-card h4,.whats-new-card-heading h3 { margin: 0; color: #2f4435; font-size: 15px; }
+.whats-new-card p { margin: 8px 0 0; color: #66766b; font-size: 12px; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
+.whats-new-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 10px; color: #829087; font-size: 9px; }
+.whats-new-tag { padding: 4px 7px; border-radius: 999px; color: #397453; background: #eaf3eb; font-weight: 800; }
+.whats-new-item-actions { display: flex; gap: 7px; margin-top: 12px; }
+.whats-new-item-actions .is-delete { color: #a5433f; }
+.whats-new-empty { padding: 22px; border: 1px dashed #dfe7dd; border-radius: 13px; color: #78867c; font-size: 11px; text-align: center; }
+.homepage-visibility-setting { position: relative; min-height: 56px; padding: 10px 12px; border: 1px solid #e8eee6; border-radius: 11px; display: flex; align-items: center; justify-content: space-between; gap: 12px; background: #fbfcfa; }
+.homepage-visibility-setting strong { display: block; color: #344a3a; font-size: 11px; }
+.homepage-visibility-setting small { display: block; margin-top: 3px; color: #829087; font-size: 9px; }
+.homepage-visibility-setting input { position: absolute; width: 1px; height: 1px; margin: 0; opacity: 0; }
+.homepage-visibility-switch-track { position: relative; width: 40px; height: 23px; flex: 0 0 40px; border-radius: 999px; background: #cbd5ce; transition: background .16s; }
+.homepage-visibility-switch-track::after { position: absolute; top: 3px; left: 3px; width: 17px; height: 17px; border-radius: 50%; content: ""; background: #fff; box-shadow: 0 1px 3px #0002; transition: transform .16s; }
+.homepage-visibility-setting input:checked + .homepage-visibility-switch-track { background: #28714e; }
+.homepage-visibility-setting input:checked + .homepage-visibility-switch-track::after { transform: translateX(17px); }
+.homepage-visibility-setting input:focus-visible + .homepage-visibility-switch-track { outline: 3px solid #85c89c; outline-offset: 3px; }
+[data-homepage-hidden="true"] { display: none !important; }
+.workflow-notification-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.workflow-notification-actions button { min-height: 29px; padding: 0 8px; border: 1px solid #dfe7dd; border-radius: 7px; color: #3d5945; background: #fff; font-size: 9px; font-weight: 700; cursor: pointer; }
+.workflow-notification-actions button:last-child { color: #a5433f; }
 .team-knowledge-header { margin-bottom: 18px; padding: 24px; border: 1px solid #dfe9e4; border-radius: 20px; background: radial-gradient(circle at 100% 0,rgba(190,224,208,.42),transparent 30%),linear-gradient(145deg,#fff,#f3f8f5); }
 .team-knowledge-header .incident-learning-kicker { letter-spacing: 1.8px; }
 .team-knowledge-header h3 { margin: 8px 0; color: #143b2c; font-size: 23px; }
@@ -709,7 +749,7 @@ body.foodsafe-night-mode .dashboard-main .dashboard-topbar h2,body.foodsafe-nigh
 .demo-readonly-banner.is-visible { display: block; }
 .dashboard-main .dashboard-content { max-width: 1480px; margin: auto; padding: 27px clamp(16px, 3vw, 40px) 44px; }
 .account-panel { max-width: 1040px; margin: 0 auto; padding: clamp(20px,4vw,36px); border: 1px solid #e3ebe2; border-radius: 20px; background: linear-gradient(120deg,#fff 15%,#f3f8f2 100%); box-shadow: 0 12px 34px rgba(34,53,39,.06); }
-.account-panel-heading { margin-bottom: 15px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.account-panel-heading { position: relative; margin-bottom: 15px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .account-panel-heading h2 { margin: 0; color: #293d30; font-size: 21px; letter-spacing: -.4px; }
 .account-panel-heading p { margin: 6px 0 0; color: #829087; font-size: 12px; }
 .account-verified-pill { padding: 7px 10px; border: 1px solid #d5e9d8; border-radius: 999px; color: #397453; background: #edf7ee; font-size: 9px; font-weight: 800; white-space: nowrap; }
@@ -725,21 +765,15 @@ body.foodsafe-night-mode .dashboard-main .dashboard-topbar h2,body.foodsafe-nigh
 .account-panel-actions .account-reset-button { color: #617468; }
 .account-panel-actions .account-delete-button { color: #a53d3d; border-color: #f0d7d5; }
 .account-panel-actions .account-delete-button:hover { color: #8d2929; border-color: #e8b8b5; background: #fff7f6; }
-.account-actions-wrap { position: relative; margin-top: 13px; }
-.account-actions-wrap .account-panel-actions { margin-top: 0; }
-.account-actions-toggle { display: none; }
-@media (max-width: 1024px) {
-  .account-actions-toggle { min-height: 40px; padding: 0 13px; border: 1px solid #dfe7dd; border-radius: 10px; display: inline-flex; align-items: center; gap: 9px; color: #315440; background: #fff; font-size: 11px; font-weight: 750; cursor: pointer; }
-  .account-actions-toggle:hover, .account-actions-toggle[aria-expanded="true"] { border-color: #b7cbb8; background: #f4f8f2; }
-  .account-actions-chevron { margin-left: 4px; font-size: 9px; transition: transform .15s ease; }
-  .account-actions-toggle[aria-expanded="true"] .account-actions-chevron { transform: rotate(180deg); }
-  .account-actions-wrap .account-panel-actions { position: absolute; z-index: 25; top: calc(100% + 8px); right: 0; width: min(320px,calc(100vw - 56px)); padding: 8px; border: 1px solid #dfe7dd; border-radius: 13px; display: none; flex-direction: column; gap: 5px; background: #fff; box-shadow: 0 16px 38px rgba(27,48,33,.16); }
-  .account-actions-wrap.is-open .account-panel-actions { display: flex; }
-  .account-actions-wrap .account-panel-actions button { width: 100%; min-height: 42px; justify-content: flex-start; padding: 0 11px; text-align: left; }
-  body.foodsafe-night-mode .account-actions-toggle, body.foodsafe-night-mode .account-actions-wrap .account-panel-actions { border-color: #34453a; color: #e2ebe4; background: #19231d; }
-  body.foodsafe-night-mode .account-actions-toggle:hover, body.foodsafe-night-mode .account-actions-toggle[aria-expanded="true"] { background: #24352a; }
-  body.foodsafe-night-mode .account-actions-wrap .account-panel-actions button { border-color: #34453a; color: #e2ebe4; background: #19231d; }
-}
+.account-actions-wrap { position: static; flex: 0 0 auto; }
+.account-actions-toggle { width: 40px; height: 40px; padding: 0; border: 1px solid #dfe7dd; border-radius: 12px; display: inline-grid; place-items: center; color: #315440; background: #fff; font-size: 15px; cursor: pointer; box-shadow: 0 3px 10px rgba(35,63,43,.05); }
+.account-actions-toggle:hover, .account-actions-toggle[aria-expanded="true"] { border-color: #b7cbb8; background: #f4f8f2; }
+.account-actions-wrap .account-panel-actions { position: absolute; z-index: 40; top: calc(100% + 8px); right: 0; width: min(320px,calc(100vw - 32px)); margin-top: 0; padding: 8px; border: 1px solid #dfe7dd; border-radius: 13px; display: none; flex-direction: column; gap: 5px; background: #fff; box-shadow: 0 16px 38px rgba(27,48,33,.16); }
+.account-actions-wrap.is-open .account-panel-actions { display: flex; }
+.account-actions-wrap .account-panel-actions button { width: 100%; min-height: 42px; justify-content: flex-start; padding: 0 11px; text-align: left; }
+body.foodsafe-night-mode .account-actions-toggle, body.foodsafe-night-mode .account-actions-wrap .account-panel-actions { border-color: #34453a; color: #e2ebe4; background: #19231d; }
+body.foodsafe-night-mode .account-actions-toggle:hover, body.foodsafe-night-mode .account-actions-toggle[aria-expanded="true"] { background: #24352a; }
+body.foodsafe-night-mode .account-actions-wrap .account-panel-actions button { border-color: #34453a; color: #e2ebe4; background: #19231d; }
 .account-delete-status { margin: 0 0 12px; color: #68776d; font-size: 12px; line-height: 1.6; }
 .account-delete-status.error { color: #a53d3d; }
 .dashboard-overview-kicker { color: #548064; font-size: 9px; font-weight: 800; letter-spacing: 1.5px; }
@@ -1486,12 +1520,139 @@ body.foodsafe-night-mode .dashboard-shell .workflow-notification-popover,
 body.foodsafe-night-mode .dashboard-shell .workflow-notification-item { color: #e3eee7; background: #12251d; border-color: #284337; }
 body.foodsafe-night-mode .dashboard-shell .workflow-notification-item h4 { color: #edf7f0; }
 body.foodsafe-night-mode .dashboard-shell .workflow-notification-item time { color: #a9beb0; }
+body.foodsafe-night-mode .dashboard-shell .whats-new-header,
+body.foodsafe-night-mode .dashboard-shell .homepage-visibility-header,
+body.foodsafe-night-mode .dashboard-shell .whats-new-form,
+body.foodsafe-night-mode .dashboard-shell .homepage-visibility-settings,
+body.foodsafe-night-mode .dashboard-shell .whats-new-card,
+body.foodsafe-night-mode .dashboard-shell .homepage-visibility-setting { color: #e3eee7; background: #12251d; border-color: #284337; }
+body.foodsafe-night-mode .dashboard-shell .whats-new-card h4,
+body.foodsafe-night-mode .dashboard-shell .homepage-visibility-setting strong { color: #edf7f0; }
+body.foodsafe-night-mode .dashboard-shell .whats-new-form-actions button,
+body.foodsafe-night-mode .dashboard-shell .whats-new-item-actions button,
+body.foodsafe-night-mode .dashboard-shell .homepage-visibility-actions button,
+body.foodsafe-night-mode .dashboard-shell .workflow-notification-actions button { color: #d8e6dc; background: #0c1a14; border-color: #2a4336; }
+body.foodsafe-night-mode .dashboard-shell .whats-new-form-actions button[type="submit"],
+body.foodsafe-night-mode .dashboard-shell .homepage-visibility-actions button { color: #062319; background: #51d1a5; border-color: #51d1a5; }
 body.foodsafe-night-mode .dashboard-topbar-meta .dashboard-chat-trigger,
 body.foodsafe-night-mode .dashboard-topbar-meta .workflow-notification-trigger { color: #b7ead2; background: #12271f; border-color: #2b4939; }
 body.foodsafe-night-mode .dashboard-topbar-meta .dashboard-chat-trigger:hover,
 body.foodsafe-night-mode .dashboard-topbar-meta .workflow-notification-trigger:hover,
+body.foodsafe-night-mode .dashboard-topbar-meta .whats-new-notification-trigger:hover,
 body.foodsafe-night-mode .dashboard-topbar-meta .dashboard-chat-trigger[aria-pressed="true"] { color: #062319; background: #51d1a5; border-color: #51d1a5; }
 body.foodsafe-night-mode .dashboard-chat-count { border-color: #12251d; }
+
+.nav-helpdesk-link.landing-feedback-link { appearance: none; font-family: inherit; cursor: pointer; }
+.feedback-invite-card { min-width: 0; padding: 24px; border: 1px solid #dfe9df; border-radius: 20px; display: grid; grid-template-columns: auto minmax(0,1fr); align-items: center; gap: 14px; background: linear-gradient(145deg,#fff,#f2f7f0); box-shadow: 0 12px 30px rgba(34,53,39,.06); }
+.feedback-invite-icon { width: 48px; height: 48px; border-radius: 15px; display: grid; place-items: center; color: #286344; background: #e5f2e5; font-size: 19px; }
+.feedback-invite-card h3 { margin: 0; color: #263b2d; font-size: 16px; }
+.feedback-invite-card p { margin: 5px 0 0; color: #718077; font-size: 11px; line-height: 1.65; }
+.feedback-invite-card button { min-height: 42px; grid-column: 1 / -1; padding: 0 14px; border: 0; border-radius: 11px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; color: #fff; background: #174b37; font-size: 11px; font-weight: 750; cursor: pointer; }
+.feedback-invite-card button:hover { background: #103c2b; }
+.homepage-feedback-open { overflow: hidden; }
+.homepage-feedback-modal { position: fixed; z-index: 110; inset: 0; box-sizing: border-box; padding: 20px; display: grid; place-items: center; background: rgba(15,35,25,.62); backdrop-filter: blur(7px); }
+.homepage-feedback-modal.hidden { display: none !important; }
+.homepage-feedback-dialog { box-sizing: border-box; width: min(620px,100%); max-height: min(90vh,850px); overflow: auto; padding: clamp(20px,4vw,32px); border: 1px solid #e0e9df; border-radius: 24px; background: linear-gradient(145deg,#fff,#f8fbf6); box-shadow: 0 28px 80px rgba(10,32,20,.25); animation: homepage-feedback-in .2s ease-out; }
+.homepage-feedback-dialog-header { margin-bottom: 18px; display: grid; grid-template-columns: 48px minmax(0,1fr) 36px; align-items: start; gap: 13px; }
+.homepage-feedback-dialog-icon { width: 48px; height: 48px; border-radius: 15px; display: grid; place-items: center; color: #286344; background: #e5f2e5; font-size: 18px; }
+.homepage-feedback-dialog-header h2 { margin: 4px 0; color: #21382b; font-size: 22px; letter-spacing: -.5px; }
+.homepage-feedback-dialog-header p { margin: 4px 0 0; color: #758279; font-size: 11px; line-height: 1.6; }
+.homepage-feedback-close { width: 36px; height: 36px; border: 1px solid #e4ebe3; border-radius: 11px; color: #5d6e62; background: #fff; cursor: pointer; }
+.homepage-feedback-close:hover { color: #173c2b; border-color: #c9dcc9; background: #f3f8f2; }
+.homepage-feedback-dialog .feedback-form-card { padding: 0; border: 0; background: transparent; box-shadow: none; }
+.homepage-feedback-dialog .feedback-field label { font-size: 11px; }
+.homepage-feedback-dialog .feedback-field input,.homepage-feedback-dialog .feedback-field textarea { min-height: 46px; border-color: #dce7dc; border-radius: 11px; background: #fff; }
+.homepage-feedback-dialog .feedback-field textarea { min-height: 140px; }
+.homepage-feedback-dialog .feedback-submit-row { justify-content: flex-end; }
+.homepage-feedback-dialog .contact-form-privacy { margin: 10px 0 0; color: #849087; font-size: 9px; line-height: 1.6; }
+.homepage-feedback-dialog .feedback-form-status { margin-top: 5px; }
+@keyframes homepage-feedback-in { from { opacity: 0; transform: translateY(10px) scale(.985); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@media (min-width: 1025px) {
+  .landing-nav-actions > .landing-feedback-link { display: inline-flex !important; }
+  .landing-nav-actions > .landing-feedback-icon { display: none !important; }
+}
+@media (max-width: 1024px) {
+  .landing-nav-actions > .landing-feedback-link { display: none !important; }
+  .landing-nav-actions > .landing-feedback-icon { display: inline-flex !important; }
+}
+@media (max-width: 560px) {
+  .homepage-feedback-modal { align-items: end; padding: 0; }
+  .homepage-feedback-dialog { width: 100%; max-height: 94dvh; padding: 21px 17px max(21px,env(safe-area-inset-bottom)); border-radius: 23px 23px 0 0; }
+  .homepage-feedback-dialog-header { grid-template-columns: 42px minmax(0,1fr) 34px; gap: 10px; }
+  .homepage-feedback-dialog-icon { width: 42px; height: 42px; border-radius: 13px; }
+  .homepage-feedback-dialog-header h2 { font-size: 20px; }
+  .feedback-invite-card { padding: 18px; }
+}
+
+.whats-new-targets { align-items: stretch; }
+.whats-new-target-switch { position: relative; min-width: 210px; min-height: 56px; padding: 0 13px; border: 1px solid #dfe8df; border-radius: 13px; display: flex; align-items: center; justify-content: space-between; gap: 12px; color: #46594b; background: #fbfcfa; cursor: pointer; transition: border-color .16s,background .16s,box-shadow .16s; }
+.whats-new-target-switch:has(input:checked) { border-color: #9dc6a5; background: #f0f8ef; box-shadow: 0 0 0 3px rgba(59,130,79,.07); }
+.whats-new-target-copy { display: inline-flex; align-items: center; gap: 9px; font-size: 11px; font-weight: 750; }
+.whats-new-target-copy i { color: #377451; }
+.whats-new-target-switch input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.whats-new-target-switch input:focus-visible + .whats-new-switch-track { outline: 3px solid #85c89c; outline-offset: 3px; }
+.whats-new-switch-track { position: relative; width: 40px; height: 23px; flex: 0 0 40px; border-radius: 999px; background: #cbd5ce; transition: background .16s; }
+.whats-new-switch-track::after { position: absolute; top: 3px; left: 3px; width: 17px; height: 17px; border-radius: 50%; content: ""; background: #fff; box-shadow: 0 1px 3px #0002; transition: transform .16s; }
+.whats-new-target-switch input:checked + .whats-new-switch-track { background: #28714e; }
+.whats-new-target-switch input:checked + .whats-new-switch-track::after { transform: translateX(17px); }
+.whats-new-card-heading { display: flex; align-items: center; gap: 10px; }
+.whats-new-card-icon { width: 34px; height: 34px; flex: 0 0 34px; border-radius: 11px; display: grid; place-items: center; color: #286344; background: #e8f4e7; }
+.homepage-whats-new-icon { width: 38px; height: 38px; margin-right: 8px; border-radius: 12px; display: inline-grid; place-items: center; vertical-align: middle; color: #286344; background: #e8f4e7; font-size: 16px; }
+.account-heading-status { min-width: 0; display: flex; align-items: center; justify-content: flex-end; gap: 9px; }
+.dashboard-topbar-meta .whats-new-notification-menu { position: relative; }
+.whats-new-notification-trigger { position: relative; width: 38px; height: 36px; border: 1px solid #e2eae1; border-radius: 10px; display: inline-grid; place-items: center; color: #286344; background: #fff; font-size: 15px; cursor: pointer; transition: background .15s,border-color .15s; }
+.whats-new-notification-trigger:hover,.whats-new-notification-trigger[aria-expanded="true"] { border-color: #c9dcc9; background: #f3f8f2; }
+.whats-new-notification-trigger:focus-visible { outline: 3px solid #9ed5aa; outline-offset: 3px; }
+.whats-new-notification-trigger .workflow-notification-count { top: -6px; right: -6px; }
+.whats-new-notification-popover { width: min(390px,calc(100vw - 28px)); }
+.whats-new-notification-popover .workflow-notification-heading h3 i { margin-right: 6px; color: #43815a; }
+.whats-new-notification-item { display: grid; grid-template-columns: 28px minmax(0,1fr); align-items: start; gap: 8px; }
+.whats-new-notification-item > i { margin-top: 2px; color: #4a8c60; }
+.whats-new-notification-item strong { display: block; color: #334439; font-size: 10px; line-height: 1.5; }
+.whats-new-notification-item time { display: block; margin-top: 3px; color: #879188; font-size: 9px; }
+.whats-new-notification-item.is-read { opacity: .7; }
+.whats-new-open-all { width: 100%; min-height: 38px; margin-top: 10px; border: 1px solid #dce8dd; border-radius: 10px; color: #286344; background: #f3f8f2; font-size: 10px; font-weight: 750; cursor: pointer; }
+.whats-new-open-all:hover { background: #e8f3e7; }
+
+body:not(.foodsafe-night-mode) .dashboard-shell { background: #f3f7f3; }
+body:not(.foodsafe-night-mode) .dashboard-sidebar { background: linear-gradient(180deg,#174b37 0%,#123b2c 100%); box-shadow: 8px 0 28px rgba(22,59,42,.08); }
+body:not(.foodsafe-night-mode) .dashboard-main { background: #f7f9f6; }
+body:not(.foodsafe-night-mode) .dashboard-main .dashboard-topbar { background: rgba(255,255,255,.94); box-shadow: 0 6px 24px rgba(30,58,39,.035); }
+body:not(.foodsafe-night-mode) .dashboard-main .dashboard-content { max-width: 1520px; padding-top: clamp(22px,3vw,34px); }
+body:not(.foodsafe-night-mode) .dashboard-side-nav a.active,body:not(.foodsafe-night-mode) .dashboard-side-admin button.active { color: #143b2c; background: #dff0dc; }
+body:not(.foodsafe-night-mode) .dashboard-side-nav a.active i,body:not(.foodsafe-night-mode) .dashboard-side-admin button.active i { color: #286344; }
+body:not(.foodsafe-night-mode) .dashboard-side-nav a:hover,body:not(.foodsafe-night-mode) .dashboard-side-admin button:hover,body:not(.foodsafe-night-mode) .dashboard-side-admin a:hover { background: rgba(255,255,255,.11); }
+body:not(.foodsafe-night-mode) .dashboard-side-nav a.active:hover,body:not(.foodsafe-night-mode) .dashboard-side-admin button.active:hover { background: #dff0dc; }
+body:not(.foodsafe-night-mode) .dashboard-shell .card,body:not(.foodsafe-night-mode) .dashboard-shell .workflow-panel,body:not(.foodsafe-night-mode) .dashboard-shell .dashboard-chart-card,body:not(.foodsafe-night-mode) .dashboard-shell .account-panel,body:not(.foodsafe-night-mode) .dashboard-shell .download-center-card { border-color: #e2ebe2; border-radius: 20px; box-shadow: 0 10px 28px rgba(35,63,43,.045); }
+body:not(.foodsafe-night-mode) .dashboard-shell .workflow-panel h3,body:not(.foodsafe-night-mode) .dashboard-shell .card h3 { color: #214532; }
+body:not(.foodsafe-night-mode) .dashboard-topbar-meta .workflow-notification-trigger,body:not(.foodsafe-night-mode) .dashboard-topbar-meta .dashboard-chat-trigger,body:not(.foodsafe-night-mode) .dashboard-topbar-meta .whats-new-notification-trigger { width: 40px; height: 40px; border-radius: 12px; box-shadow: 0 3px 10px rgba(35,63,43,.05); }
+body:not(.foodsafe-night-mode) .dashboard-side-admin { padding-top: 12px; }
+body:not(.foodsafe-night-mode) .dashboard-side-label { color: #b6d2bd; }
+body:not(.foodsafe-night-mode) .workflow-notification-popover { border-color: #e0e9df; border-radius: 18px; }
+body.foodsafe-night-mode .dashboard-shell .whats-new-notification-item strong { color: #edf7f0; }
+body.foodsafe-night-mode .dashboard-shell .whats-new-notification-trigger { color: #b7ead2; background: #12271f; border-color: #2b4939; }
+body.foodsafe-night-mode .dashboard-shell .account-verified-pill { color: #b7e7c9; background: #1a3829; border-color: #31533d; }
+body.foodsafe-night-mode .dashboard-shell .whats-new-notification-popover .whats-new-open-all { color: #a9e8ca; background: #163628; border-color: #2d5943; }
+@media (max-width: 700px) {
+  .account-panel-heading { align-items: flex-start; flex-wrap: wrap; }
+  .account-heading-status { gap: 7px; }
+  .account-verified-pill { padding: 7px 8px; font-size: 8px; }
+  .account-actions-toggle { width: 38px; height: 38px; }
+  .whats-new-notification-popover { position: fixed; top: max(74px,calc(env(safe-area-inset-top) + 12px)); right: 12px; left: 12px; width: auto; max-height: calc(100dvh - 90px); }
+  .whats-new-target-switch { width: 100%; }
+  .whats-new-targets { display: grid; grid-template-columns: 1fr; }
+  .homepage-feedback-dialog .feedback-submit-row { flex-direction: row; }
+  .homepage-feedback-dialog .feedback-submit { width: 100%; }
+  .dashboard-main .dashboard-topbar { align-items: center; flex-direction: row; gap: 10px; }
+  .dashboard-main .dashboard-topbar > div:first-child { min-width: 0; flex: 1 1 auto; }
+  .dashboard-topbar-kicker { display: none; }
+  .dashboard-main .dashboard-topbar h2 { margin: 0; font-size: 17px; }
+  .dashboard-main .dashboard-topbar > div:first-child > p:not(.demo-readonly-banner) { display: none; }
+  .dashboard-topbar-meta { width: auto; flex: 0 0 auto; flex-wrap: nowrap; gap: 6px; }
+  .dashboard-role-pill { display: none; }
+  .dashboard-topbar-logout { width: 38px; min-width: 38px; padding: 0; justify-content: center; }
+  .dashboard-logout-label { display: none; }
+}
 </style>
 </head>
 <body class="min-h-screen">
@@ -1513,9 +1674,9 @@ body.foodsafe-night-mode .dashboard-chat-count { border-color: #12251d; }
     </nav>
     <div class="landing-nav-actions">
       <a class="nav-helpdesk-link" href="https://foodsafepro.infinityfree.io/" target="_blank" rel="noopener noreferrer"><i class="fas fa-life-ring"></i> Customer helpdesk</a>
-      <a class="nav-helpdesk-link landing-feedback-link" href="#contactFeedback"><i class="fas fa-comment-dots"></i> Feedback</a>
+      <button id="homeFeedbackButton" class="nav-helpdesk-link landing-feedback-link" type="button" onclick="openHomepageFeedback()"><i class="fas fa-comment-dots" aria-hidden="true"></i> Feedback</button>
       <span class="nav-caption">Already have an account?</span>
-      <a class="landing-feedback-icon" href="#contactFeedback" aria-label="Send feedback" title="Send feedback"><i class="fas fa-comment-dots" aria-hidden="true"></i></a>
+      <button id="mobileFeedbackButton" class="landing-feedback-icon" type="button" aria-label="Send feedback" title="Send feedback" onclick="openHomepageFeedback()"><i class="fas fa-comment-dots" aria-hidden="true"></i></button>
       <button class="nav-login-btn" onclick="showLogin()" aria-label="Log in" title="Log in"><i class="fas fa-arrow-right-to-bracket" aria-hidden="true"></i><span class="nav-login-label">Log in</span></button>
       <button class="nav-signup-btn" onclick="showCreate()"><i class="fas fa-user-plus" aria-hidden="true"></i> <span>Get Started</span></button>
       <button class="landing-menu-toggle" id="landingMenuToggle" type="button" aria-label="Open homepage menu" aria-controls="landingMenu" aria-expanded="false" onclick="toggleLandingMenu()"><i class="fas fa-bars" aria-hidden="true"></i></button>
@@ -1541,6 +1702,15 @@ body.foodsafe-night-mode .dashboard-chat-count { border-color: #12251d; }
           <button class="exec-hero-btn-sec" onclick="showCreate()"><i class="fas fa-user-plus" aria-hidden="true"></i> Create Account</button>
         </div>
       </div>
+    </section>
+
+    <section class="published-whats-new" id="homepageWhatsNewSection" aria-labelledby="homepage-whats-new-title" hidden>
+      <header class="published-whats-new-header">
+        <span class="section-kicker">FOODSAFE PRO UPDATES</span>
+        <h2 class="section-title" id="homepage-whats-new-title"><span class="homepage-whats-new-icon"><i class="fas fa-star" aria-hidden="true"></i></span>What’s new</h2>
+        <p>Product news and updates from the FoodSafe Pro team.</p>
+      </header>
+      <div id="homepageWhatsNewList" class="whats-new-list"></div>
     </section>
 
     <section class="exec-about-section" id="aboutUs">
@@ -1623,7 +1793,7 @@ body.foodsafe-night-mode .dashboard-chat-count { border-color: #12251d; }
           </a>
           <div class="contact-info-row">
             <span class="contact-info-icon"><i class="fas fa-paper-plane" aria-hidden="true"></i></span>
-            <span><strong>Direct feedback</strong><small>Send a message to the FoodSafe Pro administrator using the form.</small></span>
+            <span><strong>Direct feedback</strong><small>Share a question or suggestion with the FoodSafe Pro team.</small></span>
           </div>
           <div class="contact-info-row">
             <span class="contact-info-icon"><i class="fas fa-location-dot" aria-hidden="true"></i></span>
@@ -1631,33 +1801,11 @@ body.foodsafe-night-mode .dashboard-chat-count { border-color: #12251d; }
           </div>
         </div>
       </div>
-      <form class="feedback-form-card" id="publicFeedbackForm" onsubmit="submitWebsiteFeedback(event)">
-        <div class="contact-admin-header">
-          <span class="contact-person-avatar" aria-hidden="true">NP</span>
-          <div><strong>Neel Patel</strong><span>FoodSafe Pro Administrator</span></div>
-        </div>
-        <div class="feedback-form-grid">
-          <div class="feedback-field">
-            <label for="feedback-name">Your name (optional)</label>
-            <input id="feedback-name" name="name" type="text" maxlength="80" autocomplete="name" placeholder="How should we address you?">
-          </div>
-          <div class="feedback-field">
-            <label for="feedback-email">Your email (optional)</label>
-            <input id="feedback-email" name="email" type="email" maxlength="254" autocomplete="email" placeholder="Only if you'd like a reply">
-          </div>
-          <div class="feedback-field full">
-            <label for="feedback-message">Message <span aria-hidden="true">*</span></label>
-            <textarea id="feedback-message" name="message" minlength="10" maxlength="3000" required placeholder="Send feedback or kitchen requirements directly to our team…" aria-describedby="feedback-message-help"></textarea>
-            <span id="feedback-message-help" class="feedback-form-privacy">10–3,000 characters. Do not include passwords or payment details.</span>
-          </div>
-        </div>
-        <label class="feedback-honeypot" aria-hidden="true" tabindex="-1">Leave this field empty<input id="feedback-website" type="text" name="website" tabindex="-1" autocomplete="off"></label>
-        <div class="feedback-submit-row">
-          <button class="feedback-submit" type="submit"><i class="fas fa-paper-plane" aria-hidden="true"></i> Send to Administrator NP</button>
-        </div>
-        <p class="contact-form-privacy">Only administrators can see feedback until they choose to publish it. Your email is never published.</p>
-        <p class="feedback-form-status" id="feedback-form-status" role="status" aria-live="polite"></p>
-      </form>
+      <div class="feedback-invite-card">
+        <span class="feedback-invite-icon"><i class="fas fa-comment-dots" aria-hidden="true"></i></span>
+        <div><h3>Have feedback to share?</h3><p>Your note goes directly to our administrator. Your email is never published.</p></div>
+        <button type="button" onclick="openHomepageFeedback()"><i class="fas fa-paper-plane" aria-hidden="true"></i> Send feedback</button>
+      </div>
     </section>
     <section class="published-feedback" id="publishedFeedbackSection" aria-labelledby="published-feedback-title" hidden>
       <header class="published-feedback-header">
@@ -1678,6 +1826,38 @@ body.foodsafe-night-mode .dashboard-chat-count { border-color: #12251d; }
       <p class="published-incident-footer">These examples describe our response to specific incidents and do not replace your site’s approved food-safety plan or local health-authority guidance.</p>
     </section>
   </main>
+  <div id="homepageFeedbackModal" class="homepage-feedback-modal hidden" role="presentation" onclick="if(event.target===this)closeHomepageFeedback()">
+    <section class="homepage-feedback-dialog" role="dialog" aria-modal="true" aria-labelledby="homepage-feedback-title" aria-describedby="homepage-feedback-description">
+      <header class="homepage-feedback-dialog-header">
+        <span class="homepage-feedback-dialog-icon"><i class="fas fa-comment-dots" aria-hidden="true"></i></span>
+        <div><span class="contact-feedback-kicker">WE VALUE YOUR INPUT</span><h2 id="homepage-feedback-title">Send us feedback</h2><p id="homepage-feedback-description">Questions and suggestions go directly to the FoodSafe Pro administrator.</p></div>
+        <button class="homepage-feedback-close" type="button" aria-label="Close feedback form" onclick="closeHomepageFeedback()"><i class="fas fa-xmark" aria-hidden="true"></i></button>
+      </header>
+      <form class="feedback-form-card" id="publicFeedbackForm" onsubmit="submitWebsiteFeedback(event)">
+        <div class="feedback-form-grid">
+          <div class="feedback-field">
+            <label for="feedback-name">Your name (optional)</label>
+            <input id="feedback-name" name="name" type="text" maxlength="80" autocomplete="name" placeholder="How should we address you?">
+          </div>
+          <div class="feedback-field">
+            <label for="feedback-email">Your email (optional)</label>
+            <input id="feedback-email" name="email" type="email" maxlength="254" autocomplete="email" placeholder="Only if you'd like a reply">
+          </div>
+          <div class="feedback-field full">
+            <label for="feedback-message">Message <span aria-hidden="true">*</span></label>
+            <textarea id="feedback-message" name="message" minlength="10" maxlength="3000" required placeholder="Share your feedback or question…" aria-describedby="feedback-message-help"></textarea>
+            <span id="feedback-message-help" class="feedback-form-privacy">10–3,000 characters. Do not include passwords or payment details.</span>
+          </div>
+        </div>
+        <label class="feedback-honeypot" aria-hidden="true" tabindex="-1">Leave this field empty<input id="feedback-website" type="text" name="website" tabindex="-1" autocomplete="off"></label>
+        <div class="feedback-submit-row">
+          <button class="feedback-submit" type="submit"><i class="fas fa-paper-plane" aria-hidden="true"></i> Send feedback</button>
+        </div>
+        <p class="contact-form-privacy">Only administrators can see your message. Your email is never published.</p>
+        <p class="feedback-form-status" id="feedback-form-status" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </div>
   <div class="support-assistant">
     <section id="support-panel" class="support-panel hidden" aria-label="FoodSafe Pro guided help">
       <header class="support-panel-header">
@@ -1873,6 +2053,7 @@ body.foodsafe-night-mode .dashboard-chat-count { border-color: #12251d; }
         <span class="dashboard-side-label">WORKSPACE</span>
         <a class="active" aria-current="page" href="#accountDetails" onclick="showDashboardView('account');return false;"><i class="fas fa-user-circle"></i> Account</a>
         <a href="#dashboardOverview" onclick="showDashboardView('overview');return false;"><i class="fas fa-house"></i> Overview</a>
+        <a href="#dashboardWhatsNewView" onclick="showDashboardView('whatsNew');return false;"><i class="fas fa-star"></i> What’s new</a>
         <a href="#dashboardRecords" onclick="showDashboardView('records');return false;"><i class="fas fa-clipboard-list"></i> Temperature records</a>
         <a href="#dashboardDownloads" onclick="showDashboardView('downloads');return false;"><i class="fas fa-file-arrow-down"></i> Downloads</a>
         <a href="#dashboardTeamKnowledge" onclick="showDashboardView('knowledge');return false;"><i class="fas fa-book-open"></i> Team knowledge</a>
@@ -1885,13 +2066,13 @@ body.foodsafe-night-mode .dashboard-chat-count { border-color: #12251d; }
         <span class="dashboard-side-label">QUICK ACTIONS</span>
         <button class="side-action-primary" onclick="openAddRecordModal()"><i class="fas fa-plus"></i> Add reading</button>
         <button id="quickOpenDownloads" onclick="showDashboardView('downloads')"><i class="fas fa-folder-open"></i> Open downloads</button>
-        <button onclick="openChangeEmailModal()"><i class="fas fa-envelope"></i> Change email</button>
-        <button onclick="openChangePasswordModal()"><i class="fas fa-lock"></i> Change password</button>
       </div>
       <div id="adminToolsGroup" class="dashboard-side-admin" style="display:none;">
         <span class="dashboard-side-label">ADMINISTRATION</span>
         <button id="adminManageBtn" type="button" onclick="showDashboardView('staff');manageStaff()"><i class="fas fa-users"></i> Manage staff</button>
         <button id="adminAccessControlsBtn" type="button" onclick="showDashboardView('access')"><i class="fas fa-user-shield"></i> Staff access controls</button>
+        <button id="adminHomepageVisibilityBtn" type="button" onclick="showDashboardView('homepageVisibility')"><i class="fas fa-eye"></i> Homepage visibility</button>
+        <button id="adminWhatsNewBtn" type="button" onclick="showDashboardView('whatsNew')"><i class="fas fa-star"></i> Manage What’s new</button>
         <button id="adminMaintenanceBtn" class="maintenance-switch-row" type="button" role="switch" aria-checked="false" aria-label="Maintenance mode, off" onclick="toggleMaintenanceMode()">
           <span class="maintenance-control-name"><i class="fas fa-screwdriver-wrench"></i><span>Maintenance mode</span></span>
           <span id="maintenanceSwitchState" class="maintenance-switch-state"><span class="maintenance-switch-label">OFF</span><span class="maintenance-switch-track" aria-hidden="true"><span class="maintenance-switch-thumb"><i class="fas fa-check"></i></span></span></span>
@@ -1908,6 +2089,24 @@ body.foodsafe-night-mode .dashboard-chat-count { border-color: #12251d; }
       <button id="staffAdminChatToggle" class="dashboard-chat-trigger" type="button" aria-label="Open staff and admin chat" aria-haspopup="dialog" aria-controls="staffAdminChatModal" onclick="openStaffAdminChat()">
         <i class="fas fa-comments" aria-hidden="true"></i><span id="staffAdminChatUnreadCount" class="dashboard-chat-count" aria-hidden="true"></span>
       </button>
+      <div class="whats-new-notification-menu">
+        <button id="whatsNewNotificationToggle" class="whats-new-notification-trigger" type="button" aria-label="What’s new updates" title="What’s new updates" aria-controls="whatsNewNotificationPopover" aria-expanded="false" onclick="toggleWhatsNewNotifications(event)">
+          <i class="fas fa-star" aria-hidden="true"></i><span id="whatsNewNotificationCount" class="workflow-notification-count" aria-hidden="true"></span>
+        </button>
+        <section id="whatsNewNotificationPopover" class="workflow-notification-popover whats-new-notification-popover hidden" aria-label="What’s new notifications">
+          <div class="workflow-notification-heading">
+            <div><h3><i class="fas fa-star" aria-hidden="true"></i> What’s new</h3><p id="whatsNewNotificationSummary">New staff updates</p>
+              <div class="workflow-notification-actions">
+                <button type="button" onclick="markAllWhatsNewRead()">Mark all read</button>
+                <button type="button" onclick="clearWhatsNewNotifications()">Clear all</button>
+              </div>
+            </div>
+            <button class="workflow-notification-close" type="button" aria-label="Close What’s new notifications" onclick="closeWhatsNewNotifications(true)"><i class="fas fa-xmark" aria-hidden="true"></i></button>
+          </div>
+          <div id="whatsNewNotificationList" class="workflow-notification-list" aria-live="polite" aria-atomic="false"><div class="workflow-notification-empty"><i class="fas fa-circle-check" aria-hidden="true"></i>No new updates.</div></div>
+          <button class="whats-new-open-all" type="button" onclick="closeWhatsNewNotifications();showDashboardView('whatsNew')"><i class="fas fa-arrow-right" aria-hidden="true"></i> View all updates</button>
+        </section>
+      </div>
       <button id="nightModeToggle" class="dashboard-chat-trigger hidden" type="button" aria-label="Enable night mode" aria-pressed="false" title="Enable night mode" onclick="toggleNightMode()">
         <i class="fas fa-moon" aria-hidden="true"></i>
       </button>
@@ -1919,11 +2118,16 @@ body.foodsafe-night-mode .dashboard-chat-count { border-color: #12251d; }
           <i class="fas fa-bell" aria-hidden="true"></i><span id="workflowNotificationCount" class="workflow-notification-count" aria-hidden="true"></span>
         </button>
       </div>
-      <button class="dashboard-topbar-logout" type="button" onclick="logout()"><i class="fas fa-arrow-right-from-bracket"></i> Log out</button>
+      <button class="dashboard-topbar-logout" type="button" aria-label="Log out" title="Log out" onclick="logout()"><i class="fas fa-arrow-right-from-bracket" aria-hidden="true"></i><span class="dashboard-logout-label">Log out</span></button>
       <span class="dashboard-role-pill" id="dashboard-role-pill">Staff</span>
       <section id="workflowNotificationPopover" class="workflow-notification-popover hidden" aria-label="Food safety notifications">
         <div class="workflow-notification-heading">
-          <div><h3>Food safety alerts</h3><p id="workflowNotificationSummary">Updates that need your attention</p></div>
+          <div><h3>Food safety alerts</h3><p id="workflowNotificationSummary">Updates that need your attention</p>
+            <div class="workflow-notification-actions">
+              <button type="button" onclick="markAllWorkflowNotificationsRead()">Mark all read</button>
+              <button type="button" onclick="clearAllWorkflowNotifications()">Clear all</button>
+            </div>
+          </div>
           <button class="workflow-notification-close" type="button" aria-label="Close notifications" onclick="closeWorkflowNotifications()"><i class="fas fa-xmark" aria-hidden="true"></i></button>
         </div>
         <div id="workflowNotificationList" class="workflow-notification-list" aria-live="polite" aria-atomic="false"><div class="workflow-notification-empty"><i class="fas fa-circle-check" aria-hidden="true"></i>You’re all caught up.</div></div>
@@ -1981,7 +2185,22 @@ body.foodsafe-night-mode .dashboard-chat-count { border-color: #12251d; }
   <section class="account-panel" id="accountDetails" aria-labelledby="account-panel-title">
     <div class="account-panel-heading">
       <div><h2 id="account-panel-title">Your account</h2><p>Signed-in account details and security options.</p></div>
-      <span class="account-verified-pill"><i class="fas fa-shield-check"></i> Private account</span>
+      <div class="account-heading-status">
+        <span class="account-verified-pill"><i class="fas fa-shield-check" aria-hidden="true"></i> Private account</span>
+        <div class="account-actions-wrap" id="accountActionsWrap">
+          <button id="accountActionsToggle" class="account-actions-toggle" type="button" aria-expanded="false" aria-controls="accountActionMenu" onclick="toggleAccountActions()" aria-label="Open account settings" title="Account settings">
+            <i class="fas fa-gear" aria-hidden="true"></i>
+          </button>
+          <div class="account-panel-actions" id="accountActionMenu">
+            <button type="button" onclick="openChangeEmailModal()"><i class="fas fa-envelope"></i> Change email</button>
+            <button type="button" onclick="openChangePasswordModal()"><i class="fas fa-key"></i> Change password</button>
+            <button type="button" onclick="openChangeUsernameModal()"><i class="fas fa-user-pen"></i> Change username</button>
+            <button type="button" onclick="openTotpSettingsModal()"><i class="fas fa-mobile-screen-button"></i> Authenticator app</button>
+            <button type="button" class="account-reset-button" onclick="sendAccountPasswordReset()"><i class="fas fa-paper-plane"></i> Send password reset link</button>
+            <button type="button" class="account-delete-button" onclick="openDeleteAccountModal()"><i class="fas fa-user-xmark"></i> Delete account</button>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="account-details-grid">
       <div class="account-detail"><span class="account-detail-label"><i class="fas fa-user"></i> Username</span><strong class="account-detail-value" id="account-username">—</strong></div>
@@ -1989,19 +2208,6 @@ body.foodsafe-night-mode .dashboard-chat-count { border-color: #12251d; }
       <div class="account-detail"><span class="account-detail-label"><i class="fas fa-id-badge"></i> Account role</span><strong class="account-detail-value" id="account-role">—</strong></div>
       <div class="account-detail"><span class="account-detail-label"><i class="fas fa-calendar-plus"></i> Account created</span><strong class="account-detail-value" id="account-created">Loading account…</strong></div>
       <div class="account-detail"><span class="account-detail-label"><i class="fas fa-lock"></i> Password</span><strong class="account-detail-value account-password-note">For your security, passwords cannot be viewed.</strong></div>
-    </div>
-    <div class="account-actions-wrap" id="accountActionsWrap">
-      <button id="accountActionsToggle" class="account-actions-toggle" type="button" aria-expanded="false" aria-controls="accountActionMenu" onclick="toggleAccountActions()" aria-label="Open account actions">
-        <i class="fas fa-user-gear" aria-hidden="true"></i><span>Account actions</span><i class="fas fa-chevron-down account-actions-chevron" aria-hidden="true"></i>
-      </button>
-      <div class="account-panel-actions" id="accountActionMenu">
-        <button type="button" onclick="openChangeEmailModal()"><i class="fas fa-envelope"></i> Change email</button>
-        <button type="button" onclick="openChangePasswordModal()"><i class="fas fa-key"></i> Change password</button>
-        <button type="button" onclick="openChangeUsernameModal()"><i class="fas fa-user-pen"></i> Change username</button>
-        <button type="button" onclick="openTotpSettingsModal()"><i class="fas fa-mobile-screen-button"></i> Authenticator app</button>
-        <button type="button" class="account-reset-button" onclick="sendAccountPasswordReset()"><i class="fas fa-paper-plane"></i> Send password reset link</button>
-        <button type="button" class="account-delete-button" onclick="openDeleteAccountModal()"><i class="fas fa-user-xmark"></i> Delete account</button>
-      </div>
     </div>
   </section>
   </section>
@@ -2172,6 +2378,43 @@ body.foodsafe-night-mode .dashboard-chat-count { border-color: #12251d; }
       <p id="incidentLearningStatus" class="workflow-status" role="status" aria-live="polite"></p>
     </div>
   </section>
+  <section class="dashboard-section-view hidden workflow-page" id="dashboardWhatsNewView" aria-labelledby="dashboard-whats-new-title">
+    <header class="whats-new-header">
+      <span class="staff-management-kicker">FOODSAFE PRO UPDATES</span>
+      <h3 id="dashboard-whats-new-title">What’s new</h3>
+      <p>Updates published for your team. Administrators can publish announcements to staff, the public homepage, or both.</p>
+    </header>
+    <div id="adminWhatsNewManager" class="hidden">
+      <form id="whatsNewForm" class="whats-new-form workflow-form-grid" onsubmit="saveWhatsNewUpdate(event)">
+        <input id="whatsNewEditId" type="hidden">
+        <label class="workflow-field full" for="whatsNewTitle">Title<input id="whatsNewTitle" name="title" maxlength="140" required placeholder="A short update title"></label>
+        <label class="workflow-field full" for="whatsNewBody">Update<textarea id="whatsNewBody" name="body" maxlength="5000" required placeholder="Share the update with the selected audience"></textarea></label>
+        <fieldset class="workflow-field full">
+          <legend class="mb-2 text-sm font-semibold">Publish to</legend>
+          <div class="whats-new-targets">
+            <label class="whats-new-target-switch">
+              <span class="whats-new-target-copy"><i class="fas fa-users" aria-hidden="true"></i><span>Staff dashboard</span></span>
+              <input id="whatsNewStaffTarget" type="checkbox" aria-label="Publish to staff dashboard">
+              <span class="whats-new-switch-track" aria-hidden="true"></span>
+            </label>
+            <label class="whats-new-target-switch">
+              <span class="whats-new-target-copy"><i class="fas fa-globe" aria-hidden="true"></i><span>Public homepage</span></span>
+              <input id="whatsNewHomepageTarget" type="checkbox" aria-label="Publish to public homepage">
+              <span class="whats-new-switch-track" aria-hidden="true"></span>
+            </label>
+          </div>
+        </fieldset>
+        <div class="workflow-field full">
+          <div class="whats-new-form-actions">
+            <button id="whatsNewSubmit" type="submit">Publish update</button>
+            <button id="whatsNewCancelEdit" type="button" class="hidden" onclick="resetWhatsNewForm()">Cancel edit</button>
+          </div>
+          <p id="whatsNewStatus" class="whats-new-status" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+    </div>
+    <div id="whatsNewDashboardList" class="whats-new-list" aria-live="polite"><div class="whats-new-empty">Open this section to load updates.</div></div>
+  </section>
   <section class="dashboard-section-view hidden" id="dashboardFeedbackView" aria-labelledby="feedback-inbox-title">
     <div class="card">
       <div class="admin-feedback-toolbar">
@@ -2216,9 +2459,24 @@ body.foodsafe-night-mode .dashboard-chat-count { border-color: #12251d; }
       </header>
       <div class="access-control-toolbar">
         <label class="workflow-field" for="accessControlStaffSelect">Select staff member<select id="accessControlStaffSelect" onchange="loadSelectedStaffAccessControls()"><option value="">Choose a staff member…</option></select></label>
+        <button id="applyAccessControlsToAll" class="access-control-bulk-button" type="button" onclick="applyStaffAccessToAll()" disabled>Apply selected settings to all staff</button>
       </div>
       <p id="accessControlStatus" class="access-control-status" role="status" aria-live="polite">Choose a staff member to manage their individual access.</p>
       <div id="accessControlList" class="access-control-list" aria-live="polite"></div>
+    </div>
+  </section>
+  <section class="dashboard-section-view hidden" id="dashboardHomepageVisibilityView" aria-labelledby="homepage-visibility-title">
+    <header class="homepage-visibility-header">
+      <span class="staff-management-kicker">PUBLIC HOMEPAGE</span>
+      <h3 id="homepage-visibility-title">Homepage visibility</h3>
+      <p>Choose which homepage sections and entry points visitors can see. Turn on Log in to show the login options for administrators and staff.</p>
+    </header>
+    <div class="homepage-visibility-settings">
+      <div id="homepageVisibilityList" class="homepage-visibility-list"></div>
+      <div class="homepage-visibility-actions mt-4">
+        <button type="button" onclick="saveHomepageVisibility()">Save homepage settings</button>
+      </div>
+      <p id="homepageVisibilityStatus" class="homepage-visibility-status" role="status" aria-live="polite">Loading homepage settings…</p>
     </div>
   </section>
   <section class="dashboard-section-view dashboard-food-safety-view hidden" id="dashboardFoodSafetyView" aria-label="Food safety guide for staff and administrators">
@@ -2375,7 +2633,8 @@ const configured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes
 const foodSafeProClient = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 const foodSafeProPublicClient = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {auth:{autoRefreshToken:false,persistSession:false,detectSessionInUrl:false}}) : null;
 
-let currentUser = null, currentRole = null, currentProfile = null, currentAuthUser = null, currentDashboardView = 'account', data = [], filteredData = [], charts = {}, cleaningAssignmentReport = [], correctiveActionReport = [], incidentLearningCases = [], adminStaffPairChats = [], staffAccessBlocked = new Set(), staffAccessStaff = [], selectedAccessStaffId = '', staffAccessRefreshTimer = null, nightModeActive = false, workflowDeadlineTimer = null, workflowDeadlineChecksInitialized = false, workflowNotificationError = '', workflowNotificationEventsBound = false, staffAdminChatThreadId = null, staffAdminChatContacts = [], staffAdminChatPollTimer = null, staffAdminChatEventsBound = false, workflowConfirmationResolver = null, workflowConfirmationPreviousFocus = null, workflowInputResolver = null, workflowInputPreviousFocus = null, systemMessagePreviousFocus = null, pendingTotpFactorId = '';
+let currentUser = null, currentRole = null, currentProfile = null, currentAuthUser = null, currentDashboardView = 'account', data = [], filteredData = [], charts = {}, cleaningAssignmentReport = [], correctiveActionReport = [], incidentLearningCases = [], adminStaffPairChats = [], staffAccessBlocked = new Set(), staffAccessStaff = [], selectedAccessStaffId = '', staffAccessRefreshTimer = null, staffAccessRealtimeChannel = null, nightModeActive = false, workflowDeadlineTimer = null, workflowDeadlineChecksInitialized = false, workflowNotificationError = '', workflowNotificationEventsBound = false, staffAdminChatThreadId = null, staffAdminChatContacts = [], staffAdminChatPollTimer = null, staffAdminChatEventsBound = false, workflowConfirmationResolver = null, workflowConfirmationPreviousFocus = null, workflowInputResolver = null, workflowInputPreviousFocus = null, systemMessagePreviousFocus = null, pendingTotpFactorId = '';
+let whatsNewRealtimeChannel=null,whatsNewRefreshTimer=null,whatsNewNotificationEventsBound=false,homepageFeedbackPreviousFocus=null;
 let changeUsernameAvailabilityTimer=null,changeUsernameAvailabilityRequest=0;
 const $ = id => document.getElementById(id);
 const STAFF_ACCESS_FEATURES=[
@@ -2394,11 +2653,39 @@ const STAFF_ACCESS_FEATURES=[
   {key:'food_safety_guide',label:'Food safety guide',detail:'Block access to the food-safety guide.'},
   {key:'overview',label:'Workspace overview',detail:'Block access to the overview dashboard and its safety summary.'},
   {key:'chat',label:'Team chat',detail:'Block staff chat access and sending messages.'},
-  {key:'notifications',label:'Notifications',detail:'Block the food-safety notification center.'},
+  {key:'notifications',label:'Notifications',detail:'Block the food-safety alerts and What’s new update feed.'},
   {key:'data_changes',label:'Read-only access',detail:'When enabled, this staff member can view accessible data but cannot add, update, delete, submit, or send messages.'},
   {key:'night_mode',label:'Night mode',detail:'Enable the dark appearance for this staff member.'}
 ];
-const STAFF_ACCESS_VIEW_FEATURES={account:'account_settings',overview:'overview',records:'temperature_records',downloads:'downloads',trends:'trends',corrective:'corrective_actions',cleaning:'cleaning',knowledge:'team_knowledge',guide:'food_safety_guide'};
+const STAFF_ACCESS_VIEW_FEATURES={account:'account_settings',overview:'overview',whatsNew:'notifications',records:'temperature_records',downloads:'downloads',trends:'trends',corrective:'corrective_actions',cleaning:'cleaning',knowledge:'team_knowledge',guide:'food_safety_guide'};
+const HOMEPAGE_VISIBILITY_DEFAULTS={
+  brand:true,navigation:true,login:true,signup:true,customer_helpdesk:true,whats_new:true,
+  feedback:true,hero:true,about:true,standards:true,how_it_works:true,benefits:true,
+  food_safety_guide:true,contact:true,visitor_feedback:true,incident_stories:true,
+  help_assistant:true,footer:true
+};
+const HOMEPAGE_VISIBILITY_LABELS={
+  brand:['FoodSafe Pro branding','Show the homepage brand marks.'],
+  navigation:['Homepage navigation','Show the homepage navigation links and menu.'],
+  login:['Log in','Show homepage login options for administrators and staff.'],
+  signup:['Create account','Show public account creation options.'],
+  customer_helpdesk:['Customer helpdesk','Show helpdesk links.'],
+  whats_new:['What’s new','Show updates published to the public homepage.'],
+  feedback:['Visitor feedback form','Show the public feedback form.'],
+  hero:['Homepage introduction','Show the main homepage introduction.'],
+  about:['About us','Show the About section.'],
+  standards:['Food holding standards','Show the temperature standards section.'],
+  how_it_works:['How it works','Show the workflow section.'],
+  benefits:['Benefits','Show the benefits section.'],
+  food_safety_guide:['Food safety guide','Show the public food-safety guide.'],
+  contact:['Contact section','Show contact information and the feedback form.'],
+  visitor_feedback:['Published visitor feedback','Show published visitor feedback.'],
+  incident_stories:['Incident stories','Show published food-safety stories.'],
+  help_assistant:['Help assistant','Show the homepage help assistant.'],
+  footer:['Homepage footer','Show the homepage footer.']
+};
+let homepageVisibility={...HOMEPAGE_VISIBILITY_DEFAULTS};
+let editingWhatsNewId='';
 let pendingSignupEmail = '';
 
 function showMessage(message, type='info') { const box=$('auth-message'); if(!box)return; box.textContent=message; box.className='w-full rounded-lg p-3 text-sm '+type; }
@@ -2446,6 +2733,10 @@ function applyStaffAccessAppearance(){
     ||currentRole==='staff'&&!isReadOnlyDemo()&&staffAccessBlocked.has('night_mode');
   if(currentRole==='staff'&&!staffAccessBlocked.has('night_mode'))nightModeActive=false;
   document.body.classList.toggle('foodsafe-night-mode',canUseNightMode&&nightModeActive);
+  const whatsNewToggle=$('whatsNewNotificationToggle');
+  const notificationsBlocked=currentRole==='staff'&&isStaffAccessBlocked('notifications');
+  whatsNewToggle?.classList.toggle('hidden',isReadOnlyDemo()||notificationsBlocked);
+  if(isReadOnlyDemo()||notificationsBlocked)closeWhatsNewNotifications();
   const toggle=$('nightModeToggle');
   toggle?.classList.toggle('hidden',!canUseNightMode);
   if(toggle){
@@ -2492,13 +2783,27 @@ async function loadMyStaffAccessControls(){
   }
   staffAccessBlocked=next;
   applyStaffAccessAppearance();
-  const newlyBlocked=[...next].find(feature=>!previous.has(feature));
+  const newlyBlocked=[...next].filter(feature=>!previous.has(feature));
   const currentFeature=STAFF_ACCESS_VIEW_FEATURES[currentDashboardView];
-  if(newlyBlocked&&(newlyBlocked==='data_changes'||next.has(currentFeature)||(['change_email','change_password','delete_account'].includes(newlyBlocked)&&currentDashboardView==='account'))){
-    showAccessBlockedMessage(newlyBlocked);
+  const affectedBlock=newlyBlocked.find(feature=>feature==='data_changes'||feature===currentFeature
+    ||(['change_email','change_password','delete_account'].includes(feature)&&currentDashboardView==='account'));
+  if(affectedBlock){
+    showAccessBlockedMessage(affectedBlock);
     const firstView=['account','overview','records','downloads','knowledge','trends','corrective','cleaning','guide']
       .find(view=>!STAFF_ACCESS_VIEW_FEATURES[view]||!next.has(STAFF_ACCESS_VIEW_FEATURES[view]));
     if(firstView&&firstView!==currentDashboardView)showDashboardView(firstView);
+  }
+  if(!staffAccessRealtimeChannel&&currentProfile?.id){
+    staffAccessRealtimeChannel=foodSafeProClient.channel(`staff-access-controls:${currentProfile.id}`)
+      .on('postgres_changes',{
+        event:'*',schema:'public',table:'staff_access_controls',
+        filter:`staff_id=eq.${currentProfile.id}`
+      },()=>loadMyStaffAccessControls())
+      .subscribe(status=>{
+        if(status==='CHANNEL_ERROR'||status==='TIMED_OUT'){
+          console.error('Realtime staff access updates are unavailable; periodic refresh remains active.');
+        }
+      });
   }
   if(!staffAccessRefreshTimer){
     staffAccessRefreshTimer=setInterval(()=>loadMyStaffAccessControls(),20000);
@@ -2537,6 +2842,8 @@ async function loadSelectedStaffAccessControls(){
   if(currentRole!=='admin'||isReadOnlyDemo())return;
   const staffId=$('accessControlStaffSelect')?.value||'';
   selectedAccessStaffId=staffId;
+  const bulkButton=$('applyAccessControlsToAll');
+  if(bulkButton)bulkButton.disabled=!staffId;
   const status=$('accessControlStatus'),list=$('accessControlList');
   if(!staffId){
     list?.replaceChildren();
@@ -2592,6 +2899,520 @@ async function saveStaffAccessControl(feature,blocked,button){
     button.disabled=false;
   }
 }
+async function applyStaffAccessToAll(){
+  if(currentRole!=='admin'||isReadOnlyDemo()||!selectedAccessStaffId)return;
+  const sourceStaffId=selectedAccessStaffId;
+  const account=staffAccessStaff.find(staff=>staff.id===sourceStaffId);
+  const confirmed=await confirmWorkflowAction({
+    title:'Apply access settings to all staff?',
+    message:`Use ${account?.username||'the selected staff member'}’s access settings for every staff account?`,
+    warning:'This replaces existing access settings for all other staff accounts.',
+    confirmLabel:'Apply to all staff'
+  });
+  if(!confirmed)return;
+  const button=$('applyAccessControlsToAll'),status=$('accessControlStatus');
+  if(button)button.disabled=true;
+  if(status){status.classList.remove('error');status.textContent='Applying access settings to all staff…';}
+  const {error}=await foodSafeProClient.rpc('foodsafe_apply_staff_access_controls_to_all',{
+    p_source_staff_id:sourceStaffId
+  });
+  if(error){
+    console.error('Could not apply staff access settings to all staff:',error);
+    if(status){status.classList.add('error');status.textContent=`Could not apply settings to all staff. ${whatsNewErrorMessage(error)}`;}
+    if(button)button.disabled=false;
+    return;
+  }
+  await loadSelectedStaffAccessControls();
+  if(status&&!status.classList.contains('error'))status.textContent=`${account?.username||'Selected staff member'}’s access settings were applied to all ${staffAccessStaff.length} staff accounts.`;
+  if(button)button.disabled=false;
+}
+
+function whatsNewErrorMessage(error){
+  if(['42P01','42883','PGRST202','PGRST204','PGRST205'].includes(error?.code)){
+    return 'Apply supabase/whats-new-updates.sql in the Supabase SQL editor, after food-safety-operations.sql and homepage-visibility.sql.';
+  }
+  return workflowErrorMessage(error);
+}
+
+function homepageVisibilityErrorMessage(error){
+  if(['42P01','PGRST202','PGRST204','PGRST205'].includes(error?.code)){
+    return 'Apply supabase/homepage-visibility.sql in the Supabase SQL editor.';
+  }
+  return workflowErrorMessage(error);
+}
+
+async function loadWhatsNewFeed({staffOnly=false}={}){
+  let query=foodSafeProClient.from('foodsafe_whats_new_updates')
+    .select('id,title,body,publish_to_staff,publish_to_homepage,created_at,updated_at')
+    .order('created_at',{ascending:false}).limit(100);
+  if(staffOnly)query=query.eq('publish_to_staff',true);
+  const {data:updates,error}=await query;
+  if(error)return {updates:null,error};
+  if(!updates?.length)return {updates:[],error:null};
+  const {data:receipts,error:receiptError}=await foodSafeProClient.from('foodsafe_whats_new_receipts')
+    .select('update_id,read_at,cleared_at')
+    .eq('staff_id',currentProfile.id)
+    .in('update_id',updates.map(update=>update.id));
+  if(receiptError)return {updates:null,error:receiptError};
+  const receiptByUpdate=new Map((receipts||[]).map(receipt=>[String(receipt.update_id),receipt]));
+  return {
+    updates:updates.map(update=>({
+      ...update,
+      read_at:receiptByUpdate.get(String(update.id))?.read_at||null,
+      cleared_at:receiptByUpdate.get(String(update.id))?.cleared_at||null
+    })),
+    error:null
+  };
+}
+
+function renderDashboardWhatsNew(updates){
+  const list=$('whatsNewDashboardList');
+  if(!list)return;
+  list.replaceChildren();
+  if(!updates.length){
+    const empty=document.createElement('div');
+    empty.className='whats-new-empty';
+    empty.textContent=currentRole==='admin'?'No updates yet. Publish an update above.':'There are no new updates for staff right now.';
+    list.appendChild(empty);
+    return;
+  }
+  updates.forEach(update=>{
+    const card=document.createElement('article');
+    card.className='whats-new-card';
+    const heading=document.createElement('div');
+    heading.className='whats-new-card-heading';
+    const icon=document.createElement('span');
+    icon.className='whats-new-card-icon';
+    icon.innerHTML='<i class="fas fa-star" aria-hidden="true"></i>';
+    const title=document.createElement('h4');
+    title.textContent=update.title;
+    heading.append(icon,title);
+    const body=document.createElement('p');
+    body.textContent=update.body;
+    const meta=document.createElement('div');
+    meta.className='whats-new-meta';
+    const date=document.createElement('time');
+    date.dateTime=update.created_at;
+    date.textContent=formatWorkflowDate(update.created_at);
+    meta.appendChild(date);
+    if(update.publish_to_staff){
+      const staffTag=document.createElement('span');
+      staffTag.className='whats-new-tag';
+      staffTag.textContent='Staff';
+      meta.appendChild(staffTag);
+    }
+    if(update.publish_to_homepage){
+      const homepageTag=document.createElement('span');
+      homepageTag.className='whats-new-tag';
+      homepageTag.textContent='Homepage';
+      meta.appendChild(homepageTag);
+    }
+    card.append(heading,body,meta);
+    if(currentRole==='admin'&&!isReadOnlyDemo()){
+      const actions=document.createElement('div');
+      actions.className='whats-new-item-actions';
+      const edit=document.createElement('button');
+      edit.type='button';
+      edit.textContent='Edit';
+      edit.addEventListener('click',()=>editWhatsNewUpdate(update));
+      const remove=document.createElement('button');
+      remove.type='button';
+      remove.className='is-delete';
+      remove.textContent='Delete';
+      remove.addEventListener('click',()=>deleteWhatsNewUpdate(update.id));
+      actions.append(edit,remove);
+      card.appendChild(actions);
+    }
+    list.appendChild(card);
+  });
+}
+
+async function loadWhatsNewUpdates(){
+  const list=$('whatsNewDashboardList');
+  if(!list||!currentProfile)return;
+  const isAdmin=currentRole==='admin'&&!isReadOnlyDemo();
+  $('adminWhatsNewManager')?.classList.toggle('hidden',!isAdmin);
+  list.innerHTML='<div class="whats-new-empty">Loading updates…</div>';
+  const {updates,error}=await loadWhatsNewFeed();
+  if(error){
+    console.error('Could not load What’s new updates:',error);
+    list.innerHTML=`<div class="whats-new-empty" role="alert">${escapeHtml(whatsNewErrorMessage(error))}</div>`;
+    return;
+  }
+  renderDashboardWhatsNew((updates||[]).filter(update=>!update.cleared_at));
+}
+
+function bindWhatsNewNotificationEvents(){
+  if(whatsNewNotificationEventsBound)return;
+  whatsNewNotificationEventsBound=true;
+  document.addEventListener('click',event=>{
+    if(event.target instanceof Element&&!event.target.closest('.whats-new-notification-menu'))closeWhatsNewNotifications();
+  });
+  document.addEventListener('keydown',event=>{
+    if(event.key==='Escape'&&!$('whatsNewNotificationPopover')?.classList.contains('hidden')){
+      event.preventDefault();
+      closeWhatsNewNotifications(true);
+    }
+  });
+}
+
+function startWhatsNewNotifications(){
+  bindWhatsNewNotificationEvents();
+  if(!currentProfile||isReadOnlyDemo()||!foodSafeProClient)return;
+  if(!whatsNewRealtimeChannel){
+    whatsNewRealtimeChannel=foodSafeProClient.channel(`whats-new-updates:${currentProfile.id}`)
+      .on('postgres_changes',{event:'*',schema:'public',table:'foodsafe_whats_new_updates'},()=>{
+        loadWhatsNewNotifications();
+        if(currentDashboardView==='whatsNew')loadWhatsNewUpdates();
+      })
+      .subscribe(status=>{
+        if(status==='CHANNEL_ERROR'||status==='TIMED_OUT'){
+          console.error('What’s new live updates are unavailable; periodic refresh remains active.');
+        }
+      });
+  }
+  if(!whatsNewRefreshTimer)whatsNewRefreshTimer=setInterval(()=>loadWhatsNewNotifications(),45000);
+  loadWhatsNewNotifications();
+}
+
+async function loadWhatsNewNotifications(){
+  const list=$('whatsNewNotificationList'),toggle=$('whatsNewNotificationToggle'),count=$('whatsNewNotificationCount');
+  if(!list||!currentProfile||isReadOnlyDemo()||!currentRole
+    ||(currentRole==='staff'&&isStaffAccessBlocked('notifications')))return;
+  const [{updates,error},{data:unreadCount,error:countError}]=await Promise.all([
+    loadWhatsNewFeed({staffOnly:true}),
+    foodSafeProClient.rpc('foodsafe_whats_new_unread_count')
+  ]);
+  if(error){
+    console.error('Could not load What’s new notifications:',error);
+    list.innerHTML=`<div class="workflow-notification-error" role="alert">${escapeHtml(whatsNewErrorMessage(error))}</div>`;
+    if(count){count.textContent='';count.classList.remove('has-count');}
+    return;
+  }
+  if(countError){
+    console.error('Could not count unread What’s new updates:',countError);
+    list.innerHTML=`<div class="workflow-notification-error" role="alert">${escapeHtml(whatsNewErrorMessage(countError))}</div>`;
+    if(count){count.textContent='';count.classList.remove('has-count');}
+    return;
+  }
+  const activeUpdates=(updates||[]).filter(update=>!update.cleared_at);
+  const unread=Number(unreadCount)||0;
+  toggle?.setAttribute('aria-label',`What’s new updates, ${unread} unread`);
+  if(count){
+    count.textContent=unread>99?'99+':String(unread);
+    count.classList.toggle('has-count',unread>0);
+    count.setAttribute('aria-hidden','true');
+  }
+  const summary=$('whatsNewNotificationSummary');
+  if(summary)summary.textContent=unread?`${unread} unread update${unread===1?'':'s'}`:'Product news and staff updates';
+  list.replaceChildren();
+  if(!activeUpdates.length){
+    list.innerHTML='<div class="workflow-notification-empty"><i class="fas fa-circle-check" aria-hidden="true"></i>No new updates.</div>';
+    return;
+  }
+  activeUpdates.slice(0,8).forEach(update=>{
+    const item=document.createElement('article');
+    item.className=`workflow-notification-item whats-new-notification-item${update.read_at?' is-read':''}`;
+    const icon=document.createElement('i');
+    icon.className=`fas ${update.read_at?'fa-circle-check':'fa-star'}`;
+    icon.setAttribute('aria-hidden','true');
+    const copy=document.createElement('div');
+    const title=document.createElement('strong');
+    title.textContent=update.title;
+    const date=document.createElement('time');
+    date.dateTime=update.created_at;
+    date.textContent=formatWorkflowDate(update.created_at);
+    copy.append(title,date);
+    item.append(icon,copy);
+    list.append(item);
+  });
+}
+
+function toggleWhatsNewNotifications(event){
+  event?.stopPropagation();
+  if(!requireStaffAccess('notifications',{actionLabel:'What’s new updates'}))return;
+  const popover=$('whatsNewNotificationPopover'),toggle=$('whatsNewNotificationToggle');
+  if(!popover||!toggle)return;
+  const open=popover.classList.contains('hidden');
+  popover.classList.toggle('hidden',!open);
+  toggle.setAttribute('aria-expanded',String(open));
+  if(open)loadWhatsNewNotifications();
+}
+
+function closeWhatsNewNotifications(restoreFocus=false){
+  $('whatsNewNotificationPopover')?.classList.add('hidden');
+  const toggle=$('whatsNewNotificationToggle');
+  toggle?.setAttribute('aria-expanded','false');
+  if(restoreFocus)toggle?.focus();
+}
+
+async function markAllWhatsNewRead(){
+  if(!requireStaffAccess('notifications',{changes:true,actionLabel:'What’s new updates'}))return;
+  const {data:updated,error}=await foodSafeProClient.rpc('foodsafe_whats_new_mark_all_read');
+  if(error){
+    console.error('Could not mark What’s new updates as read:',error);
+    showAppMessage(`Could not mark updates as read. ${whatsNewErrorMessage(error)}`);
+    return;
+  }
+  await loadWhatsNewNotifications();
+  if(currentDashboardView==='whatsNew')await loadWhatsNewUpdates();
+  showSystemMessage('Updates marked read',`${Number(updated)||0} update${Number(updated)===1?'':'s'} marked as read.`,'green','Done');
+}
+
+async function clearWhatsNewNotifications(){
+  if(!requireStaffAccess('notifications',{changes:true,actionLabel:'What’s new updates'}))return;
+  const confirmed=await confirmWorkflowAction({
+    title:'Clear What’s new updates?',
+    message:'This removes the current staff updates from your personal What’s new feed.',
+    warning:'Shared announcements will remain available to everyone else.',
+    confirmLabel:'Clear my updates'
+  });
+  if(!confirmed)return;
+  const {data:cleared,error}=await foodSafeProClient.rpc('foodsafe_whats_new_clear_all');
+  if(error){
+    console.error('Could not clear What’s new updates:',error);
+    showAppMessage(`Could not clear updates. ${whatsNewErrorMessage(error)}`);
+    return;
+  }
+  await loadWhatsNewNotifications();
+  if(currentDashboardView==='whatsNew')await loadWhatsNewUpdates();
+  showSystemMessage('Updates cleared',`${Number(cleared)||0} update${Number(cleared)===1?'':'s'} cleared from your feed.`,'green','Done');
+}
+
+function resetWhatsNewForm(){
+  $('whatsNewForm')?.reset();
+  $('whatsNewEditId').value='';
+  $('whatsNewSubmit').textContent='Publish update';
+  $('whatsNewCancelEdit').classList.add('hidden');
+  const status=$('whatsNewStatus');
+  if(status){status.textContent='';status.classList.remove('error');}
+  editingWhatsNewId='';
+}
+
+function editWhatsNewUpdate(update){
+  if(currentRole!=='admin'||isReadOnlyDemo())return;
+  editingWhatsNewId=String(update.id);
+  $('whatsNewEditId').value=editingWhatsNewId;
+  $('whatsNewTitle').value=update.title;
+  $('whatsNewBody').value=update.body;
+  $('whatsNewStaffTarget').checked=Boolean(update.publish_to_staff);
+  $('whatsNewHomepageTarget').checked=Boolean(update.publish_to_homepage);
+  $('whatsNewSubmit').textContent='Save update';
+  $('whatsNewCancelEdit').classList.remove('hidden');
+  $('whatsNewTitle').focus();
+  $('whatsNewForm').scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+async function saveWhatsNewUpdate(event){
+  event.preventDefault();
+  if(currentRole!=='admin'||isReadOnlyDemo())return;
+  const status=$('whatsNewStatus');
+  const payload={
+    title:$('whatsNewTitle').value.trim(),
+    body:$('whatsNewBody').value.trim(),
+    publish_to_staff:$('whatsNewStaffTarget').checked,
+    publish_to_homepage:$('whatsNewHomepageTarget').checked
+  };
+  if(!payload.publish_to_staff&&!payload.publish_to_homepage){
+    status.textContent='Choose Staff dashboard, Public homepage, or both.';
+    status.classList.add('error');
+    return;
+  }
+  if(!payload.title||!payload.body){
+    status.textContent='Enter a title and update message.';
+    status.classList.add('error');
+    return;
+  }
+  const id=$('whatsNewEditId').value;
+  const submit=$('whatsNewSubmit');
+  submit.disabled=true;
+  status.classList.remove('error');
+  status.textContent=id?'Saving update…':'Publishing update…';
+  const query=id
+    ?foodSafeProClient.from('foodsafe_whats_new_updates').update(payload).eq('id',id)
+    :foodSafeProClient.from('foodsafe_whats_new_updates').insert(payload);
+  const {error}=await query;
+  submit.disabled=false;
+  if(error){
+    console.error('Could not save What’s new update:',error);
+    status.textContent=`Could not save update. ${whatsNewErrorMessage(error)}`;
+    status.classList.add('error');
+    return;
+  }
+  resetWhatsNewForm();
+  $('whatsNewStatus').textContent=id?'Update saved.':'Update published.';
+  await loadWhatsNewUpdates();
+  await loadWhatsNewNotifications();
+  await loadPublishedWhatsNew();
+}
+
+async function deleteWhatsNewUpdate(id){
+  if(currentRole!=='admin'||isReadOnlyDemo())return;
+  const confirmed=await confirmWorkflowDeletion({
+    title:'Delete this update?',
+    message:'This update will be removed from the staff dashboard and public homepage.',
+    warning:'This action cannot be undone.',
+    confirmLabel:'Delete update'
+  });
+  if(!confirmed)return;
+  const {error}=await foodSafeProClient.from('foodsafe_whats_new_updates').delete().eq('id',id);
+  if(error){
+    console.error('Could not delete What’s new update:',error);
+    setWorkflowStatus('whatsNewStatus',`Could not delete update. ${whatsNewErrorMessage(error)}`,true);
+    return;
+  }
+  if(String(id)===editingWhatsNewId)resetWhatsNewForm();
+  await loadWhatsNewUpdates();
+  await loadWhatsNewNotifications();
+  await loadPublishedWhatsNew();
+}
+
+function applyHomepageVisibility(){
+  const selectors={
+    brand:'.landing-nav .landing-brand, .exec-footer-brand',
+    navigation:'.landing-desktop-links, #landingMenuToggle, #landingMenu',
+    login:'.nav-login-btn, .nav-caption, .exec-hero-actions .exec-hero-btn, .exec-footer a[onclick*="showLogin"]',
+    signup:'.nav-signup-btn, .exec-hero-actions .exec-hero-btn-sec',
+    customer_helpdesk:'.nav-helpdesk-link:not(.landing-feedback-link), .exec-footer a[href*="infinityfree.io"]',
+    whats_new:'#homepageWhatsNewSection',
+    feedback:'#homepageFeedbackModal, .feedback-form-card, #homeFeedbackButton, #mobileFeedbackButton, .feedback-invite-card',
+    hero:'#homeHero',
+    about:'#aboutUs',
+    standards:'#safetyShowcase',
+    how_it_works:'#howWeWork',
+    benefits:'#allBenefits',
+    food_safety_guide:'#homeFoodSafetyGuide',
+    contact:'#contactUs',
+    visitor_feedback:'#publishedFeedbackSection',
+    incident_stories:'#publishedIncidentStoriesSection',
+    help_assistant:'.support-assistant',
+    footer:'.exec-footer'
+  };
+  Object.entries(selectors).forEach(([key,selector])=>{
+    document.querySelectorAll(selector).forEach(element=>{
+      element.dataset.homepageHidden=String(homepageVisibility[key]===false);
+    });
+  });
+  if(homepageVisibility.feedback===false)closeHomepageFeedback();
+}
+
+async function loadHomepageVisibility(){
+  if(!foodSafeProPublicClient)return;
+  const {data:row,error}=await foodSafeProPublicClient.from('foodsafe_homepage_visibility')
+    .select('homepage_visibility').eq('id','main').maybeSingle();
+  if(error){
+    console.error('Could not load homepage visibility settings:',error);
+    applyHomepageVisibility();
+    return;
+  }
+  homepageVisibility={...HOMEPAGE_VISIBILITY_DEFAULTS,...(row?.homepage_visibility||{})};
+  applyHomepageVisibility();
+}
+
+async function loadHomepageVisibilitySettings(){
+  if(currentRole!=='admin'||isReadOnlyDemo())return;
+  const list=$('homepageVisibilityList'),status=$('homepageVisibilityStatus');
+  if(!list||!status)return;
+  status.classList.remove('error');
+  status.textContent='Loading homepage settings…';
+  list.replaceChildren();
+  const {data:row,error}=await foodSafeProClient.from('foodsafe_homepage_visibility')
+    .select('homepage_visibility').eq('id','main').maybeSingle();
+  if(error||!row){
+    console.error('Could not load homepage visibility settings:',error||'The main settings row is missing.');
+    status.textContent=`Could not load homepage settings. ${error?homepageVisibilityErrorMessage(error):'The homepage settings row is missing.'}`;
+    status.classList.add('error');
+    return;
+  }
+  homepageVisibility={...HOMEPAGE_VISIBILITY_DEFAULTS,...(row.homepage_visibility||{})};
+  applyHomepageVisibility();
+  Object.entries(HOMEPAGE_VISIBILITY_LABELS).forEach(([key,[label,detail]])=>{
+    const item=document.createElement('label');
+    item.className='homepage-visibility-setting';
+    const copy=document.createElement('span');
+    const name=document.createElement('strong');
+    name.textContent=label;
+    const description=document.createElement('small');
+    description.textContent=detail;
+    copy.append(name,description);
+    const checkbox=document.createElement('input');
+    checkbox.type='checkbox';
+    checkbox.setAttribute('role','switch');
+    checkbox.id=`homepageVisibility-${key}`;
+    checkbox.checked=homepageVisibility[key]!==false;
+    checkbox.setAttribute('aria-label',label);
+    const switchTrack=document.createElement('span');
+    switchTrack.className='homepage-visibility-switch-track';
+    switchTrack.setAttribute('aria-hidden','true');
+    item.append(copy,checkbox,switchTrack);
+    list.appendChild(item);
+  });
+  status.textContent='Toggle any options, then save to update the public homepage.';
+}
+
+async function saveHomepageVisibility(){
+  if(currentRole!=='admin'||isReadOnlyDemo())return;
+  const status=$('homepageVisibilityStatus');
+  const saveButton=$('dashboardHomepageVisibilityView .homepage-visibility-actions button');
+  const next={};
+  Object.keys(HOMEPAGE_VISIBILITY_DEFAULTS).forEach(key=>{
+    next[key]=Boolean($(`homepageVisibility-${key}`)?.checked);
+  });
+  status.classList.remove('error');
+  status.textContent='Saving homepage settings…';
+  if(saveButton)saveButton.disabled=true;
+  const {data:row,error}=await foodSafeProClient.from('foodsafe_homepage_visibility')
+    .update({homepage_visibility:next}).eq('id','main').select('homepage_visibility').maybeSingle();
+  if(saveButton)saveButton.disabled=false;
+  if(error||!row){
+    console.error('Could not save homepage visibility settings:',error||'The main settings row is missing.');
+    status.textContent=`Could not save homepage settings. ${error?homepageVisibilityErrorMessage(error):'The homepage settings row is missing.'}`;
+    status.classList.add('error');
+    return;
+  }
+  homepageVisibility={...HOMEPAGE_VISIBILITY_DEFAULTS,...row.homepage_visibility};
+  applyHomepageVisibility();
+  status.textContent='Homepage visibility settings saved.';
+  if(homepageVisibility.whats_new)await loadPublishedWhatsNew();
+  else $('homepageWhatsNewSection').hidden=true;
+}
+
+async function loadPublishedWhatsNew(){
+  const section=$('homepageWhatsNewSection'),list=$('homepageWhatsNewList');
+  if(!section||!list||!foodSafeProPublicClient||!homepageVisibility.whats_new)return;
+  const {data:updates,error}=await foodSafeProPublicClient.from('foodsafe_whats_new_updates')
+    .select('id,title,body,created_at').eq('publish_to_homepage',true)
+    .order('created_at',{ascending:false}).limit(6);
+  if(error){
+    console.error('Could not load published homepage updates:',error);
+    return;
+  }
+  list.replaceChildren();
+  (updates||[]).forEach(update=>{
+    const card=document.createElement('article');
+    card.className='whats-new-card';
+    const heading=document.createElement('div');
+    heading.className='whats-new-card-heading';
+    const icon=document.createElement('span');
+    icon.className='whats-new-card-icon';
+    icon.innerHTML='<i class="fas fa-star" aria-hidden="true"></i>';
+    const title=document.createElement('h3');
+    title.textContent=update.title;
+    heading.append(icon,title);
+    const body=document.createElement('p');
+    body.textContent=update.body;
+    const meta=document.createElement('div');
+    meta.className='whats-new-meta';
+    const date=document.createElement('time');
+    date.dateTime=update.created_at;
+    date.textContent=formatWorkflowDate(update.created_at);
+    meta.appendChild(date);
+    card.append(heading,body,meta);
+    list.appendChild(card);
+  });
+  section.hidden=!updates?.length;
+}
+
 function updateDashboardRoleUI(){
   const isAdmin=currentRole==='admin'&&!isReadOnlyDemo();
   const nightModeKey=`foodsafe-night-mode:${currentRole}:${currentProfile?.id||''}`;
@@ -2614,17 +3435,22 @@ function updateDashboardRoleUI(){
     :'Shared food safety operations and temperature monitoring.';
   $('staffAdminChatToggle').classList.toggle('hidden',isReadOnlyDemo());
   $('workflowNotificationToggle').classList.toggle('hidden',isReadOnlyDemo());
+  $('whatsNewNotificationToggle')?.classList.toggle('hidden',isReadOnlyDemo()||(currentRole==='staff'&&isStaffAccessBlocked('notifications')));
   $('correctiveReportForm')?.classList.toggle('hidden',isReadOnlyDemo());
   document.querySelectorAll('.dashboard-side-actions button').forEach(button=>{
     const hideForDemo=isReadOnlyDemo()&&!button.getAttribute('onclick')?.includes('exportPDF');
     button.classList.toggle('hidden',hideForDemo||(isAdmin&&button.id==='quickOpenDownloads'));
   });
   document.querySelector('.account-panel-actions')?.classList.toggle('hidden',isReadOnlyDemo());
+  $('accountActionsToggle')?.classList.toggle('hidden',isReadOnlyDemo());
   updateAccountDetails(currentAuthUser);
   if(!isReadOnlyDemo())startWorkflowDeadlineChecks();
   const firstView=['account','overview','records','downloads','knowledge','trends','corrective','cleaning','guide']
     .find(view=>!STAFF_ACCESS_VIEW_FEATURES[view]||!isStaffAccessBlocked(STAFF_ACCESS_VIEW_FEATURES[view]));
+  $('adminHomepageVisibilityBtn')?.classList.toggle('hidden',!isAdmin);
+  $('adminWhatsNewBtn')?.classList.toggle('hidden',!isAdmin);
   showDashboardView(firstView||'account');
+  startWhatsNewNotifications();
   if(isAdmin)refreshMaintenanceControl();
 }
 
@@ -2645,7 +3471,8 @@ function toggleAccountActions(forceOpen){
   const isOpen=typeof forceOpen==='boolean'?forceOpen:!wrap.classList.contains('is-open');
   wrap.classList.toggle('is-open',isOpen);
   toggle.setAttribute('aria-expanded',String(isOpen));
-  toggle.setAttribute('aria-label',isOpen?'Close account actions':'Open account actions');
+  toggle.setAttribute('aria-label',isOpen?'Close account settings':'Open account settings');
+  toggle.title=isOpen?'Close account settings':'Account settings';
 }
 
 function toggleLandingMenu(forceOpen){
@@ -2684,13 +3511,14 @@ document.addEventListener('click',event=>{
 });
 
 function showDashboardView(view){
-  if(['feedback','staff','access'].includes(view)&&(currentRole!=='admin'||isReadOnlyDemo()))view='account';
+  if(['feedback','staff','access','homepageVisibility'].includes(view)&&(currentRole!=='admin'||isReadOnlyDemo()))view='account';
   const requiredFeature=STAFF_ACCESS_VIEW_FEATURES[view];
   if(requiredFeature&&!requireStaffAccess(requiredFeature,{actionLabel:view}))return;
-  currentDashboardView=['overview','records','downloads','knowledge','trends','corrective','cleaning','guide','feedback','staff','access'].includes(view)?view:'account';
+  currentDashboardView=['overview','whatsNew','records','downloads','knowledge','trends','corrective','cleaning','guide','feedback','staff','access','homepageVisibility'].includes(view)?view:'account';
   const views={
     account:'dashboardAccountView',
     overview:'dashboardOverviewView',
+    whatsNew:'dashboardWhatsNewView',
     records:'dashboardRecordsView',
     downloads:'dashboardDownloadsView',
     knowledge:'dashboardTeamKnowledgeView',
@@ -2700,11 +3528,13 @@ function showDashboardView(view){
     guide:'dashboardFoodSafetyView',
     feedback:'dashboardFeedbackView',
     staff:'dashboardStaffView',
-    access:'dashboardAccessControlsView'
+    access:'dashboardAccessControlsView',
+    homepageVisibility:'dashboardHomepageVisibilityView'
   };
   const navTargets={
     account:'#accountDetails',
     overview:'#dashboardOverview',
+    whatsNew:'#dashboardWhatsNewView',
     records:'#dashboardRecords',
     downloads:'#dashboardDownloads',
     knowledge:'#dashboardTeamKnowledge',
@@ -2714,12 +3544,14 @@ function showDashboardView(view){
     guide:'#dashboardFoodSafetyGuide',
     feedback:'#dashboardFeedback',
     staff:'#dashboardStaffView',
-    access:'#dashboardAccessControlsView'
+    access:'#dashboardAccessControlsView',
+    homepageVisibility:'#dashboardHomepageVisibilityView'
   };
   Object.entries(views).forEach(([name,id])=>$(id).classList.toggle('hidden',name!==currentDashboardView));
   const titles={
     account:'Account settings',
     overview:currentRole==='admin'?'Admin control center':'Staff workspace',
+    whatsNew:'What’s new',
     records:'Temperature records',
     downloads:'Downloads',
     knowledge:'Team knowledge',
@@ -2729,7 +3561,8 @@ function showDashboardView(view){
     guide:'Food safety guide',
     feedback:'Visitor feedback',
     staff:'Manage staff',
-    access:'Staff access controls'
+    access:'Staff access controls',
+    homepageVisibility:'Homepage visibility'
   };
   $('dashboard-header-title').textContent=titles[currentDashboardView];
   document.querySelectorAll('.dashboard-side-nav a[href^="#"]').forEach(link=>{
@@ -2759,6 +3592,20 @@ function showDashboardView(view){
     if(active)accessNav.setAttribute('aria-current','page');
     else accessNav.removeAttribute('aria-current');
   }
+  const homepageVisibilityNav=$('adminHomepageVisibilityBtn');
+  if(homepageVisibilityNav){
+    const active=currentDashboardView==='homepageVisibility'&&currentRole==='admin';
+    homepageVisibilityNav.classList.toggle('active',active);
+    if(active)homepageVisibilityNav.setAttribute('aria-current','page');
+    else homepageVisibilityNav.removeAttribute('aria-current');
+  }
+  const whatsNewAdminNav=$('adminWhatsNewBtn');
+  if(whatsNewAdminNav){
+    const active=currentDashboardView==='whatsNew'&&currentRole==='admin';
+    whatsNewAdminNav.classList.toggle('active',active);
+    if(active)whatsNewAdminNav.setAttribute('aria-current','page');
+    else whatsNewAdminNav.removeAttribute('aria-current');
+  }
   if(currentDashboardView==='trends'){
     requestAnimationFrame(()=>Object.values(charts).forEach(instance=>instance.resize()));
   }
@@ -2767,6 +3614,8 @@ function showDashboardView(view){
   if(currentDashboardView==='downloads')loadDownloadCenter();
   if(currentDashboardView==='knowledge')loadIncidentLearningCases();
   if(currentDashboardView==='access')loadAccessControlStaff();
+  if(currentDashboardView==='whatsNew')loadWhatsNewUpdates();
+  if(currentDashboardView==='homepageVisibility')loadHomepageVisibilitySettings();
   document.querySelector('.dashboard-main')?.scrollTo({top:0,behavior:'smooth'});
 }
 
@@ -3010,6 +3859,37 @@ function toggleWorkflowNotifications(event){
 function closeWorkflowNotifications(){
   $('workflowNotificationPopover')?.classList.add('hidden');
   $('workflowNotificationToggle')?.setAttribute('aria-expanded','false');
+}
+
+async function markAllWorkflowNotificationsRead(){
+  if(!requireStaffAccess('notifications',{changes:true,actionLabel:'notifications'}))return;
+  const {data:updated,error}=await foodSafeProClient.rpc('foodsafe_mark_all_notifications_read');
+  if(error){
+    console.error('Could not mark all notifications read:',error);
+    showAppMessage(`Could not mark notifications as read. ${whatsNewErrorMessage(error)}`);
+    return;
+  }
+  await loadWorkflowNotifications();
+  showAppMessage(`${Number(updated)||0} notification${Number(updated)===1?'':'s'} marked as read.`);
+}
+
+async function clearAllWorkflowNotifications(){
+  if(!requireStaffAccess('notifications',{changes:true,actionLabel:'notifications'}))return;
+  const confirmed=await confirmWorkflowDeletion({
+    title:'Clear all notifications?',
+    message:'This permanently deletes all of your food-safety notifications, including notifications already marked as read.',
+    warning:'This action cannot be undone.',
+    confirmLabel:'Clear all notifications'
+  });
+  if(!confirmed)return;
+  const {data:deleted,error}=await foodSafeProClient.rpc('foodsafe_clear_my_notifications');
+  if(error){
+    console.error('Could not clear notifications:',error);
+    showAppMessage(`Could not clear notifications. ${whatsNewErrorMessage(error)}`);
+    return;
+  }
+  await loadWorkflowNotifications();
+  showAppMessage(`${Number(deleted)||0} notification${Number(deleted)===1?'':'s'} cleared.`);
 }
 
 function chatErrorMessage(error){
@@ -5032,6 +5912,51 @@ function setFeedbackFormStatus(message,isError=false){
   status.classList.toggle('error',isError);
 }
 
+function openHomepageFeedback(){
+  const modal=$('homepageFeedbackModal');
+  if(!modal||homepageVisibility.feedback===false)return;
+  homepageFeedbackPreviousFocus=document.activeElement instanceof HTMLElement?document.activeElement:null;
+  setFeedbackFormStatus('');
+  modal.classList.remove('hidden');
+  document.body.classList.add('homepage-feedback-open');
+  window.setTimeout(()=>{
+    if(!modal.classList.contains('hidden'))$('feedback-name')?.focus();
+  },0);
+}
+
+function closeHomepageFeedback(){
+  const modal=$('homepageFeedbackModal');
+  if(!modal||modal.classList.contains('hidden'))return;
+  modal.classList.add('hidden');
+  document.body.classList.remove('homepage-feedback-open');
+  const previousFocus=homepageFeedbackPreviousFocus;
+  homepageFeedbackPreviousFocus=null;
+  if(previousFocus?.isConnected)previousFocus.focus();
+}
+
+document.addEventListener('keydown',event=>{
+  const modal=$('homepageFeedbackModal');
+  if(!modal||modal.classList.contains('hidden'))return;
+  if(event.key==='Escape'){
+    if(event.defaultPrevented)return;
+    event.preventDefault();
+    closeHomepageFeedback();
+    return;
+  }
+  if(event.key!=='Tab')return;
+  const focusable=[...modal.querySelectorAll('button:not(:disabled),input:not(:disabled),textarea:not(:disabled),a[href],[tabindex]:not([tabindex="-1"])')]
+    .filter(element=>element instanceof HTMLElement&&element.offsetParent!==null);
+  if(!focusable.length)return;
+  const first=focusable[0],last=focusable[focusable.length-1];
+  if(event.shiftKey&&document.activeElement===first){
+    event.preventDefault();
+    last.focus();
+  }else if(!event.shiftKey&&document.activeElement===last){
+    event.preventDefault();
+    first.focus();
+  }
+});
+
 async function loadPublishedWebsiteFeedback(){
   const section=$('publishedFeedbackSection');
   const list=$('publishedFeedbackList');
@@ -5156,7 +6081,7 @@ async function submitWebsiteFeedback(event){
   const email=$('feedback-email').value.trim();
   const message=$('feedback-message').value.trim();
   if($('feedback-website').value){
-    setFeedbackFormStatus('Unable to submit this message. Please try again.',true);
+    showSystemMessage('Feedback not sent','We could not send your feedback. Please review the form and try again.','error','Close');
     return;
   }
   if(message.length<10||message.length>3000){
@@ -5170,7 +6095,7 @@ async function submitWebsiteFeedback(event){
     return;
   }
   if(!configured||!foodSafeProClient){
-    setFeedbackFormStatus('Feedback service is unavailable. Please try again later.',true);
+    showSystemMessage('Feedback not sent','The feedback service is unavailable. Please try again later.','error','Close');
     return;
   }
   submitButton.disabled=true;
@@ -5184,19 +6109,20 @@ async function submitWebsiteFeedback(event){
     });
     if(error){
       console.error('Could not submit website feedback:',error);
-      setFeedbackFormStatus(
+      showSystemMessage('Feedback not sent',
         error.code==='42P01'||error.code==='PGRST205'
           ?'The feedback inbox is not set up yet. Please contact the site administrator.'
           :'We could not send your feedback. Please try again later.',
-        true
-      );
+        'error','Close');
       return;
     }
     form.reset();
     setFeedbackFormStatus('Thank you. Your feedback was sent to the administrator.');
+    closeHomepageFeedback();
+    showSystemMessage('Feedback sent','Your feedback was sent successfully. Thank you for helping us improve FoodSafe Pro.','green','Done');
   }catch(error){
     console.error('Could not submit website feedback:',error);
-    setFeedbackFormStatus('We could not send your feedback. Please try again later.',true);
+    showSystemMessage('Feedback not sent','We could not send your feedback. Please try again later.','error','Close');
   }finally{
     submitButton.disabled=false;
     submitButton.innerHTML='<i class="fas fa-paper-plane"></i> Send feedback';
@@ -6125,7 +7051,26 @@ foodSafeProClient?.auth.onAuthStateChange((event,session)=>{
   }
 });
 
-async function logout(){if(workflowDeadlineTimer)clearInterval(workflowDeadlineTimer);workflowDeadlineTimer=null;workflowDeadlineChecksInitialized=false;if(staffAccessRefreshTimer)clearInterval(staffAccessRefreshTimer);staffAccessRefreshTimer=null;staffAccessBlocked=new Set();document.body.classList.remove('foodsafe-night-mode');if(foodSafeProClient)await foodSafeProClient.auth.signOut();currentUser=null;currentRole=null;currentProfile=null;currentAuthUser=null;currentDashboardView='account';data=[];showAuth();}
+async function logout(){
+  if(workflowDeadlineTimer)clearInterval(workflowDeadlineTimer);
+  workflowDeadlineTimer=null;
+  workflowDeadlineChecksInitialized=false;
+  if(whatsNewRefreshTimer)clearInterval(whatsNewRefreshTimer);
+  whatsNewRefreshTimer=null;
+  if(whatsNewRealtimeChannel&&foodSafeProClient)await foodSafeProClient.removeChannel(whatsNewRealtimeChannel);
+  whatsNewRealtimeChannel=null;
+  closeWhatsNewNotifications();
+  closeHomepageFeedback();
+  if(staffAccessRefreshTimer)clearInterval(staffAccessRefreshTimer);
+  staffAccessRefreshTimer=null;
+  if(staffAccessRealtimeChannel&&foodSafeProClient)await foodSafeProClient.removeChannel(staffAccessRealtimeChannel);
+  staffAccessRealtimeChannel=null;
+  staffAccessBlocked=new Set();
+  document.body.classList.remove('foodsafe-night-mode');
+  if(foodSafeProClient)await foodSafeProClient.auth.signOut();
+  currentUser=null;currentRole=null;currentProfile=null;currentAuthUser=null;currentDashboardView='account';data=[];
+  showAuth();
+}
 function resetPassword(){showReset();}
 async function sendAccountPasswordReset(){
   if(isReadOnlyDemo())return;
@@ -7006,8 +7951,10 @@ async function exportPDF(){
 }
 
 async function init(){
+  await loadHomepageVisibility();
   loadPublishedWebsiteFeedback();
   loadPublishedIncidentStories();
+  loadPublishedWhatsNew();
   if(window.location.hash.includes('type=recovery') || window.location.search.includes('type=recovery'))return;
   if(!configured){console.warn('FoodSafe Pro needs Supabase URL and anon/publishable key configuration.');return;}
   const inMaintenance = await checkMaintenanceStatus();
