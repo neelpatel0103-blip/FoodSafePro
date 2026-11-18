@@ -481,18 +481,63 @@ body.foodsafe-night-mode .dashboard-main .dashboard-topbar h2,body.foodsafe-nigh
 .auth-shell > .card { width: 100%; max-width: 410px; padding: 32px; border: 1px solid #e8ece6; border-radius: 23px; box-shadow: 0 22px 65px rgba(32,58,40,.11); }
 .auth-back-btn { align-self: center; width: min(410px, 100%); margin-bottom: 14px; border: 0; color: #63766a; background: transparent; text-align: left; font-size: 13px; cursor: pointer; }
 .auth-back-btn:hover { color: #174b37; }
-.maintenance-shell { box-sizing: border-box; width: min(760px,calc(100% - 32px)); max-width: 760px; margin: 5vh auto; padding: clamp(24px,5vw,46px); text-align: center; }
+.maintenance-shell { box-sizing: border-box; width: 100%; min-height: 100vh; padding: 24px 16px; display: grid; place-items: center; background: #f7f8fa; }
+.maintenance-card { box-sizing: border-box; width: min(380px,100%); padding: 25px 20px 19px; border: 1px solid #f0ead8; border-radius: 17px; background: #fff; box-shadow: 0 18px 35px rgba(37,49,39,.12); text-align: center; }
 .maintenance-notice-kicker { margin: 0 0 8px; color: #986223; font-size: 10px; font-weight: 850; letter-spacing: 1.8px; }
-.maintenance-notice-icon { width: 82px; height: 82px; margin: 0 auto 18px; border: 1px solid #f4d28d; border-radius: 26px; display: grid; place-items: center; color: #a36316; background: linear-gradient(145deg,#fff8e8,#ffedc7); box-shadow: 0 0 0 9px rgba(255,244,218,.72); font-size: 34px; }
-.maintenance-shell h2 { margin: 0; font-size: clamp(28px,5vw,40px); line-height: 1.15; }
-.maintenance-notice-copy { margin: 10px auto 22px; color: #69766d; font-size: clamp(13px,2vw,15px); line-height: 1.7; }
-.maintenance-schedule-card { width: 100%; margin: 0 0 16px; padding: 18px; border: 1px solid #f0dfbd; border-radius: 17px; color: #77501d; background: linear-gradient(135deg,#fff9ec,#fff1d2); }
+.maintenance-notice-icon { width: 58px; height: 58px; margin: 0 auto 13px; border: 1px solid #f7e9be; border-radius: 50%; display: grid; place-items: center; color: #d89216; background: #fff9e9; font-size: 25px; }
+.maintenance-card h2 { margin: 0 0 17px; color: #1d2939; font-size: 22px; line-height: 1.2; }
+.maintenance-notice-copy { margin: 0 auto 17px; color: #69766d; font-size: 12px; line-height: 1.65; }
+.maintenance-schedule-card { width: 100%; box-sizing: border-box; margin: 0 0 17px; padding: 14px 12px; border: 1px solid #f0dfbd; border-radius: 13px; color: #77501d; background: linear-gradient(135deg,#fff9ec,#fff5db); }
 .maintenance-schedule-label { margin: 0 0 6px; color: #9a6a29; font-size: 10px; font-weight: 850; letter-spacing: 1.3px; text-transform: uppercase; }
-.maintenance-schedule-time { margin: 0; color: #513710; font-size: clamp(20px,4vw,27px); font-weight: 850; line-height: 1.25; }
-.maintenance-schedule-zone { margin: 6px 0 0; color: #886b40; font-size: 10px; }
-.maintenance-notice-message { width: 100%; margin: 0; padding: 16px; border: 1px solid #e6ebe7; border-radius: 14px; color: #536258; background: #f8faf8; font-size: 13px; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
-.maintenance-admin-note { margin: 12px 0 0; color: #7d8981; font-size: 10px; line-height: 1.5; }
-.maintenance-actions { width: 100%; max-width: 420px; margin: 22px auto 0; }
+.maintenance-schedule-time { margin: 0; color: #513710; font-size: clamp(19px,4vw,24px); font-weight: 850; line-height: 1.2; }
+.maintenance-schedule-zone { margin: 5px 0 0; color: #886b40; font-size: 9px; }
+.maintenance-notice-message { width: 100%; margin: 0; padding: 0 8px; border: 0; color: #45515e; background: transparent; font-size: 12px; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; }
+.maintenance-notice-heading { margin: 0 0 4px; color: #996624; font-size: 9px; font-weight: 850; letter-spacing: 1.2px; }
+.maintenance-admin-note { margin: 7px 0 0; color: #7d8981; font-size: 9px; line-height: 1.45; }
+.maintenance-actions { width: 100%; margin: 20px auto 0; gap: 7px; }
+.maintenance-actions button { min-height: 38px; font-size: 11px; }
+.maintenance-check-button { color: #334155 !important; background: #f0f2f5 !important; }
+.maintenance-login-button { color: #fff !important; background: #2563eb !important; }
+.maintenance-login-button:hover { background: #1d4ed8 !important; }
+.maintenance-access-denied { position: relative; box-sizing: border-box; width: min(440px,calc(100vw - 28px)); padding: clamp(26px,6vw,38px); border: 1px solid #f0e5cf; border-radius: 22px; color: #334155; background: #fff; text-align: center; box-shadow: 0 22px 70px rgba(12,30,20,.2); }
+.maintenance-access-denied h2 { margin: 0; color: #1e293b; font-size: clamp(21px,5vw,25px); line-height: 1.2; }
+.maintenance-access-denied p { margin: 10px auto 17px; color: #647083; font-size: 12px; line-height: 1.7; }
+.maintenance-denied-summary { margin: 0 0 18px; padding: 12px; border: 1px solid #f0dfbd; border-radius: 12px; color: #72501f; background: #fff8e8; font-size: 10px; line-height: 1.55; }
+.maintenance-denied-actions { display: grid; gap: 8px; }
+.maintenance-denied-actions button { min-height: 42px; border: 0; border-radius: 10px; font-size: 11px; font-weight: 750; cursor: pointer; }
+.maintenance-denied-primary { color: #fff; background: #2563eb; }
+.maintenance-denied-secondary { color: #334155; background: #f0f2f5; }
+.totp-modal-close { position: absolute; top: 10px; right: 10px; width: 34px; height: 34px; border: 0; border-radius: 50%; display: grid; place-items: center; color: #64748b; background: #f1f3f5; font-size: 17px; cursor: pointer; }
+.totp-modal-close:hover,.totp-modal-close:focus-visible { color: #1f2937; background: #e5e7eb; outline: 2px solid #2563eb; outline-offset: 2px; }
+#modalInner:has(.totp-modal-close) { position: relative; padding-top: 40px; }
+body.foodsafe-night-mode .maintenance-shell { background: #101b15; }
+body.foodsafe-night-mode .maintenance-card { border-color: #315746; background: #12251d; }
+body.foodsafe-night-mode .maintenance-card h2 { color: #edf7f0; }
+body.foodsafe-night-mode .maintenance-notice-copy,body.foodsafe-night-mode .maintenance-notice-message { color: #c3d1c8; }
+body.foodsafe-night-mode .maintenance-notice-heading { color: #f2c97f; }
+body.foodsafe-night-mode .maintenance-schedule-card,body.foodsafe-night-mode .maintenance-denied-summary { color: #f0d7aa; background: #2e2819; border-color: #62502e; }
+body.foodsafe-night-mode .maintenance-schedule-label { color: #f2c97f; }
+body.foodsafe-night-mode .maintenance-schedule-time { color: #fff0cd; }
+body.foodsafe-night-mode .maintenance-schedule-zone { color: #d6bd91; }
+body.foodsafe-night-mode #modal .maintenance-access-denied { color: #dbe6df; background: #12251d; border-color: #315746; }
+body.foodsafe-night-mode #modal .maintenance-access-denied h2 { color: #edf7f0; }
+body.foodsafe-night-mode #modal .maintenance-access-denied p { color: #b7c9bd; }
+body.foodsafe-night-mode #modal .maintenance-denied-secondary,body.foodsafe-night-mode #modal .totp-modal-close { color: #d7e8dd; background: #192f25; }
+.maintenance-access-card { box-sizing: border-box; width: min(500px,calc(100vw - 28px)); max-height: calc(100dvh - 32px); overflow-y: auto; padding: clamp(24px,6vw,40px); border: 1px solid #f1e7ca; border-radius: 24px; color: #263b2d; background: #fff; text-align: center; box-shadow: 0 22px 70px rgba(12,30,20,.2); }
+.maintenance-access-card .maintenance-notice-icon { width: 68px; height: 68px; margin-bottom: 15px; border-radius: 22px; font-size: 28px; }
+.maintenance-access-card h2 { margin: 0; color: #24372b; font-size: clamp(21px,5vw,27px); line-height: 1.2; }
+.maintenance-access-card > p:not(.maintenance-notice-kicker) { max-width: 380px; margin: 10px auto 17px; color: #69766d; font-size: 12px; line-height: 1.7; }
+.maintenance-access-summary { margin: 0 0 19px; padding: 14px; border: 1px solid #f0dfbd; border-radius: 14px; color: #77501d; background: linear-gradient(135deg,#fff9ec,#fff1d2); font-size: 11px; line-height: 1.6; }
+.maintenance-access-summary strong { display: block; margin-bottom: 3px; color: #9a6a29; font-size: 9px; letter-spacing: 1.2px; text-transform: uppercase; }
+.maintenance-access-continue { width: 100%; min-height: 45px; border: 0; border-radius: 11px; color: #fff; background: #286344; font-size: 12px; font-weight: 750; cursor: pointer; }
+.maintenance-access-continue:hover { background: #174b37; }
+.maintenance-access-signout { width: 100%; min-height: 40px; margin-top: 8px; border: 1px solid #e2e8e2; border-radius: 11px; color: #596a5f; background: #f7f9f7; font-size: 11px; font-weight: 700; cursor: pointer; }
+body.foodsafe-night-mode #modal .maintenance-access-card { color: #e3eee7; background: #12251d; border-color: #315746; }
+body.foodsafe-night-mode #modal .maintenance-access-card h2 { color: #edf7f0; }
+body.foodsafe-night-mode #modal .maintenance-access-card > p:not(.maintenance-notice-kicker) { color: #b7c9bd; }
+body.foodsafe-night-mode #modal .maintenance-access-summary { color: #f0d7aa; background: #2e2819; border-color: #62502e; }
+body.foodsafe-night-mode #modal .maintenance-access-summary strong { color: #f2c97f; }
+body.foodsafe-night-mode #modal .maintenance-access-signout { color: #d7e8dd; background: #192f25; border-color: #315746; }
 .maintenance-settings-panel { margin: 0 0 16px; padding: 18px; border: 1px solid #e3eae2; border-radius: 16px; background: #fff; }
 .maintenance-settings-panel h4 { margin: 0 0 5px; color: #344a3a; font-size: 14px; }
 .maintenance-settings-panel > p { margin: 0 0 14px; color: #718076; font-size: 10px; line-height: 1.6; }
@@ -1818,6 +1863,7 @@ body.foodsafe-night-mode #modal .authenticator-success-status { color: #b8ebd1; 
 .mandatory-auth-setup .mandatory-auth-primary:hover { background: #174b37; }
 .mandatory-auth-setup .mandatory-auth-signout { width: 100%; min-height: 40px; margin-top: 9px; border: 1px solid #dfe7dd; border-radius: 11px; color: #596a5f; background: transparent; font-size: 11px; font-weight: 700; cursor: pointer; }
 .mandatory-auth-setup .mandatory-auth-signout:hover { background: rgba(130,145,135,.1); }
+#modal .modal-content.maintenance-access-modal { box-sizing: border-box; width: min(500px,calc(100vw - 28px)); max-width: none; max-height: calc(100dvh - 32px); overflow-y: auto; padding: 0; background: transparent; box-shadow: none; }
 #modal .modal-content.authenticator-success-view { box-sizing: border-box; width: min(480px,calc(100vw - 28px)); padding: clamp(28px,6vw,44px); border: 1px solid #dce9df; border-radius: 24px; text-align: center; }
 .authenticator-success-mark { width: 68px; height: 68px; margin: 0 auto 18px; border-radius: 22px; display: grid; place-items: center; color: #236343; background: #e5f4e9; font-size: 30px; box-shadow: 0 0 0 8px rgba(229,244,233,.55); }
 .authenticator-success-kicker { margin: 0 0 8px; color: #548064; font-size: 9px; font-weight: 850; letter-spacing: 1.7px; }
@@ -2092,24 +2138,23 @@ body.foodsafe-night-mode #modal .authenticator-success-status { color: #b8ebd1; 
 </div>
 
 <!-- CENTERED MAINTENANCE MODE CARD -->
-<div id="maintenance-screen" class="hidden maintenance-shell flex flex-col items-center justify-center w-full max-w-md p-6 bg-white rounded-2xl shadow-xl border border-amber-100 relative my-auto">
-  <div class="maintenance-notice-icon" aria-hidden="true">
-    <i class="fas fa-screwdriver-wrench"></i>
-  </div>
-  <p class="maintenance-notice-kicker">FOODSAFE PRO SERVICE NOTICE</p>
-  <h2 class="text-2xl font-bold text-gray-800 mb-2 text-center">System Maintenance</h2>
-  <p class="maintenance-notice-copy">We’re making improvements to FoodSafe Pro. Regular workspace access is temporarily limited while maintenance is in progress.</p>
-  <div id="maintenanceScheduleCard" class="maintenance-schedule-card hidden" aria-live="polite">
-    <p class="maintenance-schedule-label">Estimated service restoration</p>
-    <p id="maintenanceScheduleTime" class="maintenance-schedule-time"></p>
-    <p id="maintenanceScheduleZone" class="maintenance-schedule-zone"></p>
-  </div>
-  <p id="maintenanceNoticeMessage" class="maintenance-notice-message">FoodSafe Pro is undergoing scheduled maintenance. Please check back soon.</p>
-  <p class="maintenance-admin-note">If your administrator has granted your staff account maintenance access, use the sign-in option below.</p>
-  <div class="maintenance-actions flex flex-col space-y-2">
-    <button onclick="init()" class="w-full py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl text-sm transition"><i class="fas fa-rotate mr-2"></i>Check service status</button>
-    <button onclick="bypassMaintenance()" class="w-full py-3 bg-blue-700 hover:bg-blue-800 text-white font-semibold rounded-xl text-sm transition"><i class="fas fa-right-to-bracket mr-2"></i>Staff &amp; admin sign in</button>
-  </div>
+<div id="maintenance-screen" class="hidden maintenance-shell">
+  <section class="maintenance-card" aria-labelledby="maintenanceTitle">
+    <div class="maintenance-notice-icon" aria-hidden="true"><i class="fas fa-screwdriver-wrench"></i></div>
+    <h2 id="maintenanceTitle">System Maintenance</h2>
+    <div id="maintenanceScheduleCard" class="maintenance-schedule-card hidden" aria-live="polite">
+      <p class="maintenance-schedule-label">Estimated service restoration</p>
+      <p id="maintenanceScheduleTime" class="maintenance-schedule-time"></p>
+      <p id="maintenanceScheduleZone" class="maintenance-schedule-zone"></p>
+    </div>
+    <p class="maintenance-notice-heading">NOTICE</p>
+    <p id="maintenanceNoticeMessage" class="maintenance-notice-message">FoodSafe Pro is currently undergoing scheduled system maintenance and updates. Regular access is temporarily paused.</p>
+    <p class="maintenance-admin-note">Administrators and staff specifically authorized by an administrator can sign in during maintenance.</p>
+    <div class="maintenance-actions flex flex-col">
+      <button onclick="init()" class="maintenance-check-button w-full py-3 font-semibold rounded-xl transition"><i class="fas fa-rotate mr-2"></i>Back to App / Check Again</button>
+      <button onclick="bypassMaintenance()" class="maintenance-login-button w-full py-3 font-semibold rounded-xl transition"><i class="fas fa-right-to-bracket mr-2"></i>Admin &amp; Authorized Staff Login</button>
+    </div>
+  </section>
 </div>
 
 <!-- CENTERED SYSTEM MESSAGE NOTIFICATION MODAL -->
@@ -2857,7 +2902,7 @@ const configured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes
 const foodSafeProClient = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 const foodSafeProPublicClient = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {auth:{autoRefreshToken:false,persistSession:false,detectSessionInUrl:false}}) : null;
 
-let currentUser = null, currentRole = null, currentProfile = null, currentAuthUser = null, currentDashboardView = 'account', data = [], filteredData = [], charts = {}, cleaningAssignmentReport = [], correctiveActionReport = [], incidentLearningCases = [], adminStaffPairChats = [], staffAccessBlocked = new Set(), staffAccessStaff = [], selectedAccessStaffId = '', maintenanceAllowedStaffIds = new Set(), staffAccessRefreshTimer = null, staffAccessRealtimeChannel = null, nightModeActive = false, workflowDeadlineTimer = null, workflowDeadlineChecksInitialized = false, workflowNotificationError = '', workflowNotificationEventsBound = false, staffAdminChatThreadId = null, staffAdminChatContacts = [], staffAdminChatPollTimer = null, staffAdminChatEventsBound = false, workflowConfirmationResolver = null, workflowConfirmationPreviousFocus = null, workflowInputResolver = null, workflowInputPreviousFocus = null, systemMessagePreviousFocus = null, pendingTotpFactorId = '', mandatoryTotpSetupPending = false, requireAuthenticatorForNewStaff = false;
+let currentUser = null, currentRole = null, currentProfile = null, currentAuthUser = null, currentDashboardView = 'account', data = [], filteredData = [], charts = {}, cleaningAssignmentReport = [], correctiveActionReport = [], incidentLearningCases = [], adminStaffPairChats = [], staffAccessBlocked = new Set(), staffAccessStaff = [], selectedAccessStaffId = '', maintenanceAllowedStaffIds = new Set(), maintenanceScheduledEndAt = null, maintenanceAccessPending = false, maintenanceAccessResolver = null, maintenanceLoginActive = false, authenticatorLoginPending = false, staffAccessRefreshTimer = null, staffAccessRealtimeChannel = null, nightModeActive = false, workflowDeadlineTimer = null, workflowDeadlineChecksInitialized = false, workflowNotificationError = '', workflowNotificationEventsBound = false, staffAdminChatThreadId = null, staffAdminChatContacts = [], staffAdminChatPollTimer = null, staffAdminChatEventsBound = false, workflowConfirmationResolver = null, workflowConfirmationPreviousFocus = null, workflowInputResolver = null, workflowInputPreviousFocus = null, systemMessagePreviousFocus = null, pendingTotpFactorId = '', mandatoryTotpSetupPending = false, requireAuthenticatorForNewStaff = false;
 let whatsNewRealtimeChannel=null,whatsNewRefreshTimer=null,whatsNewNotificationEventsBound=false,homepageFeedbackPreviousFocus=null;
 let changeUsernameAvailabilityTimer=null,changeUsernameAvailabilityRequest=0;
 const $ = id => document.getElementById(id);
@@ -4384,6 +4429,34 @@ function showMaintenanceScreen() {
   if (login) login.classList.add('hidden');
   if (maintenance) maintenance.classList.remove('hidden');
   loadMaintenanceNotice();
+}
+
+function showMaintenanceAccessDenied(){
+  const timing=maintenanceScheduledEndAt
+    ?`Estimated completion: ${maintenanceScheduledEndAt.toLocaleString(undefined,{weekday:'long',month:'long',day:'numeric',hour:'numeric',minute:'2-digit'})} (${Intl.DateTimeFormat().resolvedOptions().timeZone||'local time'}).`
+    :'Maintenance is in progress. Please check with your administrator for access.';
+  openModalWithContent(`
+    <section class="maintenance-access-denied" role="alertdialog" aria-modal="true" aria-labelledby="maintenance-denied-title" aria-describedby="maintenance-denied-message">
+      <button type="button" class="totp-modal-close" aria-label="Close maintenance access message" onclick="dismissMaintenanceAccessDenied()"><i class="fas fa-xmark" aria-hidden="true"></i></button>
+      <div class="maintenance-notice-icon" aria-hidden="true"><i class="fas fa-lock"></i></div>
+      <p class="maintenance-notice-kicker">TEMPORARY ACCESS RESTRICTION</p>
+      <h2 id="maintenance-denied-title">Maintenance is in progress</h2>
+      <p id="maintenance-denied-message">FoodSafe Pro is temporarily unavailable to your account. Only administrators and staff specifically authorized by an administrator can sign in during maintenance.</p>
+      <div class="maintenance-denied-summary">${escapeHtml(timing)}</div>
+      <div class="maintenance-denied-actions">
+        <button type="button" class="maintenance-denied-primary" onclick="dismissMaintenanceAccessDenied()">Return to maintenance notice</button>
+        <button type="button" class="maintenance-denied-secondary" onclick="dismissMaintenanceAccessDenied();bypassMaintenance()">Sign in with an authorized account</button>
+      </div>
+    </section>
+  `);
+  $('modal').setAttribute('role','dialog');
+  $('modal').setAttribute('aria-modal','true');
+  $('modal').setAttribute('aria-labelledby','maintenance-denied-title');
+}
+
+function dismissMaintenanceAccessDenied(){
+  closeModal();
+  showMaintenanceScreen();
 }
 
 async function loadWorkflowNotifications(){
@@ -7040,10 +7113,11 @@ async function loadMaintenanceNotice(){
     if(error)throw error;
     const details=Array.isArray(data)?data[0]:data;
     if(!details)return;
-    message.textContent=details.notice||'FoodSafe Pro is undergoing scheduled maintenance. Please check back soon.';
+    message.textContent=details.notice||'FoodSafe Pro is currently undergoing scheduled system maintenance and updates. Regular access is temporarily paused.';
     const scheduledEnd=details.scheduled_end_at?new Date(details.scheduled_end_at):null;
-    if(scheduledEnd&&!Number.isNaN(scheduledEnd.getTime())){
-      time.textContent=scheduledEnd.toLocaleString(undefined,{
+    maintenanceScheduledEndAt=scheduledEnd&&!Number.isNaN(scheduledEnd.getTime())?scheduledEnd:null;
+    if(maintenanceScheduledEndAt){
+      time.textContent=maintenanceScheduledEndAt.toLocaleString(undefined,{
         weekday:'long',year:'numeric',month:'long',day:'numeric',hour:'numeric',minute:'2-digit'
       });
       zone.textContent=`Shown in your local time zone (${Intl.DateTimeFormat().resolvedOptions().timeZone||'local time'}). Timing is an estimate.`;
@@ -7173,6 +7247,42 @@ async function canEnterDuringMaintenance(profile){
     throw new Error(maintenanceConfigErrorMessage(error));
   }
   return data===true;
+}
+
+async function requestMaintenanceAuthorization(profile){
+  if(profile?.role!=='staff')return true;
+  if(maintenanceAccessPending)return false;
+  await loadMaintenanceNotice();
+  maintenanceAccessPending=true;
+  const scheduledEnd=maintenanceScheduledEndAt;
+  const timing=scheduledEnd
+    ?`Estimated completion: ${scheduledEnd.toLocaleString(undefined,{weekday:'long',month:'long',day:'numeric',hour:'numeric',minute:'2-digit'})} (${Intl.DateTimeFormat().resolvedOptions().timeZone||'local time'}).`
+    :'Maintenance is in progress. Your administrator has authorized this staff account to continue.';
+  openModalWithContent(`
+      <div class="maintenance-access-card">
+      <div class="maintenance-notice-icon" aria-hidden="true"><i class="fas fa-user-shield"></i></div>
+      <p class="maintenance-notice-kicker">SPECIAL MAINTENANCE AUTHORIZATION</p>
+      <h2 id="maintenance-access-title">Staff access approved</h2>
+      <p>Your administrator has authorized <strong>${escapeHtml(profile.username||'this staff account')}</strong> to enter the workspace while FoodSafe Pro is in maintenance mode.</p>
+      <div class="maintenance-access-summary"><strong>Maintenance schedule</strong>${escapeHtml(timing)}</div>
+      <button type="button" class="maintenance-access-continue" onclick="finishMaintenanceAuthorization(true)">Continue to workspace</button>
+      <button type="button" class="maintenance-access-signout" onclick="finishMaintenanceAuthorization(false)">Sign out</button>
+  `);
+  $('modalInner').classList.add('maintenance-access-modal');
+  $('modal').setAttribute('role','dialog');
+  $('modal').setAttribute('aria-modal','true');
+  $('modal').setAttribute('aria-labelledby','maintenance-access-title');
+  $('modalInner').querySelector('.maintenance-access-card')?.addEventListener('click',event=>event.stopPropagation());
+  return new Promise(resolve=>{maintenanceAccessResolver=resolve;});
+}
+
+function finishMaintenanceAuthorization(continueToWorkspace){
+  if(!maintenanceAccessPending)return;
+  const resolve=maintenanceAccessResolver;
+  maintenanceAccessResolver=null;
+  maintenanceAccessPending=false;
+  closeModal();
+  resolve?.(continueToWorkspace);
 }
 
 async function toggleMaintenanceMode() {
@@ -7705,6 +7815,7 @@ async function login() {
       return;
     }
     const inMaintenance=await checkMaintenanceStatus();
+    maintenanceLoginActive=inMaintenance;
     if(inMaintenance){
       let maintenanceAllowed=false;
       try{
@@ -7712,6 +7823,7 @@ async function login() {
       }catch(maintenanceError){
         console.error('Could not verify maintenance access:',maintenanceError);
         await foodSafeProClient.auth.signOut();
+        maintenanceLoginActive=false;
         showMaintenanceScreen();
         await loadMaintenanceNotice();
         $('maintenanceNoticeMessage').textContent=`Could not verify maintenance access. ${maintenanceError.message||'Please try again later.'}`;
@@ -7719,17 +7831,31 @@ async function login() {
       }
       if(!maintenanceAllowed){
         await foodSafeProClient.auth.signOut();
+        maintenanceLoginActive=false;
         showMaintenanceScreen();
+        await loadMaintenanceNotice();
+        showMaintenanceAccessDenied();
         return;
       }
     }
     if(!(await requireTotpForCurrentSession(profile)))return;
+    if(inMaintenance&&profile.role==='staff'){
+      const continueToWorkspace=await requestMaintenanceAuthorization(profile);
+      if(!continueToWorkspace){
+        await foodSafeProClient.auth.signOut();
+        maintenanceLoginActive=false;
+        showMaintenanceScreen();
+        await loadMaintenanceNotice();
+        return;
+      }
+    }
 
     // SET CURRENT USER DETAILS
     currentUser = profile.username || identifier;
     currentRole = profile.role;
     currentProfile = profile;
     currentAuthUser = authData.user;
+    maintenanceLoginActive=false;
 
     // SHOW APPLICATION
     $('maintenance-screen').classList.add('hidden');
@@ -7836,6 +7962,8 @@ foodSafeProClient?.auth.onAuthStateChange((event,session)=>{
 
 async function logout(){
   mandatoryTotpSetupPending=false;
+  authenticatorLoginPending=false;
+  maintenanceLoginActive=false;
   pendingTotpFactorId='';
   closeModal();
   if(workflowDeadlineTimer)clearInterval(workflowDeadlineTimer);
@@ -7960,7 +8088,7 @@ async function confirmDeleteAccount(){
 }
 function openModalWithContent(html){
   const modal=$('modal'),inner=$('modalInner');
-  inner.classList.remove('mandatory-auth-setup','authenticator-success-view');
+  inner.classList.remove('mandatory-auth-setup','authenticator-success-view','maintenance-access-modal');
   inner.innerHTML=html;
   modal.removeAttribute('role');
   modal.removeAttribute('aria-modal');
@@ -7969,14 +8097,14 @@ function openModalWithContent(html){
   modal.classList.add('show');
 }
 function closeModal(){
-  if(mandatoryTotpSetupPending)return false;
+  if(mandatoryTotpSetupPending||maintenanceAccessPending)return false;
   const modal=$('modal'),inner=$('modalInner');
   modal.classList.remove('show');
   modal.classList.add('hidden');
   modal.removeAttribute('role');
   modal.removeAttribute('aria-modal');
   modal.removeAttribute('aria-labelledby');
-  inner?.classList.remove('mandatory-auth-setup','authenticator-success-view');
+  inner?.classList.remove('mandatory-auth-setup','authenticator-success-view','maintenance-access-modal');
   return true;
 }
 
@@ -8163,6 +8291,7 @@ async function beginTotpEnrollment(){
     const qrCode=data.totp?.qr_code||'';
     const secret=data.totp?.secret||'';
     $('modalInner').innerHTML=`
+      <button type="button" class="totp-modal-close" aria-label="Close authenticator setup" onclick="closeAuthenticatorPrompt()"><i class="fas fa-xmark" aria-hidden="true"></i></button>
       <h2 class="text-xl font-bold mb-2">Connect your authenticator</h2>
       <p class="text-sm text-gray-600 mb-4">Scan this QR code in your authenticator app, then enter its current six-digit code.</p>
       <div class="authenticator-apps-note"><strong>Compatible authenticator apps</strong><span>Use any app that supports standard time-based one-time passwords (TOTP), such as Google Authenticator, Microsoft Authenticator, Apple Passwords, 1Password, or Bitwarden.</span><span class="authenticator-app-examples">Scan the QR code or enter the setup key manually.</span></div>
@@ -8253,6 +8382,7 @@ async function discardUnverifiedTotp(factorId){
 function promptTotpRemoval(factorId){
   if(isReadOnlyDemo()||!requireStaffAccess('account_settings',{actionLabel:'account security settings'}))return;
   $('modalInner').innerHTML=`
+    <button type="button" class="totp-modal-close" aria-label="Close authenticator removal" onclick="closeAuthenticatorPrompt()"><i class="fas fa-xmark" aria-hidden="true"></i></button>
     <h2 class="text-xl font-bold mb-2">Remove authenticator</h2>
     <p class="text-sm text-gray-600 mb-4">Confirm your identity with a current authenticator code before removing this sign-in factor.</p>
     <div id="modal-totp-msg" class="hidden text-sm p-2.5 rounded-lg mb-3" role="status" aria-live="polite"></div>
@@ -8278,8 +8408,37 @@ async function removeTotpFactor(factorId){
     if(button)button.disabled=false;
   }
 }
+async function closeAuthenticatorPrompt(){
+  if(mandatoryTotpSetupPending){
+    await signOutOfMandatoryTotpSetup();
+    return;
+  }
+  if(!authenticatorLoginPending){
+    closeModal();
+    return;
+  }
+  try{
+    const {error}=await foodSafeProClient.auth.signOut();
+    if(error)throw error;
+    authenticatorLoginPending=false;
+    pendingTotpFactorId='';
+    closeModal();
+    if(maintenanceLoginActive){
+      maintenanceLoginActive=false;
+      showMaintenanceScreen();
+      await loadMaintenanceNotice();
+    }else{
+      showAuth();
+    }
+  }catch(error){
+    console.error('Could not safely exit authenticator verification:',error);
+    showTotpModalMessage(`Could not sign out safely. ${error.message||'Please try again.'}`,true);
+  }
+}
 function promptTotpLogin(factorId){
+  authenticatorLoginPending=true;
   openModalWithContent(`
+    <button type="button" class="totp-modal-close" aria-label="Close authenticator verification and sign out" onclick="closeAuthenticatorPrompt()"><i class="fas fa-xmark" aria-hidden="true"></i></button>
     <h2 class="text-xl font-bold mb-2">Verify your sign-in</h2>
     <p class="text-sm text-gray-600 mb-4">Enter the current code from your authenticator app to continue.</p>
     <div id="modal-totp-msg" class="hidden text-sm p-2.5 rounded-lg mb-3" role="status" aria-live="polite"></div>
@@ -8289,6 +8448,7 @@ function promptTotpLogin(factorId){
 }
 function renderMandatoryTotpSetup({qrCode='',secret='',errorMessage=''}={}){
   openModalWithContent(`
+    <button type="button" class="totp-modal-close" aria-label="Close authenticator setup and sign out" onclick="closeAuthenticatorPrompt()"><i class="fas fa-xmark" aria-hidden="true"></i></button>
     <div class="mandatory-auth-mark" aria-hidden="true"><i class="fas fa-shield-halved"></i></div>
     <h2 id="mandatory-auth-title" class="mandatory-auth-heading">Secure your account</h2>
     <p class="mandatory-auth-intro">Your administrator requires an authenticator app for staff accounts. Complete this quick setup before opening your FoodSafe Pro workspace.</p>
@@ -8352,6 +8512,7 @@ async function verifyTotpLogin(factorId){
     if(button)button.disabled=false;
     return;
   }
+  authenticatorLoginPending=false;
   closeModal();
   try{
     await init();
@@ -8935,6 +9096,7 @@ async function init(){
   if(window.location.hash.includes('type=recovery') || window.location.search.includes('type=recovery'))return;
   if(!configured){console.warn('FoodSafe Pro needs Supabase URL and anon/publishable key configuration.');return;}
   const inMaintenance = await checkMaintenanceStatus();
+  maintenanceLoginActive=inMaintenance;
   const {data:{session}}=await foodSafeProClient.auth.getSession();
   
   if(session){
@@ -8962,7 +9124,10 @@ async function init(){
           }
           if(!maintenanceAllowed){
             await foodSafeProClient.auth.signOut();
-            showAuth();
+            maintenanceLoginActive=false;
+            showMaintenanceScreen();
+            await loadMaintenanceNotice();
+            showMaintenanceAccessDenied();
             return;
           }
         }
@@ -8975,7 +9140,16 @@ async function init(){
           showMessage(`Could not verify authenticator requirements: ${error.message||'Please sign in again.'}`,'error');
           return;
         }
+        if(inMaintenance&&profile.role==='staff'){
+          const continueToWorkspace=await requestMaintenanceAuthorization(profile);
+          if(!continueToWorkspace){
+            await foodSafeProClient.auth.signOut();
+            showAuth();
+            return;
+          }
+        }
         currentProfile=profile;currentUser=profile.username||session.user.email.split('@')[0];currentRole=profile.role;currentAuthUser=session.user;
+        maintenanceLoginActive=false;
         $('maintenance-screen').classList.add('hidden');
         $('landing-page').classList.add('hidden');
         $('login-card').classList.add('hidden');
