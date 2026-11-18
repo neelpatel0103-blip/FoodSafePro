@@ -510,6 +510,9 @@ body.foodsafe-night-mode .dashboard-main .dashboard-topbar h2,body.foodsafe-nigh
 .maintenance-login-button { color: #fff !important; background: #2563eb !important; }
 .maintenance-login-button:hover { background: #1d4ed8 !important; }
 .maintenance-access-denied { position: relative; box-sizing: border-box; width: min(440px,calc(100vw - 28px)); padding: clamp(26px,6vw,38px); border: 1px solid #f0e5cf; border-radius: 22px; color: #334155; background: #fff; text-align: center; box-shadow: 0 22px 70px rgba(12,30,20,.2); }
+.maintenance-access-denied-overlay { z-index: 180 !important; box-sizing: border-box; padding: max(16px,env(safe-area-inset-top)) 14px max(16px,env(safe-area-inset-bottom)); overflow-y: auto; background: rgba(15,23,42,.58) !important; backdrop-filter: blur(7px); }
+.modal-content.maintenance-access-denied-content { box-sizing: border-box; width: min(440px,100%); max-width: 440px; max-height: calc(100dvh - max(32px,env(safe-area-inset-top) + env(safe-area-inset-bottom) + 32px)); margin: auto; padding: 0; overflow-y: auto; border-radius: 22px; display: flex; align-items: center; justify-content: center; background: transparent; box-shadow: none; }
+.maintenance-access-denied-content .maintenance-access-denied { box-sizing: border-box; width: 100%; max-height: 100%; margin: auto; overflow-y: auto; }
 .maintenance-access-denied h2 { margin: 0; color: #1e293b; font-size: clamp(21px,5vw,25px); line-height: 1.2; }
 .maintenance-access-denied p { margin: 10px auto 17px; color: #647083; font-size: 12px; line-height: 1.7; }
 .maintenance-denied-summary { margin: 0 0 18px; padding: 12px; border: 1px solid #f0dfbd; border-radius: 12px; color: #72501f; background: #fff8e8; font-size: 10px; line-height: 1.55; }
@@ -520,6 +523,7 @@ body.foodsafe-night-mode .dashboard-main .dashboard-topbar h2,body.foodsafe-nigh
 .totp-modal-close { position: absolute; top: 10px; right: 10px; width: 34px; height: 34px; border: 0; border-radius: 50%; display: grid; place-items: center; color: #64748b; background: #f1f3f5; font-size: 17px; cursor: pointer; }
 .totp-modal-close:hover,.totp-modal-close:focus-visible { color: #1f2937; background: #e5e7eb; outline: 2px solid #2563eb; outline-offset: 2px; }
 #modalInner:has(.totp-modal-close) { position: relative; padding-top: 40px; }
+#modalInner:has(.maintenance-access-denied) { padding-top: 0; }
 body.foodsafe-night-mode .maintenance-shell { background: #101b15; }
 body.foodsafe-night-mode .maintenance-card { border-color: #315746; background: #12251d; }
 body.foodsafe-night-mode .maintenance-card h2 { color: #edf7f0; }
@@ -1796,15 +1800,20 @@ body.foodsafe-night-mode .dashboard-shell .whats-new-notification-popover .whats
   .whats-new-targets { display: grid; grid-template-columns: 1fr; }
   .homepage-feedback-dialog .feedback-submit-row { flex-direction: row; }
   .homepage-feedback-dialog .feedback-submit { width: 100%; }
-  .dashboard-main .dashboard-topbar { align-items: center; flex-direction: row; gap: 10px; }
-  .dashboard-main .dashboard-topbar > div:first-child { min-width: 0; flex: 1 1 auto; }
+  .dashboard-main .dashboard-topbar { align-items: center; flex-direction: column; gap: 10px; text-align: center; }
+  .dashboard-main .dashboard-topbar > div:first-child { width: 100%; min-width: 0; flex: 0 1 auto; text-align: center; }
   .dashboard-topbar-kicker { display: none; }
-  .dashboard-main .dashboard-topbar h2 { margin: 0; font-size: 17px; }
+  .dashboard-main .dashboard-topbar h2 { max-width: 100%; margin: 0; font-size: 17px; line-height: 1.25; text-align: center; white-space: normal; overflow-wrap: anywhere; }
   .dashboard-main .dashboard-topbar > div:first-child > p:not(.demo-readonly-banner) { display: none; }
-  .dashboard-topbar-meta { width: auto; flex: 0 0 auto; flex-wrap: nowrap; gap: 6px; }
+  .dashboard-topbar-meta { width: 100%; max-width: 100%; flex: 0 1 auto; flex-wrap: wrap; justify-content: center; gap: 7px; }
   .dashboard-role-pill { display: none; }
   .dashboard-topbar-logout { width: 38px; min-width: 38px; padding: 0; justify-content: center; }
   .dashboard-logout-label { display: none; }
+}
+@media (max-width: 700px) {
+  #modal.maintenance-access-denied-overlay { align-items: center; justify-content: center; }
+  #modal .modal-content.maintenance-access-denied-content { width: min(440px,100%); max-height: calc(100dvh - max(32px,env(safe-area-inset-top) + env(safe-area-inset-bottom) + 32px)); }
+  #modal .maintenance-access-denied { padding: clamp(22px,6vw,30px) clamp(18px,5vw,25px); border-radius: 20px; }
 }
 #app .dashboard-sidebar { color: var(--dashboard-sidebar-foreground, #e8f0e9); background: var(--dashboard-sidebar-color, #143b2c); }
 #app .dashboard-sidebar .dashboard-brand h1,#app .dashboard-sidebar .dashboard-brand .foodsafe-brand,#app .dashboard-side-nav a,#app .dashboard-side-actions button,#app .dashboard-side-actions > a,#app .dashboard-side-admin button,#app .dashboard-side-admin > a { color: var(--dashboard-sidebar-foreground, #e8f0e9); }
@@ -1818,20 +1827,21 @@ body.foodsafe-night-mode .dashboard-shell .whats-new-notification-popover .whats
 #app .dashboard-side-actions .side-action-primary i { color: var(--dashboard-accent-foreground, #fff); background: transparent; }
 #app .dashboard-toolbar .toolbar-primary,#app .dashboard-toolbar .toolbar-primary:hover,#app .workflow-submit,#app .workflow-submit:hover,#app .workflow-export-button,#app .workflow-export-button:hover,#app .homepage-visibility-actions button,#app .homepage-visibility-actions button:hover,#app .whats-new-form-actions button[type="submit"]:not(#whatsNewSaveDraft),#app .whats-new-form-actions button[type="submit"]:not(#whatsNewSaveDraft):hover,#app .web-theme-actions button:not(.web-theme-restore-button),#app .web-theme-actions button:not(.web-theme-restore-button):hover { color: var(--dashboard-accent-foreground, #fff); background: var(--dashboard-accent-color, #174b37); border-color: var(--dashboard-accent-color, #174b37); }
 @media (max-width: 700px) {
-  .dashboard-main .dashboard-topbar { align-items: center; flex-flow: row wrap; gap: 8px 10px; padding: 12px 14px; }
-  .dashboard-main .dashboard-topbar > div:first-child { flex: 1 1 135px; min-width: 0; }
-  .dashboard-main .dashboard-topbar h2 { max-width: 100%; overflow: hidden; font-size: clamp(13px,4vw,16px); line-height: 1.25; text-overflow: ellipsis; white-space: nowrap; }
-  .dashboard-topbar-meta { width: auto; max-width: 100%; flex: 0 0 auto; flex-wrap: nowrap; justify-content: flex-end; gap: 5px; }
+  .dashboard-main .dashboard-topbar { align-items: center; flex-flow: row wrap; justify-content: space-between; gap: 8px 10px; padding: 14px; text-align: left; }
+  .dashboard-main .dashboard-topbar > div:first-child { width: auto; flex: 1 1 125px; min-width: 0; text-align: left; }
+  .dashboard-main .dashboard-topbar h2 { max-width: 100%; overflow: visible; font-size: clamp(14px,4vw,17px); line-height: 1.25; text-align: left; text-overflow: clip; white-space: normal; overflow-wrap: anywhere; }
+  .dashboard-topbar-meta { width: auto; max-width: 100%; flex: 0 1 auto; flex-wrap: wrap; justify-content: flex-end; gap: 6px; margin-left: auto; }
   .dashboard-topbar-meta .dashboard-chat-trigger,.dashboard-topbar-meta .workflow-notification-trigger,.dashboard-topbar-logout { box-sizing: border-box; width: 36px; min-width: 36px; height: 36px; min-height: 36px; flex: 0 0 36px; padding: 0; justify-content: center; }
   .dashboard-role-pill,.dashboard-logout-label { display: none; }
   .dashboard-section-view > header h2,.dashboard-section-view > header h3 { font-size: clamp(19px,5vw,25px); line-height: 1.2; overflow-wrap: anywhere; }
   .dashboard-section-view > header p { max-width: 100%; }
 }
 @media (max-width: 360px) {
-  .dashboard-main .dashboard-topbar { padding-right: 10px; padding-left: 10px; gap: 8px; }
-  .dashboard-topbar-meta { gap: 3px; }
+  .dashboard-main .dashboard-topbar { align-items: center; flex-flow: row wrap; justify-content: space-between; padding-right: 10px; padding-left: 10px; gap: 8px; text-align: left; }
+  .dashboard-main .dashboard-topbar > div:first-child { flex: 1 1 105px; text-align: left; }
+  .dashboard-topbar-meta { width: auto; flex-wrap: wrap; justify-content: flex-end; gap: 3px; margin-left: auto; }
   .dashboard-topbar-meta .dashboard-chat-trigger,.dashboard-topbar-meta .workflow-notification-trigger,.dashboard-topbar-logout { width: 33px; min-width: 33px; height: 34px; min-height: 34px; flex-basis: 33px; }
-  .dashboard-main .dashboard-topbar h2 { font-size: 13px; }
+  .dashboard-main .dashboard-topbar h2 { font-size: 14px; text-align: left; white-space: normal; }
 }
 #app .dashboard-topbar-meta button,#app .dashboard-menu-toggle { cursor: pointer; }
 #app .dashboard-topbar-meta button:hover,#app .dashboard-menu-toggle:hover { filter: brightness(.94); box-shadow: 0 0 0 3px rgba(40,113,78,.16); }
@@ -4515,6 +4525,8 @@ function showMaintenanceAccessDenied(){
       </div>
     </section>
   `);
+  $('modal').classList.add('maintenance-access-denied-overlay');
+  $('modalInner').classList.add('maintenance-access-denied-content');
   $('modal').setAttribute('role','dialog');
   $('modal').setAttribute('aria-modal','true');
   $('modal').setAttribute('aria-labelledby','maintenance-denied-title');
@@ -8193,6 +8205,8 @@ function closeModal(){
   const modal=$('modal'),inner=$('modalInner');
   modal.classList.remove('show');
   modal.classList.add('hidden');
+  modal.classList.remove('maintenance-access-denied-overlay');
+  inner?.classList.remove('maintenance-access-denied-content');
   modal.removeAttribute('role');
   modal.removeAttribute('aria-modal');
   modal.removeAttribute('aria-labelledby');
