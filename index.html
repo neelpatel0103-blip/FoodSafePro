@@ -360,7 +360,17 @@ th{background:#f1f5f9;color:#6b7280;}
 .access-control-header h3 { margin: 8px 0; color: #263b2d; font-size: 22px; }
 .access-control-header p { max-width: 760px; margin: 0; color: #748177; font-size: 12px; line-height: 1.7; }
 .access-control-toolbar { margin: 0 0 15px; padding: 16px; border: 1px solid #e4ebe3; border-radius: 14px; display: flex; flex-wrap: wrap; align-items: end; gap: 14px; background: #fff; }
-.access-control-toolbar .workflow-field { min-width: min(320px,100%); margin: 0; }
+.access-control-toolbar .workflow-field { min-width: min(280px,100%); flex: 1 1 280px; margin: 0; }
+.access-control-toolbar input[type="search"],.maintenance-settings-panel input[type="search"] { min-height: 46px; padding: 0 15px 0 42px; border: 1px solid #dce5dc; border-radius: 12px; color: #263b2d; background: #fbfdfb; font-size: 13px; font-weight: 550; box-shadow: inset 0 1px 2px #172b1710; transition: border-color .16s,box-shadow .16s,background .16s; }
+.access-control-toolbar input[type="search"]:focus,.maintenance-settings-panel input[type="search"]:focus { border-color: #3e8058; background: #fff; outline: 0; box-shadow: 0 0 0 3px #3e80581c; }
+.access-control-toolbar .workflow-field:has(input[type="search"]),.maintenance-settings-panel label:has(input[type="search"]) { position: relative; }
+.access-control-toolbar .workflow-field:has(input[type="search"])::before,.maintenance-settings-panel label:has(input[type="search"])::before { position: absolute; z-index: 1; bottom: 14px; left: 15px; color: #738378; content: "\f002"; font: 14px "Font Awesome 6 Free"; font-weight: 900; pointer-events: none; }
+.access-control-staff-results { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(220px,100%),1fr)); gap: 8px; margin: -4px 0 14px; }
+.access-control-staff-result { min-height: 48px; padding: 8px 12px; border: 1px solid #e2eae2; border-radius: 11px; display: flex; align-items: center; gap: 10px; color: #344a3a; background: #fff; text-align: left; cursor: pointer; transition: border-color .15s,background .15s; }
+.access-control-staff-result:hover,.access-control-staff-result[aria-current="true"] { border-color: #91b79a; background: #f3f8f2; }
+.access-control-staff-result i { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; color: #286344; background: #eaf3e9; }
+.access-control-staff-result strong { display: block; font-size: 11px; }
+.access-control-staff-result small { display: block; margin-top: 2px; color: #829087; font-size: 9px; }
 .access-control-list { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
 .access-control-card { min-width: 0; padding: 16px; border: 1px solid #e4ebe3; border-radius: 14px; display: flex; align-items: center; justify-content: space-between; gap: 14px; background: #fff; }
 .access-control-card strong { display: block; color: #344a3a; font-size: 12px; }
@@ -544,9 +554,12 @@ body.foodsafe-night-mode #modal .maintenance-access-signout { color: #d7e8dd; ba
 .maintenance-settings-fields { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
 .maintenance-settings-fields .workflow-field:last-child { grid-column: 1 / -1; }
 .maintenance-staff-list { max-height: 260px; overflow-y: auto; margin-top: 10px; border: 1px solid #e5ebe3; border-radius: 12px; }
-.maintenance-staff-option { min-height: 42px; padding: 8px 11px; border-bottom: 1px solid #edf1ec; display: flex; align-items: center; gap: 9px; color: #45554a; font-size: 11px; cursor: pointer; }
+.maintenance-staff-option { min-height: 54px; padding: 8px 12px; border-bottom: 1px solid #edf1ec; display: flex; align-items: center; justify-content: space-between; gap: 12px; color: #45554a; font-size: 11px; }
 .maintenance-staff-option:last-child { border-bottom: 0; }
-.maintenance-staff-option input { width: 16px; height: 16px; accent-color: #286344; }
+.maintenance-staff-name { min-width: 0; overflow-wrap: anywhere; font-weight: 700; }
+.maintenance-staff-state { display: block; margin-top: 3px; color: #829087; font-size: 9px; font-weight: 500; }
+.maintenance-staff-option .access-toggle[aria-checked="true"] { background: #286344; }
+.maintenance-staff-option .access-toggle[aria-checked="false"] { background: #cbd5ce; }
 .maintenance-settings-status { min-height: 18px; margin: 9px 0 0; color: #718076; font-size: 10px; line-height: 1.5; }
 .maintenance-settings-status.error { color: #a5433f; }
 .maintenance-settings-status.success { color: #286344; }
@@ -557,6 +570,11 @@ body.foodsafe-night-mode .maintenance-settings-panel h4 { color: #edf7f0; }
 body.foodsafe-night-mode .maintenance-settings-panel > p,body.foodsafe-night-mode .maintenance-settings-status { color: #b7c9bd; }
 body.foodsafe-night-mode .maintenance-staff-list { border-color: #315746; }
 body.foodsafe-night-mode .maintenance-staff-option { color: #d7e8dd; border-color: #315746; }
+body.foodsafe-night-mode .maintenance-staff-state { color: #aab9ae; }
+body.foodsafe-night-mode .access-control-staff-result { color: #e2ebe4; background: #19231d; border-color: #34453a; }
+body.foodsafe-night-mode .access-control-staff-result:hover,body.foodsafe-night-mode .access-control-staff-result[aria-current="true"] { background: #20372a; border-color: #4a7558; }
+body.foodsafe-night-mode .access-control-staff-result i { color: #c3d9c8; background: #294435; }
+body.foodsafe-night-mode .access-control-staff-result small { color: #aab9ae; }
 @media (max-width: 600px) { .maintenance-settings-fields { grid-template-columns: 1fr; } .maintenance-settings-fields .workflow-field:last-child { grid-column: auto; } }
 .dashboard-shell { min-height: 100vh; padding: 25px clamp(16px, 4vw, 56px) 48px; background: #f4f6f2; color: #25342a; }
 .dashboard-topbar { max-width: 1440px; margin: 0 auto 25px; padding: 18px 22px; border: 1px solid #e8ece6; border-radius: 20px; display: flex; align-items: stretch; flex-direction: column; gap: 16px; background: #fff; box-shadow: 0 8px 28px rgba(34,53,39,.06); }
@@ -2706,16 +2724,17 @@ body.foodsafe-night-mode #modal .authenticator-success-status { color: #b8ebd1; 
           <label class="workflow-field" for="maintenanceScheduledEnd">Estimated completion date and time<input id="maintenanceScheduledEnd" type="datetime-local"></label>
           <label class="workflow-field" for="maintenanceNoticeInput">Maintenance notice<textarea id="maintenanceNoticeInput" maxlength="1000" rows="3" placeholder="Describe the planned maintenance and what users should expect."></textarea></label>
         </div>
-        <label class="workflow-field" for="maintenanceStaffSearch">Search staff who may sign in<input id="maintenanceStaffSearch" type="search" placeholder="Search staff by username" oninput="filterMaintenanceStaffOptions()"></label>
+        <label class="workflow-field" for="maintenanceStaffSearch">Search staff who may sign in<input id="maintenanceStaffSearch" type="search" placeholder="Search by staff name or username" autocomplete="off" oninput="filterMaintenanceStaffOptions()"></label>
         <div id="maintenanceStaffAccessList" class="maintenance-staff-list" aria-live="polite">Loading staff accounts…</div>
         <p id="maintenanceSettingsStatus" class="maintenance-settings-status" role="status" aria-live="polite">Loading maintenance settings…</p>
         <button id="saveMaintenanceSettings" class="maintenance-settings-save" type="button" onclick="saveMaintenanceSettings()" disabled>Save maintenance notice &amp; staff access</button>
       </section>
       <div class="access-control-toolbar">
-        <label class="workflow-field" for="accessControlStaffSearch">Search staff members<input id="accessControlStaffSearch" type="search" placeholder="Type a username to find a staff member" oninput="filterAccessControlStaff()"></label>
-        <label class="workflow-field" for="accessControlStaffSelect">Select staff member or all staff<select id="accessControlStaffSelect" onchange="loadSelectedStaffAccessControls()"><option value="">Choose a staff member…</option></select></label>
+        <label class="workflow-field" for="accessControlStaffSearch">Search staff members<input id="accessControlStaffSearch" type="search" placeholder="Search by staff name or username" autocomplete="off" oninput="filterAccessControlStaff()"></label>
+        <label class="workflow-field" for="accessControlStaffSelect">Or select staff member<select id="accessControlStaffSelect" onchange="selectAccessControlStaff()"><option value="">Choose a staff member…</option></select></label>
         <button id="applyAccessControlsToAll" class="access-control-bulk-button" type="button" onclick="applyStaffAccessToAll()" disabled>Copy selected member’s settings to all staff</button>
       </div>
+      <div id="accessControlStaffResults" class="access-control-staff-results" aria-label="Staff search results"></div>
       <p id="accessControlStaffSearchStatus" class="access-control-status" role="status" aria-live="polite"></p>
       <p id="accessControlStatus" class="access-control-status" role="status" aria-live="polite">Choose a staff member to manage their individual access.</p>
       <div id="accessControlList" class="access-control-list" aria-live="polite"></div>
@@ -2902,7 +2921,7 @@ const configured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes
 const foodSafeProClient = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 const foodSafeProPublicClient = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {auth:{autoRefreshToken:false,persistSession:false,detectSessionInUrl:false}}) : null;
 
-let currentUser = null, currentRole = null, currentProfile = null, currentAuthUser = null, currentDashboardView = 'account', data = [], filteredData = [], charts = {}, cleaningAssignmentReport = [], correctiveActionReport = [], incidentLearningCases = [], adminStaffPairChats = [], staffAccessBlocked = new Set(), staffAccessStaff = [], selectedAccessStaffId = '', maintenanceAllowedStaffIds = new Set(), maintenanceScheduledEndAt = null, maintenanceAccessPending = false, maintenanceAccessResolver = null, maintenanceLoginActive = false, authenticatorLoginPending = false, staffAccessRefreshTimer = null, staffAccessRealtimeChannel = null, nightModeActive = false, workflowDeadlineTimer = null, workflowDeadlineChecksInitialized = false, workflowNotificationError = '', workflowNotificationEventsBound = false, staffAdminChatThreadId = null, staffAdminChatContacts = [], staffAdminChatPollTimer = null, staffAdminChatEventsBound = false, workflowConfirmationResolver = null, workflowConfirmationPreviousFocus = null, workflowInputResolver = null, workflowInputPreviousFocus = null, systemMessagePreviousFocus = null, pendingTotpFactorId = '', mandatoryTotpSetupPending = false, requireAuthenticatorForNewStaff = false;
+let currentUser = null, currentRole = null, currentProfile = null, currentAuthUser = null, currentDashboardView = 'account', data = [], filteredData = [], charts = {}, cleaningAssignmentReport = [], correctiveActionReport = [], incidentLearningCases = [], adminStaffPairChats = [], staffAccessBlocked = new Set(), staffAccessStaff = [], selectedAccessStaffId = '', accessControlLoadRequest = 0, maintenanceAllowedStaffIds = new Set(), maintenanceScheduledEndAt = null, maintenanceAccessPending = false, maintenanceAccessResolver = null, maintenanceLoginActive = false, authenticatorLoginPending = false, staffAccessRefreshTimer = null, staffAccessRealtimeChannel = null, nightModeActive = false, workflowDeadlineTimer = null, workflowDeadlineChecksInitialized = false, workflowNotificationError = '', workflowNotificationEventsBound = false, staffAdminChatThreadId = null, staffAdminChatContacts = [], staffAdminChatPollTimer = null, staffAdminChatEventsBound = false, workflowConfirmationResolver = null, workflowConfirmationPreviousFocus = null, workflowInputResolver = null, workflowInputPreviousFocus = null, systemMessagePreviousFocus = null, pendingTotpFactorId = '', mandatoryTotpSetupPending = false, requireAuthenticatorForNewStaff = false;
 let whatsNewRealtimeChannel=null,whatsNewRefreshTimer=null,whatsNewNotificationEventsBound=false,homepageFeedbackPreviousFocus=null;
 let changeUsernameAvailabilityTimer=null,changeUsernameAvailabilityRequest=0;
 const $ = id => document.getElementById(id);
@@ -3142,19 +3161,61 @@ async function toggleNewStaffAuthenticatorRequirement(){
 }
 function filterAccessControlStaff(){
   const search=$('accessControlStaffSearch')?.value.trim().toLowerCase()||'';
-  const select=$('accessControlStaffSelect'),status=$('accessControlStaffSearchStatus');
-  if(!select||!status)return;
-  let matches=0;
-  [...select.options].forEach(option=>{
-    const isStaff=Boolean(option.value&&option.value!=='all');
-    const matchesSearch=isStaff&&option.textContent.toLowerCase().includes(search);
-    const alwaysVisible=!isStaff||option.value===select.value;
-    option.hidden=!(alwaysVisible||matchesSearch);
-    if(matchesSearch)matches+=1;
+  const select=$('accessControlStaffSelect'),status=$('accessControlStaffSearchStatus'),results=$('accessControlStaffResults');
+  if(!select||!status||!results)return;
+  results.replaceChildren();
+  if(!search){
+    status.textContent='Search for a staff member or use the selector. Their access settings appear below.';
+    return;
+  }
+  const matches=staffAccessStaff.filter(account=>
+    String(account.username||'').toLowerCase().includes(search)
+  );
+  if(!matches.length){
+    select.value='';
+    selectedAccessStaffId='';
+    $('accessControlList')?.replaceChildren();
+    $('applyAccessControlsToAll').disabled=true;
+    $('accessControlStatus').textContent='Search for a staff member or choose one from the selector.';
+    status.textContent=`No staff members found for “${$('accessControlStaffSearch').value.trim()}”.`;
+    return;
+  }
+  status.textContent=`${matches.length} staff member${matches.length===1?'':'s'} found. Select a name to show their access settings below.`;
+  matches.forEach(account=>{
+    const result=document.createElement('button');
+    result.type='button';
+    result.className='access-control-staff-result';
+    result.dataset.staffId=account.id;
+    result.setAttribute('aria-current',String(select.value===account.id));
+    result.innerHTML=`<i class="fas fa-user" aria-hidden="true"></i><span><strong>${escapeHtml(account.username||'Staff member')}</strong><small>${account.approved?'Approved staff account':'Not approved'}</small></span>`;
+    result.addEventListener('click',()=>selectAccessControlStaff(account.id));
+    results.appendChild(result);
   });
-  status.textContent=search
-    ?matches?`Found ${matches} staff member${matches===1?'':'s'} matching “${$('accessControlStaffSearch').value.trim()}”.`:'No staff usernames match your search.'
-    :'Search staff usernames to quickly find an individual account.';
+  if(matches.length===1){
+    selectAccessControlStaff(matches[0].id);
+  }else{
+    select.value='';
+    selectedAccessStaffId='';
+    $('accessControlList')?.replaceChildren();
+    $('applyAccessControlsToAll').disabled=true;
+    $('accessControlStatus').textContent='Select the staff member whose access settings you want to view.';
+  }
+}
+function selectAccessControlStaff(staffId=$('accessControlStaffSelect')?.value||''){
+  const select=$('accessControlStaffSelect');
+  if(!select)return;
+  const alreadySelected=selectedAccessStaffId===staffId;
+  select.value=staffId;
+  if(staffId){
+    const account=staffAccessStaff.find(staff=>staff.id===staffId);
+    if(account&&$('accessControlStaffSearch')?.value.trim()){
+      $('accessControlStaffSearchStatus').textContent=`Showing access settings for ${account.username||'this staff member'} below.`;
+      document.querySelectorAll('#accessControlStaffResults .access-control-staff-result').forEach(button=>{
+        button.setAttribute('aria-current',String(button.dataset.staffId===account.id));
+      });
+    }
+  }
+  if(!alreadySelected)loadSelectedStaffAccessControls();
 }
 async function loadAccessControlStaff(){
   if(currentRole!=='admin'||isReadOnlyDemo())return;
@@ -3174,7 +3235,6 @@ async function loadAccessControlStaff(){
     select.replaceChildren(new Option('Choose a staff member…',''));
     if(staffAccessStaff.length)select.add(new Option(`All staff members (${staffAccessStaff.length})`,'all'));
     staffAccessStaff.forEach(account=>select.add(new Option(account.username||'Staff member',account.id)));
-    filterAccessControlStaff();
     if(previous==='all'&&staffAccessStaff.length){
       select.value='all';
       selectedAccessStaffId='all';
@@ -3187,6 +3247,7 @@ async function loadAccessControlStaff(){
       selectedAccessStaffId='';
       status.textContent=staffAccessStaff.length?'Choose a staff member to manage their individual access.':'No staff accounts are available.';
     }
+    filterAccessControlStaff();
   }catch(error){
     console.error('Could not load access-control staff list:',error);
     status.classList.add('error');
@@ -3196,6 +3257,7 @@ async function loadAccessControlStaff(){
 async function loadSelectedStaffAccessControls(){
   if(currentRole!=='admin'||isReadOnlyDemo())return;
   const selection=$('accessControlStaffSelect')?.value||'';
+  const requestId=++accessControlLoadRequest;
   const allStaff=selection==='all';
   selectedAccessStaffId=selection;
   const bulkButton=$('applyAccessControlsToAll');
@@ -3220,6 +3282,7 @@ async function loadSelectedStaffAccessControls(){
     query=allStaff?query.in('staff_id',staffIds):query.eq('staff_id',selection);
     const {data:controls,error}=await query;
     if(error)throw error;
+    if(requestId!==accessControlLoadRequest||selection!==($('accessControlStaffSelect')?.value||''))return;
     const settings=new Map();
     for(const control of controls||[]){
       if(!control.blocked)continue;
@@ -3249,6 +3312,7 @@ async function loadSelectedStaffAccessControls(){
       ?`Access settings across all ${staffIds.length} staff members. Toggle a control to apply that setting to every staff account.`
       :`Access settings for ${account?.username||'this staff member'}. Toggle a control to save it immediately.`;
   }catch(error){
+    if(requestId!==accessControlLoadRequest)return;
     console.error('Could not load staff access settings:',error);
     if(status){status.classList.add('error');status.textContent=`Could not load access settings. ${staffAccessReadErrorMessage(error)}`;}
   }
@@ -7132,9 +7196,32 @@ async function loadMaintenanceNotice(){
 
 function filterMaintenanceStaffOptions(){
   const search=$('maintenanceStaffSearch')?.value.trim().toLowerCase()||'';
+  let visible=0;
   document.querySelectorAll('#maintenanceStaffAccessList .maintenance-staff-option').forEach(option=>{
-    option.hidden=!option.textContent.toLowerCase().includes(search);
+    option.hidden=!option.dataset.searchText.includes(search);
+    if(!option.hidden)visible+=1;
   });
+  const status=$('maintenanceSettingsStatus');
+  if(search&&status&&!status.classList.contains('error')&&!status.classList.contains('success')){
+    status.textContent=visible
+      ?`Showing ${visible} staff member${visible===1?'':'s'} matching “${$('maintenanceStaffSearch').value.trim()}”. Toggle access, then save your changes.`
+      :'No staff members match that search.';
+  }
+}
+
+function toggleMaintenanceStaffAccess(staffId,button){
+  if(currentRole!=='admin'||isReadOnlyDemo()||!button)return;
+  const allowed=!maintenanceAllowedStaffIds.has(staffId);
+  if(allowed)maintenanceAllowedStaffIds.add(staffId);
+  else maintenanceAllowedStaffIds.delete(staffId);
+  button.setAttribute('aria-checked',String(allowed));
+  const state=button.closest('.maintenance-staff-option')?.querySelector('.maintenance-staff-state');
+  if(state)state.textContent=allowed?'Allowed during maintenance':'Not allowed during maintenance';
+  const status=$('maintenanceSettingsStatus');
+  if(status){
+    status.classList.remove('error','success');
+    status.textContent=`${maintenanceAllowedStaffIds.size} staff member${maintenanceAllowedStaffIds.size===1?'':'s'} selected for maintenance access. Save to apply changes.`;
+  }
 }
 
 function maintenanceDateTimeLocal(value){
@@ -7165,20 +7252,24 @@ async function loadMaintenanceSettings(staffAccounts=staffAccessStaff){
       list.textContent='No approved staff accounts are available to allow during maintenance.';
     }else{
       approvedStaff.forEach(account=>{
-        const label=document.createElement('label');
-        label.className='maintenance-staff-option';
-        label.dataset.searchText=String(account.username||'Staff member').toLowerCase();
-        const checkbox=document.createElement('input');
-        checkbox.type='checkbox';
-        checkbox.value=account.id;
-        checkbox.checked=maintenanceAllowedStaffIds.has(account.id);
+        const row=document.createElement('div');
+        row.className='maintenance-staff-option';
+        row.dataset.searchText=String(account.username||'Staff member').toLowerCase();
         const name=document.createElement('span');
-        name.textContent=account.username||'Staff member';
-        label.append(checkbox,name);
-        list.appendChild(label);
+        name.className='maintenance-staff-name';
+        name.innerHTML=`${escapeHtml(account.username||'Staff member')}<small class="maintenance-staff-state">${maintenanceAllowedStaffIds.has(account.id)?'Allowed during maintenance':'Not allowed during maintenance'}</small>`;
+        const toggle=document.createElement('button');
+        toggle.type='button';
+        toggle.className='access-toggle is-setting';
+        toggle.setAttribute('role','switch');
+        toggle.setAttribute('aria-checked',String(maintenanceAllowedStaffIds.has(account.id)));
+        toggle.setAttribute('aria-label',`Allow ${account.username||'this staff member'} to sign in during maintenance`);
+        toggle.addEventListener('click',()=>toggleMaintenanceStaffAccess(account.id,toggle));
+        row.append(name,toggle);
+        list.appendChild(row);
       });
     }
-    status.textContent='Only the staff members selected here may sign in while maintenance mode is on. Approved administrators always retain access.';
+    status.textContent=`${maintenanceAllowedStaffIds.size} staff member${maintenanceAllowedStaffIds.size===1?'':'s'} selected for maintenance access. Approved administrators always retain access. Toggle a staff member and save to apply changes.`;
     saveButton.disabled=false;
     filterMaintenanceStaffOptions();
   }catch(error){
@@ -7201,8 +7292,7 @@ async function saveMaintenanceSettings(){
     $('maintenanceScheduledEnd').focus();
     return;
   }
-  const allowedStaffIds=[...document.querySelectorAll('#maintenanceStaffAccessList input[type="checkbox"]:checked')]
-    .map(input=>input.value);
+  const allowedStaffIds=[...maintenanceAllowedStaffIds];
   saveButton.disabled=true;
   status.classList.remove('error','success');
   status.textContent='Saving maintenance notice and staff access…';
