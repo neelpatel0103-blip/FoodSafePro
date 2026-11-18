@@ -365,6 +365,7 @@ th{background:#f1f5f9;color:#6b7280;}
 .access-control-card { min-width: 0; padding: 16px; border: 1px solid #e4ebe3; border-radius: 14px; display: flex; align-items: center; justify-content: space-between; gap: 14px; background: #fff; }
 .access-control-card strong { display: block; color: #344a3a; font-size: 12px; }
 .access-control-card small { display: block; margin-top: 4px; color: #829087; font-size: 10px; line-height: 1.5; }
+.access-control-card .access-control-mixed { color: #9a622e; font-weight: 700; }
 .access-toggle { position: relative; width: 48px; height: 28px; flex: 0 0 48px; border: 0; border-radius: 99px; background: #cbd5ce; cursor: pointer; transition: background .2s; }
 .access-toggle::after { position: absolute; top: 4px; left: 4px; width: 20px; height: 20px; border-radius: 50%; content: ""; background: #fff; box-shadow: 0 1px 4px #0002; transition: transform .2s; }
 .access-toggle[aria-checked="true"] { background: #b74842; }
@@ -374,6 +375,22 @@ th{background:#f1f5f9;color:#6b7280;}
 .access-control-status.error { color: #a5433f; }
 .access-control-bulk-button { min-height: 40px; padding: 0 14px; border: 1px solid #d5e5d7; border-radius: 10px; color: #2f6844; background: #f0f7ef; font-size: 11px; font-weight: 750; cursor: pointer; }
 .access-control-bulk-button:disabled { opacity: .6; cursor: wait; }
+.new-staff-authenticator-setting { margin: 0 0 16px; padding: 18px; border: 1px solid #dfe9e1; border-radius: 15px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px; background: linear-gradient(135deg,#f8fbf7,#fff); }
+.new-staff-authenticator-setting h4 { margin: 0; color: #344a3a; font-size: 13px; }
+.new-staff-authenticator-setting p { max-width: 720px; margin: 5px 0 0; color: #718076; font-size: 10px; line-height: 1.65; }
+.new-staff-authenticator-status { min-height: 16px; margin: 8px 0 0; color: #718076; font-size: 10px; line-height: 1.5; }
+.new-staff-authenticator-status.error { color: #a5433f; }
+.new-staff-authenticator-status.success { color: #286344; }
+.new-staff-authenticator-toggle { position: relative; width: 48px; height: 28px; flex: 0 0 48px; border: 0; border-radius: 99px; background: #cbd5ce; cursor: pointer; transition: background .2s; }
+.new-staff-authenticator-toggle::after { position: absolute; top: 4px; left: 4px; width: 20px; height: 20px; border-radius: 50%; content: ""; background: #fff; box-shadow: 0 1px 4px #0002; transition: transform .2s; }
+.new-staff-authenticator-toggle[aria-checked="true"] { background: #286344; }
+.new-staff-authenticator-toggle[aria-checked="true"]::after { transform: translateX(20px); }
+.new-staff-authenticator-toggle:disabled { opacity: .6; cursor: wait; }
+.authenticator-apps-note { margin: 0 0 16px; padding: 12px 14px; border: 1px solid #e1e9e1; border-radius: 12px; color: #56685b; background: #f7faf6; font-size: 10px; line-height: 1.65; }
+.authenticator-apps-note strong { display: block; margin-bottom: 3px; color: #344a3a; font-size: 10px; }
+.mandatory-auth-setup .authenticator-apps-note { text-align: left; }
+.authenticator-apps-note span { display: block; }
+.authenticator-apps-note .authenticator-app-examples { color: #397453; font-weight: 700; }
 .whats-new-header, .homepage-visibility-header { margin-bottom: 18px; padding: 24px; border: 1px solid #dfe9e1; border-radius: 20px; background: radial-gradient(circle at 100% 0,rgba(191,224,202,.4),transparent 34%),linear-gradient(135deg,#fff,#f4f8f3); }
 .whats-new-header h3, .homepage-visibility-header h3 { margin: 8px 0; color: #263b2d; font-size: 22px; }
 .whats-new-header p, .homepage-visibility-header p { max-width: 760px; margin: 0; color: #748177; font-size: 12px; line-height: 1.7; }
@@ -416,8 +433,8 @@ th{background:#f1f5f9;color:#6b7280;}
 .team-knowledge-panel .incident-learning-heading { display: none; }
 body.foodsafe-night-mode { color-scheme: dark; background: #101814; color: #e2ebe4; }
 body.foodsafe-night-mode .dashboard-shell,body.foodsafe-night-mode .dashboard-main { color: #e2ebe4; background: #101814; }
-body.foodsafe-night-mode .dashboard-main .dashboard-topbar,body.foodsafe-night-mode .dashboard-overview,body.foodsafe-night-mode .dashboard-chart-card,body.foodsafe-night-mode .account-panel,body.foodsafe-night-mode .workflow-panel,body.foodsafe-night-mode .card,body.foodsafe-night-mode .download-center-card,body.foodsafe-night-mode .access-control-card,body.foodsafe-night-mode .team-knowledge-panel,body.foodsafe-night-mode .access-control-toolbar,body.foodsafe-night-mode .staff-management-header,body.foodsafe-night-mode .published-incident-stories { color: #e2ebe4; background: #19231d; border-color: #34453a; }
-body.foodsafe-night-mode .dashboard-overview h2,body.foodsafe-night-mode .dashboard-chart-card h3,body.foodsafe-night-mode .account-panel-heading h2,body.foodsafe-night-mode .card h3,body.foodsafe-night-mode .workflow-panel h3,body.foodsafe-night-mode .access-control-card strong,body.foodsafe-night-mode .download-center-copy strong,body.foodsafe-night-mode .team-knowledge-header h3,body.foodsafe-night-mode .published-incident-card h3 { color: #e2ebe4; }
+body.foodsafe-night-mode .dashboard-main .dashboard-topbar,body.foodsafe-night-mode .dashboard-overview,body.foodsafe-night-mode .dashboard-chart-card,body.foodsafe-night-mode .account-panel,body.foodsafe-night-mode .workflow-panel,body.foodsafe-night-mode .card,body.foodsafe-night-mode .download-center-card,body.foodsafe-night-mode .access-control-card,body.foodsafe-night-mode .team-knowledge-panel,body.foodsafe-night-mode .access-control-toolbar,body.foodsafe-night-mode .staff-management-header,body.foodsafe-night-mode .published-incident-stories,body.foodsafe-night-mode .web-theme-header,body.foodsafe-night-mode .web-theme-role { color: #e2ebe4; background: #19231d; border-color: #34453a; }
+body.foodsafe-night-mode .dashboard-overview h2,body.foodsafe-night-mode .dashboard-chart-card h3,body.foodsafe-night-mode .account-panel-heading h2,body.foodsafe-night-mode .card h3,body.foodsafe-night-mode .workflow-panel h3,body.foodsafe-night-mode .access-control-card strong,body.foodsafe-night-mode .download-center-copy strong,body.foodsafe-night-mode .team-knowledge-header h3,body.foodsafe-night-mode .published-incident-card h3,body.foodsafe-night-mode .web-theme-header h3,body.foodsafe-night-mode .web-theme-role h4 { color: #e2ebe4; }
 body.foodsafe-night-mode input,body.foodsafe-night-mode select,body.foodsafe-night-mode textarea,body.foodsafe-night-mode .incident-learning-card,body.foodsafe-night-mode .download-center-row,body.foodsafe-night-mode .published-incident-card { color: #e2ebe4; background: #202c25; border-color: #3a4b40; }
 body.foodsafe-night-mode p,body.foodsafe-night-mode small,body.foodsafe-night-mode .dashboard-overview p,body.foodsafe-night-mode .dashboard-chart-card p,body.foodsafe-night-mode .download-center-copy small,body.foodsafe-night-mode .incident-learning-card p,body.foodsafe-night-mode .published-incident-card p { color: #aab9ae; }
 body.foodsafe-night-mode .summary-card,body.foodsafe-night-mode .dashboard-pulse,body.foodsafe-night-mode .dashboard-pulse-item,body.foodsafe-night-mode .dashboard-pulse-empty,body.foodsafe-night-mode .guideline-card,body.foodsafe-night-mode .account-detail,body.foodsafe-night-mode .incident-learning-panel { color: #e2ebe4; background: #19231d; border-color: #34453a; }
@@ -509,6 +526,30 @@ body.foodsafe-night-mode .dashboard-main .dashboard-topbar h2,body.foodsafe-nigh
 .dashboard-chart { position: relative; width: 100%; min-width: 0; height: 320px; }
 .dashboard-chart canvas { max-width: 100%; }
 .dashboard-shell { min-height: 100vh; display: grid; grid-template-columns: 252px minmax(0,1fr); padding: 0; }
+.dashboard-shell .dashboard-sidebar { color: var(--dashboard-sidebar-foreground, #e8f0e9); background: var(--dashboard-sidebar-color, #143b2c); }
+.dashboard-shell .dashboard-sidebar .dashboard-brand h1,.dashboard-shell .dashboard-sidebar .dashboard-brand .foodsafe-brand,.dashboard-shell .dashboard-side-nav a,.dashboard-shell .dashboard-side-actions button,.dashboard-shell .dashboard-side-actions > a,.dashboard-shell .dashboard-side-admin button,.dashboard-shell .dashboard-side-admin > a { color: var(--dashboard-sidebar-foreground, #e8f0e9); }
+.dashboard-shell .dashboard-side-nav a:hover,.dashboard-shell .dashboard-side-nav a.active,.dashboard-shell .dashboard-side-admin button:hover,.dashboard-shell .dashboard-side-admin button.active,.dashboard-shell .dashboard-side-admin > a:hover { color: var(--dashboard-sidebar-foreground, #e8f0e9); }
+.dashboard-shell .dashboard-brand-mark { color: var(--dashboard-sidebar-foreground, #e8f0e9); }
+.dashboard-shell .dashboard-side-label,.dashboard-shell .dashboard-side-admin .dashboard-side-label { color: color-mix(in srgb, var(--dashboard-sidebar-foreground, #e8f0e9) 65%, transparent); }
+.dashboard-shell .dashboard-sidebar .dashboard-brand p { color: color-mix(in srgb, var(--dashboard-sidebar-foreground, #e8f0e9) 78%, transparent); }
+.dashboard-shell .dashboard-side-nav a i,.dashboard-shell .dashboard-side-actions button i,.dashboard-shell .dashboard-side-actions > a i,.dashboard-shell .dashboard-side-admin button i,.dashboard-shell .dashboard-side-admin > a i { color: #94d3a6; }
+.dashboard-shell .dashboard-toolbar .toolbar-primary,.dashboard-shell .workflow-submit,.dashboard-shell .workflow-export-button,.dashboard-shell .homepage-visibility-actions button,.dashboard-shell .whats-new-form-actions button[type="submit"],.dashboard-shell .web-theme-actions button:not(.web-theme-restore-button) { color: var(--dashboard-accent-foreground, #fff); background: var(--dashboard-accent-color, #28714e); border-color: var(--dashboard-accent-color, #28714e); }
+.dashboard-shell .dashboard-toolbar .toolbar-primary:hover,.dashboard-shell .workflow-submit:hover,.dashboard-shell .workflow-export-button:hover,.dashboard-shell .homepage-visibility-actions button:hover,.dashboard-shell .whats-new-form-actions button[type="submit"]:hover,.dashboard-shell .web-theme-actions button:not(.web-theme-restore-button):hover { background: color-mix(in srgb, var(--dashboard-accent-color, #28714e) 86%, #000); border-color: color-mix(in srgb, var(--dashboard-accent-color, #28714e) 86%, #000); }
+.web-theme-header { margin-bottom: 18px; padding: 24px; border: 1px solid #dfe9e4; border-radius: 20px; background: linear-gradient(145deg,#fff,#f3f8f5); }
+.web-theme-header h3 { margin: 8px 0; color: #143b2c; font-size: 23px; }
+.web-theme-header p { max-width: 760px; margin: 0; color: #78857b; font-size: 12px; line-height: 1.7; }
+.web-theme-list { display: grid; gap: 14px; }
+.web-theme-role { padding: 20px; border: 1px solid #e1ebe4; border-radius: 16px; background: #fff; }
+.web-theme-role h4 { margin: 0 0 14px; color: #334439; font-size: 14px; }
+.web-theme-colors { display: grid; grid-template-columns: repeat(auto-fit,minmax(210px,1fr)); gap: 12px; }
+.web-theme-color { min-height: 70px; padding: 12px; border: 1px solid #e5ebe3; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; gap: 14px; color: #435248; background: #f9fbf8; font-size: 12px; font-weight: 700; }
+.web-theme-color input { width: 48px; height: 40px; padding: 3px; border: 1px solid #dfe7dd; border-radius: 8px; background: #fff; cursor: pointer; }
+.web-theme-actions { margin-top: 16px; }
+.web-theme-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.web-theme-actions button { min-height: 42px; padding: 0 16px; border: 1px solid #28714e; border-radius: 10px; color: #fff; background: #28714e; font-size: 12px; font-weight: 700; cursor: pointer; }
+.web-theme-actions .web-theme-restore-button { border-color: #dfe7dd; color: #435248; background: #fff; }
+.web-theme-status { min-height: 20px; margin: 10px 0 0; color: #718077; font-size: 11px; }
+.web-theme-status.error { color: #a5433f; }
 .dashboard-sidebar { position: sticky; top: 0; height: 100vh; min-height: 620px; overflow-y: auto; overscroll-behavior: contain; padding: 23px 15px 16px; display: flex; flex-direction: column; gap: 20px; color: #e8f0e9; background: #143b2c; }
 .dashboard-sidebar .dashboard-brand { display: flex; align-items: center; gap: 11px; padding: 0 8px; text-decoration: none; }
 .dashboard-menu-toggle { display: none; }
@@ -1653,6 +1694,91 @@ body.foodsafe-night-mode .dashboard-shell .whats-new-notification-popover .whats
   .dashboard-topbar-logout { width: 38px; min-width: 38px; padding: 0; justify-content: center; }
   .dashboard-logout-label { display: none; }
 }
+#app .dashboard-sidebar { color: var(--dashboard-sidebar-foreground, #e8f0e9); background: var(--dashboard-sidebar-color, #143b2c); }
+#app .dashboard-sidebar .dashboard-brand h1,#app .dashboard-sidebar .dashboard-brand .foodsafe-brand,#app .dashboard-side-nav a,#app .dashboard-side-actions button,#app .dashboard-side-actions > a,#app .dashboard-side-admin button,#app .dashboard-side-admin > a { color: var(--dashboard-sidebar-foreground, #e8f0e9); }
+#app .dashboard-side-label,#app .dashboard-side-admin .dashboard-side-label { color: color-mix(in srgb, var(--dashboard-sidebar-foreground, #e8f0e9) 65%, transparent); }
+#app .dashboard-sidebar .dashboard-brand p { color: color-mix(in srgb, var(--dashboard-sidebar-foreground, #e8f0e9) 78%, transparent); }
+#app .dashboard-brand-mark { color: var(--dashboard-sidebar-foreground, #e8f0e9); }
+#app .dashboard-side-nav a i,#app .dashboard-side-actions button i,#app .dashboard-side-actions > a i,#app .dashboard-side-admin button i,#app .dashboard-side-admin > a i { color: var(--dashboard-accent-color, #174b37); }
+#app .dashboard-side-nav a:hover,#app .dashboard-side-nav a.active,#app .dashboard-side-admin button:hover,#app .dashboard-side-admin button.active,#app .dashboard-side-admin > a:hover { color: var(--dashboard-sidebar-foreground, #e8f0e9); background: color-mix(in srgb, var(--dashboard-sidebar-foreground, #e8f0e9) 14%, transparent); }
+#app .dashboard-side-nav a i,#app .dashboard-side-actions button i,#app .dashboard-side-actions > a i,#app .dashboard-side-admin button i,#app .dashboard-side-admin > a i { color: #94d3a6; }
+#app .dashboard-side-actions .side-action-primary,#app .dashboard-side-actions .side-action-primary:hover { color: var(--dashboard-accent-foreground, #fff); background: var(--dashboard-accent-color, #174b37); }
+#app .dashboard-side-actions .side-action-primary i { color: var(--dashboard-accent-foreground, #fff); background: transparent; }
+#app .dashboard-toolbar .toolbar-primary,#app .dashboard-toolbar .toolbar-primary:hover,#app .workflow-submit,#app .workflow-submit:hover,#app .workflow-export-button,#app .workflow-export-button:hover,#app .homepage-visibility-actions button,#app .homepage-visibility-actions button:hover,#app .whats-new-form-actions button[type="submit"],#app .whats-new-form-actions button[type="submit"]:hover,#app .web-theme-actions button:not(.web-theme-restore-button),#app .web-theme-actions button:not(.web-theme-restore-button):hover { color: var(--dashboard-accent-foreground, #fff); background: var(--dashboard-accent-color, #174b37); border-color: var(--dashboard-accent-color, #174b37); }
+@media (max-width: 700px) {
+  .dashboard-main .dashboard-topbar { align-items: center; flex-flow: row wrap; gap: 8px 10px; padding: 12px 14px; }
+  .dashboard-main .dashboard-topbar > div:first-child { flex: 1 1 135px; min-width: 0; }
+  .dashboard-main .dashboard-topbar h2 { max-width: 100%; overflow: hidden; font-size: clamp(13px,4vw,16px); line-height: 1.25; text-overflow: ellipsis; white-space: nowrap; }
+  .dashboard-topbar-meta { width: auto; max-width: 100%; flex: 0 0 auto; flex-wrap: nowrap; justify-content: flex-end; gap: 5px; }
+  .dashboard-topbar-meta .dashboard-chat-trigger,.dashboard-topbar-meta .workflow-notification-trigger,.dashboard-topbar-logout { box-sizing: border-box; width: 36px; min-width: 36px; height: 36px; min-height: 36px; flex: 0 0 36px; padding: 0; justify-content: center; }
+  .dashboard-role-pill,.dashboard-logout-label { display: none; }
+  .dashboard-section-view > header h2,.dashboard-section-view > header h3 { font-size: clamp(19px,5vw,25px); line-height: 1.2; overflow-wrap: anywhere; }
+  .dashboard-section-view > header p { max-width: 100%; }
+}
+@media (max-width: 360px) {
+  .dashboard-main .dashboard-topbar { padding-right: 10px; padding-left: 10px; gap: 8px; }
+  .dashboard-topbar-meta { gap: 3px; }
+  .dashboard-topbar-meta .dashboard-chat-trigger,.dashboard-topbar-meta .workflow-notification-trigger,.dashboard-topbar-logout { width: 33px; min-width: 33px; height: 34px; min-height: 34px; flex-basis: 33px; }
+  .dashboard-main .dashboard-topbar h2 { font-size: 13px; }
+}
+#app .dashboard-topbar-meta button,#app .dashboard-menu-toggle { cursor: pointer; }
+#app .dashboard-topbar-meta button:hover,#app .dashboard-menu-toggle:hover { filter: brightness(.94); box-shadow: 0 0 0 3px rgba(40,113,78,.16); }
+#app .dashboard-topbar-meta button:focus-visible,#app .dashboard-menu-toggle:focus-visible { outline: 3px solid #28714e; outline-offset: 3px; }
+body.foodsafe-night-mode #app .dashboard-topbar-meta button:focus-visible,body.foodsafe-night-mode #app .dashboard-menu-toggle:focus-visible { outline-color: #7ee0b8; }
+body.foodsafe-night-mode #app .food-safety-guide,body.foodsafe-night-mode #app .food-safety-quick-card,body.foodsafe-night-mode #app .food-safety-topic,body.foodsafe-night-mode #app .food-safety-checklist { color: #e3eee7; background: #12251d; border-color: #284337; box-shadow: 0 8px 26px rgba(0,0,0,.14); }
+body.foodsafe-night-mode #app .food-safety-guide-title,body.foodsafe-night-mode #app .food-safety-checklist h3,body.foodsafe-night-mode #app .food-safety-quick-card strong,body.foodsafe-night-mode #app .food-safety-topic summary,body.foodsafe-night-mode #app .food-safety-topic-body strong { color: #edf7f0; }
+body.foodsafe-night-mode #app .food-safety-guide-kicker,body.foodsafe-night-mode #app .food-safety-quick-card span,body.foodsafe-night-mode #app .food-safety-guide-intro,body.foodsafe-night-mode #app .food-safety-checklist > p,body.foodsafe-night-mode #app .food-safety-progress-label,body.foodsafe-night-mode #app .food-safety-check,body.foodsafe-night-mode #app .food-safety-checklist-note,body.foodsafe-night-mode #app .food-safety-sources,body.foodsafe-night-mode #app .food-safety-topic-body { color: #b7c9bd; }
+body.foodsafe-night-mode #app .food-safety-quick-card.danger strong { color: #f0bf80; }
+body.foodsafe-night-mode #app .food-safety-topic summary::after { color: #8ddbb9; }
+body.foodsafe-night-mode #app .food-safety-topic-icon { color: #9de5c3; background: #1b3a2f; }
+body.foodsafe-night-mode #app .food-safety-progress { background: #263d32; }
+body.foodsafe-night-mode #app .food-safety-checklist-note { border-color: #344b3f; }
+body.foodsafe-night-mode #app .food-safety-sources a { color: #9de5c3; }
+body.foodsafe-night-mode #app .access-control-header,body.foodsafe-night-mode #app .web-theme-header,body.foodsafe-night-mode #app .whats-new-header,body.foodsafe-night-mode #app .homepage-visibility-header,body.foodsafe-night-mode #app .team-knowledge-header,body.foodsafe-night-mode #app .web-theme-color { color: #e3eee7; background: #12251d; border-color: #284337; }
+body.foodsafe-night-mode #app .access-control-header h3,body.foodsafe-night-mode #app .web-theme-header h3,body.foodsafe-night-mode #app .whats-new-header h3,body.foodsafe-night-mode #app .homepage-visibility-header h3,body.foodsafe-night-mode #app .team-knowledge-header h3,body.foodsafe-night-mode #app .web-theme-role h4 { color: #edf7f0; }
+body.foodsafe-night-mode #app .access-control-header p,body.foodsafe-night-mode #app .web-theme-header p,body.foodsafe-night-mode #app .whats-new-header p,body.foodsafe-night-mode #app .homepage-visibility-header p,body.foodsafe-night-mode #app .team-knowledge-header p,body.foodsafe-night-mode #app .access-control-card small { color: #b7c9bd; }
+body.foodsafe-night-mode #app .access-control-toolbar { background: #12251d; border-color: #284337; }
+body.foodsafe-night-mode #app .access-control-bulk-button { color: #b7ead2; background: #163628; border-color: #315746; }
+body.foodsafe-night-mode #app .access-control-card .access-control-mixed { color: #f0bf80; }
+body.foodsafe-night-mode #app .new-staff-authenticator-setting { color: #e3eee7; background: #12251d; border-color: #315746; }
+body.foodsafe-night-mode #app .new-staff-authenticator-setting h4 { color: #edf7f0; }
+body.foodsafe-night-mode #app .new-staff-authenticator-setting p,body.foodsafe-night-mode #app .new-staff-authenticator-status { color: #b7c9bd; }
+body.foodsafe-night-mode #app .new-staff-authenticator-status.error { color: #ffaaa3; }
+body.foodsafe-night-mode #app .web-theme-color { color: #e3eee7; }
+body.foodsafe-night-mode #modal .authenticator-apps-note { color: #c3d1c8; background: #192f25; border-color: #315746; }
+body.foodsafe-night-mode #modal .authenticator-apps-note strong { color: #edf7f0; }
+body.foodsafe-night-mode #modal .modal-content.mandatory-auth-setup { color: #e3eee7; background: #12251d; border-color: #315746; }
+body.foodsafe-night-mode #modal .mandatory-auth-setup h2,body.foodsafe-night-mode #modal .mandatory-auth-setup h3 { color: #edf7f0; }
+body.foodsafe-night-mode #modal .mandatory-auth-setup p { color: #b7c9bd; }
+body.foodsafe-night-mode #modal .mandatory-auth-setup .mandatory-auth-step { color: #d7e8dd; background: #192f25; border-color: #315746; }
+body.foodsafe-night-mode #modal .mandatory-auth-setup code { color: #e3eee7; background: #0c1a14; }
+body.foodsafe-night-mode #modal .mandatory-auth-setup input { color: #e3eee7; background: #0c1a14; border-color: #3a5547; }
+body.foodsafe-night-mode #modal .authenticator-success-view { color: #e3eee7; background: #12251d; border-color: #315746; }
+body.foodsafe-night-mode #modal .authenticator-success-view h2 { color: #edf7f0; }
+body.foodsafe-night-mode #modal .authenticator-success-view p { color: #b7c9bd; }
+body.foodsafe-night-mode #modal .authenticator-success-mark { color: #a7ebc7; background: #1b3a2f; }
+body.foodsafe-night-mode #modal .authenticator-success-status { color: #b8ebd1; background: #19372b; border-color: #315746; }
+#modal .modal-content.mandatory-auth-setup { box-sizing: border-box; width: min(520px,calc(100vw - 28px)); max-height: calc(100dvh - 32px); overflow-y: auto; padding: clamp(22px,5vw,36px); border-radius: 22px; }
+.mandatory-auth-setup .mandatory-auth-mark { width: 52px; height: 52px; margin: 0 auto 13px; border-radius: 16px; display: grid; place-items: center; color: #236343; background: #e5f4e9; font-size: 23px; }
+.mandatory-auth-setup .mandatory-auth-heading { margin: 0; color: #263b2d; font-size: 22px; text-align: center; }
+.mandatory-auth-setup .mandatory-auth-intro { margin: 9px auto 20px; color: #718077; font-size: 12px; line-height: 1.7; text-align: center; }
+.mandatory-auth-setup .mandatory-auth-steps { display: grid; gap: 9px; margin: 0 0 18px; padding: 0; list-style: none; }
+.mandatory-auth-setup .mandatory-auth-step { padding: 12px; border: 1px solid #e3ebe3; border-radius: 12px; display: flex; align-items: flex-start; gap: 10px; color: #405447; background: #f7faf6; font-size: 11px; line-height: 1.6; }
+.mandatory-auth-setup .mandatory-auth-step i { margin-top: 2px; color: #397453; }
+.mandatory-auth-setup .mandatory-auth-qr { width: min(210px,100%); height: auto; margin: 0 auto 14px; padding: 8px; border: 1px solid #e1e9e1; border-radius: 12px; display: block; background: #fff; }
+.mandatory-auth-setup .mandatory-auth-error { margin: 12px 0; padding: 10px 12px; border: 1px solid #efc7c3; border-radius: 10px; color: #913a34; background: #fff3f1; font-size: 11px; line-height: 1.5; }
+.mandatory-auth-setup .mandatory-auth-primary { width: 100%; min-height: 44px; margin-top: 5px; border: 0; border-radius: 11px; color: #fff; background: #236343; font-size: 12px; font-weight: 750; cursor: pointer; }
+.mandatory-auth-setup .mandatory-auth-primary:hover { background: #174b37; }
+.mandatory-auth-setup .mandatory-auth-signout { width: 100%; min-height: 40px; margin-top: 9px; border: 1px solid #dfe7dd; border-radius: 11px; color: #596a5f; background: transparent; font-size: 11px; font-weight: 700; cursor: pointer; }
+.mandatory-auth-setup .mandatory-auth-signout:hover { background: rgba(130,145,135,.1); }
+#modal .modal-content.authenticator-success-view { box-sizing: border-box; width: min(480px,calc(100vw - 28px)); padding: clamp(28px,6vw,44px); border: 1px solid #dce9df; border-radius: 24px; text-align: center; }
+.authenticator-success-mark { width: 68px; height: 68px; margin: 0 auto 18px; border-radius: 22px; display: grid; place-items: center; color: #236343; background: #e5f4e9; font-size: 30px; box-shadow: 0 0 0 8px rgba(229,244,233,.55); }
+.authenticator-success-kicker { margin: 0 0 8px; color: #548064; font-size: 9px; font-weight: 850; letter-spacing: 1.7px; }
+.authenticator-success-view h2 { margin: 0; color: #263b2d; font-size: clamp(21px,5vw,26px); line-height: 1.2; }
+.authenticator-success-view p { max-width: 360px; margin: 10px auto 18px; color: #718077; font-size: 12px; line-height: 1.7; }
+.authenticator-success-status { width: fit-content; margin: 0 auto 22px; padding: 8px 12px; border: 1px solid #d6e8da; border-radius: 999px; display: flex; align-items: center; gap: 7px; color: #286344; background: #f0f8f1; font-size: 10px; font-weight: 750; }
+.authenticator-success-action { width: 100%; min-height: 46px; border: 0; border-radius: 12px; color: #fff; background: #236343; font-size: 12px; font-weight: 750; cursor: pointer; }
+.authenticator-success-action:hover { background: #174b37; }
 </style>
 </head>
 <body class="min-h-screen">
@@ -2072,6 +2198,7 @@ body.foodsafe-night-mode .dashboard-shell .whats-new-notification-popover .whats
         <button id="adminManageBtn" type="button" onclick="showDashboardView('staff');manageStaff()"><i class="fas fa-users"></i> Manage staff</button>
         <button id="adminAccessControlsBtn" type="button" onclick="showDashboardView('access')"><i class="fas fa-user-shield"></i> Staff access controls</button>
         <button id="adminHomepageVisibilityBtn" type="button" onclick="showDashboardView('homepageVisibility')"><i class="fas fa-eye"></i> Homepage visibility</button>
+        <button id="adminWebSettingsBtn" type="button" onclick="showDashboardView('webSettings')"><i class="fas fa-palette"></i> Web settings</button>
         <button id="adminWhatsNewBtn" type="button" onclick="showDashboardView('whatsNew')"><i class="fas fa-star"></i> Manage What’s new</button>
         <button id="adminMaintenanceBtn" class="maintenance-switch-row" type="button" role="switch" aria-checked="false" aria-label="Maintenance mode, off" onclick="toggleMaintenanceMode()">
           <span class="maintenance-control-name"><i class="fas fa-screwdriver-wrench"></i><span>Maintenance mode</span></span>
@@ -2086,7 +2213,7 @@ body.foodsafe-night-mode .dashboard-shell .whats-new-notification-popover .whats
   <header class="dashboard-topbar">
     <div><span class="dashboard-topbar-kicker">FOODSAFE PRO WORKSPACE</span><h2 id="dashboard-header-title">Team overview</h2><p id="dashboard-topbar-description">Shared food safety operations and temperature monitoring.</p><p id="demoReadOnlyBanner" class="demo-readonly-banner" role="status">Read-only visitor mode · Sample data only · Changes are disabled.</p></div>
     <div class="dashboard-topbar-meta">
-      <button id="staffAdminChatToggle" class="dashboard-chat-trigger" type="button" aria-label="Open staff and admin chat" aria-haspopup="dialog" aria-controls="staffAdminChatModal" onclick="openStaffAdminChat()">
+      <button id="staffAdminChatToggle" class="dashboard-chat-trigger" type="button" aria-label="Open staff and admin chat" title="Open staff and admin chat" aria-haspopup="dialog" aria-controls="staffAdminChatModal" onclick="openStaffAdminChat()">
         <i class="fas fa-comments" aria-hidden="true"></i><span id="staffAdminChatUnreadCount" class="dashboard-chat-count" aria-hidden="true"></span>
       </button>
       <div class="whats-new-notification-menu">
@@ -2110,11 +2237,11 @@ body.foodsafe-night-mode .dashboard-shell .whats-new-notification-popover .whats
       <button id="nightModeToggle" class="dashboard-chat-trigger hidden" type="button" aria-label="Enable night mode" aria-pressed="false" title="Enable night mode" onclick="toggleNightMode()">
         <i class="fas fa-moon" aria-hidden="true"></i>
       </button>
-      <button id="adminStaffPairChatsToggle" class="dashboard-chat-trigger hidden" type="button" aria-label="Manage private staff-to-staff conversations" aria-haspopup="dialog" aria-controls="adminStaffPairChatsModal" onclick="openAdminStaffPairChats()">
+      <button id="adminStaffPairChatsToggle" class="dashboard-chat-trigger hidden" type="button" aria-label="Manage private staff-to-staff conversations" title="Manage private staff-to-staff conversations" aria-haspopup="dialog" aria-controls="adminStaffPairChatsModal" onclick="openAdminStaffPairChats()">
         <i class="fas fa-user-lock" aria-hidden="true"></i>
       </button>
       <div class="workflow-notification-menu">
-        <button id="workflowNotificationToggle" class="workflow-notification-trigger" type="button" aria-label="Food safety notifications" aria-controls="workflowNotificationPopover" aria-expanded="false" onclick="toggleWorkflowNotifications(event)">
+        <button id="workflowNotificationToggle" class="workflow-notification-trigger" type="button" aria-label="Food safety notifications" title="Food safety notifications" aria-controls="workflowNotificationPopover" aria-expanded="false" onclick="toggleWorkflowNotifications(event)">
           <i class="fas fa-bell" aria-hidden="true"></i><span id="workflowNotificationCount" class="workflow-notification-count" aria-hidden="true"></span>
         </button>
       </div>
@@ -2454,12 +2581,20 @@ body.foodsafe-night-mode .dashboard-shell .whats-new-notification-popover .whats
     <div class="card">
       <header class="access-control-header">
         <span class="staff-management-kicker">STAFF ADMINISTRATION</span>
-        <h3 id="access-controls-title">Individual access controls</h3>
-        <p>Select one staff member, then adjust their access independently. A restriction applies only to the selected account. Staff can continue to view their workspace when read-only mode is enabled, but cannot make changes. Changes are saved immediately.</p>
+        <h3 id="access-controls-title">Staff access controls</h3>
+        <p>Choose an individual staff member or all staff members. Changes to an individual account are saved immediately. The all-staff view shows mixed settings and applies each change to every staff account.</p>
       </header>
+      <section class="new-staff-authenticator-setting" aria-labelledby="new-staff-authenticator-title">
+        <div>
+          <h4 id="new-staff-authenticator-title">Require authenticator for new staff signups</h4>
+          <p>When enabled, staff accounts created from this point forward must set up and verify an authenticator before entering the workspace. Existing staff are not affected by this toggle; use the individual or all-staff setting below for them.</p>
+          <p id="newStaffAuthenticatorStatus" class="new-staff-authenticator-status" role="status" aria-live="polite">Loading signup security setting…</p>
+        </div>
+        <button id="newStaffAuthenticatorToggle" class="new-staff-authenticator-toggle" type="button" role="switch" aria-checked="false" aria-label="Require authenticator setup for new staff signups" onclick="toggleNewStaffAuthenticatorRequirement()" disabled></button>
+      </section>
       <div class="access-control-toolbar">
-        <label class="workflow-field" for="accessControlStaffSelect">Select staff member<select id="accessControlStaffSelect" onchange="loadSelectedStaffAccessControls()"><option value="">Choose a staff member…</option></select></label>
-        <button id="applyAccessControlsToAll" class="access-control-bulk-button" type="button" onclick="applyStaffAccessToAll()" disabled>Apply selected settings to all staff</button>
+        <label class="workflow-field" for="accessControlStaffSelect">Select staff member or all staff<select id="accessControlStaffSelect" onchange="loadSelectedStaffAccessControls()"><option value="">Choose a staff member…</option></select></label>
+        <button id="applyAccessControlsToAll" class="access-control-bulk-button" type="button" onclick="applyStaffAccessToAll()" disabled>Copy selected member’s settings to all staff</button>
       </div>
       <p id="accessControlStatus" class="access-control-status" role="status" aria-live="polite">Choose a staff member to manage their individual access.</p>
       <div id="accessControlList" class="access-control-list" aria-live="polite"></div>
@@ -2478,6 +2613,19 @@ body.foodsafe-night-mode .dashboard-shell .whats-new-notification-popover .whats
       </div>
       <p id="homepageVisibilityStatus" class="homepage-visibility-status" role="status" aria-live="polite">Loading homepage settings…</p>
     </div>
+  </section>
+  <section class="dashboard-section-view hidden" id="dashboardWebSettingsView" aria-labelledby="web-settings-title">
+    <header class="web-theme-header">
+      <span class="staff-management-kicker">DASHBOARD APPEARANCE</span>
+      <h3 id="web-settings-title">Web settings</h3>
+      <p>Choose separate sidebar and accent colors for the staff and administrator dashboards. Changes are shared with everyone in each role.</p>
+    </header>
+    <div class="web-theme-list" id="webThemeEditorList"></div>
+    <div class="web-theme-actions">
+      <button id="restoreWebThemeButton" class="web-theme-restore-button" type="button" onclick="saveWebThemeSettings(true)">Restore current site defaults</button>
+      <button id="saveWebThemeButton" type="button" onclick="saveWebThemeSettings()">Save dashboard colors</button>
+    </div>
+    <p id="webThemeStatus" class="web-theme-status" role="status" aria-live="polite">Loading dashboard colors…</p>
   </section>
   <section class="dashboard-section-view dashboard-food-safety-view hidden" id="dashboardFoodSafetyView" aria-label="Food safety guide for staff and administrators">
     <div id="dashboardFoodSafetyGuide"></div>
@@ -2633,7 +2781,7 @@ const configured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes
 const foodSafeProClient = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 const foodSafeProPublicClient = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {auth:{autoRefreshToken:false,persistSession:false,detectSessionInUrl:false}}) : null;
 
-let currentUser = null, currentRole = null, currentProfile = null, currentAuthUser = null, currentDashboardView = 'account', data = [], filteredData = [], charts = {}, cleaningAssignmentReport = [], correctiveActionReport = [], incidentLearningCases = [], adminStaffPairChats = [], staffAccessBlocked = new Set(), staffAccessStaff = [], selectedAccessStaffId = '', staffAccessRefreshTimer = null, staffAccessRealtimeChannel = null, nightModeActive = false, workflowDeadlineTimer = null, workflowDeadlineChecksInitialized = false, workflowNotificationError = '', workflowNotificationEventsBound = false, staffAdminChatThreadId = null, staffAdminChatContacts = [], staffAdminChatPollTimer = null, staffAdminChatEventsBound = false, workflowConfirmationResolver = null, workflowConfirmationPreviousFocus = null, workflowInputResolver = null, workflowInputPreviousFocus = null, systemMessagePreviousFocus = null, pendingTotpFactorId = '';
+let currentUser = null, currentRole = null, currentProfile = null, currentAuthUser = null, currentDashboardView = 'account', data = [], filteredData = [], charts = {}, cleaningAssignmentReport = [], correctiveActionReport = [], incidentLearningCases = [], adminStaffPairChats = [], staffAccessBlocked = new Set(), staffAccessStaff = [], selectedAccessStaffId = '', staffAccessRefreshTimer = null, staffAccessRealtimeChannel = null, nightModeActive = false, workflowDeadlineTimer = null, workflowDeadlineChecksInitialized = false, workflowNotificationError = '', workflowNotificationEventsBound = false, staffAdminChatThreadId = null, staffAdminChatContacts = [], staffAdminChatPollTimer = null, staffAdminChatEventsBound = false, workflowConfirmationResolver = null, workflowConfirmationPreviousFocus = null, workflowInputResolver = null, workflowInputPreviousFocus = null, systemMessagePreviousFocus = null, pendingTotpFactorId = '', mandatoryTotpSetupPending = false, requireAuthenticatorForNewStaff = false;
 let whatsNewRealtimeChannel=null,whatsNewRefreshTimer=null,whatsNewNotificationEventsBound=false,homepageFeedbackPreviousFocus=null;
 let changeUsernameAvailabilityTimer=null,changeUsernameAvailabilityRequest=0;
 const $ = id => document.getElementById(id);
@@ -2655,7 +2803,8 @@ const STAFF_ACCESS_FEATURES=[
   {key:'chat',label:'Team chat',detail:'Block staff chat access and sending messages.'},
   {key:'notifications',label:'Notifications',detail:'Block the food-safety alerts and What’s new update feed.'},
   {key:'data_changes',label:'Read-only access',detail:'When enabled, this staff member can view accessible data but cannot add, update, delete, submit, or send messages.'},
-  {key:'night_mode',label:'Night mode',detail:'Enable the dark appearance for this staff member.'}
+  {key:'night_mode',label:'Night mode',detail:'Enable the dark appearance for this staff member.'},
+  {key:'mandatory_authenticator',label:'Require authenticator app',detail:'Require staff to set up and verify an authenticator before entering the dashboard.'}
 ];
 const STAFF_ACCESS_VIEW_FEATURES={account:'account_settings',overview:'overview',whatsNew:'notifications',records:'temperature_records',downloads:'downloads',trends:'trends',corrective:'corrective_actions',cleaning:'cleaning',knowledge:'team_knowledge',guide:'food_safety_guide'};
 const HOMEPAGE_VISIBILITY_DEFAULTS={
@@ -2663,6 +2812,10 @@ const HOMEPAGE_VISIBILITY_DEFAULTS={
   feedback:true,hero:true,about:true,standards:true,how_it_works:true,benefits:true,
   food_safety_guide:true,contact:true,visitor_feedback:true,incident_stories:true,
   help_assistant:true,footer:true
+};
+const WEB_THEME_DEFAULTS={
+  staff:{sidebar:'#174b37',accent:'#174b37'},
+  admin:{sidebar:'#174b37',accent:'#174b37'}
 };
 const HOMEPAGE_VISIBILITY_LABELS={
   brand:['FoodSafe Pro branding','Show the homepage brand marks.'],
@@ -2809,10 +2962,68 @@ async function loadMyStaffAccessControls(){
     staffAccessRefreshTimer=setInterval(()=>loadMyStaffAccessControls(),20000);
   }
 }
+function newStaffAuthenticatorSettingErrorMessage(error){
+  if(['42P01','42883','PGRST202','PGRST205'].includes(error?.code)){
+    return 'Apply supabase/new-staff-authenticator.sql in the Supabase SQL editor, then refresh this page.';
+  }
+  return workflowErrorMessage(error);
+}
+async function loadNewStaffAuthenticatorSetting(){
+  const button=$('newStaffAuthenticatorToggle'),status=$('newStaffAuthenticatorStatus');
+  if(!button||!status)return;
+  button.disabled=true;
+  status.classList.remove('error','success');
+  status.textContent='Loading signup security setting…';
+  try{
+    const {data:setting,error}=await foodSafeProClient.from('foodsafe_security_settings')
+      .select('require_authenticator_for_new_staff,enforced_since').eq('id','main').maybeSingle();
+    if(error)throw error;
+    if(!setting)throw new Error('The new-staff security setting is missing from the database.');
+    requireAuthenticatorForNewStaff=setting.require_authenticator_for_new_staff===true;
+    button.setAttribute('aria-checked',String(requireAuthenticatorForNewStaff));
+    button.disabled=false;
+    status.textContent=requireAuthenticatorForNewStaff
+      ?'Authenticator setup is required for staff accounts created after this setting was enabled.'
+      :'New staff accounts can enter the workspace without setting up an authenticator.';
+  }catch(error){
+    console.error('Could not load new-staff authenticator requirement:',error);
+    button.disabled=true;
+    status.classList.add('error');
+    status.textContent=`Could not load signup security setting. ${newStaffAuthenticatorSettingErrorMessage(error)}`;
+  }
+}
+async function toggleNewStaffAuthenticatorRequirement(){
+  if(currentRole!=='admin'||isReadOnlyDemo())return;
+  const button=$('newStaffAuthenticatorToggle'),status=$('newStaffAuthenticatorStatus');
+  if(!button||!status||button.disabled)return;
+  const nextEnabled=!requireAuthenticatorForNewStaff;
+  button.disabled=true;
+  status.classList.remove('error','success');
+  status.textContent=nextEnabled
+    ?'Requiring authenticator setup for new staff signups…'
+    :'Making authenticator setup optional for future signups…';
+  try{
+    const {error}=await foodSafeProClient.rpc('foodsafe_set_new_staff_authenticator',{p_enabled:nextEnabled});
+    if(error)throw error;
+    await loadNewStaffAuthenticatorSetting();
+    if(!status.classList.contains('error')){
+      status.classList.add('success');
+      status.textContent=nextEnabled
+        ?'Enabled. New staff signups must verify an authenticator before entering the workspace.'
+        :'Disabled. Future staff signups will not be required to set up an authenticator.';
+    }
+  }catch(error){
+    console.error('Could not update new-staff authenticator requirement:',error);
+    status.classList.add('error');
+    status.textContent=`Could not save signup security setting. ${newStaffAuthenticatorSettingErrorMessage(error)}`;
+    button.disabled=false;
+  }
+}
 async function loadAccessControlStaff(){
   if(currentRole!=='admin'||isReadOnlyDemo())return;
   const select=$('accessControlStaffSelect'),status=$('accessControlStatus'),list=$('accessControlList');
   if(!select||!status||!list)return;
+  await loadNewStaffAuthenticatorSetting();
   status.classList.remove('error');
   status.textContent='Loading staff accounts…';
   list.replaceChildren();
@@ -2823,8 +3034,13 @@ async function loadAccessControlStaff(){
     staffAccessStaff=staff||[];
     const previous=select.value||selectedAccessStaffId;
     select.replaceChildren(new Option('Choose a staff member…',''));
+    if(staffAccessStaff.length)select.add(new Option(`All staff members (${staffAccessStaff.length})`,'all'));
     staffAccessStaff.forEach(account=>select.add(new Option(account.username||'Staff member',account.id)));
-    if(staffAccessStaff.some(account=>account.id===previous)){
+    if(previous==='all'&&staffAccessStaff.length){
+      select.value='all';
+      selectedAccessStaffId='all';
+      await loadSelectedStaffAccessControls();
+    }else if(staffAccessStaff.some(account=>account.id===previous)){
       select.value=previous;
       selectedAccessStaffId=previous;
       await loadSelectedStaffAccessControls();
@@ -2840,67 +3056,129 @@ async function loadAccessControlStaff(){
 }
 async function loadSelectedStaffAccessControls(){
   if(currentRole!=='admin'||isReadOnlyDemo())return;
-  const staffId=$('accessControlStaffSelect')?.value||'';
-  selectedAccessStaffId=staffId;
+  const selection=$('accessControlStaffSelect')?.value||'';
+  const allStaff=selection==='all';
+  selectedAccessStaffId=selection;
   const bulkButton=$('applyAccessControlsToAll');
-  if(bulkButton)bulkButton.disabled=!staffId;
+  if(bulkButton)bulkButton.disabled=!selection||allStaff;
   const status=$('accessControlStatus'),list=$('accessControlList');
-  if(!staffId){
+  if(!selection){
     list?.replaceChildren();
-    if(status)status.textContent='Choose a staff member to manage their individual access.';
+    if(status)status.textContent='Choose an individual staff member or all staff members.';
     return;
   }
-  const account=staffAccessStaff.find(staff=>staff.id===staffId);
-  if(status){status.classList.remove('error');status.textContent=`Loading access settings for ${account?.username||'this staff member'}…`;}
+  if(allStaff&&!staffAccessStaff.length){
+    list?.replaceChildren();
+    if(status)status.textContent='No staff accounts are available.';
+    return;
+  }
+  const account=staffAccessStaff.find(staff=>staff.id===selection);
+  if(status){status.classList.remove('error');status.textContent=`Loading access settings for ${allStaff?'all staff':account?.username||'this staff member'}…`;}
   list?.replaceChildren();
   try{
-    const {data:controls,error}=await foodSafeProClient.from('staff_access_controls')
-      .select('feature,blocked').eq('staff_id',staffId);
+    const staffIds=allStaff?staffAccessStaff.map(staff=>staff.id):[selection];
+    let query=foodSafeProClient.from('staff_access_controls').select('staff_id,feature,blocked');
+    query=allStaff?query.in('staff_id',staffIds):query.eq('staff_id',selection);
+    const {data:controls,error}=await query;
     if(error)throw error;
-    const settings=new Map((controls||[]).map(control=>[control.feature,Boolean(control.blocked)]));
+    const settings=new Map();
+    for(const control of controls||[]){
+      if(!control.blocked)continue;
+      settings.set(control.feature,(settings.get(control.feature)||0)+1);
+    }
     STAFF_ACCESS_FEATURES.forEach(feature=>{
-      const enabled=settings.get(feature.key)||false;
-      const isSetting=feature.key==='night_mode';
+      const enabledCount=settings.get(feature.key)||0;
+      const enabled=allStaff?enabledCount===staffIds.length:enabledCount>0;
+      const mixed=allStaff&&enabledCount>0&&enabledCount<staffIds.length;
+      const isSetting=['night_mode','mandatory_authenticator'].includes(feature.key);
       const card=document.createElement('article');
       card.className='access-control-card';
       const label=document.createElement('div');
-      label.innerHTML=`<strong>${escapeHtml(feature.label)}</strong><small>${escapeHtml(feature.detail)}</small>`;
+      label.innerHTML=`<strong>${escapeHtml(feature.label)}</strong><small>${escapeHtml(feature.detail)}</small>${mixed?`<small class="access-control-mixed">Currently enabled for ${enabledCount} of ${staffIds.length} staff members.</small>`:''}`;
       const toggle=document.createElement('button');
       toggle.type='button';
       toggle.className=`access-toggle${isSetting?' is-setting':''}`;
       toggle.setAttribute('role','switch');
       toggle.setAttribute('aria-checked',String(enabled));
-      toggle.setAttribute('aria-label',`${isSetting?'Enable':'Block'} ${feature.label} for ${account?.username||'selected staff'}`);
-      toggle.title=isSetting?(enabled?'Night mode enabled':'Night mode disabled'):(enabled?'Access blocked':'Access allowed');
+      toggle.setAttribute('aria-label',`${isSetting?'Enable':'Block'} ${feature.label} for ${allStaff?'all staff':account?.username||'selected staff'}`);
+      toggle.title=mixed?`Mixed setting: enabled for ${enabledCount} of ${staffIds.length} staff members`:isSetting?(enabled?`${feature.label} enabled`:`${feature.label} disabled`):(enabled?'Access blocked':'Access allowed');
       toggle.addEventListener('click',()=>saveStaffAccessControl(feature.key,!enabled,toggle));
       card.append(label,toggle);
       list.appendChild(card);
     });
-    if(status)status.textContent=`Access settings for ${account?.username||'this staff member'}. Toggle a control to save it immediately.`;
+    if(status)status.textContent=allStaff
+      ?`Access settings across all ${staffIds.length} staff members. Toggle a control to apply that setting to every staff account.`
+      :`Access settings for ${account?.username||'this staff member'}. Toggle a control to save it immediately.`;
   }catch(error){
     console.error('Could not load staff access settings:',error);
-    if(status){status.classList.add('error');status.textContent=`Could not load access settings. ${workflowErrorMessage(error)}`;}
+    if(status){status.classList.add('error');status.textContent=`Could not load access settings. ${staffAccessReadErrorMessage(error)}`;}
   }
 }
+function staffAccessReadErrorMessage(error){
+  if(error?.code==='42501'||/permission denied for table staff_access_controls/i.test(error?.message||'')){
+    return 'The database is missing the staff access read permission. Apply supabase/staff-access-control-permissions.sql in the Supabase SQL editor, then refresh this page.';
+  }
+  return workflowErrorMessage(error);
+}
 async function saveStaffAccessControl(feature,blocked,button){
-  if(currentRole!=='admin'||isReadOnlyDemo()||!selectedAccessStaffId)return;
-  button.disabled=true;
+  if(currentRole!=='admin'||isReadOnlyDemo()||!selectedAccessStaffId||selectedAccessStaffId==='all'&&!staffAccessStaff.length)return;
+  const select=$('accessControlStaffSelect');
+  const selectedStaffId=selectedAccessStaffId;
+  if(button)button.disabled=true;
+  if(select)select.disabled=true;
   const status=$('accessControlStatus');
-  if(status){status.classList.remove('error');status.textContent='Saving access setting…';}
+  const allStaff=selectedStaffId==='all';
+  if(status){status.classList.remove('error');status.textContent=allStaff?'Saving access setting for all staff…':'Saving access setting…';}
   try{
-    const {error}=await foodSafeProClient.rpc('foodsafe_set_staff_access_control',{
-      p_staff_id:selectedAccessStaffId,p_feature:feature,p_blocked:blocked
-    });
-    if(error)throw error;
+    if(allStaff){
+      const {data:staff,error:staffError}=await foodSafeProClient.from('profiles')
+        .select('id,username').eq('role','staff').order('username');
+      if(staffError)throw staffError;
+      staffAccessStaff=staff||[];
+      if(!staffAccessStaff.length){
+        await loadAccessControlStaff();
+        return;
+      }
+      const results=await Promise.all(staffAccessStaff.map(async account=>{
+        try{
+          const {error}=await foodSafeProClient.rpc('foodsafe_set_staff_access_control',{
+            p_staff_id:account.id,p_feature:feature,p_blocked:blocked
+          });
+          return {account,error};
+        }catch(error){
+          return {account,error};
+        }
+      }));
+      const failed=results.filter(result=>result.error);
+      if(failed.length){
+        console.error('Could not update access settings for some staff accounts:',failed);
+        await loadSelectedStaffAccessControls();
+        if(status){
+          status.classList.add('error');
+          status.textContent=`Updated ${results.length-failed.length} of ${results.length} staff members. Could not update: ${failed.map(result=>result.account.username||'staff member').join(', ')}.`;
+        }
+        return;
+      }
+    }else{
+      const {error}=await foodSafeProClient.rpc('foodsafe_set_staff_access_control',{
+        p_staff_id:selectedStaffId,p_feature:feature,p_blocked:blocked
+      });
+      if(error)throw error;
+    }
     await loadSelectedStaffAccessControls();
+    if(allStaff&&status&&!status.classList.contains('error')){
+      status.textContent=`${feature==='mandatory_authenticator'?(blocked?'Authenticator setup is required':'Authenticator setup is optional'):'Access setting'} updated for all ${staffAccessStaff.length} staff members.`;
+    }
   }catch(error){
     console.error('Could not save staff access setting:',error);
     if(status){status.classList.add('error');status.textContent=`Could not save this setting. ${workflowErrorMessage(error)}`;}
-    button.disabled=false;
+  }finally{
+    if(select)select.disabled=false;
+    if(button&&button.isConnected)button.disabled=selectedStaffId==='all'||!selectedAccessStaffId;
   }
 }
 async function applyStaffAccessToAll(){
-  if(currentRole!=='admin'||isReadOnlyDemo()||!selectedAccessStaffId)return;
+  if(currentRole!=='admin'||isReadOnlyDemo()||!selectedAccessStaffId||selectedAccessStaffId==='all')return;
   const sourceStaffId=selectedAccessStaffId;
   const account=staffAccessStaff.find(staff=>staff.id===sourceStaffId);
   const confirmed=await confirmWorkflowAction({
@@ -2913,18 +3191,19 @@ async function applyStaffAccessToAll(){
   const button=$('applyAccessControlsToAll'),status=$('accessControlStatus');
   if(button)button.disabled=true;
   if(status){status.classList.remove('error');status.textContent='Applying access settings to all staff…';}
-  const {error}=await foodSafeProClient.rpc('foodsafe_apply_staff_access_controls_to_all',{
-    p_source_staff_id:sourceStaffId
-  });
-  if(error){
+  try{
+    const {error}=await foodSafeProClient.rpc('foodsafe_apply_staff_access_controls_to_all',{
+      p_source_staff_id:sourceStaffId
+    });
+    if(error)throw error;
+    await loadAccessControlStaff();
+    if(status&&!status.classList.contains('error'))status.textContent=`${account?.username||'Selected staff member'}’s access settings were applied to all ${staffAccessStaff.length} staff accounts.`;
+  }catch(error){
     console.error('Could not apply staff access settings to all staff:',error);
     if(status){status.classList.add('error');status.textContent=`Could not apply settings to all staff. ${whatsNewErrorMessage(error)}`;}
+  }finally{
     if(button)button.disabled=false;
-    return;
   }
-  await loadSelectedStaffAccessControls();
-  if(status&&!status.classList.contains('error'))status.textContent=`${account?.username||'Selected staff member'}’s access settings were applied to all ${staffAccessStaff.length} staff accounts.`;
-  if(button)button.disabled=false;
 }
 
 function whatsNewErrorMessage(error){
@@ -3413,8 +3692,148 @@ async function loadPublishedWhatsNew(){
   section.hidden=!updates?.length;
 }
 
+function normalizeWebThemes(value){
+  const themes={};
+  Object.keys(WEB_THEME_DEFAULTS).forEach(role=>{
+    themes[role]={};
+    Object.keys(WEB_THEME_DEFAULTS[role]).forEach(color=>{
+      const candidate=value?.[role]?.[color];
+      themes[role][color]=typeof candidate==='string'&&/^#[0-9a-f]{6}$/i.test(candidate)
+        ?candidate.toLowerCase():WEB_THEME_DEFAULTS[role][color];
+    });
+  });
+  return themes;
+}
+
+function webThemeErrorMessage(error){
+  if(['42P01','PGRST204','PGRST205'].includes(error?.code)){
+    return 'Dashboard color settings are not installed yet. Apply supabase/web-settings.sql in the Supabase SQL editor.';
+  }
+  return error?.message||'Please try again.';
+}
+
+function getThemeForeground(hex){
+  const channels=hex.slice(1).match(/.{2}/g)?.map(channel=>parseInt(channel,16)/255)||[0,0,0];
+  const luminance=channels.map(channel=>channel<=0.04045?channel/12.92:((channel+0.055)/1.055)**2.4)
+    .reduce((sum,channel,index)=>sum+channel*[0.2126,0.7152,0.0722][index],0);
+  return luminance>0.179?'#17241d':'#ffffff';
+}
+
+let webThemes=normalizeWebThemes(WEB_THEME_DEFAULTS);
+
+function applyDashboardTheme(){
+  const role=currentRole==='admin'?'admin':'staff';
+  const theme=webThemes[role]||WEB_THEME_DEFAULTS[role];
+  const app=$('app');
+  app?.style.setProperty('--dashboard-sidebar-color',theme.sidebar);
+  app?.style.setProperty('--dashboard-sidebar-foreground',getThemeForeground(theme.sidebar));
+  app?.style.setProperty('--dashboard-accent-color',theme.accent);
+  app?.style.setProperty('--dashboard-accent-foreground',getThemeForeground(theme.accent));
+}
+
+async function loadWebThemes(){
+  if(!foodSafeProClient)return;
+  const {data:row,error}=await foodSafeProClient.from('foodsafe_web_settings')
+    .select('themes').eq('id','main').maybeSingle();
+  if(error){
+    console.error('Could not load dashboard color settings:',error);
+    webThemes=normalizeWebThemes(WEB_THEME_DEFAULTS);
+    applyDashboardTheme();
+    return;
+  }
+  if(!row){
+    console.error('Could not load dashboard color settings: the main settings row is missing.');
+    webThemes=normalizeWebThemes(WEB_THEME_DEFAULTS);
+    applyDashboardTheme();
+    return;
+  }
+  webThemes=normalizeWebThemes(row.themes);
+  applyDashboardTheme();
+}
+
+async function loadWebThemeSettings(){
+  if(currentRole!=='admin'||isReadOnlyDemo())return;
+  const list=$('webThemeEditorList'),status=$('webThemeStatus');
+  if(!list||!status)return;
+  status.classList.remove('error');
+  status.textContent='Loading dashboard colors…';
+  list.replaceChildren();
+  const {data:row,error}=await foodSafeProClient.from('foodsafe_web_settings')
+    .select('themes').eq('id','main').maybeSingle();
+  if(error||!row){
+    console.error('Could not load dashboard color settings:',error||'The main settings row is missing.');
+    status.textContent=`Could not load dashboard colors. ${error?webThemeErrorMessage(error):'The settings row is missing.'}`;
+    status.classList.add('error');
+    return;
+  }
+  webThemes=normalizeWebThemes(row.themes);
+  applyDashboardTheme();
+  Object.entries(webThemes).forEach(([role,theme])=>{
+    const section=document.createElement('section');
+    section.className='web-theme-role';
+    const heading=document.createElement('h4');
+    heading.textContent=role==='admin'?'Administrator dashboard':'Staff dashboard';
+    const colors=document.createElement('div');
+    colors.className='web-theme-colors';
+    [['sidebar','Sidebar color'],['accent','Accent color']].forEach(([key,label])=>{
+      const field=document.createElement('label');
+      field.className='web-theme-color';
+      field.append(document.createTextNode(label));
+      const input=document.createElement('input');
+      input.type='color';
+      input.value=theme[key];
+      input.dataset.themeRole=role;
+      input.dataset.themeColor=key;
+      input.setAttribute('aria-label',`${heading.textContent} ${label.toLowerCase()}`);
+      field.appendChild(input);
+      colors.appendChild(field);
+    });
+    section.append(heading,colors);
+    list.appendChild(section);
+  });
+  status.textContent='Select colors for each dashboard, then save to publish them to staff and administrators.';
+}
+
+async function saveWebThemeSettings(restoreDefaults=false){
+  if(currentRole!=='admin'||isReadOnlyDemo())return;
+  const status=$('webThemeStatus'),buttons=[$('saveWebThemeButton'),$('restoreWebThemeButton')];
+  const next=normalizeWebThemes(WEB_THEME_DEFAULTS);
+  if(!restoreDefaults){
+    document.querySelectorAll('#webThemeEditorList input[type="color"]').forEach(input=>{
+      const {themeRole,themeColor}=input.dataset;
+      if(next[themeRole]&&Object.prototype.hasOwnProperty.call(next[themeRole],themeColor)&&/^#[0-9a-f]{6}$/i.test(input.value)){
+        next[themeRole][themeColor]=input.value.toLowerCase();
+      }
+    });
+  }
+  status.classList.remove('error');
+  status.textContent=restoreDefaults?'Restoring current site dashboard colors…':'Saving dashboard colors…';
+  buttons.forEach(button=>{if(button)button.disabled=true;});
+  const {data:row,error}=await foodSafeProClient.from('foodsafe_web_settings')
+    .update({themes:next}).eq('id','main').select('themes').maybeSingle();
+  buttons.forEach(button=>{if(button)button.disabled=false;});
+  if(error||!row){
+    console.error('Could not save dashboard color settings:',error||'The main settings row is missing.');
+    status.textContent=`Could not ${restoreDefaults?'restore':'save'} dashboard colors. ${error?webThemeErrorMessage(error):'The settings row is missing.'}`;
+    status.classList.add('error');
+    return;
+  }
+  webThemes=normalizeWebThemes(row.themes);
+  document.querySelectorAll('#webThemeEditorList input[type="color"]').forEach(input=>{
+    const theme=webThemes[input.dataset.themeRole];
+    if(theme&&Object.prototype.hasOwnProperty.call(theme,input.dataset.themeColor)){
+      input.value=theme[input.dataset.themeColor];
+    }
+  });
+  applyDashboardTheme();
+  status.textContent=restoreDefaults
+    ?'Current site colors restored for staff and administrators.'
+    :'Dashboard colors saved for staff and administrators.';
+}
+
 function updateDashboardRoleUI(){
   const isAdmin=currentRole==='admin'&&!isReadOnlyDemo();
+  applyDashboardTheme();
   const nightModeKey=`foodsafe-night-mode:${currentRole}:${currentProfile?.id||''}`;
   nightModeActive=localStorage.getItem(nightModeKey)==='true';
   applyStaffAccessAppearance();
@@ -3511,10 +3930,10 @@ document.addEventListener('click',event=>{
 });
 
 function showDashboardView(view){
-  if(['feedback','staff','access','homepageVisibility'].includes(view)&&(currentRole!=='admin'||isReadOnlyDemo()))view='account';
+  if(['feedback','staff','access','homepageVisibility','webSettings'].includes(view)&&(currentRole!=='admin'||isReadOnlyDemo()))view='account';
   const requiredFeature=STAFF_ACCESS_VIEW_FEATURES[view];
   if(requiredFeature&&!requireStaffAccess(requiredFeature,{actionLabel:view}))return;
-  currentDashboardView=['overview','whatsNew','records','downloads','knowledge','trends','corrective','cleaning','guide','feedback','staff','access','homepageVisibility'].includes(view)?view:'account';
+  currentDashboardView=['overview','whatsNew','records','downloads','knowledge','trends','corrective','cleaning','guide','feedback','staff','access','homepageVisibility','webSettings'].includes(view)?view:'account';
   const views={
     account:'dashboardAccountView',
     overview:'dashboardOverviewView',
@@ -3529,7 +3948,8 @@ function showDashboardView(view){
     feedback:'dashboardFeedbackView',
     staff:'dashboardStaffView',
     access:'dashboardAccessControlsView',
-    homepageVisibility:'dashboardHomepageVisibilityView'
+    homepageVisibility:'dashboardHomepageVisibilityView',
+    webSettings:'dashboardWebSettingsView'
   };
   const navTargets={
     account:'#accountDetails',
@@ -3545,7 +3965,8 @@ function showDashboardView(view){
     feedback:'#dashboardFeedback',
     staff:'#dashboardStaffView',
     access:'#dashboardAccessControlsView',
-    homepageVisibility:'#dashboardHomepageVisibilityView'
+    homepageVisibility:'#dashboardHomepageVisibilityView',
+    webSettings:'#dashboardWebSettingsView'
   };
   Object.entries(views).forEach(([name,id])=>$(id).classList.toggle('hidden',name!==currentDashboardView));
   const titles={
@@ -3562,7 +3983,8 @@ function showDashboardView(view){
     feedback:'Visitor feedback',
     staff:'Manage staff',
     access:'Staff access controls',
-    homepageVisibility:'Homepage visibility'
+    homepageVisibility:'Homepage visibility',
+    webSettings:'Web settings'
   };
   $('dashboard-header-title').textContent=titles[currentDashboardView];
   document.querySelectorAll('.dashboard-side-nav a[href^="#"]').forEach(link=>{
@@ -3599,6 +4021,13 @@ function showDashboardView(view){
     if(active)homepageVisibilityNav.setAttribute('aria-current','page');
     else homepageVisibilityNav.removeAttribute('aria-current');
   }
+  const webSettingsNav=$('adminWebSettingsBtn');
+  if(webSettingsNav){
+    const active=currentDashboardView==='webSettings'&&currentRole==='admin';
+    webSettingsNav.classList.toggle('active',active);
+    if(active)webSettingsNav.setAttribute('aria-current','page');
+    else webSettingsNav.removeAttribute('aria-current');
+  }
   const whatsNewAdminNav=$('adminWhatsNewBtn');
   if(whatsNewAdminNav){
     const active=currentDashboardView==='whatsNew'&&currentRole==='admin';
@@ -3616,6 +4045,7 @@ function showDashboardView(view){
   if(currentDashboardView==='access')loadAccessControlStaff();
   if(currentDashboardView==='whatsNew')loadWhatsNewUpdates();
   if(currentDashboardView==='homepageVisibility')loadHomepageVisibilitySettings();
+  if(currentDashboardView==='webSettings')loadWebThemeSettings();
   document.querySelector('.dashboard-main')?.scrollTo({top:0,behavior:'smooth'});
 }
 
@@ -6899,7 +7329,6 @@ async function login() {
       showMessage('Login did not return a valid user session.', 'error');
       return;
     }
-    if(!(await requireTotpForCurrentSession()))return;
 
     // FETCH USER PROFILE
     const {
@@ -6907,7 +7336,7 @@ async function login() {
       error: profileError
     } = await foodSafeProClient
       .from('profiles')
-      .select('id,username,role,approved,demo_read_only,demo_role')
+      .select('id,username,role,approved,demo_read_only,demo_role,created_at')
       .eq('id', authData.user.id)
       .single();
 
@@ -6942,6 +7371,7 @@ async function login() {
 
       return;
     }
+    if(!(await requireTotpForCurrentSession(profile)))return;
 
     // SET CURRENT USER DETAILS
     currentUser = profile.username || identifier;
@@ -6956,6 +7386,7 @@ async function login() {
     $('app').classList.remove('hidden');
 
     await loadMyStaffAccessControls();
+    await loadWebThemes();
     updateDashboardRoleUI();
 
     await render();
@@ -7052,6 +7483,9 @@ foodSafeProClient?.auth.onAuthStateChange((event,session)=>{
 });
 
 async function logout(){
+  mandatoryTotpSetupPending=false;
+  pendingTotpFactorId='';
+  closeModal();
   if(workflowDeadlineTimer)clearInterval(workflowDeadlineTimer);
   workflowDeadlineTimer=null;
   workflowDeadlineChecksInitialized=false;
@@ -7172,8 +7606,27 @@ async function confirmDeleteAccount(){
     button.textContent='Permanently delete';
   }
 }
-function openModalWithContent(html){const modal=$('modal');$('modalInner').innerHTML=html;modal.classList.remove('hidden');modal.classList.add('show');}
-function closeModal(){$('modal').classList.remove('show');$('modal').classList.add('hidden');}
+function openModalWithContent(html){
+  const modal=$('modal'),inner=$('modalInner');
+  inner.classList.remove('mandatory-auth-setup','authenticator-success-view');
+  inner.innerHTML=html;
+  modal.removeAttribute('role');
+  modal.removeAttribute('aria-modal');
+  modal.removeAttribute('aria-labelledby');
+  modal.classList.remove('hidden');
+  modal.classList.add('show');
+}
+function closeModal(){
+  if(mandatoryTotpSetupPending)return false;
+  const modal=$('modal'),inner=$('modalInner');
+  modal.classList.remove('show');
+  modal.classList.add('hidden');
+  modal.removeAttribute('role');
+  modal.removeAttribute('aria-modal');
+  modal.removeAttribute('aria-labelledby');
+  inner?.classList.remove('mandatory-auth-setup','authenticator-success-view');
+  return true;
+}
 
 function showUsernameModalMessage(message,isError=false){
   const element=$('modal-username-msg');
@@ -7297,6 +7750,27 @@ function showTotpModalMessage(message,isError=false){
 function totpApiAvailable(){
   return Boolean(foodSafeProClient?.auth?.mfa?.enroll&&foodSafeProClient?.auth?.mfa?.challenge&&foodSafeProClient?.auth?.mfa?.verify);
 }
+async function enrollTotpFactor(){
+  const friendlyName='FoodSafe Pro authenticator';
+  const {data,error}=await foodSafeProClient.auth.mfa.enroll({factorType:'totp',friendlyName});
+  if(!error)return data;
+  if(!/friendly name.*already exists/i.test(error.message||''))throw error;
+
+  const {data:factors,error:listError}=await foodSafeProClient.auth.mfa.listFactors();
+  if(listError)throw listError;
+  const unfinished=(factors?.all||[]).filter(factor=>
+    factor.factor_type==='totp'&&factor.status!=='verified'&&factor.friendly_name===friendlyName
+  );
+  if(!unfinished.length)throw error;
+  for(const factor of unfinished){
+    const {error:removeError}=await foodSafeProClient.auth.mfa.unenroll({factorId:factor.id});
+    if(removeError)throw removeError;
+  }
+
+  const retry=await foodSafeProClient.auth.mfa.enroll({factorType:'totp',friendlyName});
+  if(retry.error)throw retry.error;
+  return retry.data;
+}
 async function openTotpSettingsModal(){
   if(isReadOnlyDemo())return;
   if(!requireStaffAccess('account_settings',{actionLabel:'account security settings'}))return;
@@ -7332,14 +7806,14 @@ async function beginTotpEnrollment(){
   const button=document.querySelector('#modalInner button[onclick="beginTotpEnrollment()"]');
   if(button)button.disabled=true;
   try{
-    const {data,error}=await foodSafeProClient.auth.mfa.enroll({factorType:'totp',friendlyName:'FoodSafe Pro authenticator'});
-    if(error)throw error;
+    const data=await enrollTotpFactor();
     pendingTotpFactorId=data.id;
     const qrCode=data.totp?.qr_code||'';
     const secret=data.totp?.secret||'';
     $('modalInner').innerHTML=`
       <h2 class="text-xl font-bold mb-2">Connect your authenticator</h2>
       <p class="text-sm text-gray-600 mb-4">Scan this QR code in your authenticator app, then enter its current six-digit code.</p>
+      <div class="authenticator-apps-note"><strong>Compatible authenticator apps</strong><span>Use any app that supports standard time-based one-time passwords (TOTP), such as Google Authenticator, Microsoft Authenticator, Apple Passwords, 1Password, or Bitwarden.</span><span class="authenticator-app-examples">Scan the QR code or enter the setup key manually.</span></div>
       <div id="modal-totp-msg" class="hidden text-sm p-2.5 rounded-lg mb-3" role="status" aria-live="polite"></div>
       ${qrCode.startsWith('data:image/')?`<img class="mx-auto mb-4 w-44 h-44" alt="Authenticator setup QR code" src="${escapeHtml(qrCode)}">`:''}
       <p class="text-xs text-gray-600 mb-1">If you cannot scan the QR code, enter this setup key manually:</p>
@@ -7360,23 +7834,59 @@ async function verifyTotpCode(factorId,code){
   if(error)throw error;
   return data;
 }
+function showTotpEnrollmentSuccess(isMandatorySetup){
+  openModalWithContent(`
+    <div class="authenticator-success-mark" aria-hidden="true"><i class="fas fa-shield-check"></i></div>
+    <p class="authenticator-success-kicker">ACCOUNT SECURITY</p>
+    <h2 id="authenticator-success-title">Authenticator set up successfully</h2>
+    <p>Your authenticator app is connected and ready to protect your FoodSafe Pro account. Keep it available whenever a verification code is requested.</p>
+    <div class="authenticator-success-status" role="status"><i class="fas fa-circle-check" aria-hidden="true"></i> Authenticator verified and active</div>
+    <button type="button" class="authenticator-success-action" onclick="${isMandatorySetup?'completeMandatoryTotpSetup()':'closeModal()'}">${isMandatorySetup?'Continue to workspace':'Done'}</button>
+  `);
+  const modal=$('modal'),inner=$('modalInner');
+  inner.classList.add('authenticator-success-view');
+  modal.setAttribute('role','dialog');
+  modal.setAttribute('aria-modal','true');
+  modal.setAttribute('aria-labelledby','authenticator-success-title');
+  window.setTimeout(()=>inner.querySelector('.authenticator-success-action')?.focus(),0);
+}
+async function completeMandatoryTotpSetup(){
+  if(!mandatoryTotpSetupPending)return;
+  mandatoryTotpSetupPending=false;
+  closeModal();
+  try{
+    await init();
+  }catch(error){
+    console.error('Could not open the workspace after authenticator setup:',error);
+    await foodSafeProClient.auth.signOut();
+    showAuth();
+    showMessage(`Authenticator setup succeeded, but the workspace could not be opened: ${error.message||'Please sign in again.'}`,'error');
+  }
+}
 async function verifyTotpEnrollment(){
   if(isReadOnlyDemo())return;
-  if(!requireStaffAccess('account_settings',{actionLabel:'account security settings'}))return;
+  const isMandatorySetup=mandatoryTotpSetupPending;
+  if(!isMandatorySetup&&!requireStaffAccess('account_settings',{actionLabel:'account security settings'}))return;
   const code=$('modal-totp-code')?.value.trim()||'';
   const button=$('verify-totp-enrollment');
-  if(!/^\d{6,8}$/.test(code)){showTotpModalMessage('Enter the current code from your authenticator app.',true);return;}
+  const showError=message=>{
+    if(isMandatorySetup){
+      const error=$('mandatory-auth-error');
+      if(error){error.textContent=message;error.classList.remove('hidden');}
+    }else showTotpModalMessage(message,true);
+  };
+  if(!/^\d{6,8}$/.test(code)){showError('Enter the current code from your authenticator app.');return;}
   if(button)button.disabled=true;
   try{
     await verifyTotpCode(pendingTotpFactorId,code);
-    pendingTotpFactorId='';
-    closeModal();
-    showSystemMessage('Authenticator enabled','Your authenticator app is now connected to your account.','green','Done');
   }catch(error){
     console.error('Could not verify authenticator setup:',error);
-    showTotpModalMessage(error.message||'That verification code could not be confirmed. Check the code and try again.',true);
+    showError(error.message||'That verification code could not be confirmed. Check the code and try again.');
     if(button)button.disabled=false;
+    return;
   }
+  pendingTotpFactorId='';
+  showTotpEnrollmentSuccess(isMandatorySetup);
 }
 async function discardUnverifiedTotp(factorId){
   if(isReadOnlyDemo()||!requireStaffAccess('account_settings',{actionLabel:'account security settings'}))return;
@@ -7425,6 +7935,58 @@ function promptTotpLogin(factorId){
     <div class="mt-4 flex justify-end"><button type="button" id="verify-login-totp" onclick="verifyTotpLogin('${escapeHtml(factorId)}')" class="px-3 py-2 bg-green-700 text-white rounded-lg">Verify and continue</button></div>
   `);
 }
+function renderMandatoryTotpSetup({qrCode='',secret='',errorMessage=''}={}){
+  openModalWithContent(`
+    <div class="mandatory-auth-mark" aria-hidden="true"><i class="fas fa-shield-halved"></i></div>
+    <h2 id="mandatory-auth-title" class="mandatory-auth-heading">Secure your account</h2>
+    <p class="mandatory-auth-intro">Your administrator requires an authenticator app for staff accounts. Complete this quick setup before opening your FoodSafe Pro workspace.</p>
+    <div class="authenticator-apps-note"><strong>Choose an authenticator app</strong><span>Use any app that supports standard time-based one-time passwords (TOTP), such as Google Authenticator, Microsoft Authenticator, Apple Passwords, 1Password, or Bitwarden.</span><span class="authenticator-app-examples">Scan the QR code or enter the setup key manually.</span></div>
+    <p id="mandatory-auth-error" class="mandatory-auth-error${errorMessage?'':' hidden'}" role="alert">${escapeHtml(errorMessage)}</p>
+    ${qrCode.startsWith('data:image/')?`<img class="mandatory-auth-qr" alt="Scan this QR code with your authenticator app" src="${escapeHtml(qrCode)}">`:''}
+    ${secret?`<p class="text-xs mb-1">Can’t scan the code? Enter this setup key in your authenticator app:</p><code class="block p-3 rounded-lg bg-gray-100 text-sm break-all select-all">${escapeHtml(secret)}</code>`:''}
+    ${pendingTotpFactorId?`
+      <ol class="mandatory-auth-steps mt-4">
+        <li class="mandatory-auth-step"><i class="fas fa-mobile-screen-button" aria-hidden="true"></i><span>Open an authenticator app and scan the QR code or enter the setup key.</span></li>
+        <li class="mandatory-auth-step"><i class="fas fa-key" aria-hidden="true"></i><span>Enter the current six-digit code from the app below.</span></li>
+      </ol>
+      <label class="workflow-field block" for="modal-totp-code">Authenticator verification code<input id="modal-totp-code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="8" placeholder="Enter your current code" aria-describedby="mandatory-auth-title"></label>
+      <button type="button" id="verify-totp-enrollment" class="mandatory-auth-primary" onclick="verifyTotpEnrollment()">Verify and secure my account</button>
+    `:`<button type="button" class="mandatory-auth-primary" onclick="beginMandatoryTotpEnrollment()">Start authenticator setup</button>`}
+    <button type="button" class="mandatory-auth-signout" onclick="signOutOfMandatoryTotpSetup()">Sign out</button>
+  `);
+  const modal=$('modal'),inner=$('modalInner');
+  inner.classList.add('mandatory-auth-setup');
+  modal.setAttribute('role','dialog');
+  modal.setAttribute('aria-modal','true');
+  modal.setAttribute('aria-labelledby','mandatory-auth-title');
+  window.setTimeout(()=>($('modal-totp-code')||inner.querySelector('.mandatory-auth-primary'))?.focus(),0);
+}
+async function beginMandatoryTotpEnrollment(){
+  mandatoryTotpSetupPending=true;
+  pendingTotpFactorId='';
+  if(!totpApiAvailable()){
+    renderMandatoryTotpSetup({errorMessage:'Authenticator support is unavailable. Check your connection, refresh the page, and try again. Your workspace will remain locked until setup is complete.'});
+    return;
+  }
+  renderMandatoryTotpSetup();
+  const button=$('modalInner .mandatory-auth-primary');
+  if(button){button.disabled=true;button.textContent='Preparing secure setup…';}
+  try{
+    const data=await enrollTotpFactor();
+    pendingTotpFactorId=data.id;
+    renderMandatoryTotpSetup({qrCode:data.totp?.qr_code||'',secret:data.totp?.secret||''});
+  }catch(error){
+    console.error('Could not start required authenticator setup:',error);
+    pendingTotpFactorId='';
+    renderMandatoryTotpSetup({errorMessage:`Could not start authenticator setup. ${error.message||'Please try again.'}`});
+  }
+}
+async function signOutOfMandatoryTotpSetup(){
+  mandatoryTotpSetupPending=false;
+  pendingTotpFactorId='';
+  closeModal();
+  await logout();
+}
 async function verifyTotpLogin(factorId){
   const code=$('modal-totp-code')?.value.trim()||'';
   const button=$('verify-login-totp');
@@ -7432,25 +7994,68 @@ async function verifyTotpLogin(factorId){
   if(button)button.disabled=true;
   try{
     await verifyTotpCode(factorId,code);
-    closeModal();
-    await init();
   }catch(error){
     console.error('Could not verify authenticator sign-in:',error);
     showTotpModalMessage(error.message||'That code could not be verified. Check it and try again.',true);
     if(button)button.disabled=false;
+    return;
+  }
+  closeModal();
+  try{
+    await init();
+  }catch(error){
+    console.error('Could not open the workspace after authenticator verification:',error);
+    await foodSafeProClient.auth.signOut();
+    showAuth();
+    showMessage(`Could not open the workspace after authenticator verification: ${error.message||'Please sign in again.'}`,'error');
   }
 }
-async function requireTotpForCurrentSession(){
-  if(!foodSafeProClient?.auth?.mfa?.getAuthenticatorAssuranceLevel)return true;
+async function requireTotpForCurrentSession(profile){
+  let mandatory=false;
+  if(profile?.role==='staff'&&!profile.demo_read_only&&profile.username?.toLowerCase()!=='demo_staff'){
+    const {data:signupSetting,error:signupSettingError}=await foodSafeProClient.from('foodsafe_security_settings')
+      .select('require_authenticator_for_new_staff,enforced_since').eq('id','main').maybeSingle();
+    if(signupSettingError){
+      throw new Error(`Could not check the authenticator requirement for new staff signups. ${newStaffAuthenticatorSettingErrorMessage(signupSettingError)}`);
+    }
+    if(signupSetting?.require_authenticator_for_new_staff){
+      const createdAt=Date.parse(profile.created_at||'');
+      const enforcedSince=Date.parse(signupSetting.enforced_since||'');
+      if(!Number.isFinite(createdAt)||!Number.isFinite(enforcedSince)){
+        throw new Error('Could not verify when this staff account was created. Contact your administrator before continuing.');
+      }
+      mandatory=createdAt>=enforcedSince;
+    }
+    const {data:setting,error:settingError}=await foodSafeProClient.from('staff_access_controls')
+      .select('blocked').eq('staff_id',profile.id).eq('feature','mandatory_authenticator').maybeSingle();
+    if(settingError)throw settingError;
+    mandatory=mandatory||setting?.blocked===true;
+  }
+  if(!foodSafeProClient?.auth?.mfa?.getAuthenticatorAssuranceLevel){
+    if(mandatory){
+      mandatoryTotpSetupPending=true;
+      renderMandatoryTotpSetup({errorMessage:'Authenticator support is unavailable. Refresh the page and try again. Your workspace will remain locked until setup is complete.'});
+      return false;
+    }
+    return true;
+  }
   const {data:assurance,error:assuranceError}=await foodSafeProClient.auth.mfa.getAuthenticatorAssuranceLevel();
   if(assuranceError)throw assuranceError;
-  if(assurance?.currentLevel==='aal2'||assurance?.nextLevel!=='aal2')return true;
+  if(assurance?.currentLevel==='aal2')return true;
+  if(!mandatory&&assurance?.nextLevel!=='aal2')return true;
   const {data:factors,error:factorError}=await foodSafeProClient.auth.mfa.listFactors();
   if(factorError)throw factorError;
   const factor=(factors?.totp||[]).find(item=>item.status==='verified');
-  if(!factor)throw new Error('Additional sign-in verification is required, but no verified authenticator factor is available.');
-  promptTotpLogin(factor.id);
-  return false;
+  if(factor){
+    promptTotpLogin(factor.id);
+    return false;
+  }
+  if(mandatory){
+    mandatoryTotpSetupPending=true;
+    await beginMandatoryTotpEnrollment();
+    return false;
+  }
+  throw new Error('Additional sign-in verification is required, but no verified authenticator factor is available.');
 }
 
 async function openChangeEmailModal() {
@@ -7961,19 +8566,15 @@ async function init(){
   const {data:{session}}=await foodSafeProClient.auth.getSession();
   
   if(session){
-    try{
-      if(!(await requireTotpForCurrentSession())){
-        showLogin();
-        return;
-      }
-    }catch(error){
-      console.error('Could not verify authenticator requirements:',error);
+    const {data:profile,error:profileError}=await foodSafeProClient.from('profiles')
+      .select('id,username,role,approved,demo_read_only,demo_role,created_at').eq('id',session.user.id).maybeSingle();
+    if(profileError){
+      console.error('Could not load the signed-in profile:',profileError);
       await foodSafeProClient.auth.signOut();
       showAuth();
-      showMessage(`Could not verify authenticator requirements: ${error.message||'Please sign in again.'}`,'error');
+      showMessage(`Could not load your account profile: ${profileError.message||'Please sign in again.'}`,'error');
       return;
     }
-    const {data:profile}=await foodSafeProClient.from('profiles').select('id,username,role,approved,demo_read_only,demo_role').eq('id',session.user.id).maybeSingle();
     if(profile){
       if(inMaintenance && (profile.role !== 'admin' || profile.demo_read_only)) {
         await foodSafeProClient.auth.signOut();
@@ -7981,11 +8582,21 @@ async function init(){
         return;
       }
       if(profile.approved){
+        try{
+          if(!(await requireTotpForCurrentSession(profile)))return;
+        }catch(error){
+          console.error('Could not verify authenticator requirements:',error);
+          await foodSafeProClient.auth.signOut();
+          showAuth();
+          showMessage(`Could not verify authenticator requirements: ${error.message||'Please sign in again.'}`,'error');
+          return;
+        }
         currentProfile=profile;currentUser=profile.username||session.user.email.split('@')[0];currentRole=profile.role;currentAuthUser=session.user;
         $('maintenance-screen').classList.add('hidden');
         $('landing-page').classList.add('hidden');
         $('login-card').classList.add('hidden');
         $('app').classList.remove('hidden');
+        await loadWebThemes();
         updateDashboardRoleUI();
         await render();
         return;
