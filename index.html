@@ -569,6 +569,15 @@ body.foodsafe-night-mode #modal .maintenance-access-signout { color: #d7e8dd; ba
 .maintenance-settings-status.success { color: #286344; }
 .maintenance-settings-save { min-height: 38px; margin-top: 12px; padding: 0 14px; border: 1px solid #174b37; border-radius: 9px; color: #fff; background: #174b37; font-size: 11px; font-weight: 750; cursor: pointer; }
 .maintenance-settings-save:disabled { opacity: .6; cursor: wait; }
+body.foodsafe-night-mode .maintenance-admin-header { background: #12251d; border-color: #315746; }
+body.foodsafe-night-mode .maintenance-admin-header h3 { color: #edf7f0; }
+body.foodsafe-night-mode .maintenance-admin-header p { color: #b7c9bd; }
+body.foodsafe-night-mode .maintenance-mode-setting { color: #e3eee7; background: #12251d; border-color: #315746; }
+body.foodsafe-night-mode .maintenance-mode-setting h4 { color: #edf7f0; }
+body.foodsafe-night-mode .maintenance-mode-setting > div > p:not(.maintenance-mode-status),body.foodsafe-night-mode .maintenance-mode-status { color: #b7c9bd; }
+body.foodsafe-night-mode .maintenance-mode-status.is-enabled { color: #9de5c3; }
+body.foodsafe-night-mode .maintenance-mode-setting .maintenance-switch-row { color: #d7e8dd; background: #192f25; border-color: #315746; }
+body.foodsafe-night-mode .maintenance-mode-setting .maintenance-switch-row[aria-checked="true"] { color: #f0d7aa; background: #2e2819; border-color: #62502e; }
 body.foodsafe-night-mode .maintenance-settings-panel { color: #e3eee7; background: #12251d; border-color: #315746; }
 body.foodsafe-night-mode .maintenance-settings-panel h4 { color: #edf7f0; }
 body.foodsafe-night-mode .maintenance-settings-panel > p,body.foodsafe-night-mode .maintenance-settings-status { color: #b7c9bd; }
@@ -687,7 +696,7 @@ body.foodsafe-night-mode .access-control-staff-result small { color: #aab9ae; }
 .dashboard-side-admin button, .dashboard-side-admin > a { min-height: 42px; color: #edf5ef; }
 .dashboard-side-admin a { color: #edf5ef; }
 .dashboard-side-admin button i, .dashboard-side-admin a i { color: #94d3a6; }
-.dashboard-side-admin .maintenance-switch-row { width: 100%; min-height: 46px; display: grid; grid-template-columns: minmax(0,1fr) auto; justify-content: initial; gap: 12px; white-space: normal; }
+.maintenance-switch-row { min-width: 0; min-height: 46px; display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; justify-content: initial; gap: 12px; white-space: normal; }
 .maintenance-control-name { display: inline-flex; min-width: 0; align-items: center; gap: 9px; }
 .maintenance-control-name > span { min-width: 0; white-space: normal; line-height: 1.2; }
 .dashboard-side-admin .maintenance-control-name i { color: #94d3a6; }
@@ -698,6 +707,25 @@ body.foodsafe-night-mode .access-control-staff-result small { color: #aab9ae; }
 .maintenance-switch-row[aria-checked="true"] .maintenance-switch-track { border-color: rgba(241,198,128,.65); background: rgba(133,87,36,.6); }
 .maintenance-switch-row[aria-checked="true"] .maintenance-switch-thumb { color: #78501e; background: #ffcf80; transform: translateX(17px); }
 .maintenance-switch-row:disabled { opacity: .65; cursor: wait; }
+.maintenance-admin-header { margin-bottom: 16px; padding: 22px 24px; border: 1px solid #e2ebe0; border-radius: 18px; background: radial-gradient(circle at 100% 0,rgba(210,232,210,.48),transparent 36%),linear-gradient(135deg,#fff,#f6f8f3); }
+.maintenance-admin-header h3 { margin: 7px 0 5px; color: #263b2d; font-size: 21px; }
+.maintenance-admin-header p { max-width: 760px; margin: 0; color: #748177; font-size: 11px; line-height: 1.7; }
+.maintenance-mode-setting { margin: 0 0 16px; padding: 18px 20px; border: 1px solid #dfe9e1; border-radius: 15px; display: flex; align-items: center; justify-content: space-between; gap: 20px; background: linear-gradient(135deg,#f8fbf7,#fff); }
+.maintenance-mode-setting h4 { margin: 0; color: #344a3a; font-size: 14px; }
+.maintenance-mode-setting > div > p:not(.maintenance-mode-status) { max-width: 700px; margin: 5px 0 0; color: #718076; font-size: 10px; line-height: 1.6; }
+.maintenance-mode-status { margin: 7px 0 0; color: #718076; font-size: 10px; line-height: 1.5; }
+.maintenance-mode-status.is-enabled { color: #286344; font-weight: 700; }
+.maintenance-mode-status.error { color: #a5433f; }
+.maintenance-mode-setting .maintenance-switch-row { width: auto; min-width: 96px; padding: 8px; border: 1px solid #dce8dd; border-radius: 11px; display: flex; justify-content: flex-end; color: #344a3a; background: #f5faf4; font: inherit; font-size: 11px; font-weight: 750; cursor: pointer; }
+.maintenance-mode-setting > div { min-width: 0; flex: 1 1 auto; }
+.maintenance-mode-setting .maintenance-control-name i { color: #548064; }
+.maintenance-mode-setting .maintenance-switch-state { color: #397453; }
+.maintenance-mode-setting .maintenance-switch-track { border-color: #a7ccb0; background: #dcedde; }
+.maintenance-mode-setting .maintenance-switch-thumb { color: #fff; background: #398454; }
+.maintenance-mode-setting .maintenance-switch-row[aria-checked="true"] { border-color: #e5c992; color: #72501f; background: #fff9ec; }
+.maintenance-mode-setting .maintenance-switch-row[aria-checked="true"] .maintenance-switch-state { color: #8a642c; }
+.maintenance-mode-setting .maintenance-switch-row[aria-checked="true"] .maintenance-switch-track { border-color: #dbb66f; background: #f4e3bf; }
+.maintenance-mode-setting .maintenance-switch-row[aria-checked="true"] .maintenance-switch-thumb { color: #78501e; background: #ffcf80; }
 .dashboard-sidebar-bottom { margin-top: auto; }
 .dashboard-topbar-logout { min-height: 36px; padding: 0 11px; border: 1px solid #e6eae4; border-radius: 10px; display: inline-flex; align-items: center; gap: 7px; color: #a5433f; background: #fff; font-size: 11px; font-weight: 700; cursor: pointer; transition: background .15s, border .15s; }
 .dashboard-topbar-logout:hover { border-color: #e6c6c3; background: #fff8f7; }
@@ -1168,8 +1196,9 @@ body.foodsafe-night-mode .account-actions-wrap .account-panel-actions button { b
   .dashboard-side-admin { flex-direction: column; flex-wrap: nowrap; gap: 5px; margin-top: 3px; }
   .dashboard-side-admin button, .dashboard-side-admin > a { width: 100%; }
   .dashboard-sidebar-bottom { display: none; }
-  .dashboard-main .dashboard-topbar { min-height: 0; padding: 16px; align-items: flex-start; flex-direction: column; gap: 10px; }
-  .dashboard-topbar-meta { width: 100%; justify-content: flex-end; }
+  .dashboard-main .dashboard-topbar { min-height: 0; padding: 16px; align-items: center; flex-flow: row wrap; justify-content: space-between; gap: 8px 10px; text-align: left; }
+  .dashboard-main .dashboard-topbar > div:first-child { width: auto; min-width: 0; flex: 1 1 110px; text-align: left; }
+  .dashboard-topbar-meta { width: auto; max-width: 100%; flex: 0 1 auto; flex-wrap: wrap; justify-content: flex-end; gap: 6px; margin-left: auto; }
   .chat-modal { width: calc(100vw - 1px); padding: 0; }
   .chat-dialog { box-sizing: border-box; width: 100%; height: 100%; max-height: 100dvh; border: 0; border-radius: 0; }
   .chat-dialog-header { min-height: 62px; padding: 11px 13px; }
@@ -1828,10 +1857,10 @@ body.foodsafe-night-mode .dashboard-shell .whats-new-notification-popover .whats
 #app .dashboard-toolbar .toolbar-primary,#app .dashboard-toolbar .toolbar-primary:hover,#app .workflow-submit,#app .workflow-submit:hover,#app .workflow-export-button,#app .workflow-export-button:hover,#app .homepage-visibility-actions button,#app .homepage-visibility-actions button:hover,#app .whats-new-form-actions button[type="submit"]:not(#whatsNewSaveDraft),#app .whats-new-form-actions button[type="submit"]:not(#whatsNewSaveDraft):hover,#app .web-theme-actions button:not(.web-theme-restore-button),#app .web-theme-actions button:not(.web-theme-restore-button):hover { color: var(--dashboard-accent-foreground, #fff); background: var(--dashboard-accent-color, #174b37); border-color: var(--dashboard-accent-color, #174b37); }
 @media (max-width: 700px) {
   .dashboard-main .dashboard-topbar { align-items: center; flex-flow: row wrap; justify-content: space-between; gap: 8px 10px; padding: 14px; text-align: left; }
-  .dashboard-main .dashboard-topbar > div:first-child { width: auto; flex: 1 1 125px; min-width: 0; text-align: left; }
+  .dashboard-main .dashboard-topbar > div:first-child { width: auto; flex: 1 1 100px; min-width: 0; text-align: left; }
   .dashboard-main .dashboard-topbar h2 { max-width: 100%; overflow: visible; font-size: clamp(14px,4vw,17px); line-height: 1.25; text-align: left; text-overflow: clip; white-space: normal; overflow-wrap: anywhere; }
-  .dashboard-topbar-meta { width: auto; max-width: 100%; flex: 0 1 auto; flex-wrap: wrap; justify-content: flex-end; gap: 6px; margin-left: auto; }
-  .dashboard-topbar-meta .dashboard-chat-trigger,.dashboard-topbar-meta .workflow-notification-trigger,.dashboard-topbar-logout { box-sizing: border-box; width: 36px; min-width: 36px; height: 36px; min-height: 36px; flex: 0 0 36px; padding: 0; justify-content: center; }
+  .dashboard-topbar-meta { width: auto; max-width: 100%; min-width: 0; flex: 0 1 auto; flex-wrap: wrap; justify-content: flex-end; gap: 4px; margin-left: auto; }
+  #app .dashboard-topbar-meta .dashboard-chat-trigger,#app .dashboard-topbar-meta .workflow-notification-trigger,#app .dashboard-topbar-meta .whats-new-notification-trigger,#app .dashboard-topbar-meta .dashboard-topbar-logout { box-sizing: border-box; width: 32px; min-width: 32px; height: 32px; min-height: 32px; flex: 0 0 32px; padding: 0; justify-content: center; }
   .dashboard-role-pill,.dashboard-logout-label { display: none; }
   .dashboard-section-view > header h2,.dashboard-section-view > header h3 { font-size: clamp(19px,5vw,25px); line-height: 1.2; overflow-wrap: anywhere; }
   .dashboard-section-view > header p { max-width: 100%; }
@@ -1840,8 +1869,18 @@ body.foodsafe-night-mode .dashboard-shell .whats-new-notification-popover .whats
   .dashboard-main .dashboard-topbar { align-items: center; flex-flow: row wrap; justify-content: space-between; padding-right: 10px; padding-left: 10px; gap: 8px; text-align: left; }
   .dashboard-main .dashboard-topbar > div:first-child { flex: 1 1 105px; text-align: left; }
   .dashboard-topbar-meta { width: auto; flex-wrap: wrap; justify-content: flex-end; gap: 3px; margin-left: auto; }
-  .dashboard-topbar-meta .dashboard-chat-trigger,.dashboard-topbar-meta .workflow-notification-trigger,.dashboard-topbar-logout { width: 33px; min-width: 33px; height: 34px; min-height: 34px; flex-basis: 33px; }
+  .dashboard-topbar-meta { gap: 2px; }
+  #app .dashboard-topbar-meta .dashboard-chat-trigger,#app .dashboard-topbar-meta .workflow-notification-trigger,#app .dashboard-topbar-meta .whats-new-notification-trigger,#app .dashboard-topbar-meta .dashboard-topbar-logout { width: 28px; min-width: 28px; height: 28px; min-height: 28px; flex-basis: 28px; }
+  .dashboard-main .dashboard-topbar { padding-right: 8px; padding-left: 8px; gap: 8px 4px; }
+  .dashboard-main .dashboard-topbar > div:first-child { flex-basis: 70px; }
   .dashboard-main .dashboard-topbar h2 { font-size: 14px; text-align: left; white-space: normal; }
+}
+@media (min-width: 701px) and (max-width: 1024px) {
+  .dashboard-main .dashboard-topbar { flex-flow: row wrap; justify-content: space-between; gap: 8px 10px; }
+  .dashboard-main .dashboard-topbar > div:first-child { min-width: 0; flex: 1 1 125px; }
+  .dashboard-topbar-meta { max-width: 100%; min-width: 0; flex: 0 1 auto; flex-wrap: wrap; justify-content: flex-end; gap: 6px; margin-left: auto; }
+  .dashboard-role-pill,.dashboard-logout-label { display: none; }
+  #app .dashboard-topbar-meta .dashboard-chat-trigger,#app .dashboard-topbar-meta .workflow-notification-trigger,#app .dashboard-topbar-meta .whats-new-notification-trigger,#app .dashboard-topbar-meta .dashboard-topbar-logout { box-sizing: border-box; width: 36px; min-width: 36px; height: 36px; min-height: 36px; flex: 0 0 36px; padding: 0; justify-content: center; }
 }
 #app .dashboard-topbar-meta button,#app .dashboard-menu-toggle { cursor: pointer; }
 #app .dashboard-topbar-meta button:hover,#app .dashboard-menu-toggle:hover { filter: brightness(.94); box-shadow: 0 0 0 3px rgba(40,113,78,.16); }
@@ -2322,10 +2361,7 @@ body.foodsafe-night-mode #modal .authenticator-success-status { color: #b8ebd1; 
         <button id="adminHomepageVisibilityBtn" type="button" onclick="showDashboardView('homepageVisibility')"><i class="fas fa-eye"></i> Homepage visibility</button>
         <button id="adminWebSettingsBtn" type="button" onclick="showDashboardView('webSettings')"><i class="fas fa-palette"></i> Web settings</button>
         <button id="adminWhatsNewBtn" type="button" onclick="showDashboardView('whatsNew')"><i class="fas fa-star"></i> Manage What’s new</button>
-        <button id="adminMaintenanceBtn" class="maintenance-switch-row" type="button" role="switch" aria-checked="false" aria-label="Maintenance mode, off" onclick="toggleMaintenanceMode()">
-          <span class="maintenance-control-name"><i class="fas fa-screwdriver-wrench"></i><span>Maintenance mode</span></span>
-          <span id="maintenanceSwitchState" class="maintenance-switch-state"><span class="maintenance-switch-label">OFF</span><span class="maintenance-switch-track" aria-hidden="true"><span class="maintenance-switch-thumb"><i class="fas fa-check"></i></span></span></span>
-        </button>
+        <button id="adminMaintenanceNav" type="button" onclick="showDashboardView('maintenance')"><i class="fas fa-screwdriver-wrench"></i> Maintenance</button>
         <a id="adminHelpdeskBtn" href="https://foodsafepro.infinityfree.io/admin/admin_main.php" target="_blank" rel="noopener noreferrer"><i class="fas fa-headset"></i> Admin helpdesk</a>
         <button id="adminFeedbackNav" type="button" onclick="showDashboardView('feedback');loadWebsiteFeedback();return false;"><i class="fas fa-comments"></i> Visitor feedback</button>
       </div>
@@ -2729,18 +2765,6 @@ body.foodsafe-night-mode #modal .authenticator-success-status { color: #b8ebd1; 
         </div>
         <button id="newStaffAuthenticatorToggle" class="new-staff-authenticator-toggle" type="button" role="switch" aria-checked="false" aria-label="Require authenticator setup for new staff signups" onclick="toggleNewStaffAuthenticatorRequirement()" disabled></button>
       </section>
-      <section class="maintenance-settings-panel" aria-labelledby="maintenance-settings-title">
-        <h4 id="maintenance-settings-title"><i class="fas fa-screwdriver-wrench" aria-hidden="true"></i> Maintenance notice &amp; staff access</h4>
-        <p>Set an estimated completion time and a notice shown prominently to visitors and staff. Select approved staff who may sign in while maintenance mode is on. Administrators retain access.</p>
-        <div class="maintenance-settings-fields">
-          <label class="workflow-field" for="maintenanceScheduledEnd">Estimated completion date and time<input id="maintenanceScheduledEnd" type="datetime-local"></label>
-          <label class="workflow-field" for="maintenanceNoticeInput">Maintenance notice<textarea id="maintenanceNoticeInput" maxlength="1000" rows="3" placeholder="Describe the planned maintenance and what users should expect."></textarea></label>
-        </div>
-        <label class="workflow-field" for="maintenanceStaffSearch">Search staff who may sign in<input id="maintenanceStaffSearch" type="search" placeholder="Search by staff name or username" autocomplete="off" oninput="filterMaintenanceStaffOptions()"></label>
-        <div id="maintenanceStaffAccessList" class="maintenance-staff-list" aria-live="polite">Loading staff accounts…</div>
-        <p id="maintenanceSettingsStatus" class="maintenance-settings-status" role="status" aria-live="polite">Loading maintenance settings…</p>
-        <button id="saveMaintenanceSettings" class="maintenance-settings-save" type="button" onclick="saveMaintenanceSettings()" disabled>Save maintenance notice &amp; staff access</button>
-      </section>
       <div class="access-control-toolbar">
         <label class="workflow-field" for="accessControlStaffSearch">Search staff members<input id="accessControlStaffSearch" type="search" placeholder="Search by staff name or username" autocomplete="off" oninput="filterAccessControlStaff()"></label>
         <label class="workflow-field" for="accessControlStaffSelect">Or select staff member<select id="accessControlStaffSelect" onchange="selectAccessControlStaff()"><option value="">Choose a staff member…</option></select></label>
@@ -2751,6 +2775,35 @@ body.foodsafe-night-mode #modal .authenticator-success-status { color: #b8ebd1; 
       <p id="accessControlStatus" class="access-control-status" role="status" aria-live="polite">Choose a staff member to manage their individual access.</p>
       <div id="accessControlList" class="access-control-list" aria-live="polite"></div>
     </div>
+  </section>
+  <section class="dashboard-section-view hidden" id="dashboardMaintenanceView" aria-labelledby="maintenance-admin-title">
+    <header class="maintenance-admin-header">
+      <span class="staff-management-kicker">ADMINISTRATION</span>
+      <h3 id="maintenance-admin-title">Maintenance</h3>
+      <p>Control maintenance mode and manage the public service notice and the staff members allowed to sign in while maintenance is active.</p>
+    </header>
+    <section class="maintenance-settings-panel" aria-labelledby="maintenance-settings-title">
+      <h4 id="maintenance-settings-title"><i class="fas fa-screwdriver-wrench" aria-hidden="true"></i> Maintenance notice &amp; staff access</h4>
+      <p>Set an estimated completion time and a notice shown prominently to visitors and staff. Select approved staff who may sign in while maintenance mode is on. Administrators retain access.</p>
+      <div class="maintenance-settings-fields">
+        <label class="workflow-field" for="maintenanceScheduledEnd">Estimated completion date and time<input id="maintenanceScheduledEnd" type="datetime-local"></label>
+        <label class="workflow-field" for="maintenanceNoticeInput">Maintenance notice<textarea id="maintenanceNoticeInput" maxlength="1000" rows="3" placeholder="Describe the planned maintenance and what users should expect."></textarea></label>
+      </div>
+      <label class="workflow-field" for="maintenanceStaffSearch">Search staff who may sign in<input id="maintenanceStaffSearch" type="search" placeholder="Search by staff name or username" autocomplete="off" oninput="filterMaintenanceStaffOptions()"></label>
+      <div id="maintenanceStaffAccessList" class="maintenance-staff-list" aria-live="polite">Loading staff accounts…</div>
+      <p id="maintenanceSettingsStatus" class="maintenance-settings-status" role="status" aria-live="polite">Loading maintenance settings…</p>
+      <button id="saveMaintenanceSettings" class="maintenance-settings-save" type="button" onclick="saveMaintenanceSettings()" disabled>Save maintenance notice &amp; staff access</button>
+    </section>
+    <section class="maintenance-mode-setting" aria-labelledby="maintenance-mode-title">
+      <div>
+        <h4 id="maintenance-mode-title">Maintenance mode</h4>
+        <p>When enabled, only approved administrators and specifically authorized staff can enter the workspace.</p>
+        <p id="maintenanceModeStatus" class="maintenance-mode-status" role="status" aria-live="polite">Checking maintenance mode…</p>
+      </div>
+      <button id="adminMaintenanceBtn" class="maintenance-switch-row" type="button" role="switch" aria-checked="false" aria-label="Maintenance mode, off" onclick="toggleMaintenanceMode()">
+        <span id="maintenanceSwitchState" class="maintenance-switch-state"><span class="maintenance-switch-label">OFF</span><span class="maintenance-switch-track" aria-hidden="true"><span class="maintenance-switch-thumb"><i class="fas fa-check"></i></span></span></span>
+      </button>
+    </section>
   </section>
   <section class="dashboard-section-view hidden" id="dashboardHomepageVisibilityView" aria-labelledby="homepage-visibility-title">
     <header class="homepage-visibility-header">
@@ -3242,7 +3295,6 @@ async function loadAccessControlStaff(){
       .select('id,username,approved').eq('role','staff').order('username');
     if(error)throw error;
     staffAccessStaff=staff||[];
-    await loadMaintenanceSettings(staffAccessStaff);
     const previous=select.value||selectedAccessStaffId;
     select.replaceChildren(new Option('Choose a staff member…',''));
     if(staffAccessStaff.length)select.add(new Option(`All staff members (${staffAccessStaff.length})`,'all'));
@@ -4206,10 +4258,10 @@ document.addEventListener('click',event=>{
 });
 
 function showDashboardView(view){
-  if(['feedback','staff','access','homepageVisibility','webSettings'].includes(view)&&(currentRole!=='admin'||isReadOnlyDemo()))view='account';
+  if(['feedback','staff','access','maintenance','homepageVisibility','webSettings'].includes(view)&&(currentRole!=='admin'||isReadOnlyDemo()))view='account';
   const requiredFeature=STAFF_ACCESS_VIEW_FEATURES[view];
   if(requiredFeature&&!requireStaffAccess(requiredFeature,{actionLabel:view}))return;
-  currentDashboardView=['overview','whatsNew','records','downloads','knowledge','trends','corrective','cleaning','guide','feedback','staff','access','homepageVisibility','webSettings'].includes(view)?view:'account';
+  currentDashboardView=['overview','whatsNew','records','downloads','knowledge','trends','corrective','cleaning','guide','feedback','staff','access','maintenance','homepageVisibility','webSettings'].includes(view)?view:'account';
   const views={
     account:'dashboardAccountView',
     overview:'dashboardOverviewView',
@@ -4224,6 +4276,7 @@ function showDashboardView(view){
     feedback:'dashboardFeedbackView',
     staff:'dashboardStaffView',
     access:'dashboardAccessControlsView',
+    maintenance:'dashboardMaintenanceView',
     homepageVisibility:'dashboardHomepageVisibilityView',
     webSettings:'dashboardWebSettingsView'
   };
@@ -4241,6 +4294,7 @@ function showDashboardView(view){
     feedback:'#dashboardFeedback',
     staff:'#dashboardStaffView',
     access:'#dashboardAccessControlsView',
+    maintenance:'#dashboardMaintenanceView',
     homepageVisibility:'#dashboardHomepageVisibilityView',
     webSettings:'#dashboardWebSettingsView'
   };
@@ -4259,6 +4313,7 @@ function showDashboardView(view){
     feedback:'Visitor feedback',
     staff:'Manage staff',
     access:'Staff access controls',
+    maintenance:'Maintenance',
     homepageVisibility:'Homepage visibility',
     webSettings:'Web settings'
   };
@@ -4304,6 +4359,13 @@ function showDashboardView(view){
     if(active)webSettingsNav.setAttribute('aria-current','page');
     else webSettingsNav.removeAttribute('aria-current');
   }
+  const maintenanceNav=$('adminMaintenanceNav');
+  if(maintenanceNav){
+    const active=currentDashboardView==='maintenance'&&currentRole==='admin';
+    maintenanceNav.classList.toggle('active',active);
+    if(active)maintenanceNav.setAttribute('aria-current','page');
+    else maintenanceNav.removeAttribute('aria-current');
+  }
   const whatsNewAdminNav=$('adminWhatsNewBtn');
   if(whatsNewAdminNav){
     const active=currentDashboardView==='whatsNew'&&currentRole==='admin';
@@ -4319,6 +4381,7 @@ function showDashboardView(view){
   if(currentDashboardView==='downloads')loadDownloadCenter();
   if(currentDashboardView==='knowledge')loadIncidentLearningCases();
   if(currentDashboardView==='access')loadAccessControlStaff();
+  if(currentDashboardView==='maintenance')loadMaintenanceAdminSettings();
   if(currentDashboardView==='whatsNew')loadWhatsNewUpdates();
   if(currentDashboardView==='homepageVisibility')loadHomepageVisibilitySettings();
   if(currentDashboardView==='webSettings')loadWebThemeSettings();
@@ -7095,6 +7158,14 @@ function setMaintenanceControl(isEnabled){
   button.setAttribute('aria-checked',String(isEnabled));
   button.setAttribute('aria-label',`Maintenance mode, ${isEnabled?'on':'off'}`);
   state.innerHTML=`<span class="maintenance-switch-label">${isEnabled?'ON':'OFF'}</span><span class="maintenance-switch-track" aria-hidden="true"><span class="maintenance-switch-thumb"><i class="fas ${isEnabled?'fa-triangle-exclamation':'fa-check'}"></i></span></span>`;
+  const status=$('maintenanceModeStatus');
+  if(status){
+    status.classList.remove('error');
+    status.classList.toggle('is-enabled',isEnabled);
+    status.textContent=isEnabled
+      ?'On. Only approved administrators and staff granted access below can sign in.'
+      :'Off. Staff can sign in normally.';
+  }
 }
 
 async function refreshMaintenanceControl(){
@@ -7104,6 +7175,13 @@ async function refreshMaintenanceControl(){
   try{
     const isEnabled=await checkMaintenanceStatus();
     setMaintenanceControl(isEnabled);
+  }catch(error){
+    console.error('Could not refresh maintenance mode:',error);
+    const status=$('maintenanceModeStatus');
+    if(status){
+      status.classList.add('error');
+      status.textContent=`Could not load maintenance mode. ${error.message||'Please try again.'}`;
+    }
   }finally{
     button.disabled=false;
   }
@@ -7294,6 +7372,28 @@ async function loadMaintenanceSettings(staffAccounts=staffAccessStaff){
   }
 }
 
+async function loadMaintenanceAdminSettings(){
+  if(currentRole!=='admin'||isReadOnlyDemo())return;
+  await refreshMaintenanceControl();
+  const status=$('maintenanceSettingsStatus'),list=$('maintenanceStaffAccessList'),saveButton=$('saveMaintenanceSettings');
+  if(!status||!list||!saveButton)return;
+  status.classList.remove('error','success');
+  status.textContent='Loading approved staff and maintenance settings…';
+  saveButton.disabled=true;
+  try{
+    const {data:staff,error}=await foodSafeProClient.from('profiles')
+      .select('id,username,approved').eq('role','staff').order('username');
+    if(error)throw error;
+    staffAccessStaff=staff||[];
+    await loadMaintenanceSettings(staffAccessStaff);
+  }catch(error){
+    console.error('Could not load the Maintenance section:',error);
+    status.classList.add('error');
+    status.textContent=`Could not load maintenance staff. ${workflowErrorMessage(error)}`;
+    list.textContent='Maintenance staff access is unavailable until staff accounts can be loaded.';
+  }
+}
+
 async function saveMaintenanceSettings(){
   if(currentRole!=='admin'||isReadOnlyDemo())return;
   const saveButton=$('saveMaintenanceSettings'),status=$('maintenanceSettingsStatus');
@@ -7392,7 +7492,10 @@ function finishMaintenanceAuthorization(continueToWorkspace){
 async function toggleMaintenanceMode() {
   if (currentRole !== 'admin') return;
   const button=$('adminMaintenanceBtn');
+  if(!button)return;
   button.disabled=true;
+  const status=$('maintenanceModeStatus');
+  if(status){status.classList.remove('error');status.textContent='Saving maintenance mode…';}
   let newValue;
   try{
     const isMaintenance = await checkMaintenanceStatus();
@@ -7402,11 +7505,13 @@ async function toggleMaintenanceMode() {
       .update({ value: String(newValue) })
       .eq('key', 'maintenance_mode');
     if (error) {
+      if(status){status.classList.add('error');status.textContent=`Could not update maintenance mode. ${error.message}`;}
       showSystemMessage('Error', 'Could not update maintenance mode: ' + error.message, 'error');
       return;
     }
     setMaintenanceControl(newValue);
   }catch(error){
+    if(status){status.classList.add('error');status.textContent=`Could not update maintenance mode. ${error.message||'Please try again.'}`;}
     showSystemMessage('Error', 'Could not update maintenance mode: ' + (error.message||'Please try again.'), 'error');
     return;
   }finally{
