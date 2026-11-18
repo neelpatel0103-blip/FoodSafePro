@@ -401,9 +401,25 @@ th{background:#f1f5f9;color:#6b7280;}
 .whats-new-form-actions { display: flex; flex-wrap: wrap; gap: 9px; }
 .whats-new-form-actions button, .whats-new-item-actions button, .homepage-visibility-actions button { min-height: 36px; padding: 0 12px; border: 1px solid #dfe7dd; border-radius: 9px; color: #3d5945; background: #fff; font-size: 10px; font-weight: 750; cursor: pointer; }
 .whats-new-form-actions button[type="submit"], .homepage-visibility-actions button { border-color: #174b37; color: #fff; background: #174b37; }
+.whats-new-form-actions button#whatsNewSaveDraft { border-color: #d6e2d7; color: #3d5945; background: #f7faf6; }
+.whats-new-form-actions button#whatsNewSaveDraft:hover { background: #edf4ed; }
+.whats-new-form-actions button:disabled { opacity: .6; cursor: wait; }
 .whats-new-status, .homepage-visibility-status { min-height: 20px; margin: 10px 0 0; color: #718076; font-size: 11px; }
 .whats-new-status.error, .homepage-visibility-status.error { color: #a5433f; }
+.whats-new-status.success { color: #286344; }
 .whats-new-list, .homepage-visibility-list { display: grid; gap: 12px; }
+.whats-new-drafts-section { margin-top: 21px; padding-top: 18px; border-top: 1px solid #e6ece5; }
+.whats-new-drafts-heading { margin-bottom: 12px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
+.whats-new-drafts-heading h4 { margin: 0; color: #344a3a; font-size: 14px; }
+.whats-new-drafts-heading p { max-width: 700px; margin: 4px 0 0; color: #78867c; font-size: 10px; line-height: 1.6; }
+.whats-new-draft-count { padding: 5px 9px; border: 1px solid #e3e7d4; border-radius: 999px; color: #806334; background: #fbf7ea; font-size: 9px; font-weight: 800; }
+.whats-new-draft-tag { padding: 4px 7px; border-radius: 999px; color: #806334; background: #fbf1d8; font-weight: 800; }
+.whats-new-draft-card { border-style: dashed; }
+body.foodsafe-night-mode #app .whats-new-drafts-section { border-color: #344b3f; }
+body.foodsafe-night-mode #app .whats-new-drafts-heading h4 { color: #edf7f0; }
+body.foodsafe-night-mode #app .whats-new-drafts-heading p { color: #b7c9bd; }
+body.foodsafe-night-mode #app .whats-new-draft-count,body.foodsafe-night-mode #app .whats-new-draft-tag { color: #f0d39a; background: #3c3320; }
+body.foodsafe-night-mode #app .whats-new-form-actions button#whatsNewSaveDraft { border-color: #315746; color: #c3d1c8; background: #192f25; }
 .whats-new-card { padding: 17px; border: 1px solid #e4ebe3; border-radius: 14px; background: #fff; }
 .whats-new-card h4,.whats-new-card-heading h3 { margin: 0; color: #2f4435; font-size: 15px; }
 .whats-new-card p { margin: 8px 0 0; color: #66766b; font-size: 12px; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
@@ -465,7 +481,38 @@ body.foodsafe-night-mode .dashboard-main .dashboard-topbar h2,body.foodsafe-nigh
 .auth-shell > .card { width: 100%; max-width: 410px; padding: 32px; border: 1px solid #e8ece6; border-radius: 23px; box-shadow: 0 22px 65px rgba(32,58,40,.11); }
 .auth-back-btn { align-self: center; width: min(410px, 100%); margin-bottom: 14px; border: 0; color: #63766a; background: transparent; text-align: left; font-size: 13px; cursor: pointer; }
 .auth-back-btn:hover { color: #174b37; }
-.maintenance-shell { margin: 7vh auto; }
+.maintenance-shell { box-sizing: border-box; width: min(760px,calc(100% - 32px)); max-width: 760px; margin: 5vh auto; padding: clamp(24px,5vw,46px); text-align: center; }
+.maintenance-notice-kicker { margin: 0 0 8px; color: #986223; font-size: 10px; font-weight: 850; letter-spacing: 1.8px; }
+.maintenance-notice-icon { width: 82px; height: 82px; margin: 0 auto 18px; border: 1px solid #f4d28d; border-radius: 26px; display: grid; place-items: center; color: #a36316; background: linear-gradient(145deg,#fff8e8,#ffedc7); box-shadow: 0 0 0 9px rgba(255,244,218,.72); font-size: 34px; }
+.maintenance-shell h2 { margin: 0; font-size: clamp(28px,5vw,40px); line-height: 1.15; }
+.maintenance-notice-copy { margin: 10px auto 22px; color: #69766d; font-size: clamp(13px,2vw,15px); line-height: 1.7; }
+.maintenance-schedule-card { width: 100%; margin: 0 0 16px; padding: 18px; border: 1px solid #f0dfbd; border-radius: 17px; color: #77501d; background: linear-gradient(135deg,#fff9ec,#fff1d2); }
+.maintenance-schedule-label { margin: 0 0 6px; color: #9a6a29; font-size: 10px; font-weight: 850; letter-spacing: 1.3px; text-transform: uppercase; }
+.maintenance-schedule-time { margin: 0; color: #513710; font-size: clamp(20px,4vw,27px); font-weight: 850; line-height: 1.25; }
+.maintenance-schedule-zone { margin: 6px 0 0; color: #886b40; font-size: 10px; }
+.maintenance-notice-message { width: 100%; margin: 0; padding: 16px; border: 1px solid #e6ebe7; border-radius: 14px; color: #536258; background: #f8faf8; font-size: 13px; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
+.maintenance-admin-note { margin: 12px 0 0; color: #7d8981; font-size: 10px; line-height: 1.5; }
+.maintenance-actions { width: 100%; max-width: 420px; margin: 22px auto 0; }
+.maintenance-settings-panel { margin: 0 0 16px; padding: 18px; border: 1px solid #e3eae2; border-radius: 16px; background: #fff; }
+.maintenance-settings-panel h4 { margin: 0 0 5px; color: #344a3a; font-size: 14px; }
+.maintenance-settings-panel > p { margin: 0 0 14px; color: #718076; font-size: 10px; line-height: 1.6; }
+.maintenance-settings-fields { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+.maintenance-settings-fields .workflow-field:last-child { grid-column: 1 / -1; }
+.maintenance-staff-list { max-height: 260px; overflow-y: auto; margin-top: 10px; border: 1px solid #e5ebe3; border-radius: 12px; }
+.maintenance-staff-option { min-height: 42px; padding: 8px 11px; border-bottom: 1px solid #edf1ec; display: flex; align-items: center; gap: 9px; color: #45554a; font-size: 11px; cursor: pointer; }
+.maintenance-staff-option:last-child { border-bottom: 0; }
+.maintenance-staff-option input { width: 16px; height: 16px; accent-color: #286344; }
+.maintenance-settings-status { min-height: 18px; margin: 9px 0 0; color: #718076; font-size: 10px; line-height: 1.5; }
+.maintenance-settings-status.error { color: #a5433f; }
+.maintenance-settings-status.success { color: #286344; }
+.maintenance-settings-save { min-height: 38px; margin-top: 12px; padding: 0 14px; border: 1px solid #174b37; border-radius: 9px; color: #fff; background: #174b37; font-size: 11px; font-weight: 750; cursor: pointer; }
+.maintenance-settings-save:disabled { opacity: .6; cursor: wait; }
+body.foodsafe-night-mode .maintenance-settings-panel { color: #e3eee7; background: #12251d; border-color: #315746; }
+body.foodsafe-night-mode .maintenance-settings-panel h4 { color: #edf7f0; }
+body.foodsafe-night-mode .maintenance-settings-panel > p,body.foodsafe-night-mode .maintenance-settings-status { color: #b7c9bd; }
+body.foodsafe-night-mode .maintenance-staff-list { border-color: #315746; }
+body.foodsafe-night-mode .maintenance-staff-option { color: #d7e8dd; border-color: #315746; }
+@media (max-width: 600px) { .maintenance-settings-fields { grid-template-columns: 1fr; } .maintenance-settings-fields .workflow-field:last-child { grid-column: auto; } }
 .dashboard-shell { min-height: 100vh; padding: 25px clamp(16px, 4vw, 56px) 48px; background: #f4f6f2; color: #25342a; }
 .dashboard-topbar { max-width: 1440px; margin: 0 auto 25px; padding: 18px 22px; border: 1px solid #e8ece6; border-radius: 20px; display: flex; align-items: stretch; flex-direction: column; gap: 16px; background: #fff; box-shadow: 0 8px 28px rgba(34,53,39,.06); }
 .dashboard-brand h1 { margin: 0; font-size: 30px; }
@@ -1704,7 +1751,7 @@ body.foodsafe-night-mode .dashboard-shell .whats-new-notification-popover .whats
 #app .dashboard-side-nav a i,#app .dashboard-side-actions button i,#app .dashboard-side-actions > a i,#app .dashboard-side-admin button i,#app .dashboard-side-admin > a i { color: #94d3a6; }
 #app .dashboard-side-actions .side-action-primary,#app .dashboard-side-actions .side-action-primary:hover { color: var(--dashboard-accent-foreground, #fff); background: var(--dashboard-accent-color, #174b37); }
 #app .dashboard-side-actions .side-action-primary i { color: var(--dashboard-accent-foreground, #fff); background: transparent; }
-#app .dashboard-toolbar .toolbar-primary,#app .dashboard-toolbar .toolbar-primary:hover,#app .workflow-submit,#app .workflow-submit:hover,#app .workflow-export-button,#app .workflow-export-button:hover,#app .homepage-visibility-actions button,#app .homepage-visibility-actions button:hover,#app .whats-new-form-actions button[type="submit"],#app .whats-new-form-actions button[type="submit"]:hover,#app .web-theme-actions button:not(.web-theme-restore-button),#app .web-theme-actions button:not(.web-theme-restore-button):hover { color: var(--dashboard-accent-foreground, #fff); background: var(--dashboard-accent-color, #174b37); border-color: var(--dashboard-accent-color, #174b37); }
+#app .dashboard-toolbar .toolbar-primary,#app .dashboard-toolbar .toolbar-primary:hover,#app .workflow-submit,#app .workflow-submit:hover,#app .workflow-export-button,#app .workflow-export-button:hover,#app .homepage-visibility-actions button,#app .homepage-visibility-actions button:hover,#app .whats-new-form-actions button[type="submit"]:not(#whatsNewSaveDraft),#app .whats-new-form-actions button[type="submit"]:not(#whatsNewSaveDraft):hover,#app .web-theme-actions button:not(.web-theme-restore-button),#app .web-theme-actions button:not(.web-theme-restore-button):hover { color: var(--dashboard-accent-foreground, #fff); background: var(--dashboard-accent-color, #174b37); border-color: var(--dashboard-accent-color, #174b37); }
 @media (max-width: 700px) {
   .dashboard-main .dashboard-topbar { align-items: center; flex-flow: row wrap; gap: 8px 10px; padding: 12px 14px; }
   .dashboard-main .dashboard-topbar > div:first-child { flex: 1 1 135px; min-width: 0; }
@@ -2046,22 +2093,22 @@ body.foodsafe-night-mode #modal .authenticator-success-status { color: #b8ebd1; 
 
 <!-- CENTERED MAINTENANCE MODE CARD -->
 <div id="maintenance-screen" class="hidden maintenance-shell flex flex-col items-center justify-center w-full max-w-md p-6 bg-white rounded-2xl shadow-xl border border-amber-100 relative my-auto">
- 
-  
-  <div class="w-16 h-16 bg-amber-50 rounded-full flex items-center justify-center text-amber-500 text-3xl mb-4 mt-2">
-    <i class="fas fa-tools"></i>
+  <div class="maintenance-notice-icon" aria-hidden="true">
+    <i class="fas fa-screwdriver-wrench"></i>
   </div>
-  
+  <p class="maintenance-notice-kicker">FOODSAFE PRO SERVICE NOTICE</p>
   <h2 class="text-2xl font-bold text-gray-800 mb-2 text-center">System Maintenance</h2>
-  
-  <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 my-3 text-center w-full">
-    <p class="text-xs font-semibold text-amber-800 uppercase tracking-wide mb-1">Notice</p>
-    <p class="text-sm text-gray-700">FoodSafe Pro is currently undergoing scheduled system maintenance and updates. Regular access is temporarily paused.</p>
+  <p class="maintenance-notice-copy">We’re making improvements to FoodSafe Pro. Regular workspace access is temporarily limited while maintenance is in progress.</p>
+  <div id="maintenanceScheduleCard" class="maintenance-schedule-card hidden" aria-live="polite">
+    <p class="maintenance-schedule-label">Estimated service restoration</p>
+    <p id="maintenanceScheduleTime" class="maintenance-schedule-time"></p>
+    <p id="maintenanceScheduleZone" class="maintenance-schedule-zone"></p>
   </div>
-
-  <div class="flex flex-col w-full space-y-2 mt-4">
-    <button onclick="init()" class="w-full py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-lg text-sm transition"><i class="fas fa-arrow-left mr-2"></i>Back to App / Check Again</button>
-    <button onclick="bypassMaintenance()" class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg text-sm transition"><i class="fas fa-user-shield mr-2"></i>Admin Login</button>
+  <p id="maintenanceNoticeMessage" class="maintenance-notice-message">FoodSafe Pro is undergoing scheduled maintenance. Please check back soon.</p>
+  <p class="maintenance-admin-note">If your administrator has granted your staff account maintenance access, use the sign-in option below.</p>
+  <div class="maintenance-actions flex flex-col space-y-2">
+    <button onclick="init()" class="w-full py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl text-sm transition"><i class="fas fa-rotate mr-2"></i>Check service status</button>
+    <button onclick="bypassMaintenance()" class="w-full py-3 bg-blue-700 hover:bg-blue-800 text-white font-semibold rounded-xl text-sm transition"><i class="fas fa-right-to-bracket mr-2"></i>Staff &amp; admin sign in</button>
   </div>
 </div>
 
@@ -2442,7 +2489,9 @@ body.foodsafe-night-mode #modal .authenticator-success-status { color: #b8ebd1; 
     </div>
     <div class="workflow-panel">
       <div class="incident-report-header"><div><h3>Incident records</h3><p>Unsafe temperature readings and sanitation issues explicitly reported in submitted cleaning forms are recorded here as separate corrective actions. Export each incident from its own record.</p></div></div>
-      <div id="correctiveActionList" class="workflow-list" aria-live="polite">Loading incident records…</div>
+    <label class="workflow-field workflow-record-search" for="correctiveActionSearch">Search incident and corrective action records<input id="correctiveActionSearch" type="search" placeholder="Search ticket, item, issue, status or staff member" oninput="filterWorkflowRecordList('corrective')"></label>
+    <p id="correctiveActionSearchStatus" class="workflow-status" role="status" aria-live="polite"></p>
+    <div id="correctiveActionList" class="workflow-list" aria-live="polite">Loading incident records…</div>
     </div>
   </section>
   <section class="dashboard-section-view hidden workflow-page" id="dashboardCleaningView" aria-labelledby="cleaning-section-title">
@@ -2474,6 +2523,8 @@ body.foodsafe-night-mode #modal .authenticator-success-status { color: #b8ebd1; 
         </div>
       </div>
       <p>Overdue is calculated from the due date and is not a staff-selectable status. Each task has its own detailed PDF export.</p>
+      <label class="workflow-field workflow-record-search" for="cleaningAssignmentSearch">Search cleaning and sanitation records<input id="cleaningAssignmentSearch" type="search" placeholder="Search task, instructions, sanitizer, status or staff member" oninput="filterWorkflowRecordList('cleaning')"></label>
+      <p id="cleaningAssignmentSearchStatus" class="workflow-status" role="status" aria-live="polite"></p>
       <div id="cleaningAssignmentList" class="workflow-list" aria-live="polite">Loading cleaning tasks…</div>
     </div>
   </section>
@@ -2509,7 +2560,7 @@ body.foodsafe-night-mode #modal .authenticator-success-status { color: #b8ebd1; 
     <header class="whats-new-header">
       <span class="staff-management-kicker">FOODSAFE PRO UPDATES</span>
       <h3 id="dashboard-whats-new-title">What’s new</h3>
-      <p>Updates published for your team. Administrators can publish announcements to staff, the public homepage, or both.</p>
+      <p>Updates published for your team. Administrators can publish announcements to staff, the public homepage, or both, and keep unfinished notes in private drafts.</p>
     </header>
     <div id="adminWhatsNewManager" class="hidden">
       <form id="whatsNewForm" class="whats-new-form workflow-form-grid" onsubmit="saveWhatsNewUpdate(event)">
@@ -2533,12 +2584,20 @@ body.foodsafe-night-mode #modal .authenticator-success-status { color: #b8ebd1; 
         </fieldset>
         <div class="workflow-field full">
           <div class="whats-new-form-actions">
-            <button id="whatsNewSubmit" type="submit">Publish update</button>
+            <button id="whatsNewSubmit" type="submit" name="whatsNewAction" value="publish">Publish update</button>
+            <button id="whatsNewSaveDraft" type="submit" class="whats-new-draft-button" name="whatsNewAction" value="draft">Save draft</button>
             <button id="whatsNewCancelEdit" type="button" class="hidden" onclick="resetWhatsNewForm()">Cancel edit</button>
           </div>
           <p id="whatsNewStatus" class="whats-new-status" role="status" aria-live="polite"></p>
         </div>
       </form>
+      <section class="whats-new-drafts-section" aria-labelledby="whats-new-drafts-title">
+        <div class="whats-new-drafts-heading">
+          <div><h4 id="whats-new-drafts-title">Draft notes</h4><p>Only administrators can see drafts. They do not appear in staff updates or on the public homepage until published.</p></div>
+          <span id="whatsNewDraftCount" class="whats-new-draft-count" aria-live="polite">0 drafts</span>
+        </div>
+        <div id="whatsNewDraftList" class="whats-new-list" aria-live="polite"><div class="whats-new-empty">Loading drafts…</div></div>
+      </section>
     </div>
     <div id="whatsNewDashboardList" class="whats-new-list" aria-live="polite"><div class="whats-new-empty">Open this section to load updates.</div></div>
   </section>
@@ -2548,6 +2607,8 @@ body.foodsafe-night-mode #modal .authenticator-success-status { color: #b8ebd1; 
         <div><h3 id="feedback-inbox-title">Visitor feedback</h3><p>Publish a message to feature it on the homepage. Published messages and any sender name become public; sender emails remain private.</p></div>
         <button class="admin-feedback-refresh" type="button" onclick="loadWebsiteFeedback()"><i class="fas fa-rotate"></i> Refresh</button>
       </div>
+      <label class="workflow-field" for="adminFeedbackSearch">Search visitor feedback<input id="adminFeedbackSearch" type="search" placeholder="Search message, visitor name, email or publication status" oninput="filterWebsiteFeedback()"></label>
+      <p id="adminFeedbackSearchStatus" class="workflow-status" role="status" aria-live="polite"></p>
       <div id="adminFeedbackStatus" class="admin-feedback-status is-empty" role="status" aria-live="polite">Open this section to load feedback.</div>
       <div id="adminFeedbackList" class="admin-feedback-list"></div>
     </div>
@@ -2568,6 +2629,7 @@ body.foodsafe-night-mode #modal .authenticator-success-status { color: #b8ebd1; 
         <h4>Staff accounts</h4>
         <button class="staff-management-refresh" type="button" onclick="manageStaff()"><i class="fas fa-rotate"></i> Refresh list</button>
       </div>
+      <label class="workflow-field" for="staffManagementSearch">Search staff accounts<input id="staffManagementSearch" type="search" placeholder="Search username or access status" oninput="filterStaffAccounts()"></label>
       <div id="staffManagementStatus" class="staff-management-status" role="status" aria-live="polite">Loading staff accounts…</div>
       <div class="staff-management-table-wrap">
         <table class="staff-management-table">
@@ -2592,10 +2654,24 @@ body.foodsafe-night-mode #modal .authenticator-success-status { color: #b8ebd1; 
         </div>
         <button id="newStaffAuthenticatorToggle" class="new-staff-authenticator-toggle" type="button" role="switch" aria-checked="false" aria-label="Require authenticator setup for new staff signups" onclick="toggleNewStaffAuthenticatorRequirement()" disabled></button>
       </section>
+      <section class="maintenance-settings-panel" aria-labelledby="maintenance-settings-title">
+        <h4 id="maintenance-settings-title"><i class="fas fa-screwdriver-wrench" aria-hidden="true"></i> Maintenance notice &amp; staff access</h4>
+        <p>Set an estimated completion time and a notice shown prominently to visitors and staff. Select approved staff who may sign in while maintenance mode is on. Administrators retain access.</p>
+        <div class="maintenance-settings-fields">
+          <label class="workflow-field" for="maintenanceScheduledEnd">Estimated completion date and time<input id="maintenanceScheduledEnd" type="datetime-local"></label>
+          <label class="workflow-field" for="maintenanceNoticeInput">Maintenance notice<textarea id="maintenanceNoticeInput" maxlength="1000" rows="3" placeholder="Describe the planned maintenance and what users should expect."></textarea></label>
+        </div>
+        <label class="workflow-field" for="maintenanceStaffSearch">Search staff who may sign in<input id="maintenanceStaffSearch" type="search" placeholder="Search staff by username" oninput="filterMaintenanceStaffOptions()"></label>
+        <div id="maintenanceStaffAccessList" class="maintenance-staff-list" aria-live="polite">Loading staff accounts…</div>
+        <p id="maintenanceSettingsStatus" class="maintenance-settings-status" role="status" aria-live="polite">Loading maintenance settings…</p>
+        <button id="saveMaintenanceSettings" class="maintenance-settings-save" type="button" onclick="saveMaintenanceSettings()" disabled>Save maintenance notice &amp; staff access</button>
+      </section>
       <div class="access-control-toolbar">
+        <label class="workflow-field" for="accessControlStaffSearch">Search staff members<input id="accessControlStaffSearch" type="search" placeholder="Type a username to find a staff member" oninput="filterAccessControlStaff()"></label>
         <label class="workflow-field" for="accessControlStaffSelect">Select staff member or all staff<select id="accessControlStaffSelect" onchange="loadSelectedStaffAccessControls()"><option value="">Choose a staff member…</option></select></label>
         <button id="applyAccessControlsToAll" class="access-control-bulk-button" type="button" onclick="applyStaffAccessToAll()" disabled>Copy selected member’s settings to all staff</button>
       </div>
+      <p id="accessControlStaffSearchStatus" class="access-control-status" role="status" aria-live="polite"></p>
       <p id="accessControlStatus" class="access-control-status" role="status" aria-live="polite">Choose a staff member to manage their individual access.</p>
       <div id="accessControlList" class="access-control-list" aria-live="polite"></div>
     </div>
@@ -2781,7 +2857,7 @@ const configured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes
 const foodSafeProClient = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 const foodSafeProPublicClient = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {auth:{autoRefreshToken:false,persistSession:false,detectSessionInUrl:false}}) : null;
 
-let currentUser = null, currentRole = null, currentProfile = null, currentAuthUser = null, currentDashboardView = 'account', data = [], filteredData = [], charts = {}, cleaningAssignmentReport = [], correctiveActionReport = [], incidentLearningCases = [], adminStaffPairChats = [], staffAccessBlocked = new Set(), staffAccessStaff = [], selectedAccessStaffId = '', staffAccessRefreshTimer = null, staffAccessRealtimeChannel = null, nightModeActive = false, workflowDeadlineTimer = null, workflowDeadlineChecksInitialized = false, workflowNotificationError = '', workflowNotificationEventsBound = false, staffAdminChatThreadId = null, staffAdminChatContacts = [], staffAdminChatPollTimer = null, staffAdminChatEventsBound = false, workflowConfirmationResolver = null, workflowConfirmationPreviousFocus = null, workflowInputResolver = null, workflowInputPreviousFocus = null, systemMessagePreviousFocus = null, pendingTotpFactorId = '', mandatoryTotpSetupPending = false, requireAuthenticatorForNewStaff = false;
+let currentUser = null, currentRole = null, currentProfile = null, currentAuthUser = null, currentDashboardView = 'account', data = [], filteredData = [], charts = {}, cleaningAssignmentReport = [], correctiveActionReport = [], incidentLearningCases = [], adminStaffPairChats = [], staffAccessBlocked = new Set(), staffAccessStaff = [], selectedAccessStaffId = '', maintenanceAllowedStaffIds = new Set(), staffAccessRefreshTimer = null, staffAccessRealtimeChannel = null, nightModeActive = false, workflowDeadlineTimer = null, workflowDeadlineChecksInitialized = false, workflowNotificationError = '', workflowNotificationEventsBound = false, staffAdminChatThreadId = null, staffAdminChatContacts = [], staffAdminChatPollTimer = null, staffAdminChatEventsBound = false, workflowConfirmationResolver = null, workflowConfirmationPreviousFocus = null, workflowInputResolver = null, workflowInputPreviousFocus = null, systemMessagePreviousFocus = null, pendingTotpFactorId = '', mandatoryTotpSetupPending = false, requireAuthenticatorForNewStaff = false;
 let whatsNewRealtimeChannel=null,whatsNewRefreshTimer=null,whatsNewNotificationEventsBound=false,homepageFeedbackPreviousFocus=null;
 let changeUsernameAvailabilityTimer=null,changeUsernameAvailabilityRequest=0;
 const $ = id => document.getElementById(id);
@@ -3019,6 +3095,22 @@ async function toggleNewStaffAuthenticatorRequirement(){
     button.disabled=false;
   }
 }
+function filterAccessControlStaff(){
+  const search=$('accessControlStaffSearch')?.value.trim().toLowerCase()||'';
+  const select=$('accessControlStaffSelect'),status=$('accessControlStaffSearchStatus');
+  if(!select||!status)return;
+  let matches=0;
+  [...select.options].forEach(option=>{
+    const isStaff=Boolean(option.value&&option.value!=='all');
+    const matchesSearch=isStaff&&option.textContent.toLowerCase().includes(search);
+    const alwaysVisible=!isStaff||option.value===select.value;
+    option.hidden=!(alwaysVisible||matchesSearch);
+    if(matchesSearch)matches+=1;
+  });
+  status.textContent=search
+    ?matches?`Found ${matches} staff member${matches===1?'':'s'} matching “${$('accessControlStaffSearch').value.trim()}”.`:'No staff usernames match your search.'
+    :'Search staff usernames to quickly find an individual account.';
+}
 async function loadAccessControlStaff(){
   if(currentRole!=='admin'||isReadOnlyDemo())return;
   const select=$('accessControlStaffSelect'),status=$('accessControlStatus'),list=$('accessControlList');
@@ -3029,13 +3121,15 @@ async function loadAccessControlStaff(){
   list.replaceChildren();
   try{
     const {data:staff,error}=await foodSafeProClient.from('profiles')
-      .select('id,username').eq('role','staff').order('username');
+      .select('id,username,approved').eq('role','staff').order('username');
     if(error)throw error;
     staffAccessStaff=staff||[];
+    await loadMaintenanceSettings(staffAccessStaff);
     const previous=select.value||selectedAccessStaffId;
     select.replaceChildren(new Option('Choose a staff member…',''));
     if(staffAccessStaff.length)select.add(new Option(`All staff members (${staffAccessStaff.length})`,'all'));
     staffAccessStaff.forEach(account=>select.add(new Option(account.username||'Staff member',account.id)));
+    filterAccessControlStaff();
     if(previous==='all'&&staffAccessStaff.length){
       select.value='all';
       selectedAccessStaffId='all';
@@ -3207,6 +3301,9 @@ async function applyStaffAccessToAll(){
 }
 
 function whatsNewErrorMessage(error){
+  if(error?.code==='23514'||/foodsafe_whats_new_updates_has_destination/i.test(error?.message||'')){
+    return 'Apply supabase/whats-new-drafts.sql in the Supabase SQL editor so updates can be saved as private drafts.';
+  }
   if(['42P01','42883','PGRST202','PGRST204','PGRST205'].includes(error?.code)){
     return 'Apply supabase/whats-new-updates.sql in the Supabase SQL editor, after food-safety-operations.sql and homepage-visibility.sql.';
   }
@@ -3251,7 +3348,7 @@ function renderDashboardWhatsNew(updates){
   if(!updates.length){
     const empty=document.createElement('div');
     empty.className='whats-new-empty';
-    empty.textContent=currentRole==='admin'?'No updates yet. Publish an update above.':'There are no new updates for staff right now.';
+    empty.textContent=currentRole==='admin'?'No published updates yet. Publish an update above or publish a saved draft.':'There are no new updates for staff right now.';
     list.appendChild(empty);
     return;
   }
@@ -3306,6 +3403,51 @@ function renderDashboardWhatsNew(updates){
   });
 }
 
+function renderWhatsNewDrafts(drafts){
+  const list=$('whatsNewDraftList'),count=$('whatsNewDraftCount');
+  if(!list||!count)return;
+  count.textContent=`${drafts.length} draft${drafts.length===1?'':'s'}`;
+  list.replaceChildren();
+  if(!drafts.length){
+    const empty=document.createElement('div');
+    empty.className='whats-new-empty';
+    empty.textContent='No draft notes yet. Use Save draft to keep an update private until it is ready.';
+    list.appendChild(empty);
+    return;
+  }
+  drafts.forEach(update=>{
+    const card=document.createElement('article');
+    card.className='whats-new-card whats-new-draft-card';
+    const title=document.createElement('h4');
+    title.textContent=update.title;
+    const body=document.createElement('p');
+    body.textContent=update.body;
+    const meta=document.createElement('div');
+    meta.className='whats-new-meta';
+    const badge=document.createElement('span');
+    badge.className='whats-new-draft-tag';
+    badge.textContent='Draft · Admin only';
+    const date=document.createElement('time');
+    date.dateTime=update.updated_at||update.created_at;
+    date.textContent=`Updated ${formatWorkflowDate(update.updated_at||update.created_at)}`;
+    meta.append(badge,date);
+    const actions=document.createElement('div');
+    actions.className='whats-new-item-actions';
+    const edit=document.createElement('button');
+    edit.type='button';
+    edit.textContent='Edit draft';
+    edit.addEventListener('click',()=>editWhatsNewUpdate(update));
+    const remove=document.createElement('button');
+    remove.type='button';
+    remove.className='is-delete';
+    remove.textContent='Delete';
+    remove.addEventListener('click',()=>deleteWhatsNewUpdate(update.id));
+    actions.append(edit,remove);
+    card.append(title,body,meta,actions);
+    list.appendChild(card);
+  });
+}
+
 async function loadWhatsNewUpdates(){
   const list=$('whatsNewDashboardList');
   if(!list||!currentProfile)return;
@@ -3318,7 +3460,9 @@ async function loadWhatsNewUpdates(){
     list.innerHTML=`<div class="whats-new-empty" role="alert">${escapeHtml(whatsNewErrorMessage(error))}</div>`;
     return;
   }
-  renderDashboardWhatsNew((updates||[]).filter(update=>!update.cleared_at));
+  const visible=(updates||[]).filter(update=>!update.cleared_at);
+  renderDashboardWhatsNew(visible.filter(update=>update.publish_to_staff||update.publish_to_homepage));
+  if(isAdmin)renderWhatsNewDrafts((updates||[]).filter(update=>!update.publish_to_staff&&!update.publish_to_homepage));
 }
 
 function bindWhatsNewNotificationEvents(){
@@ -3462,9 +3606,10 @@ function resetWhatsNewForm(){
   $('whatsNewForm')?.reset();
   $('whatsNewEditId').value='';
   $('whatsNewSubmit').textContent='Publish update';
+  $('whatsNewSaveDraft').textContent='Save draft';
   $('whatsNewCancelEdit').classList.add('hidden');
   const status=$('whatsNewStatus');
-  if(status){status.textContent='';status.classList.remove('error');}
+  if(status){status.textContent='';status.classList.remove('error','success');}
   editingWhatsNewId='';
 }
 
@@ -3476,7 +3621,9 @@ function editWhatsNewUpdate(update){
   $('whatsNewBody').value=update.body;
   $('whatsNewStaffTarget').checked=Boolean(update.publish_to_staff);
   $('whatsNewHomepageTarget').checked=Boolean(update.publish_to_homepage);
-  $('whatsNewSubmit').textContent='Save update';
+  const isDraft=!update.publish_to_staff&&!update.publish_to_homepage;
+  $('whatsNewSubmit').textContent=isDraft?'Publish draft':'Save update';
+  $('whatsNewSaveDraft').textContent=isDraft?'Save draft':'Save as draft';
   $('whatsNewCancelEdit').classList.remove('hidden');
   $('whatsNewTitle').focus();
   $('whatsNewForm').scrollIntoView({behavior:'smooth',block:'center'});
@@ -3486,13 +3633,14 @@ async function saveWhatsNewUpdate(event){
   event.preventDefault();
   if(currentRole!=='admin'||isReadOnlyDemo())return;
   const status=$('whatsNewStatus');
+  const saveAsDraft=(event.submitter?.value||document.activeElement?.value)==='draft';
   const payload={
     title:$('whatsNewTitle').value.trim(),
     body:$('whatsNewBody').value.trim(),
-    publish_to_staff:$('whatsNewStaffTarget').checked,
-    publish_to_homepage:$('whatsNewHomepageTarget').checked
+    publish_to_staff:!saveAsDraft&&$('whatsNewStaffTarget').checked,
+    publish_to_homepage:!saveAsDraft&&$('whatsNewHomepageTarget').checked
   };
-  if(!payload.publish_to_staff&&!payload.publish_to_homepage){
+  if(!saveAsDraft&&!payload.publish_to_staff&&!payload.publish_to_homepage){
     status.textContent='Choose Staff dashboard, Public homepage, or both.';
     status.classList.add('error');
     return;
@@ -3503,15 +3651,21 @@ async function saveWhatsNewUpdate(event){
     return;
   }
   const id=$('whatsNewEditId').value;
-  const submit=$('whatsNewSubmit');
-  submit.disabled=true;
-  status.classList.remove('error');
-  status.textContent=id?'Saving update…':'Publishing update…';
+  const buttons=[$('whatsNewSubmit'),$('whatsNewSaveDraft')];
+  buttons.forEach(button=>button.disabled=true);
+  status.classList.remove('error','success');
+  status.textContent=saveAsDraft?'Saving draft…':id?'Saving update…':'Publishing update…';
   const query=id
     ?foodSafeProClient.from('foodsafe_whats_new_updates').update(payload).eq('id',id)
     :foodSafeProClient.from('foodsafe_whats_new_updates').insert(payload);
-  const {error}=await query;
-  submit.disabled=false;
+  let error=null;
+  try{
+    const result=await query;
+    error=result.error;
+  }catch(requestError){
+    error=requestError;
+  }
+  buttons.forEach(button=>button.disabled=false);
   if(error){
     console.error('Could not save What’s new update:',error);
     status.textContent=`Could not save update. ${whatsNewErrorMessage(error)}`;
@@ -3519,7 +3673,8 @@ async function saveWhatsNewUpdate(event){
     return;
   }
   resetWhatsNewForm();
-  $('whatsNewStatus').textContent=id?'Update saved.':'Update published.';
+  $('whatsNewStatus').classList.add('success');
+  $('whatsNewStatus').textContent=saveAsDraft?'Draft saved privately.':id?'Update saved and published.':'Update published.';
   await loadWhatsNewUpdates();
   await loadWhatsNewNotifications();
   await loadPublishedWhatsNew();
@@ -4228,6 +4383,7 @@ function showMaintenanceScreen() {
   if (landing) landing.classList.add('hidden');
   if (login) login.classList.add('hidden');
   if (maintenance) maintenance.classList.remove('hidden');
+  loadMaintenanceNotice();
 }
 
 async function loadWorkflowNotifications(){
@@ -5218,6 +5374,30 @@ async function saveIncidentLearning(event,actionId,mode){
   }
 }
 
+function filterWorkflowRecordList(kind){
+  const isCorrective=kind==='corrective';
+  const list=$(isCorrective?'correctiveActionList':'cleaningAssignmentList');
+  const input=$(isCorrective?'correctiveActionSearch':'cleaningAssignmentSearch');
+  const status=$(isCorrective?'correctiveActionSearchStatus':'cleaningAssignmentSearchStatus');
+  if(!list||!input||!status)return;
+  const records=[...list.children].filter(element=>element.classList.contains('workflow-item'));
+  const search=input.value.trim().toLowerCase();
+  let visible=0;
+  records.forEach(record=>{
+    const matches=record.textContent.toLowerCase().includes(search);
+    record.hidden=!matches;
+    if(matches)visible+=1;
+  });
+  if(!records.length){
+    status.textContent='';
+    return;
+  }
+  const label=isCorrective?'incident record':'cleaning or sanitation record';
+  status.textContent=search
+    ?visible?`Showing ${visible} of ${records.length} ${label}${records.length===1?'':'s'} matching “${input.value.trim()}”.`:`No ${label}s match your search.`
+    :`Showing ${records.length} ${label}${records.length===1?'':'s'}.`;
+}
+
 async function loadCorrectiveActions(){
   const list=$('correctiveActionList');
   if(!list||!currentProfile)return;
@@ -5244,6 +5424,7 @@ async function loadCorrectiveActions(){
       <div class="workflow-item-actions"><button class="workflow-secondary" type="button" onclick="exportIncidentReport(${Number(action.id)})"><i class="fas fa-file-pdf" aria-hidden="true"></i> Download this incident report (PDF)</button></div>
       <p class="workflow-status">Sample record · Read-only</p>
     </article>`).join(''):'No sample corrective actions are available.';
+    filterWorkflowRecordList('corrective');
     return;
   }
   await loadIncidentLearningCases();
@@ -5303,17 +5484,20 @@ async function loadCorrectiveActions(){
     ({data:activityRows,error:activityError}=activityResult);
     evidenceById=evidenceResult;
     const profileIds=currentRole==='admin'
-      ?[...new Set([...actions.map(action=>action.reported_by),...(activityRows||[]).map(entry=>entry.actor_id).filter(Boolean)])]
-      :[currentProfile.id];
+      ?[...new Set([...actions.map(action=>action.reported_by),...(activityRows||[]).map(entry=>entry.actor_id)]
+        .filter(id=>typeof id==='string'&&id.trim()))]
+      :[currentProfile.id].filter(id=>typeof id==='string'&&id.trim());
     const {data:profiles,error:profileError}=currentRole==='admin'
-      ?await foodSafeProClient.from('profiles').select('id,username').in('id',profileIds)
+      ?profileIds.length
+        ?await foodSafeProClient.from('profiles').select('id,username').in('id',profileIds)
+        :{data:[],error:null}
       :{data:[{id:currentProfile.id,username:currentUser}],error:null};
     if(profileError)throw profileError;
     reporters=new Map((profiles||[]).map(profile=>[profile.id,profile.username||profile.id]));
     actorNames=reporters;
   }catch(error){
-    console.error('Could not load corrective action evidence:',error);
-    list.textContent=`Could not load incident evidence: ${workflowErrorMessage(error)}`;return;
+    console.error('Could not load corrective action history, evidence, or reporter profiles:',error);
+    list.textContent=`Could not load incident details: ${workflowErrorMessage(error)}`;return;
   }
   if(activityError){
     console.error('Could not load corrective action history:',activityError);
@@ -5435,6 +5619,7 @@ async function loadCorrectiveActions(){
       <div class="workflow-timeline">${(historyById.get(String(action.id))||[]).map(entry=>`<span>${formatWorkflowDate(entry.created_at)} · ${escapeHtml(workflowActorName(entry.actor_id,actorNames))} · ${escapeHtml(entry.event_type.replaceAll('_',' '))}${entry.details?` — ${escapeHtml(entry.details)}`:''}</span>`).join('')||`Current status: ${escapeHtml(action.status.replaceAll('_',' '))}.`}</div>
     </article>`;
   }).join('');
+  filterWorkflowRecordList('corrective');
 }
 
 async function submitCorrectiveWork(event,id){
@@ -5631,6 +5816,7 @@ async function loadCleaningAssignments(periodOverride=null){
         <p class="workflow-status">Sample record · Read-only</p>
       </article>`;
     }).join(''):'No sample cleaning tasks are available.';
+    filterWorkflowRecordList('cleaning');
     return;
   }
   const isAdmin=currentRole==='admin';
@@ -5811,6 +5997,7 @@ async function loadCleaningAssignments(periodOverride=null){
       </article>`;
     }).join('');
   }
+  filterWorkflowRecordList('cleaning');
   if(isAdmin)loadCleaningStaffOptions();
 }
 
@@ -6559,6 +6746,22 @@ async function submitWebsiteFeedback(event){
   }
 }
 
+function filterWebsiteFeedback(){
+  const search=$('adminFeedbackSearch')?.value.trim().toLowerCase()||'';
+  const list=$('adminFeedbackList'),status=$('adminFeedbackSearchStatus');
+  if(!list||!status)return;
+  const cards=[...list.querySelectorAll('.admin-feedback-card')];
+  let visible=0;
+  cards.forEach(card=>{
+    const matches=(card.dataset.searchText||card.textContent).toLowerCase().includes(search);
+    card.hidden=!matches;
+    if(matches)visible+=1;
+  });
+  status.textContent=search
+    ?visible?`Showing ${visible} of ${cards.length} feedback messages matching “${$('adminFeedbackSearch').value.trim()}”.`:'No visitor feedback matches your search.'
+    :cards.length?`Search the ${cards.length} most recent feedback messages.`:'';
+}
+
 async function loadWebsiteFeedback(){
   if(currentRole!=='admin'){
     showDashboardView('account');
@@ -6588,11 +6791,14 @@ async function loadWebsiteFeedback(){
     }
     if(!feedback?.length){
       status.textContent='No visitor feedback has been submitted yet.';
+      filterWebsiteFeedback();
       return;
     }
     feedback.forEach(entry=>{
       const card=document.createElement('article');
       card.className='admin-feedback-card';
+      card.dataset.searchText=[entry.name,entry.email,entry.message,entry.is_published?'published on homepage':'not published']
+        .filter(Boolean).join(' ').toLowerCase();
       const header=document.createElement('div');
       header.className='admin-feedback-card-header';
       const sender=document.createElement('div');
@@ -6642,6 +6848,7 @@ async function loadWebsiteFeedback(){
     });
     status.textContent=`Showing the ${feedback.length} most recent message${feedback.length===1?'':'s'}.`;
     status.classList.remove('is-empty');
+    filterWebsiteFeedback();
   }catch(error){
     console.error('Could not load website feedback:',error);
     status.classList.remove('is-empty');
@@ -6817,6 +7024,134 @@ function submitSupportQuestion(event){
 }
 
 // --- GLOBALLY SYNCHRONIZED MAINTENANCE MODE CHECK (SUPABASE) ---
+function maintenanceConfigErrorMessage(error){
+  if(['42883','PGRST202','PGRST204','PGRST205'].includes(error?.code)){
+    return 'Apply supabase/maintenance-access.sql in the Supabase SQL editor to configure maintenance notices and staff access.';
+  }
+  return error?.message||'Please try again.';
+}
+
+async function loadMaintenanceNotice(){
+  const card=$('maintenanceScheduleCard'),time=$('maintenanceScheduleTime');
+  const message=$('maintenanceNoticeMessage'),zone=$('maintenanceScheduleZone');
+  if(!message)return;
+  try{
+    const {data,error}=await foodSafeProClient.rpc('foodsafe_get_maintenance_notice');
+    if(error)throw error;
+    const details=Array.isArray(data)?data[0]:data;
+    if(!details)return;
+    message.textContent=details.notice||'FoodSafe Pro is undergoing scheduled maintenance. Please check back soon.';
+    const scheduledEnd=details.scheduled_end_at?new Date(details.scheduled_end_at):null;
+    if(scheduledEnd&&!Number.isNaN(scheduledEnd.getTime())){
+      time.textContent=scheduledEnd.toLocaleString(undefined,{
+        weekday:'long',year:'numeric',month:'long',day:'numeric',hour:'numeric',minute:'2-digit'
+      });
+      zone.textContent=`Shown in your local time zone (${Intl.DateTimeFormat().resolvedOptions().timeZone||'local time'}). Timing is an estimate.`;
+      card.classList.remove('hidden');
+    }else{
+      card.classList.add('hidden');
+    }
+  }catch(error){
+    console.warn('Could not load detailed maintenance notice:',maintenanceConfigErrorMessage(error));
+  }
+}
+
+function filterMaintenanceStaffOptions(){
+  const search=$('maintenanceStaffSearch')?.value.trim().toLowerCase()||'';
+  document.querySelectorAll('#maintenanceStaffAccessList .maintenance-staff-option').forEach(option=>{
+    option.hidden=!option.textContent.toLowerCase().includes(search);
+  });
+}
+
+function maintenanceDateTimeLocal(value){
+  if(!value)return '';
+  const date=new Date(value);
+  if(Number.isNaN(date.getTime()))return '';
+  return new Date(date.getTime()-date.getTimezoneOffset()*60000).toISOString().slice(0,16);
+}
+
+async function loadMaintenanceSettings(staffAccounts=staffAccessStaff){
+  const list=$('maintenanceStaffAccessList'),status=$('maintenanceSettingsStatus');
+  const saveButton=$('saveMaintenanceSettings');
+  if(!list||!status||!saveButton)return;
+  status.classList.remove('error','success');
+  status.textContent='Loading maintenance notice and staff access…';
+  saveButton.disabled=true;
+  list.replaceChildren();
+  try{
+    const {data,error}=await foodSafeProClient.rpc('foodsafe_get_maintenance_config');
+    if(error)throw error;
+    const config=Array.isArray(data)?data[0]:data;
+    if(!config)throw new Error('The maintenance configuration was not returned.');
+    maintenanceAllowedStaffIds=new Set(config.allowed_staff_ids||[]);
+    $('maintenanceScheduledEnd').value=maintenanceDateTimeLocal(config.scheduled_end_at);
+    $('maintenanceNoticeInput').value=config.notice||'';
+    const approvedStaff=(staffAccounts||[]).filter(account=>account.approved===true);
+    if(!approvedStaff.length){
+      list.textContent='No approved staff accounts are available to allow during maintenance.';
+    }else{
+      approvedStaff.forEach(account=>{
+        const label=document.createElement('label');
+        label.className='maintenance-staff-option';
+        label.dataset.searchText=String(account.username||'Staff member').toLowerCase();
+        const checkbox=document.createElement('input');
+        checkbox.type='checkbox';
+        checkbox.value=account.id;
+        checkbox.checked=maintenanceAllowedStaffIds.has(account.id);
+        const name=document.createElement('span');
+        name.textContent=account.username||'Staff member';
+        label.append(checkbox,name);
+        list.appendChild(label);
+      });
+    }
+    status.textContent='Only the staff members selected here may sign in while maintenance mode is on. Approved administrators always retain access.';
+    saveButton.disabled=false;
+    filterMaintenanceStaffOptions();
+  }catch(error){
+    console.error('Could not load maintenance settings:',error);
+    status.classList.add('error');
+    status.textContent=`Could not load maintenance settings. ${maintenanceConfigErrorMessage(error)}`;
+    list.textContent='Staff maintenance access is unavailable until the database settings are installed.';
+  }
+}
+
+async function saveMaintenanceSettings(){
+  if(currentRole!=='admin'||isReadOnlyDemo())return;
+  const saveButton=$('saveMaintenanceSettings'),status=$('maintenanceSettingsStatus');
+  if(!saveButton||!status)return;
+  const localEnd=$('maintenanceScheduledEnd').value;
+  const scheduledEnd=localEnd?new Date(localEnd):null;
+  if(localEnd&&(!scheduledEnd||Number.isNaN(scheduledEnd.getTime())||scheduledEnd<=new Date())){
+    status.classList.add('error');
+    status.textContent='Choose a future estimated completion date and time, or leave it blank.';
+    $('maintenanceScheduledEnd').focus();
+    return;
+  }
+  const allowedStaffIds=[...document.querySelectorAll('#maintenanceStaffAccessList input[type="checkbox"]:checked')]
+    .map(input=>input.value);
+  saveButton.disabled=true;
+  status.classList.remove('error','success');
+  status.textContent='Saving maintenance notice and staff access…';
+  try{
+    const {error}=await foodSafeProClient.rpc('foodsafe_save_maintenance_config',{
+      p_scheduled_end_at:scheduledEnd?.toISOString()||null,
+      p_notice:$('maintenanceNoticeInput').value.trim(),
+      p_allowed_staff_ids:allowedStaffIds
+    });
+    if(error)throw error;
+    maintenanceAllowedStaffIds=new Set(allowedStaffIds);
+    status.classList.add('success');
+    status.textContent=`Saved. ${allowedStaffIds.length} staff member${allowedStaffIds.length===1?'':'s'} ${allowedStaffIds.length===1?'is':'are'} allowed to sign in during maintenance.`;
+    if(!$('maintenance-screen').classList.contains('hidden'))await loadMaintenanceNotice();
+  }catch(error){
+    console.error('Could not save maintenance settings:',error);
+    status.classList.add('error');
+    status.textContent=`Could not save maintenance settings. ${maintenanceConfigErrorMessage(error)}`;
+  }finally{
+    saveButton.disabled=false;
+  }
+}
+
 async function checkMaintenanceStatus() {
   if (!foodSafeProClient) return false;
   const { data, error } = await foodSafeProClient
@@ -6827,6 +7162,17 @@ async function checkMaintenanceStatus() {
     
   if (error || !data) return false;
   return data.value === 'true';
+}
+
+async function canEnterDuringMaintenance(profile){
+  if(!profile?.approved||profile.demo_read_only)return false;
+  if(profile.role==='admin')return true;
+  if(profile.role!=='staff')return false;
+  const {data,error}=await foodSafeProClient.rpc('foodsafe_staff_can_access_during_maintenance');
+  if(error){
+    throw new Error(maintenanceConfigErrorMessage(error));
+  }
+  return data===true;
 }
 
 async function toggleMaintenanceMode() {
@@ -6854,7 +7200,7 @@ async function toggleMaintenanceMode() {
   }
   
   if (newValue) {
-    showSystemMessage('Maintenance Mode Enabled', 'Maintenance mode is now ON. New staff sign-ins and sessions checked by the app will be blocked until it is turned off.', 'amber');
+    showSystemMessage('Maintenance Mode Enabled', 'Maintenance mode is now ON. Only approved staff members selected in Maintenance notice & staff access and approved administrators can sign in.', 'amber');
   } else {
     showSystemMessage('Maintenance Mode Disabled', 'Maintenance mode is now OFF. Staff can sign in and use the platform normally.', 'green');
   }
@@ -6911,6 +7257,7 @@ async function showAuth(){
     $('login-card').classList.add('hidden');
     $('landing-page').classList.add('hidden');
     $('maintenance-screen').classList.remove('hidden');
+    await loadMaintenanceNotice();
     return;
   }
   $('maintenance-screen').classList.add('hidden');
@@ -7346,20 +7693,6 @@ async function login() {
       return;
     }
 
-    // CHECK MAINTENANCE MODE
-    const inMaintenance = await checkMaintenanceStatus();
-
-    if (inMaintenance && (profile.role !== 'admin' || profile.demo_read_only)) {
-      await foodSafeProClient.auth.signOut();
-
-      showMessage(
-        'System is under maintenance. Only administrators can log in right now.',
-        'error'
-      );
-
-      return;
-    }
-
     // CHECK ACCOUNT APPROVAL
     if (!profile.approved) {
       await foodSafeProClient.auth.signOut();
@@ -7370,6 +7703,25 @@ async function login() {
       );
 
       return;
+    }
+    const inMaintenance=await checkMaintenanceStatus();
+    if(inMaintenance){
+      let maintenanceAllowed=false;
+      try{
+        maintenanceAllowed=await canEnterDuringMaintenance(profile);
+      }catch(maintenanceError){
+        console.error('Could not verify maintenance access:',maintenanceError);
+        await foodSafeProClient.auth.signOut();
+        showMaintenanceScreen();
+        await loadMaintenanceNotice();
+        $('maintenanceNoticeMessage').textContent=`Could not verify maintenance access. ${maintenanceError.message||'Please try again later.'}`;
+        return;
+      }
+      if(!maintenanceAllowed){
+        await foodSafeProClient.auth.signOut();
+        showMaintenanceScreen();
+        return;
+      }
     }
     if(!(await requireTotpForCurrentSession(profile)))return;
 
@@ -8132,6 +8484,26 @@ async function submitChangeEmail() {
   showEmailMessage(`A verification link has been sent to ${newEmail}. Your account email will change after you confirm it.`);
 }
 
+function filterStaffAccounts(){
+  const search=$('staffManagementSearch')?.value.trim().toLowerCase()||'';
+  const list=$('staffManagementList'),status=$('staffManagementStatus');
+  if(!list||!status)return;
+  const rows=[...list.querySelectorAll('tr')].filter(row=>!row.querySelector('.staff-management-empty'));
+  let visible=0;
+  rows.forEach(row=>{
+    const matches=row.textContent.toLowerCase().includes(search);
+    row.hidden=!matches;
+    if(matches)visible+=1;
+  });
+  if(rows.length&&search){
+    status.textContent=visible
+      ?`Showing ${visible} of ${rows.length} staff accounts matching “${$('staffManagementSearch').value.trim()}”.`
+      :'No staff accounts match your search.';
+  }else if(rows.length){
+    status.textContent=`Showing ${rows.length} staff account${rows.length===1?'':'s'}.`;
+  }
+}
+
 async function manageStaff(){
   if(currentRole!=='admin'){
     showDashboardView('account');
@@ -8195,7 +8567,7 @@ async function manageStaff(){
       row.append(username,stateCell,actionCell);
       list.appendChild(row);
     });
-    status.textContent=`Showing ${accounts.length} staff account${accounts.length===1?'':'s'}.`;
+    filterStaffAccounts();
   }catch(error){
     console.error('Could not load staff accounts:',error);
     $('staff-total-count').textContent='—';
@@ -8576,12 +8948,24 @@ async function init(){
       return;
     }
     if(profile){
-      if(inMaintenance && (profile.role !== 'admin' || profile.demo_read_only)) {
-        await foodSafeProClient.auth.signOut();
-        showAuth();
-        return;
-      }
       if(profile.approved){
+        if(inMaintenance){
+          let maintenanceAllowed=false;
+          try{
+            maintenanceAllowed=await canEnterDuringMaintenance(profile);
+          }catch(maintenanceError){
+            console.error('Could not verify maintenance access for the current session:',maintenanceError);
+            await foodSafeProClient.auth.signOut();
+            showAuth();
+            $('maintenanceNoticeMessage').textContent=`Could not verify maintenance access. ${maintenanceError.message||'Please try again later.'}`;
+            return;
+          }
+          if(!maintenanceAllowed){
+            await foodSafeProClient.auth.signOut();
+            showAuth();
+            return;
+          }
+        }
         try{
           if(!(await requireTotpForCurrentSession(profile)))return;
         }catch(error){
