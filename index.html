@@ -397,6 +397,32 @@ body.foodsafe-night-mode #dashboardStaffDeletionView .staff-deletion-record-copy
 body.foodsafe-night-mode #dashboardStaffDeletionView .staff-deletion-button:not(.danger) { border-color: #355342; color: #c6d9cc; background: #17251c; }
 body.foodsafe-night-mode #dashboardStaffDeletionView .staff-deletion-button.danger { border-color: #65413f; color: #ffaaa4; background: #2b2023; }
 body.foodsafe-night-mode #dashboardStaffDeletionView .staff-deletion-search input { border-color: #34453a; color: #e2ebe4; background: #17251c; }
+.audit-management-header { margin-bottom: 16px; padding: 22px; border: 1px solid #e2ebe0; border-radius: 18px; background: linear-gradient(135deg,#fff,#f6f8f3); }
+.audit-management-header h3 { margin: 7px 0 5px; color: #263b2d; font-size: 21px; }
+.audit-management-header p { max-width: 760px; margin: 0; color: #748177; font-size: 11px; line-height: 1.7; }
+.audit-management-toolbar { margin-bottom: 14px; padding: 16px; border: 1px solid #e4ebe3; border-radius: 14px; display: grid; grid-template-columns: repeat(auto-fit,minmax(190px,1fr)); align-items: end; gap: 12px; background: #fff; }
+.audit-management-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.audit-management-actions .staff-deletion-button { min-height: 42px; }
+.audit-table-wrap { width: 100%; overflow-x: auto; border: 1px solid #e4ebe3; border-radius: 12px; }
+.audit-table { width: 100%; min-width: 780px; border-collapse: collapse; background: #fff; }
+.audit-table th,.audit-table td { padding: 10px 12px; border-bottom: 1px solid #edf1ec; text-align: left; vertical-align: top; font-size: 10px; }
+.audit-table th { color: #637369; background: #f7faf6; font-size: 9px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase; }
+.audit-table td { color: #3c5042; line-height: 1.5; overflow-wrap: anywhere; }
+.audit-table tr:last-child td { border-bottom: 0; }
+.audit-management-status { min-height: 18px; margin: 10px 0; color: #758279; font-size: 11px; line-height: 1.6; }
+.audit-management-status.error { color: #a5433f; }
+.audit-management-note { margin: 0 0 12px; color: #77847a; font-size: 10px; line-height: 1.6; }
+body.foodsafe-night-mode #dashboardAuditManagementView .audit-management-header { border-color: #2b3c31; background: linear-gradient(135deg,#17251c,#121d16); }
+body.foodsafe-night-mode #dashboardAuditManagementView .audit-management-header h3 { color: #e2eee5; }
+body.foodsafe-night-mode #dashboardAuditManagementView .audit-management-header p,
+body.foodsafe-night-mode #dashboardAuditManagementView .audit-management-note { color: #a7b6aa; }
+body.foodsafe-night-mode #dashboardAuditManagementView .audit-management-toolbar,
+body.foodsafe-night-mode #dashboardAuditManagementView .audit-table-wrap,
+body.foodsafe-night-mode #dashboardAuditManagementView .audit-table { border-color: #2b3c31; background: #121d16; }
+body.foodsafe-night-mode #dashboardAuditManagementView .audit-table th { border-color: #2b3c31; color: #c6d3c9; background: #17251c; }
+body.foodsafe-night-mode #dashboardAuditManagementView .audit-table td { border-color: #2b3c31; color: #d3dfd6; }
+body.foodsafe-night-mode #dashboardAuditManagementView .audit-management-status { color: #a1b0a5; }
+body.foodsafe-night-mode #dashboardAuditManagementView .audit-management-status.error { color: #ffaaa4; }
 .access-control-header { margin-bottom: 18px; padding: 24px; border: 1px solid #dfe9e1; border-radius: 20px; background: radial-gradient(circle at 100% 0,rgba(191,224,202,.45),transparent 34%),linear-gradient(135deg,#fff,#f4f8f3); }
 .access-control-header .staff-management-kicker { color: #548064; }
 .access-control-header h3 { margin: 8px 0; color: #263b2d; font-size: 22px; }
@@ -2751,6 +2777,7 @@ body.foodsafe-night-mode #dashboardHelpdeskView.is-admin .helpdesk-admin-tools {
         <span class="dashboard-side-label">ADMINISTRATION</span>
         <button id="adminManageBtn" type="button" onclick="showDashboardView('staff');manageStaff()"><i class="fas fa-users"></i> Manage staff</button>
         <button id="adminStaffDeletionNav" type="button" onclick="showDashboardView('staffDeletion');manageStaff()"><i class="fas fa-user-minus"></i> Staff deletion</button>
+        <button id="adminAuditManagementBtn" type="button" onclick="showDashboardView('audit')"><i class="fas fa-clipboard-list"></i> Audit management</button>
         <button id="adminAccessControlsBtn" type="button" onclick="showDashboardView('access')"><i class="fas fa-user-shield"></i> Staff access controls</button>
         <button id="adminHomepageVisibilityBtn" type="button" onclick="showDashboardView('homepageVisibility')"><i class="fas fa-eye"></i> Homepage visibility</button>
         <button id="adminWebSettingsBtn" type="button" onclick="showDashboardView('webSettings')"><i class="fas fa-palette"></i> Web settings</button>
@@ -3237,6 +3264,42 @@ body.foodsafe-night-mode #dashboardHelpdeskView.is-admin .helpdesk-admin-tools {
       <div id="staffDeletionRecords" class="staff-deletion-list" aria-live="polite"></div>
     </div>
   </section>
+  <section class="dashboard-section-view hidden" id="dashboardAuditManagementView" aria-labelledby="audit-management-title">
+    <header class="audit-management-header">
+      <span class="staff-management-kicker">ADMINISTRATION</span>
+      <h3 id="audit-management-title">Audit management</h3>
+      <p>Review timestamped sign-in/session events, navigation, interface actions, and database changes by individual staff member or administrator. Database row changes record changed field names only.</p>
+    </header>
+    <div class="card">
+      <div class="audit-management-toolbar">
+        <label class="workflow-field" for="auditAccountSelect">Account
+          <select id="auditAccountSelect" onchange="loadAuditEvents()"><option value="">Choose an account…</option></select>
+        </label>
+        <label class="workflow-field" for="auditDaySelect">UTC date
+          <input id="auditDaySelect" type="date" onchange="loadAuditEvents()">
+        </label>
+        <label class="workflow-field" for="auditSearchInput">Filter events
+          <input id="auditSearchInput" type="search" placeholder="Filter action, page, or record type" oninput="filterAuditEvents()">
+        </label>
+        <div class="audit-management-actions">
+          <button class="staff-deletion-button" type="button" onclick="loadAuditManagement()"><i class="fas fa-rotate" aria-hidden="true"></i> Refresh</button>
+          <button id="auditDownloadButton" class="staff-deletion-button" type="button" onclick="downloadAuditEvents()" disabled><i class="fas fa-download" aria-hidden="true"></i> Download CSV</button>
+          <button id="auditArchiveButton" class="staff-deletion-button" type="button" onclick="archiveAuditDay()" disabled><i class="fas fa-box-archive" aria-hidden="true"></i> Archive completed day</button>
+        </div>
+      </div>
+      <p class="audit-management-note">Logs are private to administrators. Passwords, tokens, form values, chat text, and helpdesk message contents are never stored. Administrators can manually archive a completed UTC day; archives are compressed in private Supabase Storage, not Google Drive.</p>
+      <p id="auditManagementStatus" class="audit-management-status" role="status" aria-live="polite">Choose an account and UTC date to review audit events.</p>
+      <div class="audit-table-wrap">
+        <table class="audit-table">
+          <thead><tr><th>Timestamp</th><th>Account</th><th>Event</th><th>Page / action</th><th>Target / changed fields</th></tr></thead>
+          <tbody id="auditEventsTable"><tr><td colspan="5">Choose an account and date to load events.</td></tr></tbody>
+        </table>
+      </div>
+      <div class="audit-management-actions mt-3">
+        <button id="auditLoadMoreButton" class="staff-deletion-button" type="button" onclick="renderMoreAuditEvents()" hidden>Show more events</button>
+      </div>
+    </div>
+  </section>
   <section class="dashboard-section-view hidden" id="dashboardAccessControlsView" aria-labelledby="access-controls-title">
     <div class="card">
       <header class="access-control-header">
@@ -3474,6 +3537,7 @@ const foodSafeProClient = configured ? window.supabase.createClient(SUPABASE_URL
 const foodSafeProPublicClient = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {auth:{autoRefreshToken:false,persistSession:false,detectSessionInUrl:false}}) : null;
 
 let currentUser = null, currentRole = null, currentProfile = null, currentAuthUser = null, currentDashboardView = 'account', data = [], filteredData = [], charts = {}, cleaningAssignmentReport = [], correctiveActionReport = [], incidentLearningCases = [], adminStaffPairChats = [], staffAccessBlocked = new Set(), staffAccessStaff = [], selectedAccessStaffId = '', accessControlLoadRequest = 0, maintenanceAllowedStaffIds = new Set(), maintenanceScheduledEndAt = null, maintenanceAccessPending = false, maintenanceAccessResolver = null, maintenanceLoginActive = false, authenticatorLoginPending = false, passwordRecoveryPending = false, staffAccessRefreshTimer = null, staffAccessRealtimeChannel = null, nightModeActive = false, workflowDeadlineTimer = null, workflowDeadlineChecksInitialized = false, workflowNotificationError = '', workflowNotificationEventsBound = false, staffAdminChatThreadId = null, staffAdminChatContacts = [], staffAdminChatPollTimer = null, staffAdminChatEventsBound = false, workflowConfirmationResolver = null, workflowConfirmationPreviousFocus = null, workflowInputResolver = null, workflowInputPreviousFocus = null, systemMessagePreviousFocus = null, pendingTotpFactorId = '', mandatoryTotpSetupPending = false, requireAuthenticatorForNewStaff = false, staffManagementAccounts = [], pendingStaffRecordDeletion = null, pendingStaffBulkDeletion = null, profileSetupRequired = false, accountProfileEditField = '';
+let auditSessionId = '', auditSessionStartedAt = 0, auditQueue = [], auditFlushTimer = null, auditFlushPromise = null, auditUiEventsBound = false, auditManagementAccounts = [], auditEvents = [], auditRenderedCount = 0, auditLoggingError = '', auditEventsRequestId = 0;
 let whatsNewRealtimeChannel=null,whatsNewRefreshTimer=null,whatsNewNotificationEventsBound=false,homepageFeedbackPreviousFocus=null,helpdeskNoticePreviousFocus=null,helpdeskNoticeFocusTargetId='',helpdeskSelectedTicketId='',helpdeskGuestTicketId='',helpdeskGuestSecret='',helpdeskListRequest=0,helpdeskDetailRequest=0;
 let changeUsernameAvailabilityTimer=null,changeUsernameAvailabilityRequest=0,changeEmailAvailabilityTimer=null,changeEmailAvailabilityRequest=0,changeEmailAvailabilityState='',changeEmailAvailabilityValue='',changeEmailAvailabilityMessage='',changeEmailCurrentAddress='',pendingEmailChangeEmail='',lastConfirmedEmailChangeEmail='';
 const $ = id => document.getElementById(id);
@@ -4754,16 +4818,124 @@ document.addEventListener('click',event=>{
   if(event.target instanceof Element&&!event.target.closest('#accountActionsWrap'))toggleAccountActions(false);
 });
 
+function beginAuditSession(eventType){
+  if(!currentProfile||isReadOnlyDemo())return;
+  auditSessionId=crypto.randomUUID();
+  auditSessionStartedAt=Date.now();
+  auditQueue=[];
+  bindAuditUiEvents();
+  queueAuditEvent(eventType,{action:eventType==='auth.sign_in'?'signed_in':'session_resumed'});
+}
+
+function bindAuditUiEvents(){
+  if(auditUiEventsBound)return;
+  auditUiEventsBound=true;
+  document.addEventListener('click',event=>{
+    const target=event.target;
+    if(!(target instanceof Element)||!currentProfile||isReadOnlyDemo()||!$('app')?.contains(target))return;
+    const control=target.closest('button,a,[role="button"]');
+    if(!control||control.disabled||control.getAttribute('aria-disabled')==='true')return;
+    const inlineAction=control.getAttribute('onclick')?.match(/^\s*([A-Za-z_$][\w$]*)\s*\(/)?.[1];
+    queueAuditEvent('ui.action',{
+      page:currentDashboardView,
+      action:control.id||inlineAction||control.getAttribute('aria-label')||control.getAttribute('title')||'control',
+      control:`${control.tagName.toLowerCase()}:${control.getAttribute('type')||''}`
+    });
+  });
+  document.addEventListener('change',event=>{
+    const target=event.target;
+    if(!(target instanceof HTMLInputElement||target instanceof HTMLSelectElement||target instanceof HTMLTextAreaElement)
+      ||!currentProfile||isReadOnlyDemo()||!$('app')?.contains(target)||target.type==='password')return;
+    queueAuditEvent('ui.change',{
+      page:currentDashboardView,
+      action:target.id||target.name||'form_control',
+      control:`${target.tagName.toLowerCase()}:${target.type||''}`
+    });
+  });
+  document.addEventListener('submit',event=>{
+    const form=event.target;
+    if(!(form instanceof HTMLFormElement)||!currentProfile||isReadOnlyDemo()||!$('app')?.contains(form))return;
+    queueAuditEvent('ui.submit',{page:currentDashboardView,action:form.id||'form',control:'form'});
+  });
+}
+
+function queueAuditEvent(eventType,details={}){
+  if(!currentProfile||isReadOnlyDemo()||!auditSessionId)return;
+  auditQueue.push({
+    event_type:eventType,
+    page:details.page||currentDashboardView||'account',
+    action:details.action||'',
+    control:details.control||'',
+    entity_type:details.entity_type||'',
+    entity_id:details.entity_id||'',
+    ...(Number.isSafeInteger(details.duration_ms)?{duration_ms:details.duration_ms}:{})
+  });
+  if(auditQueue.length>=20){
+    void flushAuditEvents();
+  }else if(!auditFlushTimer){
+    auditFlushTimer=window.setTimeout(()=>{auditFlushTimer=null;void flushAuditEvents();},15000);
+  }
+}
+
+async function flushAuditEvents(){
+  if(auditFlushTimer){clearTimeout(auditFlushTimer);auditFlushTimer=null;}
+  if(auditFlushPromise)return auditFlushPromise;
+  if(!auditQueue.length||!auditSessionId||!currentProfile||isReadOnlyDemo())return true;
+  const batch=auditQueue.splice(0,100);
+  auditFlushPromise=(async()=>{
+    let error=null;
+    try{
+      const result=await foodSafeProClient.rpc('foodsafe_record_audit_events',{
+        p_session_id:auditSessionId,
+        p_events:batch
+      });
+      error=result.error;
+    }catch(requestError){
+      error=requestError;
+    }
+    if(error){
+      auditQueue=batch.concat(auditQueue);
+      auditLoggingError=error.message||'Audit events could not be saved.';
+      console.error('Could not save audit events:',error);
+      if(currentDashboardView==='audit')setAuditManagementStatus(`Audit logging is unavailable. ${auditLoggingError}`,true);
+      return false;
+    }
+    auditLoggingError='';
+    if(auditQueue.length>=20){
+      window.setTimeout(()=>void flushAuditEvents(),0);
+    }
+    return true;
+  })();
+  const pendingFlush=auditFlushPromise;
+  try{
+    return await pendingFlush;
+  }finally{
+    if(auditFlushPromise===pendingFlush)auditFlushPromise=null;
+    if(auditQueue.length&&!auditFlushTimer){
+      auditFlushTimer=window.setTimeout(()=>{auditFlushTimer=null;void flushAuditEvents();},30000);
+    }
+  }
+}
+
+async function flushAllAuditEvents(){
+  while(auditQueue.length){
+    if(!(await flushAuditEvents()))return false;
+  }
+  return true;
+}
+
 function showDashboardView(view){
   if(profileSetupRequired&&!isReadOnlyDemo()&&view!=='account')view='account';
   if(view==='helpdesk'&&isReadOnlyDemo()){
     openGuestHelpdeskModal();
     return;
   }
-  if(['feedback','staff','staffDeletion','access','maintenance','homepageVisibility','webSettings'].includes(view)&&(currentRole!=='admin'||isReadOnlyDemo()))view='account';
+  if(['feedback','staff','staffDeletion','audit','access','maintenance','homepageVisibility','webSettings'].includes(view)&&(currentRole!=='admin'||isReadOnlyDemo()))view='account';
   const requiredFeature=STAFF_ACCESS_VIEW_FEATURES[view];
   if(requiredFeature&&!requireStaffAccess(requiredFeature,{actionLabel:view}))return;
-  currentDashboardView=['overview','whatsNew','records','downloads','knowledge','trends','corrective','cleaning','guide','helpdesk','feedback','staff','staffDeletion','access','maintenance','homepageVisibility','webSettings'].includes(view)?view:'account';
+  const previousView=currentDashboardView;
+  currentDashboardView=['overview','whatsNew','records','downloads','knowledge','trends','corrective','cleaning','guide','helpdesk','feedback','staff','staffDeletion','audit','access','maintenance','homepageVisibility','webSettings'].includes(view)?view:'account';
+  if(previousView!==currentDashboardView)queueAuditEvent('navigation.view',{page:currentDashboardView,action:'view_opened'});
   const views={
     account:'dashboardAccountView',
     overview:'dashboardOverviewView',
@@ -4779,6 +4951,7 @@ function showDashboardView(view){
     feedback:'dashboardFeedbackView',
     staff:'dashboardStaffView',
     staffDeletion:'dashboardStaffDeletionView',
+    audit:'dashboardAuditManagementView',
     access:'dashboardAccessControlsView',
     maintenance:'dashboardMaintenanceView',
     homepageVisibility:'dashboardHomepageVisibilityView',
@@ -4799,6 +4972,7 @@ function showDashboardView(view){
     feedback:'#dashboardFeedback',
     staff:'#dashboardStaffView',
     staffDeletion:'#dashboardStaffDeletionView',
+    audit:'#dashboardAuditManagementView',
     access:'#dashboardAccessControlsView',
     maintenance:'#dashboardMaintenanceView',
     homepageVisibility:'#dashboardHomepageVisibilityView',
@@ -4820,6 +4994,7 @@ function showDashboardView(view){
     feedback:'Visitor feedback',
     staff:'Manage staff',
     staffDeletion:'Staff deletion',
+    audit:'Audit management',
     access:'Staff access controls',
     maintenance:'Maintenance',
     homepageVisibility:'Homepage visibility',
@@ -4867,6 +5042,13 @@ function showDashboardView(view){
     if(active)staffDeletionNav.setAttribute('aria-current','page');
     else staffDeletionNav.removeAttribute('aria-current');
   }
+  const auditNav=$('adminAuditManagementBtn');
+  if(auditNav){
+    const active=currentDashboardView==='audit'&&currentRole==='admin';
+    auditNav.classList.toggle('active',active);
+    if(active)auditNav.setAttribute('aria-current','page');
+    else auditNav.removeAttribute('aria-current');
+  }
   const homepageVisibilityNav=$('adminHomepageVisibilityBtn');
   if(homepageVisibilityNav){
     const active=currentDashboardView==='homepageVisibility'&&currentRole==='admin';
@@ -4908,7 +5090,207 @@ function showDashboardView(view){
   if(currentDashboardView==='homepageVisibility')loadHomepageVisibilitySettings();
   if(currentDashboardView==='webSettings')loadWebThemeSettings();
   if(currentDashboardView==='helpdesk')loadHelpdeskDashboard();
+  if(currentDashboardView==='audit')loadAuditManagement();
   document.querySelector('.dashboard-main')?.scrollTo({top:0,behavior:'smooth'});
+}
+
+function setAuditManagementStatus(message,isError=false){
+  const status=$('auditManagementStatus');
+  if(!status)return;
+  status.textContent=message;
+  status.classList.toggle('error',isError);
+}
+
+async function loadAuditManagement(){
+  if(currentRole!=='admin'||isReadOnlyDemo())return;
+  const accountSelect=$('auditAccountSelect');
+  if(!accountSelect)return;
+  setAuditManagementStatus('Loading staff and administrator accounts…');
+  let result;
+  try{
+    result=await foodSafeProClient.functions.invoke('foodsafe-audit-management',{body:{action:'list_accounts'}});
+  }catch(error){
+    setAuditManagementStatus(`Could not load audit accounts. ${error.message||'Please try again.'}`,true);
+    return;
+  }
+  const {data,error}=result;
+  if(error){
+    setAuditManagementStatus(`Could not load audit accounts. ${error.message||'Apply the audit migration and deploy the audit-management function.'}`,true);
+    return;
+  }
+  if(!Array.isArray(data?.accounts)){
+    setAuditManagementStatus('The audit service returned an invalid account list. Please try again.',true);
+    return;
+  }
+  const selectedAccount=accountSelect.value;
+  auditManagementAccounts=data.accounts;
+  accountSelect.innerHTML='<option value="">Choose an account…</option>'+auditManagementAccounts.map(account=>{
+    const name=[account.first_name,account.last_name].filter(Boolean).join(' ').trim();
+    const label=[name||account.username||account.email||'Account',account.role].filter(Boolean).join(' · ');
+    return `<option value="${escapeHtml(account.id)}">${escapeHtml(label)}</option>`;
+  }).join('');
+  if(auditManagementAccounts.some(account=>account.id===selectedAccount))accountSelect.value=selectedAccount;
+  const dayInput=$('auditDaySelect');
+  if(dayInput&&!dayInput.value)dayInput.value=new Date().toISOString().slice(0,10);
+  if(accountSelect.value)await loadAuditEvents();
+  else setAuditManagementStatus('Choose an account and UTC date to review audit events.');
+}
+
+async function loadAuditEvents(){
+  const requestId=++auditEventsRequestId;
+  const actorId=$('auditAccountSelect')?.value||'';
+  const day=$('auditDaySelect')?.value||'';
+  auditEvents=[];
+  auditRenderedCount=0;
+  $('auditEventsTable').innerHTML='<tr><td colspan="5">Loading audit events…</td></tr>';
+  $('auditDownloadButton').disabled=true;
+  $('auditArchiveButton').disabled=!day||day>=new Date().toISOString().slice(0,10);
+  $('auditLoadMoreButton').hidden=true;
+  if(!actorId||!day){
+    $('auditEventsTable').innerHTML='<tr><td colspan="5">Choose an account and date to load events.</td></tr>';
+    setAuditManagementStatus('Choose an account and UTC date to review audit events.');
+    return;
+  }
+  if(currentRole!=='admin'||isReadOnlyDemo()){
+    $('auditEventsTable').innerHTML='<tr><td colspan="5">Administrator access is required.</td></tr>';
+    setAuditManagementStatus('Administrator access is required to review audit events.',true);
+    return;
+  }
+  setAuditManagementStatus('Loading audit events…');
+  let result;
+  try{
+    result=await foodSafeProClient.functions.invoke('foodsafe-audit-management',{
+      body:{action:'list_events',actorId,day}
+    });
+  }catch(error){
+    if(requestId!==auditEventsRequestId)return;
+    $('auditEventsTable').innerHTML='<tr><td colspan="5">Audit events could not be loaded.</td></tr>';
+    setAuditManagementStatus(`Could not load audit events. ${error.message||'Please try again.'}`,true);
+    return;
+  }
+  if(requestId!==auditEventsRequestId)return;
+  const {data,error}=result;
+  if(error){
+    $('auditEventsTable').innerHTML='<tr><td colspan="5">Audit events could not be loaded.</td></tr>';
+    setAuditManagementStatus(`Could not load audit events. ${error.message||'Please try again.'}`,true);
+    return;
+  }
+  if(!Array.isArray(data?.events)){
+    $('auditEventsTable').innerHTML='<tr><td colspan="5">Audit service returned an invalid event list.</td></tr>';
+    setAuditManagementStatus('The audit service returned an invalid event list. Please try again.',true);
+    return;
+  }
+  auditEvents=data.events;
+  filterAuditEvents();
+  const archiveNote=data.archived?' Archived records are included from private storage.':'';
+  setAuditManagementStatus(`${auditEvents.length} event${auditEvents.length===1?'':'s'} for ${day} UTC.${archiveNote}`);
+}
+
+function getFilteredAuditEvents(){
+  const query=String($('auditSearchInput')?.value||'').trim().toLowerCase();
+  if(!query)return auditEvents;
+  return auditEvents.filter(event=>[
+    event.actor_username,event.actor_role,event.event_type,event.page,event.action,event.control,
+    event.entity_type,event.entity_id,Array.isArray(event.changed_fields)?event.changed_fields.join(' '):''
+  ].join(' ').toLowerCase().includes(query));
+}
+
+function filterAuditEvents(){
+  auditRenderedCount=0;
+  renderMoreAuditEvents(true);
+}
+
+function renderMoreAuditEvents(reset=false){
+  const table=$('auditEventsTable');
+  const loadMore=$('auditLoadMoreButton');
+  const filteredEvents=getFilteredAuditEvents();
+  if(reset)table.innerHTML='';
+  if(!filteredEvents.length){
+    table.innerHTML='<tr><td colspan="5">No audit events match this account, date, and filter.</td></tr>';
+    loadMore.hidden=true;
+    $('auditDownloadButton').disabled=true;
+    return;
+  }
+  const nextEvents=filteredEvents.slice(auditRenderedCount,auditRenderedCount+50);
+  table.insertAdjacentHTML('beforeend',nextEvents.map(event=>{
+    const timestamp=new Date(event.occurred_at);
+    const timeLabel=Number.isNaN(timestamp.getTime())?'Unknown time':timestamp.toLocaleString(undefined,{timeZone:'UTC',dateStyle:'medium',timeStyle:'medium'});
+    const target=[event.entity_type,event.entity_id].filter(Boolean).join(' · ')||event.control||'—';
+    const changedFields=Array.isArray(event.changed_fields)?event.changed_fields.join(', '):'';
+    const duration=Number(event.duration_ms);
+    const durationLabel=event.duration_ms!==null&&event.duration_ms!==undefined&&Number.isFinite(duration)&&duration>=0?formatAuditDuration(duration):'';
+    return `<tr><td>${escapeHtml(timeLabel)} UTC</td><td>${escapeHtml(event.actor_username||'Unknown')}<br>${escapeHtml(event.actor_role||'')}</td><td>${escapeHtml(event.event_type||'')}</td><td>${escapeHtml([event.page,event.action].filter(Boolean).join(' · ')||'—')}${durationLabel?`<br><small>Session duration: ${escapeHtml(durationLabel)}</small>`:''}</td><td>${escapeHtml(target)}${changedFields?`<br><small>Changed: ${escapeHtml(changedFields)}</small>`:''}</td></tr>`;
+  }).join(''));
+  auditRenderedCount+=nextEvents.length;
+  loadMore.hidden=auditRenderedCount>=filteredEvents.length;
+  $('auditDownloadButton').disabled=filteredEvents.length===0;
+}
+
+function formatAuditDuration(durationMs){
+  const totalMinutes=Math.floor(durationMs/60000);
+  const days=Math.floor(totalMinutes/1440);
+  const hours=Math.floor(totalMinutes%1440/60);
+  const minutes=totalMinutes%60;
+  return [days?`${days}d`:'',hours?`${hours}h`:'',`${minutes}m`].filter(Boolean).join(' ');
+}
+
+function csvAuditCell(value){
+  let text=String(value??'');
+  if(/^[\s]*[=+\-@]/.test(text))text=`'${text}`;
+  return `"${text.replace(/"/g,'""')}"`;
+}
+
+function downloadAuditEvents(){
+  const events=getFilteredAuditEvents();
+  if(!events.length)return;
+  const columns=['occurred_at','actor_username','actor_role','event_type','page','action','duration_ms','control','entity_type','entity_id','changed_fields','session_id'];
+  const lines=[columns.map(csvAuditCell).join(',')];
+  for(const event of events){
+    lines.push(columns.map(column=>csvAuditCell(column==='changed_fields'
+      ?(Array.isArray(event.changed_fields)?event.changed_fields.join('; '):'')
+      :event[column])).join(','));
+  }
+  const blob=new Blob(['\uFEFF',lines.join('\r\n')],{type:'text/csv;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const link=document.createElement('a');
+  link.href=url;
+  link.download=`foodsafe-audit-${$('auditAccountSelect').value}-${$('auditDaySelect').value}.csv`;
+  link.click();
+  window.setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+
+async function archiveAuditDay(){
+  const day=$('auditDaySelect')?.value||'';
+  if(!day||day>=new Date().toISOString().slice(0,10)){
+    setAuditManagementStatus('Only completed UTC days can be archived.',true);
+    return;
+  }
+  const confirmed=await confirmWorkflowAction({
+    title:'Archive completed audit day?',
+    message:`This archives all staff and administrator audit events for ${day} UTC, not only the selected account. Database rows are removed only after the compressed private archive is saved.`,
+    confirmLabel:'Archive day'
+  });
+  if(!confirmed)return;
+  $('auditArchiveButton').disabled=true;
+  setAuditManagementStatus(`Archiving all audit events for ${day} UTC…`);
+  let result;
+  try{
+    result=await foodSafeProClient.functions.invoke('foodsafe-audit-management',{
+      body:{action:'archive_day',day}
+    });
+  }catch(error){
+    setAuditManagementStatus(`Could not archive audit events. ${error.message||'Please try again.'}`,true);
+    $('auditArchiveButton').disabled=false;
+    return;
+  }
+  const {data,error}=result;
+  if(error){
+    setAuditManagementStatus(`Could not archive audit events. ${error.message||'Please try again.'}`,true);
+    $('auditArchiveButton').disabled=false;
+    return;
+  }
+  setAuditManagementStatus(data?.message||`Audit archive saved for ${day} UTC.`);
+  await loadAuditEvents();
 }
 
 async function loadDownloadCenter(){
@@ -8676,7 +9058,7 @@ async function deleteHelpdeskTicket(){
 // --- GLOBALLY SYNCHRONIZED MAINTENANCE MODE CHECK (SUPABASE) ---
 function maintenanceConfigErrorMessage(error){
   if(['42883','PGRST202','PGRST204','PGRST205'].includes(error?.code)){
-    return 'Apply supabase/maintenance-access.sql in the Supabase SQL editor to configure maintenance notices and staff access.';
+    return 'Apply supabase/maintenance-access.sql and supabase/maintenance-mode-rpc.sql in the Supabase SQL editor to configure maintenance mode and staff access.';
   }
   return error?.message||'Please try again.';
 }
@@ -8927,15 +9309,18 @@ async function toggleMaintenanceMode() {
   try{
     const isMaintenance = await checkMaintenanceStatus();
     newValue = !isMaintenance;
-    const {data,error}=await foodSafeProClient.functions.invoke('foodsafe-maintenance-mode',{
-      body:{enabled:newValue}
+    const {data,error}=await foodSafeProClient.rpc('foodsafe_set_maintenance_mode',{
+      p_enabled:newValue
     });
     if(error)throw error;
-    if(data?.enabled!==newValue)throw new Error('The server did not confirm the requested maintenance setting.');
+    if(data!==newValue)throw new Error('The server did not confirm the requested maintenance setting.');
     setMaintenanceControl(newValue);
   }catch(error){
-    if(status){status.classList.add('error');status.textContent=`Could not update maintenance mode. ${error.message||'Please try again.'}`;}
-    showSystemMessage('Error', 'Could not update maintenance mode: ' + (error.message||'Please try again.'), 'error');
+    const details=error?.code==='42501'
+      ?'Apply supabase/maintenance-mode-rpc.sql in Supabase and confirm you are signed in as an approved administrator.'
+      :maintenanceConfigErrorMessage(error);
+    if(status){status.classList.add('error');status.textContent=`Could not update maintenance mode. ${details}`;}
+    showSystemMessage('Error', 'Could not update maintenance mode: ' + details, 'error');
     return;
   }finally{
     button.disabled=false;
@@ -9517,6 +9902,7 @@ async function login() {
     currentRole = profile.role;
     currentProfile = profile;
     currentAuthUser = authData.user;
+    beginAuditSession('auth.sign_in');
     maintenanceLoginActive=false;
 
     // SHOW APPLICATION
@@ -9668,6 +10054,17 @@ foodSafeProClient?.auth.onAuthStateChange((event,session)=>{
 });
 
 async function logout(){
+  let auditEventsNotSaved=false;
+  if(currentProfile&&auditSessionId&&!isReadOnlyDemo()){
+    queueAuditEvent('auth.sign_out',{
+      page:currentDashboardView,
+      action:'signed_out',
+      duration_ms:Math.max(0,Date.now()-auditSessionStartedAt)
+    });
+    auditEventsNotSaved=!(await flushAllAuditEvents());
+  }
+  auditSessionId='';
+  auditSessionStartedAt=0;
   mandatoryTotpSetupPending=false;
   authenticatorLoginPending=false;
   maintenanceLoginActive=false;
@@ -9691,6 +10088,7 @@ async function logout(){
   if(foodSafeProClient)await foodSafeProClient.auth.signOut();
   currentUser=null;currentRole=null;currentProfile=null;currentAuthUser=null;currentDashboardView='account';data=[];profileSetupRequired=false;accountProfileEditField='';
   showAuth();
+  if(auditEventsNotSaved)showAppMessage('Your session was closed, but some audit events could not be saved. Notify the administrator.');
 }
 function resetPassword(){showReset();}
 async function sendAccountPasswordReset(){
@@ -11459,6 +11857,7 @@ async function init(){
           return;
         }
         currentProfile=profile;currentUser=profile.username||session.user.email.split('@')[0];currentRole=profile.role;currentAuthUser=session.user;
+        beginAuditSession('auth.session_resume');
         maintenanceLoginActive=false;
         $('maintenance-screen').classList.add('hidden');
         $('landing-page').classList.add('hidden');
