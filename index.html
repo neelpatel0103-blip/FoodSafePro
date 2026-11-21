@@ -112,6 +112,7 @@ body.foodsafe-night-mode .staff-account-danger-zone { border-color:#65413f;backg
 body.foodsafe-night-mode .staff-account-danger-zone p { color:#d0aaa5; }
 @media (max-width:1100px){ .audit-management-toolbar{grid-template-columns:repeat(2,minmax(190px,1fr));}.audit-management-toolbar-actions{grid-column:1/-1;justify-content:flex-start}.audit-management-toolbar-actions .staff-deletion-button{flex:1 1 180px}}
 @media (max-width:620px){ .audit-management-toolbar{grid-template-columns:1fr}.audit-management-toolbar-actions{grid-column:auto}.audit-management-toolbar-actions .staff-deletion-button{flex:1 1 145px}}
+@media (max-width:620px){ .audit-settings-menu{justify-self:start}.audit-settings-popover{position:fixed;top:92px;right:12px;width:calc(100vw - 24px);max-height:calc(100dvh - 112px);overflow-y:auto}}
 @media(max-width:720px){ .staff-account-tools-modal.modal-content{width:94%;max-height:92vh}.staff-account-grid{grid-template-columns:1fr}.staff-account-card-email{grid-column:auto}.staff-account-danger-zone{align-items:flex-start;flex-direction:column}.staff-account-modal-header,.staff-account-modal-body{padding-left:16px;padding-right:16px}.staff-account-modal-avatar{width:40px;height:40px;flex-basis:40px}.staff-account-modal-title strong{font-size:15px}.staff-account-modal-title small{max-width:220px}}
 .hidden { display: none !important; }
 .landing-page { min-height: 100vh; padding: 0 clamp(20px, 6vw, 92px); color: #17241d; background: radial-gradient(ellipse at 82% 13%, rgba(223,235,216,.42), transparent 31%), #f8f8f3; }
@@ -443,6 +444,26 @@ body.foodsafe-night-mode #dashboardStaffDeletionView .staff-deletion-search inpu
 .audit-management-header p { max-width: 760px; margin: 0; color: #748177; font-size: 11px; line-height: 1.7; }
 .audit-management-toolbar { margin-bottom:14px; padding:16px; border:1px solid #e4ebe3; border-radius:14px; display:grid; grid-template-columns:minmax(190px,1fr) 170px minmax(220px,1.2fr) minmax(170px,.8fr) auto; align-items:end; gap:12px; background:#fff; }
 .audit-management-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.audit-settings-menu { position:relative; min-width:38px; justify-self:end; }
+.audit-settings-toggle { width:38px;height:38px;border:1px solid #dde7dc;border-radius:10px;display:grid;place-items:center;color:#4a6654;background:#fff;font-size:14px;cursor:pointer; }
+.audit-settings-toggle:hover,.audit-settings-toggle[aria-expanded="true"] { border-color:#b9ccb7;background:#f3f8f2;color:#285d3f; }
+.audit-settings-popover { position:absolute;z-index:35;top:calc(100% + 8px);right:0;width:230px;padding:8px;border:1px solid #dde7dc;border-radius:14px;background:#fff;box-shadow:0 16px 42px rgba(31,55,38,.16); }
+.audit-settings-popover.hidden { display:none; }
+.audit-settings-heading { padding:8px 9px 7px;color:#7b887f;font-size:9px;font-weight:800;letter-spacing:.8px;text-transform:uppercase; }
+.audit-settings-list { display:grid;gap:3px; }
+.audit-settings-action { width:100%;min-height:38px;padding:0 9px;border:0;border-radius:9px;display:flex;align-items:center;gap:9px;color:#43584a;background:transparent;font-size:10px;font-weight:750;text-align:left;cursor:pointer; }
+.audit-settings-action i { width:18px;color:#5e8269;text-align:center; }
+.audit-settings-action:hover { background:#f2f7f1;color:#285d3f; }
+.audit-settings-action:disabled { opacity:.48;cursor:not-allowed; }
+.audit-settings-action.danger { color:#a5433f; }
+.audit-settings-action.danger i { color:#b95a53; }
+.audit-settings-action.danger:hover { background:#fff4f2; }
+body.foodsafe-night-mode .audit-settings-toggle,body.foodsafe-night-mode .audit-settings-popover { border-color:#2d4034;background:#17251c;color:#dce7df; }
+body.foodsafe-night-mode .audit-settings-toggle:hover,body.foodsafe-night-mode .audit-settings-toggle[aria-expanded="true"] { border-color:#3d6049;background:#1d3024;color:#a9dfc1; }
+body.foodsafe-night-mode .audit-settings-action { color:#cbd7ce; }
+body.foodsafe-night-mode .audit-settings-action:hover { background:#203528;color:#eaf5ed; }
+body.foodsafe-night-mode .audit-settings-action.danger { color:#ffaaa4; }
+body.foodsafe-night-mode .audit-settings-action.danger:hover { background:#342526; }
 .audit-management-toolbar-actions { min-width:188px; align-self:start; justify-content:flex-end; }
 .audit-management-toolbar-actions .staff-deletion-button { min-height:34px; }
 .audit-management-toolbar-actions .staff-deletion-button.danger { margin-left:0; }
@@ -3283,13 +3304,21 @@ body.foodsafe-night-mode #dashboardHelpdeskView.is-admin .helpdesk-admin-tools {
           <input id="auditLoggingToggle" type="checkbox" role="switch" onchange="toggleAuditLogging(this.checked)">
           <span class="homepage-visibility-switch-track" aria-hidden="true"></span>
         </label>
-        <div class="audit-management-actions audit-management-toolbar-actions">
-          <button class="staff-deletion-button" type="button" onclick="loadAuditManagement()"><i class="fas fa-rotate" aria-hidden="true"></i> Refresh</button>
-          <button id="auditDownloadButton" class="staff-deletion-button" type="button" onclick="downloadAuditEvents()" disabled><i class="fas fa-download" aria-hidden="true"></i> Download CSV</button>
-          <button id="auditArchiveButton" class="staff-deletion-button" type="button" onclick="archiveAuditDay()" disabled><i class="fas fa-box-archive" aria-hidden="true"></i> Archive completed day</button>
-          <button id="auditClearButton" class="staff-deletion-button danger" type="button" onclick="clearAuditLogs()" disabled><i class="fas fa-trash-can" aria-hidden="true"></i> Clear selected logs</button>
-          <button class="staff-deletion-button danger" type="button" onclick="clearAllAuditLogs()"><i class="fas fa-database" aria-hidden="true"></i> Clear all audit logs</button>
-          <button class="staff-deletion-button" type="button" onclick="loadAuditArchiveFiles()"><i class="fas fa-folder-open" aria-hidden="true"></i> Saved audit files</button>
+        <div class="audit-settings-menu">
+          <button id="auditSettingsToggle" class="audit-settings-toggle" type="button" aria-label="Audit settings" title="Audit settings" aria-haspopup="menu" aria-expanded="false" aria-controls="auditSettingsMenu" onclick="toggleAuditSettingsMenu(event)">
+            <i class="fas fa-gear" aria-hidden="true"></i>
+          </button>
+          <section id="auditSettingsMenu" class="audit-settings-popover hidden" aria-label="Audit settings">
+            <div class="audit-settings-heading">Audit actions</div>
+            <div class="audit-settings-list" role="menu">
+              <button type="button" role="menuitem" class="audit-settings-action" onclick="closeAuditSettingsMenu();loadAuditManagement()"><i class="fas fa-rotate" aria-hidden="true"></i>Refresh</button>
+              <button id="auditDownloadButton" type="button" role="menuitem" class="audit-settings-action" onclick="closeAuditSettingsMenu();downloadAuditEvents()" disabled><i class="fas fa-download" aria-hidden="true"></i>Download CSV</button>
+              <button id="auditArchiveButton" type="button" role="menuitem" class="audit-settings-action" onclick="closeAuditSettingsMenu();archiveAuditDay()" disabled><i class="fas fa-box-archive" aria-hidden="true"></i>Archive completed day</button>
+              <button id="auditClearButton" type="button" role="menuitem" class="audit-settings-action danger" onclick="closeAuditSettingsMenu();clearAuditLogs()" disabled><i class="fas fa-trash-can" aria-hidden="true"></i>Clear selected logs</button>
+              <button type="button" role="menuitem" class="audit-settings-action danger" onclick="closeAuditSettingsMenu();clearAllAuditLogs()"><i class="fas fa-database" aria-hidden="true"></i>Clear all audit logs</button>
+              <button type="button" role="menuitem" class="audit-settings-action" onclick="closeAuditSettingsMenu();loadAuditArchiveFiles()"><i class="fas fa-folder-open" aria-hidden="true"></i>Saved audit files</button>
+            </div>
+          </section>
         </div>
       </div>
       <p class="audit-management-note">Logs are private to administrators. Passwords, tokens, form values, chat text, and helpdesk message contents are never stored. Administrators can manually archive a completed UTC day; archives are compressed in private Supabase Storage, not Google Drive.</p>
@@ -5104,6 +5133,32 @@ function setAuditManagementStatus(message,isError=false){
   status.textContent=message;
   status.classList.toggle('error',isError);
 }
+
+function toggleAuditSettingsMenu(event){
+  event?.stopPropagation();
+  const menu=$('auditSettingsMenu');
+  const toggle=$('auditSettingsToggle');
+  if(!menu||!toggle)return;
+  const open=menu.classList.contains('hidden');
+  menu.classList.toggle('hidden',!open);
+  toggle.setAttribute('aria-expanded',String(open));
+}
+
+function closeAuditSettingsMenu(){
+  $('auditSettingsMenu')?.classList.add('hidden');
+  $('auditSettingsToggle')?.setAttribute('aria-expanded','false');
+}
+
+document.addEventListener('click',event=>{
+  if(event.target instanceof Element&&!event.target.closest('.audit-settings-menu'))closeAuditSettingsMenu();
+});
+document.addEventListener('keydown',event=>{
+  if(event.key==='Escape'&&!$('auditSettingsMenu')?.classList.contains('hidden')){
+    event.preventDefault();
+    closeAuditSettingsMenu();
+    $('auditSettingsToggle')?.focus();
+  }
+});
 
 async function loadAuditLoggingSetting(){
   if(!currentProfile||isReadOnlyDemo()||!foodSafeProClient)return;
