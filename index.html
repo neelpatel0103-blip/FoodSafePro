@@ -72,6 +72,45 @@ th{background:#f1f5f9;color:#6b7280;}
 #modal { position: fixed; inset: 0; background-color: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 50; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
 #modal.show { opacity: 1; pointer-events: auto; }
 .modal-content { background-color: #fff; border-radius: 1rem; padding: 1.5rem; max-width: 600px; width: 90%; box-shadow: 0 5px 20px rgba(0,0,0,0.3); transition: transform 0.3s; }
+.staff-account-tools-modal.modal-content { max-width: 920px; max-height: min(88vh,820px); overflow-y: auto; padding: 0; border: 1px solid #e5ece4; border-radius: 22px; box-shadow: 0 24px 70px rgba(27,55,38,.24); }
+.staff-account-modal-header { min-height:82px; padding: 18px 20px; border-bottom: 1px solid #edf1ec; display: grid; grid-template-columns:minmax(0,1fr) 38px; align-items: center; gap: 12px; background: linear-gradient(135deg,#f8fbf7,#fff); }
+.staff-account-modal-profile { display:flex; align-items:center; gap:12px; min-width:0; flex:1; }
+.staff-account-modal-avatar { width:44px;height:44px;flex:0 0 44px;border-radius:14px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,#174b37,#397453);font-size:15px;font-weight:800;box-shadow:0 8px 18px rgba(23,75,55,.16); }
+.staff-account-modal-title { min-width:0; }
+.staff-account-modal-title strong { display:block;white-space:nowrap;color:#263b2d;font-size:17px;line-height:1.2; }
+.staff-account-modal-title small { display:block;max-width:360px;margin-top:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#7b877f;font-size:10px;line-height:1.3; }
+.staff-account-modal-close { width:38px;height:38px;justify-self:end;border:1px solid #e4eae3;border-radius:10px;display:grid;place-items:center;color:#68786d;background:#fff;cursor:pointer; }
+.staff-account-modal-body { padding:20px 24px 22px; }
+.staff-account-status { min-height:38px;padding:10px 12px;border:1px solid #dfe8df;border-radius:10px;color:#45624f;background:#f7faf6;font-size:11px;line-height:1.5; }
+.staff-account-status.hidden { display:none; }
+.staff-account-status.error { border-color:#f0cbc8;color:#9f4742;background:#fff7f6; }
+.staff-account-grid { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px; }
+.staff-account-card { min-width:0;padding:16px;border:1px solid #e4ebe3;border-radius:14px;background:#fff; }
+.staff-account-card h3 { margin:0 0 5px;color:#34483a;font-size:12px; }
+.staff-account-card > p { min-height:32px;margin:0 0 12px;color:#7b877f;font-size:10px;line-height:1.6; }
+.staff-account-card-email { grid-column:1 / -1; }
+.staff-account-field { margin-bottom:10px; }
+.staff-account-field input { width:100%;min-height:42px;padding:10px 12px;border:1px solid #dfe6dd;border-radius:9px;outline:none;color:#34483a;background:#fff;font-size:11px; }
+.staff-account-field input:focus { border-color:#65a27c;box-shadow:0 0 0 3px rgba(101,162,124,.12); }
+.staff-account-primary { min-height:38px;padding:0 12px;border:0;border-radius:9px;color:#fff;background:#397453;font-size:10px;font-weight:800;cursor:pointer; }
+.staff-account-primary:hover { background:#2f6646; }
+.staff-account-secondary { min-height:38px;padding:0 12px;border:1px solid #dfe6dd;border-radius:9px;color:#41614d;background:#fff;font-size:10px;font-weight:800;cursor:pointer; }
+.staff-account-danger-zone { margin-top:14px;padding:14px 16px;border:1px solid #efcfcc;border-radius:14px;display:flex;align-items:center;justify-content:space-between;gap:14px;background:#fff9f8; }
+.staff-account-danger-zone h3 { margin:0 0 4px;color:#9d4541;font-size:12px; }
+.staff-account-danger-zone p { margin:0;color:#88716f;font-size:10px;line-height:1.5; }
+.staff-account-danger-button { flex:0 0 auto;min-height:38px;padding:0 12px;border:0;border-radius:9px;color:#fff;background:#b94d48;font-size:10px;font-weight:800;cursor:pointer; }
+.staff-account-modal-footer { margin-top:16px;display:flex;justify-content:flex-end; }
+.staff-account-modal-footer button { min-height:38px;padding:0 14px;border:1px solid #dfe6dd;border-radius:9px;color:#526357;background:#fff;font-size:10px;font-weight:800;cursor:pointer; }
+body.foodsafe-night-mode .staff-account-tools-modal.modal-content { border-color:#2d4034;background:#15231a; }
+body.foodsafe-night-mode .staff-account-modal-header { border-color:#2d4034;background:linear-gradient(135deg,#17251c,#132018); }
+body.foodsafe-night-mode .staff-account-modal-title strong { color:#edf5ef; }
+body.foodsafe-night-mode .staff-account-modal-title small,body.foodsafe-night-mode .staff-account-card > p { color:#a8b5ab; }
+body.foodsafe-night-mode .staff-account-modal-close,body.foodsafe-night-mode .staff-account-card,body.foodsafe-night-mode .staff-account-field input,body.foodsafe-night-mode .staff-account-modal-footer button { border-color:#34483a;color:#dce7df;background:#17251c; }
+body.foodsafe-night-mode .staff-account-card h3 { color:#e2ebe4; }
+body.foodsafe-night-mode .staff-account-status { border-color:#34483a;color:#bdcbbf;background:#17251c; }
+body.foodsafe-night-mode .staff-account-danger-zone { border-color:#65413f;background:#2b2023; }
+body.foodsafe-night-mode .staff-account-danger-zone p { color:#d0aaa5; }
+@media(max-width:720px){ .staff-account-tools-modal.modal-content{width:94%;max-height:92vh}.staff-account-grid{grid-template-columns:1fr}.staff-account-card-email{grid-column:auto}.staff-account-danger-zone{align-items:flex-start;flex-direction:column}.staff-account-modal-header,.staff-account-modal-body{padding-left:16px;padding-right:16px}.staff-account-modal-avatar{width:40px;height:40px;flex-basis:40px}.staff-account-modal-title strong{font-size:15px}.staff-account-modal-title small{max-width:220px}}
 .hidden { display: none !important; }
 .landing-page { min-height: 100vh; padding: 0 clamp(20px, 6vw, 92px); color: #17241d; background: radial-gradient(ellipse at 82% 13%, rgba(223,235,216,.42), transparent 31%), #f8f8f3; }
 .landing-nav { position: relative; z-index: 20; max-width: 1400px; min-height: 88px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; border-bottom: 1px solid rgba(43,71,51,.07); }
@@ -831,7 +870,8 @@ body.foodsafe-night-mode .access-control-staff-result small { color: #aab9ae; }
 .chat-dialog-heading h2 { margin: 0; color: #2e4435; font-size: 15px; }
 .chat-dialog-heading p { margin: 3px 0 0; color: #829087; font-size: 10px; }
 .chat-dialog-close { width: 34px; height: 34px; border: 0; border-radius: 9px; color: #65756a; background: #f2f5f1; cursor: pointer; }
-.chat-theme-toggle { min-height: 34px; padding: 0 10px; border: 1px solid #e1e8df; border-radius: 9px; display: inline-flex; align-items: center; gap: 7px; color: #52665a; background: #f7f9f6; font-size: 10px; font-weight: 750; cursor: pointer; }
+.chat-theme-toggle { width:34px; height:34px; min-height:34px; padding:0; border:1px solid #e1e8df; border-radius:9px; display:inline-grid; place-items:center; color:#52665a; background:#f7f9f6; font-size:13px; cursor:pointer; }
+.chat-theme-toggle span { display:none; }
 .chat-theme-toggle:hover { border-color: #bdcfbf; background: #edf5eb; }
 .password-match-tick { position: absolute; top: 50%; right: 12px; transform: translateY(-50%); color: #21864d; font-size: 15px; pointer-events: none; }
 .chat-dialog-delete { min-height: 34px; padding: 0 10px; border: 1px solid #f0d7d4; border-radius: 9px; color: #a5433f; background: #fff8f7; font-size: 10px; font-weight: 750; cursor: pointer; }
@@ -861,7 +901,7 @@ body.foodsafe-night-mode .access-control-staff-result small { color: #aab9ae; }
 .chat-conversation-header { min-height: 58px; padding: 11px 16px; border-bottom: 1px solid #f0f2ef; display: flex; align-items: center; gap: 10px; }
 .chat-conversation-header-copy { min-width: 0; flex: 1; }
 .chat-back { display: none; width: 34px; height: 34px; border: 0; border-radius: 9px; color: #52665a; background: #f1f5ef; cursor: pointer; }
-.chat-admin-delete-all { min-height: 34px; padding: 0 10px; border: 1px solid #f0d7d4; border-radius: 9px; color: #a5433f; background: #fff8f7; font-size: 10px; font-weight: 750; cursor: pointer; }
+.chat-admin-delete-all { width:34px; height:34px; min-height:34px; padding:0; border:1px solid #f0d7d4; border-radius:9px; display:inline-grid; place-items:center; color:#a5433f; background:#fff8f7; font-size:13px; cursor:pointer; }
 .chat-admin-delete-all:disabled { opacity: .55; cursor: wait; }
 .chat-conversation-header strong { display: block; color: #34483a; font-size: 12px; }
 .chat-conversation-header small { display: block; margin-top: 3px; color: #839087; font-size: 9px; }
@@ -1321,7 +1361,7 @@ body.foodsafe-night-mode .account-actions-wrap .account-panel-actions button { b
   .chat-contacts-message { padding: 12px 9px; }
   .chat-conversation-header { min-height: 52px; padding: 8px 12px; }
   .chat-back { display: inline-grid; flex: 0 0 auto; place-items: center; }
-  .chat-admin-delete-all { padding: 0 8px; font-size: 9px; }
+  .chat-admin-delete-all { width:34px;height:34px;padding:0;font-size:13px; }
   .chat-admin-delete-thread { padding: 0 8px; font-size: 9px; }
   .chat-conversation-actions { padding: 6px 10px; }
   .chat-delete-request { padding: 8px 10px; }
@@ -2776,7 +2816,6 @@ body.foodsafe-night-mode #dashboardHelpdeskView.is-admin .helpdesk-admin-tools {
       <div id="adminToolsGroup" class="dashboard-side-admin" style="display:none;">
         <span class="dashboard-side-label">ADMINISTRATION</span>
         <button id="adminManageBtn" type="button" onclick="showDashboardView('staff');manageStaff()"><i class="fas fa-users"></i> Manage staff</button>
-        <button id="adminStaffDeletionNav" type="button" onclick="showDashboardView('staffDeletion');manageStaff()"><i class="fas fa-user-minus"></i> Staff deletion</button>
         <button id="adminAuditManagementBtn" type="button" onclick="showDashboardView('audit')"><i class="fas fa-clipboard-list"></i> Audit management</button>
         <button id="adminAccessControlsBtn" type="button" onclick="showDashboardView('access')"><i class="fas fa-user-shield"></i> Staff access controls</button>
         <button id="adminHomepageVisibilityBtn" type="button" onclick="showDashboardView('homepageVisibility')"><i class="fas fa-eye"></i> Homepage visibility</button>
@@ -2845,9 +2884,9 @@ body.foodsafe-night-mode #dashboardHelpdeskView.is-admin .helpdesk-admin-tools {
       <header class="chat-dialog-header">
         <div class="chat-dialog-heading"><span class="chat-dialog-mark"><i class="fas fa-comments" aria-hidden="true"></i></span><div><h2 id="staffAdminChatTitle">Team chat</h2><p>Private one-to-one conversations</p></div></div>
         <div class="chat-dialog-heading">
-          <button id="staffAdminChatThemeToggle" class="chat-theme-toggle" type="button" aria-label="Switch to night mode" title="Switch to night mode" aria-pressed="false" onclick="toggleChatTheme('staffAdminChatModal','staffAdminChatThemeToggle')"><i class="fas fa-moon" aria-hidden="true"></i><span>Night mode</span></button>
+          <button id="staffAdminChatThemeToggle" class="chat-theme-toggle" type="button" aria-label="Switch to night mode" title="Switch to night mode" aria-pressed="false" onclick="toggleChatTheme('staffAdminChatModal','staffAdminChatThemeToggle')"><i class="fas fa-moon" aria-hidden="true"></i></button>
           <button id="staffAdminChatDelete" class="chat-dialog-delete hidden" type="button" onclick="deleteStaffAdminChat()">Delete for me</button>
-          <button id="staffAdminChatDeleteAll" class="chat-admin-delete-all hidden" type="button" onclick="deleteAllStaffChats()">Delete all chats</button>
+          <button id="staffAdminChatDeleteAll" class="chat-admin-delete-all hidden" type="button" aria-label="Delete all chats" title="Delete all chats" onclick="deleteAllStaffChats()"><i class="fas fa-trash-can" aria-hidden="true"></i></button>
           <button class="chat-dialog-close" type="button" aria-label="Close team chat" onclick="closeStaffAdminChat()"><i class="fas fa-xmark" aria-hidden="true"></i></button>
         </div>
       </header>
@@ -2877,7 +2916,7 @@ body.foodsafe-night-mode #dashboardHelpdeskView.is-admin .helpdesk-admin-tools {
     <div class="chat-dialog">
       <header class="chat-dialog-header">
         <div class="chat-dialog-heading"><span class="chat-dialog-mark"><i class="fas fa-user-lock" aria-hidden="true"></i></span><div><h2 id="adminStaffPairChatsTitle">Staff-to-staff conversations</h2><p>Administrator deletion access</p></div></div>
-        <div class="chat-dialog-heading"><button id="adminStaffPairChatThemeToggle" class="chat-theme-toggle" type="button" aria-label="Switch to night mode" title="Switch to night mode" aria-pressed="false" onclick="toggleChatTheme('adminStaffPairChatsModal','adminStaffPairChatThemeToggle')"><i class="fas fa-moon" aria-hidden="true"></i><span>Night mode</span></button><button class="chat-dialog-close" type="button" aria-label="Close staff conversation manager" onclick="closeAdminStaffPairChats()"><i class="fas fa-xmark" aria-hidden="true"></i></button></div>
+        <div class="chat-dialog-heading"><button id="adminStaffPairChatThemeToggle" class="chat-theme-toggle" type="button" aria-label="Switch to night mode" title="Switch to night mode" aria-pressed="false" onclick="toggleChatTheme('adminStaffPairChatsModal','adminStaffPairChatThemeToggle')"><i class="fas fa-moon" aria-hidden="true"></i></button><button class="chat-dialog-close" type="button" aria-label="Close staff conversation manager" onclick="closeAdminStaffPairChats()"><i class="fas fa-xmark" aria-hidden="true"></i></button></div>
       </header>
       <div class="admin-chat-management-content">
         <p class="admin-chat-management-intro">These conversations are private. Their messages are not available to administrators; this separate list shows only participants and dates so you can remove a conversation when needed.</p>
@@ -3217,53 +3256,6 @@ body.foodsafe-night-mode #dashboardHelpdeskView.is-admin .helpdesk-admin-tools {
       </div>
     </div>
   </section>
-  <section class="dashboard-section-view hidden" id="dashboardStaffDeletionView" aria-labelledby="staff-deletion-title">
-    <header class="staff-deletion-header">
-      <span class="staff-management-kicker">ADMINISTRATION</span>
-      <h3 id="staff-deletion-title">Staff deletion</h3>
-      <p>Review and remove records linked to a staff member. Bulk deletion preserves activity logs for food-safety traceability; selected evidence files are also removed from storage.</p>
-    </header>
-    <div class="card">
-      <div class="staff-deletion-toolbar">
-        <label class="workflow-field staff-deletion-search" for="staffDeletionStaffSearch">Search staff
-          <input id="staffDeletionStaffSearch" type="search" placeholder="Name or username" autocomplete="off" oninput="filterStaffDeletionStaff()">
-        </label>
-        <label class="workflow-field" for="staffDeletionStaffSelect">Staff member
-          <select id="staffDeletionStaffSelect" onchange="loadStaffDeletionRecords()"><option value="">Choose a staff member…</option></select>
-        </label>
-        <label class="workflow-field" for="staffDeletionCategorySelect">Record type
-          <select id="staffDeletionCategorySelect" onchange="loadStaffDeletionRecords()">
-            <option value="temperature_records">Temperature records</option>
-            <option value="corrective_actions">Corrective actions</option>
-            <option value="cleaning_records">Cleaning records</option>
-            <option value="chat_conversations">Chat conversations</option>
-            <option value="notifications">Notifications</option>
-            <option value="activity_logs">Activity logs</option>
-            <option value="workflow_evidence">Workflow evidence</option>
-          </select>
-        </label>
-        <div class="staff-deletion-controls">
-          <button class="staff-deletion-button" type="button" onclick="loadStaffDeletionRecords()"><i class="fas fa-rotate" aria-hidden="true"></i> Refresh records</button>
-          <button class="staff-deletion-button danger" type="button" onclick="openDeleteAllStaffDataConfirmation()"><i class="fas fa-trash-can" aria-hidden="true"></i> Delete all selected data</button>
-        </div>
-      </div>
-      <section class="staff-deletion-bulk" aria-labelledby="staffDeletionBulkTitle">
-        <h4 id="staffDeletionBulkTitle">Included in bulk deletion</h4>
-        <div id="staffDeletionCategories" class="staff-deletion-categories">
-          <label class="staff-deletion-category"><input type="checkbox" value="temperature_records" checked disabled> Temperature records</label>
-          <label class="staff-deletion-category"><input type="checkbox" value="corrective_actions" checked disabled> Corrective actions</label>
-          <label class="staff-deletion-category"><input type="checkbox" value="cleaning_records" checked disabled> Cleaning records</label>
-          <label class="staff-deletion-category"><input type="checkbox" value="chat_conversations" checked disabled> Chat conversations</label>
-          <label class="staff-deletion-category"><input type="checkbox" value="notifications" checked disabled> Notifications</label>
-          <label class="staff-deletion-category"><input type="checkbox" value="activity_logs" checked disabled> Activity logs (preserved in bulk)</label>
-          <label class="staff-deletion-category"><input type="checkbox" value="workflow_evidence" checked disabled> Workflow evidence</label>
-        </div>
-        <label class="staff-deletion-account-option"><input id="staffDeletionDeleteAccount" type="checkbox" checked onchange="toggleStaffDeleteAccountScope()"> Also permanently remove the staff profile and Supabase sign-in account. Account removal requires all categories above; uncheck this option to choose specific categories and keep the account.</label>
-      </section>
-      <p id="staffDeletionStatus" class="staff-deletion-status" role="status" aria-live="polite">Choose a staff member and record type to review linked records.</p>
-      <div id="staffDeletionRecords" class="staff-deletion-list" aria-live="polite"></div>
-    </div>
-  </section>
   <section class="dashboard-section-view hidden" id="dashboardAuditManagementView" aria-labelledby="audit-management-title">
     <header class="audit-management-header">
       <span class="staff-management-kicker">ADMINISTRATION</span>
@@ -3280,6 +3272,11 @@ body.foodsafe-night-mode #dashboardHelpdeskView.is-admin .helpdesk-admin-tools {
         </label>
         <label class="workflow-field" for="auditSearchInput">Filter events
           <input id="auditSearchInput" type="search" placeholder="Filter action, page, or record type" oninput="filterAuditEvents()">
+        </label>
+        <label class="homepage-visibility-setting" for="auditLoggingToggle">
+          <span class="homepage-visibility-setting-copy"><strong>Audit logging</strong><small id="auditLoggingToggleStatus">Loading status…</small></span>
+          <input id="auditLoggingToggle" type="checkbox" role="switch" onchange="toggleAuditLogging(this.checked)">
+          <span class="homepage-visibility-switch-track" aria-hidden="true"></span>
         </label>
         <div class="audit-management-actions">
           <button class="staff-deletion-button" type="button" onclick="loadAuditManagement()"><i class="fas fa-rotate" aria-hidden="true"></i> Refresh</button>
@@ -3537,7 +3534,7 @@ const foodSafeProClient = configured ? window.supabase.createClient(SUPABASE_URL
 const foodSafeProPublicClient = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {auth:{autoRefreshToken:false,persistSession:false,detectSessionInUrl:false}}) : null;
 
 let currentUser = null, currentRole = null, currentProfile = null, currentAuthUser = null, currentDashboardView = 'account', data = [], filteredData = [], charts = {}, cleaningAssignmentReport = [], correctiveActionReport = [], incidentLearningCases = [], adminStaffPairChats = [], staffAccessBlocked = new Set(), staffAccessStaff = [], selectedAccessStaffId = '', accessControlLoadRequest = 0, maintenanceAllowedStaffIds = new Set(), maintenanceScheduledEndAt = null, maintenanceAccessPending = false, maintenanceAccessResolver = null, maintenanceLoginActive = false, authenticatorLoginPending = false, passwordRecoveryPending = false, staffAccessRefreshTimer = null, staffAccessRealtimeChannel = null, nightModeActive = false, workflowDeadlineTimer = null, workflowDeadlineChecksInitialized = false, workflowNotificationError = '', workflowNotificationEventsBound = false, staffAdminChatThreadId = null, staffAdminChatContacts = [], staffAdminChatPollTimer = null, staffAdminChatEventsBound = false, workflowConfirmationResolver = null, workflowConfirmationPreviousFocus = null, workflowInputResolver = null, workflowInputPreviousFocus = null, systemMessagePreviousFocus = null, pendingTotpFactorId = '', mandatoryTotpSetupPending = false, requireAuthenticatorForNewStaff = false, staffManagementAccounts = [], pendingStaffRecordDeletion = null, pendingStaffBulkDeletion = null, profileSetupRequired = false, accountProfileEditField = '';
-let auditSessionId = '', auditSessionStartedAt = 0, auditQueue = [], auditFlushTimer = null, auditFlushPromise = null, auditUiEventsBound = false, auditManagementAccounts = [], auditEvents = [], auditRenderedCount = 0, auditLoggingError = '', auditEventsRequestId = 0;
+let auditSessionId = '', auditSessionStartedAt = 0, auditQueue = [], auditFlushTimer = null, auditFlushPromise = null, auditUiEventsBound = false, auditManagementAccounts = [], auditEvents = [], auditRenderedCount = 0, auditLoggingError = '', auditEventsRequestId = 0, auditLoggingEnabled = true;
 let whatsNewRealtimeChannel=null,whatsNewRefreshTimer=null,whatsNewNotificationEventsBound=false,homepageFeedbackPreviousFocus=null,helpdeskNoticePreviousFocus=null,helpdeskNoticeFocusTargetId='',helpdeskSelectedTicketId='',helpdeskGuestTicketId='',helpdeskGuestSecret='',helpdeskListRequest=0,helpdeskDetailRequest=0;
 let changeUsernameAvailabilityTimer=null,changeUsernameAvailabilityRequest=0,changeEmailAvailabilityTimer=null,changeEmailAvailabilityRequest=0,changeEmailAvailabilityState='',changeEmailAvailabilityValue='',changeEmailAvailabilityMessage='',changeEmailCurrentAddress='',pendingEmailChangeEmail='',lastConfirmedEmailChangeEmail='';
 const $ = id => document.getElementById(id);
@@ -4190,8 +4187,9 @@ async function loadWhatsNewUpdates(){
     list.innerHTML=`<div class="whats-new-empty" role="alert">${escapeHtml(whatsNewErrorMessage(error))}</div>`;
     return;
   }
-  const visible=(updates||[]).filter(update=>!update.cleared_at);
-  renderDashboardWhatsNew(visible.filter(update=>update.publish_to_staff||update.publish_to_homepage));
+  // Cleared_at is personal notification-dismissal state; it must not hide an
+  // announcement from the shared What’s new section.
+  renderDashboardWhatsNew((updates||[]).filter(update=>update.publish_to_staff||update.publish_to_homepage));
   if(isAdmin)renderWhatsNewDrafts((updates||[]).filter(update=>!update.publish_to_staff&&!update.publish_to_homepage));
 }
 
@@ -4823,6 +4821,7 @@ function beginAuditSession(eventType){
   auditSessionId=crypto.randomUUID();
   auditSessionStartedAt=Date.now();
   auditQueue=[];
+  void loadAuditLoggingSetting();
   bindAuditUiEvents();
   queueAuditEvent(eventType,{action:eventType==='auth.sign_in'?'signed_in':'session_resumed'});
 }
@@ -4860,7 +4859,7 @@ function bindAuditUiEvents(){
 }
 
 function queueAuditEvent(eventType,details={}){
-  if(!currentProfile||isReadOnlyDemo()||!auditSessionId)return;
+  if(!currentProfile||isReadOnlyDemo()||!auditSessionId||!auditLoggingEnabled)return;
   auditQueue.push({
     event_type:eventType,
     page:details.page||currentDashboardView||'account',
@@ -4880,6 +4879,7 @@ function queueAuditEvent(eventType,details={}){
 async function flushAuditEvents(){
   if(auditFlushTimer){clearTimeout(auditFlushTimer);auditFlushTimer=null;}
   if(auditFlushPromise)return auditFlushPromise;
+  if(!auditLoggingEnabled){auditQueue=[];return true;}
   if(!auditQueue.length||!auditSessionId||!currentProfile||isReadOnlyDemo())return true;
   const batch=auditQueue.splice(0,100);
   auditFlushPromise=(async()=>{
@@ -4930,11 +4930,11 @@ function showDashboardView(view){
     openGuestHelpdeskModal();
     return;
   }
-  if(['feedback','staff','staffDeletion','audit','access','maintenance','homepageVisibility','webSettings'].includes(view)&&(currentRole!=='admin'||isReadOnlyDemo()))view='account';
+  if(['feedback','staff','audit','access','maintenance','homepageVisibility','webSettings'].includes(view)&&(currentRole!=='admin'||isReadOnlyDemo()))view='account';
   const requiredFeature=STAFF_ACCESS_VIEW_FEATURES[view];
   if(requiredFeature&&!requireStaffAccess(requiredFeature,{actionLabel:view}))return;
   const previousView=currentDashboardView;
-  currentDashboardView=['overview','whatsNew','records','downloads','knowledge','trends','corrective','cleaning','guide','helpdesk','feedback','staff','staffDeletion','audit','access','maintenance','homepageVisibility','webSettings'].includes(view)?view:'account';
+  currentDashboardView=['overview','whatsNew','records','downloads','knowledge','trends','corrective','cleaning','guide','helpdesk','feedback','staff','audit','access','maintenance','homepageVisibility','webSettings'].includes(view)?view:'account';
   if(previousView!==currentDashboardView)queueAuditEvent('navigation.view',{page:currentDashboardView,action:'view_opened'});
   const views={
     account:'dashboardAccountView',
@@ -4950,7 +4950,6 @@ function showDashboardView(view){
     helpdesk:'dashboardHelpdeskView',
     feedback:'dashboardFeedbackView',
     staff:'dashboardStaffView',
-    staffDeletion:'dashboardStaffDeletionView',
     audit:'dashboardAuditManagementView',
     access:'dashboardAccessControlsView',
     maintenance:'dashboardMaintenanceView',
@@ -4971,7 +4970,6 @@ function showDashboardView(view){
     helpdesk:'#dashboardHelpdeskView',
     feedback:'#dashboardFeedback',
     staff:'#dashboardStaffView',
-    staffDeletion:'#dashboardStaffDeletionView',
     audit:'#dashboardAuditManagementView',
     access:'#dashboardAccessControlsView',
     maintenance:'#dashboardMaintenanceView',
@@ -4993,7 +4991,6 @@ function showDashboardView(view){
     helpdesk:'Customer helpdesk',
     feedback:'Visitor feedback',
     staff:'Manage staff',
-    staffDeletion:'Staff deletion',
     audit:'Audit management',
     access:'Staff access controls',
     maintenance:'Maintenance',
@@ -5034,13 +5031,6 @@ function showDashboardView(view){
     accessNav.classList.toggle('active',active);
     if(active)accessNav.setAttribute('aria-current','page');
     else accessNav.removeAttribute('aria-current');
-  }
-  const staffDeletionNav=$('adminStaffDeletionNav');
-  if(staffDeletionNav){
-    const active=currentDashboardView==='staffDeletion'&&currentRole==='admin';
-    staffDeletionNav.classList.toggle('active',active);
-    if(active)staffDeletionNav.setAttribute('aria-current','page');
-    else staffDeletionNav.removeAttribute('aria-current');
   }
   const auditNav=$('adminAuditManagementBtn');
   if(auditNav){
@@ -5101,8 +5091,56 @@ function setAuditManagementStatus(message,isError=false){
   status.classList.toggle('error',isError);
 }
 
+async function loadAuditLoggingSetting(){
+  if(!currentProfile||isReadOnlyDemo()||!foodSafeProClient)return;
+  const {data,error}=await foodSafeProClient.from('foodsafe_web_settings')
+    .select('audit_enabled')
+    .eq('id','main')
+    .maybeSingle();
+  if(error){
+    console.error('Could not load audit logging setting:',error);
+    if(currentRole==='admin')setAuditManagementStatus(`Could not load audit logging status. ${error.message||''}`,true);
+    return;
+  }
+  auditLoggingEnabled=data?.audit_enabled!==false;
+  const toggle=$('auditLoggingToggle');
+  const status=$('auditLoggingToggleStatus');
+  if(toggle){
+    toggle.checked=auditLoggingEnabled;
+    toggle.disabled=currentRole!=='admin';
+  }
+  if(status)status.textContent=auditLoggingEnabled?'Audit event generation is ON':'Audit event generation is OFF';
+  if(!auditLoggingEnabled){
+    auditQueue=[];
+    if(auditFlushTimer){clearTimeout(auditFlushTimer);auditFlushTimer=null;}
+  }
+}
+
+async function toggleAuditLogging(enabled){
+  if(currentRole!=='admin'||isReadOnlyDemo())return;
+  const toggle=$('auditLoggingToggle');
+  if(toggle)toggle.disabled=true;
+  const {error}=await foodSafeProClient.from('foodsafe_web_settings')
+    .update({audit_enabled:Boolean(enabled)})
+    .eq('id','main');
+  if(error){
+    console.error('Could not update audit logging setting:',error);
+    if(toggle)toggle.checked=!enabled;
+    setAuditManagementStatus(`Could not ${enabled?'enable':'disable'} audit logging. ${error.message||''}`,true);
+  }else{
+    auditLoggingEnabled=Boolean(enabled);
+    auditQueue=[];
+    if(auditFlushTimer){clearTimeout(auditFlushTimer);auditFlushTimer=null;}
+    const status=$('auditLoggingToggleStatus');
+    if(status)status.textContent=enabled?'Audit event generation is ON':'Audit event generation is OFF';
+    setAuditManagementStatus(enabled?'Audit logging is enabled.':'Audit logging is disabled. New audit events will not be generated.');
+  }
+  if(toggle)toggle.disabled=false;
+}
+
 async function loadAuditManagement(){
   if(currentRole!=='admin'||isReadOnlyDemo())return;
+  await loadAuditLoggingSetting();
   const accountSelect=$('auditAccountSelect');
   if(!accountSelect)return;
   setAuditManagementStatus('Loading staff and administrator accounts…');
@@ -10193,9 +10231,10 @@ async function confirmDeleteAccount(){
     button.textContent='Permanently delete';
   }
 }
-function openModalWithContent(html){
+function openModalWithContent(html,contentClass=''){
   const modal=$('modal'),inner=$('modalInner');
-  inner.classList.remove('mandatory-auth-setup','authenticator-success-view','maintenance-access-modal');
+  inner.classList.remove('mandatory-auth-setup','authenticator-success-view','maintenance-access-modal','staff-account-tools-modal');
+  if(contentClass)inner.classList.add(contentClass);
   inner.innerHTML=html;
   modal.removeAttribute('role');
   modal.removeAttribute('aria-modal');
@@ -10209,7 +10248,7 @@ function closeModal(){
   modal.classList.remove('show');
   modal.classList.add('hidden');
   modal.classList.remove('maintenance-access-denied-overlay');
-  inner?.classList.remove('maintenance-access-denied-content');
+  inner?.classList.remove('maintenance-access-denied-content','staff-account-tools-modal');
   modal.removeAttribute('role');
   modal.removeAttribute('aria-modal');
   modal.removeAttribute('aria-labelledby');
@@ -11011,13 +11050,17 @@ async function manageStaff(){
       manage.className='staff-management-action';
       manage.textContent='Account tools';
       manage.addEventListener('click',()=>openAdminStaffAccountManager(account));
-      actions.append(action,manage);
+      const removeAccount=document.createElement('button');
+      removeAccount.type='button';
+      removeAccount.className='staff-management-action suspend';
+      removeAccount.textContent='Delete account';
+      removeAccount.addEventListener('click',()=>openDeleteStaffAccountConfirmation(account));
+      actions.append(action,manage,removeAccount);
       actionCell.appendChild(actions);
       row.append(username,stateCell,actionCell);
       list.appendChild(row);
     });
     filterStaffAccounts();
-    if(currentDashboardView==='staffDeletion')await loadStaffDeletionRecords();
   }catch(error){
     console.error('Could not load staff accounts:',error);
     $('staff-total-count').textContent='—';
@@ -11066,44 +11109,78 @@ function openAdminStaffAccountManager(account){
   const staffId=String(account?.id||'');
   if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(staffId))return;
   const username=escapeHtml(account.username||'Staff member');
+  const initials=username.replace(/&[^;]+;/g,'').split(/[\s._-]+/).filter(Boolean).slice(0,2).map(part=>part[0]?.toUpperCase()).join('')||'ST';
   openModalWithContent(`
-    <h2 class="text-xl font-bold mb-2">Manage staff account</h2>
-    <p class="text-xs text-gray-600 mb-4">Secure account tools for <strong>${username}</strong>. Passwords are never displayed or logged.</p>
-    <div id="adminStaffAccountStatus" class="hidden text-xs p-2.5 rounded-lg mb-3" role="status" aria-live="polite"></div>
-    <section class="mb-5">
-      <h3 class="text-sm font-bold mb-1">Password recovery</h3>
-      <p class="text-xs text-gray-600 mb-2">Send a recovery link to the current address on this staff account.</p>
-      <button id="adminStaffRecoveryButton" type="button" onclick="sendAdminStaffPasswordRecovery('${staffId}')" class="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition text-xs">Send recovery email</button>
-    </section>
-    <section class="mb-5">
-      <h3 class="text-sm font-bold mb-1">Set a new password</h3>
-      <p class="text-xs text-gray-600 mb-2">Enter the new password twice. The staff member’s password is updated securely on the server.</p>
-      <div class="space-y-2">
-        <div class="relative floating-label"><input id="admin-staff-new-password" type="password" minlength="8" maxlength="128" autocomplete="new-password" placeholder=" " oninput="updatePasswordMatchIndicator('admin-staff-new-password','admin-staff-confirm-password','admin-staff-password-match')"><label for="admin-staff-new-password">New password (minimum 8 characters)</label></div>
-        <div class="relative floating-label"><input id="admin-staff-confirm-password" type="password" minlength="8" maxlength="128" autocomplete="new-password" placeholder=" " oninput="updatePasswordMatchIndicator('admin-staff-new-password','admin-staff-confirm-password','admin-staff-password-match')"><label for="admin-staff-confirm-password">Confirm new password</label><span id="admin-staff-password-match" class="password-match-tick hidden" role="status" aria-label="Passwords match" aria-live="polite"><i class="fas fa-check" aria-hidden="true"></i></span></div>
+    <header class="staff-account-modal-header">
+      <div class="staff-account-modal-profile">
+        <span class="staff-account-modal-avatar">${escapeHtml(initials)}</span>
+        <div class="staff-account-modal-title">
+          <strong>Manage staff account</strong>
+          <small>${username} · Secure account administration</small>
+        </div>
       </div>
-      <button id="adminStaffSetPasswordButton" type="button" onclick="setAdminStaffPassword('${staffId}')" class="mt-3 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition text-xs">Update password</button>
-    </section>
-    <section>
-      <h3 class="text-sm font-bold mb-1">Verified email change</h3>
-      <p class="text-xs text-gray-600 mb-2">Generate a one-time link and send it to the new address. The email changes only after the staff member confirms it.</p>
-      <div class="relative floating-label"><input id="admin-staff-new-email" type="email" autocomplete="email" placeholder=" "><label for="admin-staff-new-email">New email address</label></div>
-      <button id="adminStaffEmailLinkButton" type="button" onclick="generateAdminStaffEmailChangeLink('${staffId}')" class="mt-3 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition text-xs">Generate verification link</button>
-      <div id="adminStaffEmailLinkWrap" class="hidden mt-3">
-        <label class="block text-xs font-semibold mb-1" for="adminStaffEmailChangeLink">One-time email confirmation link</label>
-        <textarea id="adminStaffEmailChangeLink" rows="3" readonly class="w-full border rounded-lg p-2 text-xs break-all"></textarea>
-        <button type="button" onclick="copyAdminStaffEmailChangeLink()" class="mt-2 px-3 py-2 bg-gray-200 text-gray-800 rounded transition text-xs">Copy link</button>
+      <button type="button" class="staff-account-modal-close" onclick="closeModal()" aria-label="Close staff account tools"><i class="fas fa-xmark"></i></button>
+    </header>
+    <div class="staff-account-modal-body">
+      <div id="adminStaffAccountStatus" class="hidden staff-account-status" role="status" aria-live="polite"></div>
+      <div class="staff-account-grid">
+        <section class="staff-account-card">
+          <h3><i class="fas fa-envelope-circle-check mr-2"></i>Password recovery</h3>
+          <p>Send a secure password-reset link to the current email address.</p>
+          <button id="adminStaffRecoveryButton" type="button" onclick="sendAdminStaffPasswordRecovery('${staffId}')" class="staff-account-secondary"><i class="fas fa-paper-plane mr-2"></i>Send recovery email</button>
+        </section>
+        <section class="staff-account-card">
+          <h3><i class="fas fa-key mr-2"></i>Set a new password</h3>
+          <p>Enter and confirm a replacement password for this account.</p>
+          <div class="staff-account-field">
+            <input id="admin-staff-new-password" type="password" minlength="8" maxlength="128" autocomplete="new-password" placeholder="New password (minimum 8 characters)" oninput="updatePasswordMatchIndicator('admin-staff-new-password','admin-staff-confirm-password','admin-staff-password-match')">
+          </div>
+          <div class="staff-account-field">
+            <input id="admin-staff-confirm-password" type="password" minlength="8" maxlength="128" autocomplete="new-password" placeholder="Confirm new password" oninput="updatePasswordMatchIndicator('admin-staff-new-password','admin-staff-confirm-password','admin-staff-password-match')">
+          </div>
+          <span id="admin-staff-password-match" class="text-xs text-green-700 hidden"><i class="fas fa-check mr-1"></i>Passwords match</span>
+          <button id="adminStaffSetPasswordButton" type="button" onclick="setAdminStaffPassword('${staffId}')" class="staff-account-primary mt-2"><i class="fas fa-lock mr-2"></i>Update password</button>
+        </section>
+        <section class="staff-account-card staff-account-card-email">
+          <h3><i class="fas fa-at mr-2"></i>Verified email change</h3>
+          <p>Generate a one-time confirmation link. The change takes effect only after verification.</p>
+          <div class="staff-account-field">
+            <input id="admin-staff-new-email" type="email" autocomplete="email" placeholder="New email address">
+          </div>
+          <button id="adminStaffEmailLinkButton" type="button" onclick="generateAdminStaffEmailChangeLink('${staffId}')" class="staff-account-primary"><i class="fas fa-link mr-2"></i>Generate verification link</button>
+          <div id="adminStaffEmailLinkWrap" class="hidden mt-3">
+            <label class="block text-xs font-semibold mb-1" for="adminStaffEmailChangeLink">One-time email confirmation link</label>
+            <textarea id="adminStaffEmailChangeLink" rows="3" readonly class="w-full border rounded-lg p-2 text-xs break-all"></textarea>
+            <button type="button" onclick="copyAdminStaffEmailChangeLink()" class="staff-account-secondary mt-2">Copy link</button>
+          </div>
+        </section>
       </div>
-    </section>
-    <div class="mt-5 flex justify-end"><button type="button" onclick="closeModal()" class="px-3 py-2 bg-gray-200 rounded hover:bg-gray-300 transition text-xs">Done</button></div>
-  `);
+      <section class="staff-account-danger-zone">
+        <div>
+          <h3><i class="fas fa-user-xmark mr-2"></i>Delete staff account</h3>
+          <p>Permanently remove the profile, sign-in account, and linked staff data.</p>
+        </div>
+        <button type="button" onclick="openDeleteStaffAccountConfirmationById('${staffId}')" class="staff-account-danger-button">Delete account</button>
+      </section>
+      <div class="staff-account-modal-footer">
+        <button type="button" onclick="closeModal()">Done</button>
+      </div>
+    </div>
+  `,'staff-account-tools-modal');
 }
 
 function setAdminStaffAccountStatus(message,isError=false){
   const status=$('adminStaffAccountStatus');
-  if(!status)return;
-  status.textContent=message;
-  status.className=`block text-xs p-2.5 rounded-lg mb-3 ${isError?'bg-red-100 text-red-700 border border-red-200':'bg-green-100 text-green-700 border border-green-200'}`;
+  if(status){
+    status.textContent=message;
+    status.className=`staff-account-status${isError?' error':''}`;
+  }
+  showSystemMessage(
+    isError?'Staff account action not completed':'Staff account updated',
+    String(message),
+    isError?'error':'green',
+    'Done'
+  );
 }
 
 async function callAdminStaffManagement(action,staffId,extra={}){
@@ -11111,9 +11188,16 @@ async function callAdminStaffManagement(action,staffId,extra={}){
   const redirectTo=window.location.protocol==='file:'
     ?undefined
     :window.location.origin+window.location.pathname;
-  const {data:result,error}=await foodSafeProClient.functions.invoke('foodsafe-admin-staff-management',{
-    body:{action,staffId,...extra,...(redirectTo?{redirectTo}:{})}
-  });
+  const body={action,staffId,...extra,...(redirectTo?{redirectTo}:{})};
+  let result=null,error=null;
+  for(const functionName of ['foodsafe-admin-staff-management','staff-management-Edge-Function']){
+    const invocation=await foodSafeProClient.functions.invoke(functionName,{body});
+    result=invocation.data;
+    error=invocation.error;
+    if(!error)break;
+    const status=Number(error?.status||error?.context?.status||0);
+    if(functionName==='foodsafe-admin-staff-management'&&status!==404)break;
+  }
   if(error){
     let message=result?.message;
     if(!message&&error.context?.clone){
@@ -11216,6 +11300,10 @@ function setStaffDeletionStatus(message,isError=false){
 
 function staffManagementFetchErrorMessage(error){
   const errorName=error?.name||error?.constructor?.name;
+  const status=Number(error?.status||error?.context?.status||0);
+  if(status===404){
+    return 'The foodsafe-admin-staff-management Edge Function is not deployed in Supabase project uuurznggzieuypzozcwr. Deploy the function, or confirm that the app URL belongs to the same Supabase project.';
+  }
   return errorName==='FunctionsFetchError'
     ?'Could not reach the staff-management Edge Function. Deploy foodsafe-admin-staff-management to the same Supabase project as this app, then check network access and function CORS.'
     :'';
@@ -11346,6 +11434,35 @@ function toggleStaffDeleteAccountScope(){
   });
 }
 
+function openDeleteStaffAccountConfirmation(account){
+  if(currentRole!=='admin'||isReadOnlyDemo()||!account)return;
+  const staffId=String(account.id||'');
+  if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(staffId))return;
+  const username=String(account.username||'');
+  const categories=[
+    'temperature_records','corrective_actions','cleaning_records','chat_conversations',
+    'notifications','activity_logs','workflow_evidence'
+  ];
+  pendingStaffBulkDeletion={staffId,username,categories,deleteAccount:true};
+  openModalWithContent(`
+    <h2 class="text-xl font-bold mb-2 text-red-700">Delete staff account permanently?</h2>
+    <p class="text-sm text-gray-600 mb-2">This permanently removes <strong>${escapeHtml(username||'this staff member')}</strong>, their sign-in account, and all linked staff data.</p>
+    <p class="text-xs text-gray-600 mb-3">This cannot be undone. Activity logs are preserved for audit traceability.</p>
+    <label class="block text-xs font-semibold mb-1" for="staff-delete-all-confirm-username">Type <strong>${escapeHtml(username)}</strong> to confirm</label>
+    <input id="staff-delete-all-confirm-username" type="text" autocomplete="off" class="w-full border rounded-lg p-2 text-sm" oninput="validateStaffBulkDeletionConfirmation()">
+    <p id="staffBulkDeletionModalStatus" class="hidden text-xs p-2.5 rounded-lg mt-3" role="status" aria-live="polite"></p>
+    <div class="mt-4 flex justify-end gap-2">
+      <button type="button" onclick="closeModal()" class="px-3 py-2 bg-gray-200 rounded hover:bg-gray-300 transition text-xs">Cancel</button>
+      <button id="staffBulkDeletionConfirmButton" type="button" onclick="performStaffBulkDeletion()" disabled class="px-3 py-2 bg-red-600 hover:bg-red-700 text-white rounded transition text-xs disabled:opacity-50">Delete permanently</button>
+    </div>
+  `);
+}
+
+function openDeleteStaffAccountConfirmationById(staffId){
+  const account=staffManagementAccounts.find(item=>item.id===staffId);
+  openDeleteStaffAccountConfirmation(account);
+}
+
 async function performStaffRecordDeletion(){
   const pending=pendingStaffRecordDeletion;
   if(!pending)return;
@@ -11446,10 +11563,17 @@ async function performStaffBulkDeletion(){
     closeModal();
     if(pending.deleteAccount)await manageStaff();
     else await loadStaffDeletionRecords();
-    setStaffDeletionStatus(result.message||'The selected staff data was deleted.');
+    showSystemMessage(
+      pending.deleteAccount?'Staff account deleted':'Staff data deleted',
+      result.message||'The requested staff account data was deleted successfully.',
+      'green',
+      'Done'
+    );
   }catch(error){
     console.error('Could not delete staff data:',error);
-    setStaffBulkDeletionModalStatus(error.message||'Could not delete the selected staff data.',true);
+    const message=error.message||'Could not delete the selected staff data.';
+    setStaffBulkDeletionModalStatus(message,true);
+    showSystemMessage('Staff account action not completed',message,'error','Close');
     await manageStaff();
   }finally{
     if(button)button.disabled=false;
