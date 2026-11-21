@@ -113,6 +113,59 @@ body.foodsafe-night-mode .staff-account-danger-zone p { color:#d0aaa5; }
 @media (max-width:1100px){ .audit-management-toolbar{grid-template-columns:repeat(2,minmax(190px,1fr));}.audit-management-toolbar-actions{grid-column:1/-1;justify-content:flex-start}.audit-management-toolbar-actions .staff-deletion-button{flex:1 1 180px}}
 @media (max-width:620px){ .audit-management-toolbar{grid-template-columns:1fr}.audit-management-toolbar-actions{grid-column:auto}.audit-management-toolbar-actions .staff-deletion-button{flex:1 1 145px}}
 @media (max-width:620px){ .audit-settings-menu{justify-self:start}.audit-settings-popover{position:fixed;top:92px;right:12px;width:calc(100vw - 24px);max-height:calc(100dvh - 112px);overflow-y:auto}}
+@media (max-width:620px){
+  #dashboardAuditManagementView .card { padding:12px; }
+  #dashboardAuditManagementView .audit-management-toolbar {
+    grid-template-columns:minmax(0,1fr) minmax(138px,.72fr);
+    gap:10px;
+    padding:12px;
+  }
+  #dashboardAuditManagementView .audit-management-toolbar .workflow-field,
+  #dashboardAuditManagementView .audit-management-toolbar .homepage-visibility-setting {
+    min-width:0;
+    width:100%;
+  }
+  #dashboardAuditManagementView .audit-management-toolbar .workflow-field select,
+  #dashboardAuditManagementView .audit-management-toolbar .workflow-field input {
+    width:100%;
+    min-width:0;
+  }
+  #dashboardAuditManagementView .audit-management-toolbar label[for="auditSearchInput"] { grid-column:1/-1; }
+  #dashboardAuditManagementView .audit-settings-menu {
+    grid-column:1/-1;
+    width:100%;
+    justify-self:stretch;
+  }
+  #dashboardAuditManagementView .audit-settings-toggle {
+    width:100%;
+    grid-template-columns:18px auto;
+  }
+  #dashboardAuditManagementView .audit-settings-toggle::after {
+    content:"Audit actions";
+    margin-left:6px;
+  }
+  #dashboardAuditManagementView .audit-settings-toggle i { grid-column:1; }
+  #dashboardAuditManagementView .audit-settings-toggle { display:inline-grid;grid-auto-flow:column;justify-content:center;font-size:12px; }
+  #dashboardAuditManagementView .audit-settings-popover {
+    top:46px;
+    right:0;
+    left:auto;
+    width:min(280px,calc(100vw - 48px));
+    max-height:calc(100dvh - 140px);
+  }
+  #dashboardAuditManagementView .audit-table-wrap { border-radius:10px; }
+  #dashboardAuditManagementView .audit-table { min-width:680px; }
+  #dashboardAuditManagementView .staff-deletion-record {
+    align-items:flex-start;
+    flex-direction:column;
+  }
+  #dashboardAuditManagementView .staff-deletion-controls {
+    width:100%;
+  }
+  #dashboardAuditManagementView .staff-deletion-controls .staff-deletion-button {
+    flex:1;
+  }
+}
 @media(max-width:720px){ .staff-account-tools-modal.modal-content{width:94%;max-height:92vh}.staff-account-grid{grid-template-columns:1fr}.staff-account-card-email{grid-column:auto}.staff-account-danger-zone{align-items:flex-start;flex-direction:column}.staff-account-modal-header,.staff-account-modal-body{padding-left:16px;padding-right:16px}.staff-account-modal-avatar{width:40px;height:40px;flex-basis:40px}.staff-account-modal-title strong{font-size:15px}.staff-account-modal-title small{max-width:220px}}
 .hidden { display: none !important; }
 .landing-page { min-height: 100vh; padding: 0 clamp(20px, 6vw, 92px); color: #17241d; background: radial-gradient(ellipse at 82% 13%, rgba(223,235,216,.42), transparent 31%), #f8f8f3; }
