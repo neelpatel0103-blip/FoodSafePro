@@ -110,6 +110,8 @@ body.foodsafe-night-mode .staff-account-card h3 { color:#e2ebe4; }
 body.foodsafe-night-mode .staff-account-status { border-color:#34483a;color:#bdcbbf;background:#17251c; }
 body.foodsafe-night-mode .staff-account-danger-zone { border-color:#65413f;background:#2b2023; }
 body.foodsafe-night-mode .staff-account-danger-zone p { color:#d0aaa5; }
+@media (max-width:1100px){ .audit-management-toolbar{grid-template-columns:repeat(2,minmax(190px,1fr));}.audit-management-toolbar-actions{grid-column:1/-1;justify-content:flex-start}.audit-management-toolbar-actions .staff-deletion-button{flex:1 1 180px}}
+@media (max-width:620px){ .audit-management-toolbar{grid-template-columns:1fr}.audit-management-toolbar-actions{grid-column:auto}.audit-management-toolbar-actions .staff-deletion-button{flex:1 1 145px}}
 @media(max-width:720px){ .staff-account-tools-modal.modal-content{width:94%;max-height:92vh}.staff-account-grid{grid-template-columns:1fr}.staff-account-card-email{grid-column:auto}.staff-account-danger-zone{align-items:flex-start;flex-direction:column}.staff-account-modal-header,.staff-account-modal-body{padding-left:16px;padding-right:16px}.staff-account-modal-avatar{width:40px;height:40px;flex-basis:40px}.staff-account-modal-title strong{font-size:15px}.staff-account-modal-title small{max-width:220px}}
 .hidden { display: none !important; }
 .landing-page { min-height: 100vh; padding: 0 clamp(20px, 6vw, 92px); color: #17241d; background: radial-gradient(ellipse at 82% 13%, rgba(223,235,216,.42), transparent 31%), #f8f8f3; }
@@ -439,8 +441,11 @@ body.foodsafe-night-mode #dashboardStaffDeletionView .staff-deletion-search inpu
 .audit-management-header { margin-bottom: 16px; padding: 22px; border: 1px solid #e2ebe0; border-radius: 18px; background: linear-gradient(135deg,#fff,#f6f8f3); }
 .audit-management-header h3 { margin: 7px 0 5px; color: #263b2d; font-size: 21px; }
 .audit-management-header p { max-width: 760px; margin: 0; color: #748177; font-size: 11px; line-height: 1.7; }
-.audit-management-toolbar { margin-bottom: 14px; padding: 16px; border: 1px solid #e4ebe3; border-radius: 14px; display: grid; grid-template-columns: repeat(auto-fit,minmax(190px,1fr)); align-items: end; gap: 12px; background: #fff; }
+.audit-management-toolbar { margin-bottom:14px; padding:16px; border:1px solid #e4ebe3; border-radius:14px; display:grid; grid-template-columns:minmax(190px,1fr) 170px minmax(220px,1.2fr) minmax(170px,.8fr) auto; align-items:end; gap:12px; background:#fff; }
 .audit-management-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.audit-management-toolbar-actions { min-width:188px; align-self:start; justify-content:flex-end; }
+.audit-management-toolbar-actions .staff-deletion-button { min-height:34px; }
+.audit-management-toolbar-actions .staff-deletion-button.danger { margin-left:0; }
 .audit-management-actions .staff-deletion-button { min-height: 42px; }
 .audit-table-wrap { width: 100%; overflow-x: auto; border: 1px solid #e4ebe3; border-radius: 12px; }
 .audit-table { width: 100%; min-width: 780px; border-collapse: collapse; background: #fff; }
@@ -3278,10 +3283,13 @@ body.foodsafe-night-mode #dashboardHelpdeskView.is-admin .helpdesk-admin-tools {
           <input id="auditLoggingToggle" type="checkbox" role="switch" onchange="toggleAuditLogging(this.checked)">
           <span class="homepage-visibility-switch-track" aria-hidden="true"></span>
         </label>
-        <div class="audit-management-actions">
+        <div class="audit-management-actions audit-management-toolbar-actions">
           <button class="staff-deletion-button" type="button" onclick="loadAuditManagement()"><i class="fas fa-rotate" aria-hidden="true"></i> Refresh</button>
           <button id="auditDownloadButton" class="staff-deletion-button" type="button" onclick="downloadAuditEvents()" disabled><i class="fas fa-download" aria-hidden="true"></i> Download CSV</button>
           <button id="auditArchiveButton" class="staff-deletion-button" type="button" onclick="archiveAuditDay()" disabled><i class="fas fa-box-archive" aria-hidden="true"></i> Archive completed day</button>
+          <button id="auditClearButton" class="staff-deletion-button danger" type="button" onclick="clearAuditLogs()" disabled><i class="fas fa-trash-can" aria-hidden="true"></i> Clear selected logs</button>
+          <button class="staff-deletion-button danger" type="button" onclick="clearAllAuditLogs()"><i class="fas fa-database" aria-hidden="true"></i> Clear all audit logs</button>
+          <button class="staff-deletion-button" type="button" onclick="loadAuditArchiveFiles()"><i class="fas fa-folder-open" aria-hidden="true"></i> Saved audit files</button>
         </div>
       </div>
       <p class="audit-management-note">Logs are private to administrators. Passwords, tokens, form values, chat text, and helpdesk message contents are never stored. Administrators can manually archive a completed UTC day; archives are compressed in private Supabase Storage, not Google Drive.</p>
@@ -3295,6 +3303,12 @@ body.foodsafe-night-mode #dashboardHelpdeskView.is-admin .helpdesk-admin-tools {
       <div class="audit-management-actions mt-3">
         <button id="auditLoadMoreButton" class="staff-deletion-button" type="button" onclick="renderMoreAuditEvents()" hidden>Show more events</button>
       </div>
+      <section class="mt-4">
+        <h4 class="text-sm font-bold mb-2">Saved daily audit files</h4>
+        <p class="audit-management-note">Each completed UTC day is saved as a separate CSV for each staff or administrator account. Download it, then delete it permanently when no longer needed.</p>
+        <div id="auditArchiveFilesStatus" class="audit-management-status">Saved audit files have not been loaded.</div>
+        <div id="auditArchiveFiles" class="audit-management-actions" aria-live="polite"></div>
+      </section>
     </div>
   </section>
   <section class="dashboard-section-view hidden" id="dashboardAccessControlsView" aria-labelledby="access-controls-title">
@@ -5138,9 +5152,28 @@ async function toggleAuditLogging(enabled){
   if(toggle)toggle.disabled=false;
 }
 
+async function readAuditFunctionError(error){
+  let serverMessage='';
+  let status=Number(error?.status||error?.context?.status||0);
+  const context=error?.context;
+  if(context?.clone){
+    try{
+      const response=await context.clone();
+      const body=await response.json();
+      serverMessage=String(body?.message||body?.error||'');
+      status=Number(response.status||status);
+    }catch(_readError){}
+  }
+  if(!serverMessage){
+    serverMessage=String(error?.message||'The Edge Function returned an error.');
+  }
+  return status?`HTTP ${status}: ${serverMessage}`:serverMessage;
+}
+
 async function loadAuditManagement(){
   if(currentRole!=='admin'||isReadOnlyDemo())return;
   await loadAuditLoggingSetting();
+  await loadAuditArchiveFiles();
   const accountSelect=$('auditAccountSelect');
   if(!accountSelect)return;
   setAuditManagementStatus('Loading staff and administrator accounts…');
@@ -5148,12 +5181,12 @@ async function loadAuditManagement(){
   try{
     result=await foodSafeProClient.functions.invoke('foodsafe-audit-management',{body:{action:'list_accounts'}});
   }catch(error){
-    setAuditManagementStatus(`Could not load audit accounts. ${error.message||'Please try again.'}`,true);
+    setAuditManagementStatus(`Could not load audit accounts. ${await readAuditFunctionError(error)}`,true);
     return;
   }
   const {data,error}=result;
   if(error){
-    setAuditManagementStatus(`Could not load audit accounts. ${error.message||'Apply the audit migration and deploy the audit-management function.'}`,true);
+    setAuditManagementStatus(`Could not load audit accounts. ${await readAuditFunctionError(error)} Redeploy foodsafe-audit-management with the latest source.`,true);
     return;
   }
   if(!Array.isArray(data?.accounts)){
@@ -5183,6 +5216,7 @@ async function loadAuditEvents(){
   $('auditEventsTable').innerHTML='<tr><td colspan="5">Loading audit events…</td></tr>';
   $('auditDownloadButton').disabled=true;
   $('auditArchiveButton').disabled=!day||day>=new Date().toISOString().slice(0,10);
+  $('auditClearButton').disabled=!actorId||!day;
   $('auditLoadMoreButton').hidden=true;
   if(!actorId||!day){
     $('auditEventsTable').innerHTML='<tr><td colspan="5">Choose an account and date to load events.</td></tr>';
@@ -5257,7 +5291,7 @@ function renderMoreAuditEvents(reset=false){
     const changedFields=Array.isArray(event.changed_fields)?event.changed_fields.join(', '):'';
     const duration=Number(event.duration_ms);
     const durationLabel=event.duration_ms!==null&&event.duration_ms!==undefined&&Number.isFinite(duration)&&duration>=0?formatAuditDuration(duration):'';
-    return `<tr><td>${escapeHtml(timeLabel)} UTC</td><td>${escapeHtml(event.actor_username||'Unknown')}<br>${escapeHtml(event.actor_role||'')}</td><td>${escapeHtml(event.event_type||'')}</td><td>${escapeHtml([event.page,event.action].filter(Boolean).join(' · ')||'—')}${durationLabel?`<br><small>Session duration: ${escapeHtml(durationLabel)}</small>`:''}</td><td>${escapeHtml(target)}${changedFields?`<br><small>Changed: ${escapeHtml(changedFields)}</small>`:''}</td></tr>`;
+    return `<tr><td>${escapeHtml(timeLabel)} UTC</td><td>${escapeHtml(event.actor_username||'Unknown')}<br>${escapeHtml(event.actor_role||'')}</td><td>${escapeHtml(formatAuditEventLabel(event))}</td><td>${escapeHtml(formatAuditPageAction(event))}${durationLabel?`<br><small>Session duration: ${escapeHtml(durationLabel)}</small>`:''}</td><td>${escapeHtml(target)}${changedFields?`<br><small>Changed: ${escapeHtml(formatAuditFields(changedFields))}</small>`:''}</td></tr>`;
   }).join(''));
   auditRenderedCount+=nextEvents.length;
   loadMore.hidden=auditRenderedCount>=filteredEvents.length;
@@ -5270,6 +5304,48 @@ function formatAuditDuration(durationMs){
   const hours=Math.floor(totalMinutes%1440/60);
   const minutes=totalMinutes%60;
   return [days?`${days}d`:'',hours?`${hours}h`:'',`${minutes}m`].filter(Boolean).join(' ');
+}
+
+function formatAuditEventLabel(event){
+  const labels={
+    'auth.sign_in':'Signed in',
+    'auth.session_resume':'Session resumed',
+    'auth.sign_out':'Signed out',
+    'navigation.view':'Opened a section',
+    'ui.action':'Used a button or link',
+    'ui.change':'Changed a setting or field',
+    'ui.submit':'Submitted a form',
+    'session.closed':'Session closed',
+    'data.insert':'Record created',
+    'data.update':'Record updated',
+    'data.delete':'Record deleted'
+  };
+  return labels[event.event_type]||String(event.event_type||'Activity').replaceAll('.',' · ').replaceAll('_',' ');
+}
+
+function formatAuditPageAction(event){
+  const pageNames={
+    account:'Account',overview:'Workspace overview',whatsNew:'What’s new',
+    records:'Temperature records',downloads:'Downloads',knowledge:'Team knowledge',
+    trends:'Safety trends',corrective:'Corrective actions',cleaning:'Cleaning',
+    guide:'Food safety guide',helpdesk:'Customer helpdesk',feedback:'Visitor feedback',
+    staff:'Manage staff',audit:'Audit management',access:'Staff access controls',
+    maintenance:'Maintenance',homepageVisibility:'Homepage visibility',webSettings:'Web settings'
+  };
+  const page=pageNames[event.page]||String(event.page||'Application').replaceAll('_',' ');
+  const action=String(event.action||'').replaceAll('_',' ').trim();
+  if(!action)return page;
+  const specialAction={
+    signed_in:'Signed into the workspace',
+    session_resumed:'Resumed the workspace session',
+    signed_out:'Signed out of the workspace',
+    view_opened:`Opened ${page}`
+  };
+  return `${page} · ${specialAction[action]||action}`;
+}
+
+function formatAuditFields(value){
+  return String(value).split(',').map(field=>field.trim().replaceAll('_',' ')).join(', ');
 }
 
 function csvAuditCell(value){
@@ -5295,6 +5371,155 @@ function downloadAuditEvents(){
   link.download=`foodsafe-audit-${$('auditAccountSelect').value}-${$('auditDaySelect').value}.csv`;
   link.click();
   window.setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+
+async function clearAuditLogs(){
+  const actorId=$('auditAccountSelect')?.value||'';
+  const day=$('auditDaySelect')?.value||'';
+  if(!actorId||!day){
+    setAuditManagementStatus('Choose an account and UTC date before clearing audit logs.',true);
+    return;
+  }
+  const account=accountDisplayName(auditManagementAccounts.find(item=>item.id===actorId));
+  const confirmed=await confirmWorkflowDeletion({
+    title:'Clear selected audit logs?',
+    message:`This permanently removes ${account}'s audit events for ${day} UTC, including their private archive for that day.`,
+    warning:'This cannot be undone.',
+    confirmLabel:'Clear selected logs'
+  });
+  if(!confirmed)return;
+  $('auditClearButton').disabled=true;
+  setAuditManagementStatus('Clearing selected audit logs…');
+  try{
+    const {data,error}=await foodSafeProClient.functions.invoke('foodsafe-audit-management',{
+      body:{action:'clear_logs',scope:'selected',actorId,day}
+    });
+    if(error)throw new Error(error.message||'Could not clear selected audit logs.');
+    showSystemMessage('Audit logs cleared',data?.message||`Audit logs for ${day} UTC were cleared.`,'green','Done');
+    await loadAuditEvents();
+  }catch(error){
+    console.error('Could not clear selected audit logs:',error);
+    setAuditManagementStatus(`Could not clear audit logs. ${error.message||'Please try again.'}`,true);
+  }finally{
+    $('auditClearButton').disabled=false;
+  }
+}
+
+async function clearAllAuditLogs(){
+  const confirmed=await confirmWorkflowDeletion({
+    title:'Clear every audit log?',
+    message:'This permanently removes all database audit events and audit archive files for every staff member and administrator.',
+    warning:'This action cannot be undone.',
+    confirmLabel:'Clear all audit logs'
+  });
+  if(!confirmed)return;
+  setAuditManagementStatus('Clearing all audit logs…');
+  try{
+    const {data,error}=await foodSafeProClient.functions.invoke('foodsafe-audit-management',{
+      body:{action:'clear_logs',scope:'all'}
+    });
+    if(error)throw new Error(error.message||'Could not clear all audit logs.');
+    showSystemMessage('All audit logs cleared',data?.message||'All audit logs were cleared.','green','Done');
+    await loadAuditEvents();
+  }catch(error){
+    console.error('Could not clear all audit logs:',error);
+    setAuditManagementStatus(`Could not clear all audit logs. ${error.message||'Please try again.'}`,true);
+  }
+}
+
+function accountDisplayName(account){
+  if(!account)return 'the selected account';
+  const name=[account.first_name,account.last_name].filter(Boolean).join(' ').trim();
+  return name||account.username||'the selected account';
+}
+
+async function loadAuditArchiveFiles(){
+  const container=$('auditArchiveFiles');
+  const status=$('auditArchiveFilesStatus');
+  if(!container||!status)return;
+  status.textContent='Loading saved audit files…';
+  container.replaceChildren();
+  try{
+    const {data,error}=await foodSafeProClient.functions.invoke('foodsafe-audit-management',{body:{action:'list_archives'}});
+    if(error)throw new Error(await readAuditFunctionError(error));
+    if(!Array.isArray(data?.files))throw new Error('The audit file list was invalid.');
+    if(!data.files.length){
+      status.textContent='No saved daily audit files are available.';
+      return;
+    }
+    status.textContent=`${data.files.length} saved audit file${data.files.length===1?'':'s'} available.`;
+    data.files.forEach(file=>{
+      const row=document.createElement('div');
+      row.className='staff-deletion-record';
+      row.style.width='100%';
+      const copy=document.createElement('div');
+      copy.className='staff-deletion-record-copy';
+      copy.innerHTML=`<strong>${escapeHtml(file.file_name)}</strong><small>${escapeHtml(file.actor_username||'Unknown account')} · ${escapeHtml(file.actor_role||'')} · ${escapeHtml(String(file.archive_day))} UTC · ${Number(file.row_count)||0} events</small>`;
+      const actions=document.createElement('div');
+      actions.className='staff-deletion-controls';
+      const download=document.createElement('button');
+      download.type='button';
+      download.className='staff-deletion-button';
+      download.innerHTML='<i class="fas fa-download" aria-hidden="true"></i> Download';
+      download.addEventListener('click',()=>downloadAuditArchive(file));
+      const remove=document.createElement('button');
+      remove.type='button';
+      remove.className='staff-deletion-button danger';
+      remove.innerHTML='<i class="fas fa-trash-can" aria-hidden="true"></i> Delete';
+      remove.addEventListener('click',()=>deleteAuditArchive(file));
+      actions.append(download,remove);
+      row.append(copy,actions);
+      container.append(row);
+    });
+  }catch(error){
+    console.error('Could not load saved audit files:',error);
+    status.textContent=`Could not load saved audit files. ${error.message||'Please try again.'}`;
+  }
+}
+
+async function downloadAuditArchive(file){
+  try{
+    const {data,error}=await foodSafeProClient.functions.invoke('foodsafe-audit-management',{
+      body:{action:'download_archive',archiveId:file.id}
+    });
+    if(error)throw new Error(await readAuditFunctionError(error));
+    if(typeof data?.csv!=='string')throw new Error('The saved audit file was empty or invalid.');
+    const blob=new Blob([data.csv],{type:'text/csv;charset=utf-8'});
+    const url=URL.createObjectURL(blob);
+    const link=document.createElement('a');
+    link.href=url;
+    link.download=String(data.fileName||file.file_name||`audit-${file.archive_day}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.setTimeout(()=>URL.revokeObjectURL(url),1000);
+    showSystemMessage('Audit file downloaded',`${String(data.fileName||file.file_name)} is ready on your device.`,'green','Done');
+    await loadAuditArchiveFiles();
+  }catch(error){
+    console.error('Could not download saved audit file:',error);
+    showSystemMessage('Audit file not downloaded',error.message||'Could not download the saved audit file.','error','Close');
+  }
+}
+
+async function deleteAuditArchive(file){
+  const confirmed=await confirmWorkflowDeletion({
+    title:'Permanently delete audit file?',
+    message:`Delete ${file.file_name} for ${file.actor_username||'this account'}?`,
+    warning:'The saved audit file and its download record will be permanently removed.',
+    confirmLabel:'Delete audit file'
+  });
+  if(!confirmed)return;
+  try{
+    const {data,error}=await foodSafeProClient.functions.invoke('foodsafe-audit-management',{
+      body:{action:'delete_archive',archiveId:file.id}
+    });
+    if(error)throw new Error(await readAuditFunctionError(error));
+    showSystemMessage('Audit file deleted',data?.message||'The saved audit file was deleted permanently.','green','Done');
+    await loadAuditArchiveFiles();
+  }catch(error){
+    console.error('Could not delete saved audit file:',error);
+    showSystemMessage('Audit file not deleted',error.message||'Could not delete the saved audit file.','error','Close');
+  }
 }
 
 async function archiveAuditDay(){
